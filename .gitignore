@@ -216,4 +216,6 @@ pip-log.txt
 .mr.developer.cfg
 
 obj/
+packages/
 *.cache
+PocketBudget.v11.suo
