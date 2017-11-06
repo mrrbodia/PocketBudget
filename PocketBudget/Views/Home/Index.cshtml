@@ -2,22 +2,22 @@
     Layout = "~/Views/Shared/_Base.cshtml";
 }
 
-<div class="content">
-    <div class="budget-block">
-        <div id="chart-block" style="width:800px; height:600px;">
+<div>
+    <div class="budget-block columns">
+        <div class="column" id="chart-block" style="width:800px; height:600px;">
             <canvas id="chart"></canvas>
         </div>
-        <div class="strategy-info">
+        <div class="strategy-info column">
             <div class="strategy-info-income">
                 <h4>Стратегія доходу</h4>
-                <label>Депозит в гривнях<input type="radio" name="income" class="input-strategy" value="hrn" checked/></label>
-                <label>Депозит в доларах<input type="radio" name="income" class="input-strategy" value="dollar" /></label>
-                <label>Депозит в євро<input type="radio" name="income" class="input-strategy" value="euro" /></label>
+                <label class="text-strategy">Депозит в гривнях<input type="radio" name="income" class="input-strategy" value="hrn" checked/></label>
+                <label class="text-strategy">Депозит в доларах<input type="radio" name="income" class="input-strategy" value="dollar" /></label>
+                <label class="text-strategy">Депозит в євро<input type="radio" name="income" class="input-strategy" value="euro" /></label>
             </div>
             <div class="strategy-info-costs">
                 <h4>Стратегія витрат</h4>
-                <label>Економний спосіб життя<input type="radio" name="costs" class="input-strategy" value="economically" checked/></label>
-                <label>Звичайний спосіб життя<input type="radio" name="costs" class="input-strategy" value="non-economically" /></label>
+                <label class="text-strategy">Економний спосіб життя<input type="radio" name="costs" class="input-strategy" value="economically" checked/></label>
+                <label class="text-strategy">Звичайний спосіб життя<input type="radio" name="costs" class="input-strategy" value="non-economically" /></label>
             </div>
             <div class="strategy-info-submit">
                 <button class="strategy-select">Обрати стратегію</button>
