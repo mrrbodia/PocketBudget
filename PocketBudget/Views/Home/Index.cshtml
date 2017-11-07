@@ -10,17 +10,32 @@
         <div class="strategy-info column">
             <div class="strategy-info-income">
                 <h4>Стратегія доходу</h4>
-                <label class="text-strategy">Депозит в гривнях<input type="radio" name="income" class="input-strategy" value="hrn" checked/></label>
-                <label class="text-strategy">Депозит в доларах<input type="radio" name="income" class="input-strategy" value="dollar" /></label>
-                <label class="text-strategy">Депозит в євро<input type="radio" name="income" class="input-strategy" value="euro" /></label>
+                    <p>
+                      <input id="hrn" type="radio" name="income" class="input-strategy" value="hrn" checked />
+                      <label class="text-strategy" for="hrn">Депозит в гривнях</label>
+                    </p>
+                    <p>
+                      <input id="dollar" type="radio" name="income" class="input-strategy" value="dollar" />
+                      <label for="dollar">Депозит в доларах</label>
+                    </p>
+                    <p>
+                      <input id="euro" type="radio" name="income" class="input-strategy" value="euro"  />
+                      <label for="euro">Депозит в євро</label>
+                    </p>
             </div>
             <div class="strategy-info-costs">
                 <h4>Стратегія витрат</h4>
-                <label class="text-strategy">Економний спосіб життя<input type="radio" name="costs" class="input-strategy" value="economically" checked/></label>
-                <label class="text-strategy">Звичайний спосіб життя<input type="radio" name="costs" class="input-strategy" value="non-economically" /></label>
+                <p>
+                    <input class="input-strategy" id="economically" type="radio" name="costs" value="economically" checked />
+                    <label class="text-strategy" for="economically">Економний спосіб життя</label>
+                </p>
+                <p>
+                    <input class="input-strategy" id="non-economically" type="radio" name="costs" value="non-economically"  />
+                    <label class="text-strategy" for="non-economically">Звичайний спосіб життя</label>
+                </p>
             </div>
             <div class="strategy-info-submit">
-                <button class="strategy-select">Обрати стратегію</button>
+                <button class="btn waves-effect waves-light strategy-select" type="submit" name="action">Обрати стратегію</button>
             </div>
         </div>
     </div>
