@@ -125,6 +125,8 @@
     <Content Include="content\materialize\css\materialize.min.css" />
     <Content Include="content\materialize\font\material-design-icons\LICENSE.txt" />
     <Content Include="content\materialize\font\material-design-icons\Material-Design-Icons.svg" />
+    <Content Include="content\nouislider\nouislider.css" />
+    <Content Include="content\nouislider\nouislider.min.css" />
     <Content Include="content\style\site.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Chart.js" />
@@ -180,6 +182,8 @@
     <Content Include="Scripts\Default\control.chart.js" />
     <Content Include="Scripts\materialize\materialize.js" />
     <Content Include="Scripts\materialize\materialize.min.js" />
+    <Content Include="Scripts\nouislider\nouislider.js" />
+    <Content Include="Scripts\nouislider\nouislider.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -190,7 +194,7 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\Xml\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

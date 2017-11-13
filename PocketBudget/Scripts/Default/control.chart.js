@@ -14,6 +14,12 @@
         borderDashOffset: 0,
         fill: false
     };
+
+    var bankRating = {
+        'Name': ['Райффайзен Банк Аваль', 'Креди Агриколь Банк', 'УкрСиббанк', 'Ощадбанк', 'Кредобанк', 'Укргазбанк', 'ОТП Банк', 'ПроКредит Банк', 'Укрэксимбанк', 'Укрсоцбанк', 'Банк Форвард'],
+        'Rating': [4.59, 4.37, 4.29, 4.07, 4.04, 3.83, 3.79, 3.67, 3.65, 3.48, 2.36]
+    };
+
     var income = {
         label: 'Доходи',
         data: [8000, 16000, 24000, 32000, 40000, 48000, 56000, 64000],
@@ -70,6 +76,11 @@
             return 0;
         return savings[current - 1];
     };
+
+    var setBank = function (index) {
+        $('#sliderValue').html('<p>Bank: ' + bankRating.Name[index] + '</p><p>Rating: ' + bankRating.Rating[index] + '</p>');
+    };
+
     var changeStrategy = function (incomeStrategy, costsStrategy)
     {
         var savings = income;
@@ -87,6 +98,50 @@
             changeStrategy(incomeStrategy, costsStrategy);
         });
         changeStrategy('hrn', 'economically');
+        setBank(0);
+
+        var slider = document.getElementById('bank-rating-slider');
+        noUiSlider.create(slider, {
+            start: [4.59],
+            snap: true,
+            connect: true,
+            range: {
+                'min': 0,
+                '91.8%': 4.59,
+                '87.4%': 4.37,
+                '85.8%': 4.29,
+                '80.14%': 4.07,
+                '80.08%': 4.04,
+                '76.6%': 3.83,
+                '75.8%': 3.79,
+                '73.4%': 3.67,
+                '73%': 3.65,
+                '69.6%': 3.48,
+                '47.2%': 2.36,
+                'max': 5
+            },
+            pips: {
+                mode: 'values',
+                values: [0, 1, 2, 3, 4, 5],
+                density: 5
+            }
+        });
+
+        slider.noUiSlider.on('change', function (values, handle) {
+            var min = Math.min.apply(Math, bankRating.Rating);
+            var max = Math.max.apply(Math, bankRating.Rating);
+
+            if (values[handle] < min) {
+                slider.noUiSlider.set(min);
+                values[handle] = min;
+            } else if (values[handle] > max) {
+                slider.noUiSlider.set(max);
+                values[handle] = max;
+            }
+
+            var index = bankRating.Rating.indexOf(parseFloat(values[handle]));
+            setBank(index);
+        });
     };
 
     return {

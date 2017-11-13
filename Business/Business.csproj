@@ -42,6 +42,9 @@
     <Compile Include="Managers\StrategyManager.cs" />
     <Compile Include="Models\Costs.cs" />
     <Compile Include="Models\DepositCurrency.cs" />
+    <Compile Include="Models\DepositData.cs" />
+    <Compile Include="Models\Goal.cs" />
+    <Compile Include="Models\Income.cs" />
     <Compile Include="Models\StrategyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
