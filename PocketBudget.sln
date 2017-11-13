@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PocketBudget", "PocketBudget\PocketBudget.csproj", "{FFBD3319-EAD5-4311-8522-BE8EF363AEE4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{61E7B7AF-D623-4AD2-B24A-2956F4DCE5F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{FFBD3319-EAD5-4311-8522-BE8EF363AEE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFBD3319-EAD5-4311-8522-BE8EF363AEE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFBD3319-EAD5-4311-8522-BE8EF363AEE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61E7B7AF-D623-4AD2-B24A-2956F4DCE5F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61E7B7AF-D623-4AD2-B24A-2956F4DCE5F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61E7B7AF-D623-4AD2-B24A-2956F4DCE5F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61E7B7AF-D623-4AD2-B24A-2956F4DCE5F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

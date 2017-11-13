@@ -35,8 +35,10 @@
         'economically': [2300, 3000, 2200, 3300, 2250, 2900, 3000, 2500],
         'non-economically': [5000, 5800, 4900, 4700, 5200, 4500, 4700, 4600]
     };
-    var getMonthIncome = function (currency) {
-        return (deposit['sum'] * (deposit[currency] / 100)) / 12;
+    var getMonthIncome = function (currency, month) {
+        if (month == 0)
+            return 0;
+        return (deposit['sum'] * Math.pow(deposit[currency] / 100 / 12), month) / 12;
     };
     var getMonthCosts = function (position, strategy) {
         return costs[strategy][position];
@@ -73,14 +75,13 @@
         var savings = income;
         var salary = 10000;
         for (var i = 0; i < savings.data.length; i++) {
-            savings.data[i] = salary + getMonthIncome(incomeStrategy) - getMonthCosts(i, costsStrategy) + getSavedMoney(savings.data, i);
+            savings.data[i] = salary + getMonthIncome(incomeStrategy, i) - getMonthCosts(i, costsStrategy) + getSavedMoney(savings.data, i);
         }
         updateGraphWithData(savings);
     };
 
     var init = function () {
-        $('.strategy-select').on('click', function (e) {
-            var target = $(e.target);
+        $('input[type=radio]').on('click', function (e) {
             var incomeStrategy = $('.input-strategy[name=income]:checked').val();
             var costsStrategy = $('.input-strategy[name=costs]:checked').val();
             changeStrategy(incomeStrategy, costsStrategy);

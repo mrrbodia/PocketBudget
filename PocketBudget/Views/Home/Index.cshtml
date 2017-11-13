@@ -1,4 +1,5 @@
-﻿@{
+﻿@model PocketBudget.Models.StrategyViewModel
+@{
     Layout = "~/Views/Shared/_Base.cshtml";
 }
 
@@ -33,9 +34,6 @@
                     <input id="non-economically" type="radio" name="costs" class="input-strategy" value="non-economically"  />
                     <label class="text-strategy" for="non-economically">Звичайний спосіб життя</label>
                 </p>
-            </div>
-            <div class="strategy-info-submit">
-                <button class="btn waves-effect waves-light strategy-select" type="submit" name="action">Обрати стратегію</button>
             </div>
         </div>
     </div>

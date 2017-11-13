@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PocketBudget.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,13 @@ namespace BookStore.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult GetDataForStrategy(StrategyViewModel model)
+        {
+            
+            return Json(1);
         }
     }
 }
