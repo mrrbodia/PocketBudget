@@ -62,7 +62,7 @@
                         },
                         ticks: {
                             callback: function (value, index, array) {
-                                return (value % 5) ? "" : value;
+                                return (value % 5) ? "" : "Вік" + value;
                             }
                         }
                     }]
