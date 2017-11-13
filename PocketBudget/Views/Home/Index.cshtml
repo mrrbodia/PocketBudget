@@ -1,6 +1,8 @@
 ﻿@model PocketBudget.Models.StrategyViewModel
+@using PocketBudget.Extensions
 @{
     Layout = "~/Views/Shared/_Base.cshtml";
+    var test = Model;
 }
 
 <div>
@@ -38,3 +40,14 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    var Strategy = Strategy || {};
+    Strategy.Model = Strategy.Model || {};
+    Strategy.Model.salaryPattern = {};
+    Strategy.Model.salaryPattern.incomePerYear = @Model.SalaryPattern.IncomePerYear.ToJson()
+    Strategy.Model.salaryPattern.increaseTillAge = @Model.SalaryPattern.IncreaseTillAge.ToJson()
+    Strategy.Model.salaryPattern.increasePercentage = @Model.SalaryPattern.IncreasePercentage.ToJson()
+    Strategy.Model.salaryPattern.startWorkFrom = @Model.SalaryPattern.StartWorkFrom.ToJson()
+    Strategy.Model.salaryPattern.showTillAge = @Model.SalaryPattern.ShowTillAge.ToJson()
+</script>

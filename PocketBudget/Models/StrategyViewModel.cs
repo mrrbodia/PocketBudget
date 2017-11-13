@@ -11,5 +11,7 @@ namespace PocketBudget.Models
         public Cost Cost { get; set; }
 
         public DepositCurrency DepositCurrency { get; set; }
+
+        public TestSalaryPatternModel SalaryPattern { get; set; }
     }
 }

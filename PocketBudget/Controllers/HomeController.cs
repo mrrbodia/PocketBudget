@@ -11,7 +11,9 @@ namespace BookStore.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var model = new StrategyViewModel();
+            model.SalaryPattern = CreateTestSalaryPatternModel();
+            return View(model);
         }
 
         [HttpPost]
@@ -19,6 +21,17 @@ namespace BookStore.Controllers
         {
             
             return Json(1);
+        }
+
+        protected TestSalaryPatternModel CreateTestSalaryPatternModel()
+        {
+            var result = new TestSalaryPatternModel();
+            result.IncomePerYear = 60000m;
+            result.IncreaseTillAge = 45;
+            result.IncreasePercentage = 3.0;
+            result.StartWorkFrom = 18;
+            result.ShowTillAge = 65;
+            return result;
         }
     }
 }

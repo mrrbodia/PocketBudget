@@ -111,16 +111,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\StrategyViewModel.cs" />
+    <Compile Include="Models\TestSalaryPatternModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="content\files\favicon.ico" />
     <Content Include="content\materialize\css\materialize.css" />
     <Content Include="content\materialize\css\materialize.min.css" />
     <Content Include="content\materialize\font\material-design-icons\LICENSE.txt" />
