@@ -2,7 +2,7 @@
     var ctx = document.getElementById("chart");
     var goal = {
         label: 'Мета',
-        data: [40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000],
+        data: [500000, 500000, 40000, 40000, 40000, 40000, 40000, 40000],
         backgroundColor: [
             'rgba(54, 162, 235, 0.2)'
         ],
@@ -17,18 +17,6 @@
     var bankRating = {
         'Name': ['Райффайзен Банк Аваль', 'Креди Агриколь Банк', 'УкрСиббанк', 'Ощадбанк', 'Кредобанк', 'Укргазбанк', 'ОТП Банк', 'ПроКредит Банк', 'Укрэксимбанк', 'Укрсоцбанк', 'Банк Форвард'],
         'Rating': [4.59, 4.37, 4.29, 4.07, 4.04, 3.83, 3.79, 3.67, 3.65, 3.48, 2.36]
-    };
-
-    var income = {
-        label: 'Доходи',
-        data: [8000, 16000, 24000, 32000, 40000, 48000, 56000, 64000],
-        backgroundColor: [
-            'rgba(21, 229, 171, 0.4)'
-        ],
-        borderColor: [
-            'rgba(54, 162, 235, 1)'
-        ],
-        fill: 0
     };
     //TODO: remove in new version
     var deposit = {
@@ -67,10 +55,15 @@
             },
             options: {
                 scales: {
-                    yAxes: [{
+                    xAxes: [{
                         time: {
                             type: 'time',
                             unit: 'year'
+                        },
+                        ticks: {
+                            callback: function (value, index, array) {
+                                return (value % 5) ? "" : value;
+                            }
                         }
                     }]
                 },
