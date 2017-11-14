@@ -2,6 +2,7 @@
     var ctx = document.getElementById("chart");
     var currentAge = +$('#salary-age').val();
     var increasePercentage = +$('#salary-percentage').val();
+    var chart = null;
     var goal = {
         label: 'Мета',
         data: [500000, 500000, 40000, 40000, 40000, 40000, 40000, 40000],
@@ -40,24 +41,26 @@
     var getAdditionalCosts = function (position, strategy) {
         return costs[strategy][position] || 0;
     };
-    var removeOldData = function () {
-        $('#chart-block').children('iframe').remove();
+    var removeChartData = function (chart) {
+        chart.data.labels.pop();
+        chart.data.datasets.forEach(function(dataset, index) {
+            dataset.data = null;
+        });
+        chart.update();
     };
-    var updateGraphWithData = function (savings) {
-        var labels = [];
-        for (var i = currentAge; i < Strategy.Model.salaryPattern.showTillAge; i++)
-        {
-            labels[i - currentAge] = i;
-        }
-        removeOldData();
-        new Chart(ctx, {
+    var addChartData = function (chart, label, data) {
+        chart.data.labels.push(label);
+        chart.data.datasets.forEach(function(dataset, index) {
+            dataset.data = data;
+        });
+        chart.update();
+    };
+    var createChart = function(labels, dataset){
+        return new Chart(ctx, {
             type: 'line',
             data: {
                 labels: labels,
-                datasets: [
-                    //goal,
-                    savings
-                ]
+                datasets: dataset
             },
             options: {
                 scales: {
@@ -90,6 +93,17 @@
                 }
             }
         });
+    };
+    var updateGraphWithData = function (savings) {
+        var labels = [];
+        for (var i = currentAge; i < Strategy.Model.salaryPattern.showTillAge; i++)
+        {
+            labels[i - currentAge] = i;
+        }
+        if (!chart)
+            chart = createChart(labels, [savings]);
+        removeChartData(chart);
+        addChartData(chart, labels, [savings]);
     };
     var getIncomeData = function () {
         if (!Strategy.Model.salaryPattern)
