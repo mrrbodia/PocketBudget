@@ -22,24 +22,28 @@
         'Rating': [4.59, 4.37, 4.29, 4.07, 4.04, 3.83, 3.79, 3.67, 3.65, 3.48, 2.36]
     };
     //TODO: remove in new version
+    //START
     var deposit = {
         'sum': 108000, //4000$ dollars on deposit
         'hrn': 14,
         'dollar': 3.75,
         'euro': 2.35
     };
-    //TODO: remove in new version
-    var costs = {
-        'economically': [2300, 3000, 2200, 3300, 2250, 2900, 3000, 2500],
-        'non-economically': [5000, 5800, 4900, 4700, 5200, 4500, 4700, 4600]
-    };
     var getAdditionalIncome = function (currency, month) {
+        return 0;
+
         if (month == 0)
             return 0;
         return (deposit['sum'] * Math.pow(deposit[currency] / 100 / 12), month) / 12;
     };
+    //END
+    var randomInteger = function (min, max) {
+        var rand = min + Math.random() * (max - min);
+        rand = Math.round(rand);
+        return rand;
+    };
     var getAdditionalCosts = function (position, strategy) {
-        return costs[strategy][position] || 0;
+        return strategy == 'economically' ? randomInteger(3000, 5000) : randomInteger(6000, 10000);
     };
     var removeChartData = function (chart) {
         chart.data.labels = [];
@@ -51,18 +55,16 @@
     var addChartData = function (chart, labels, datasets) {
         chart.data.labels = labels;
         chart.data.datasets.forEach(function(dataset, index) {
-            dataset.data = datasets[index];
+            dataset.data = datasets[index].data;
         });
         chart.update();
     };
-    var createChart = function(labels, dataset){
+    var createChart = function(labels, datasets){
         return new Chart(ctx, {
             type: 'line',
             data: {
                 labels: labels,
-                datasets: [
-                    dataset
-                ]
+                datasets: datasets
             },
             options: {
                 scales: {
@@ -96,27 +98,26 @@
             }
         });
     };
-    var updateGraphWithData = function (savings) {
+    var updateGraphWithData = function (datasets) {
         var label = [];
         for (var i = currentAge; i < Strategy.Model.salaryPattern.showTillAge; i++)
         {
             label[i - currentAge] = i;
         }
         if (!chart) {
-            chart = createChart(label, savings);
+            chart = createChart(label, datasets);
             return;
         }
         removeChartData(chart);
-        var datasets = [savings.data];
         addChartData(chart, label, datasets);
     };
     var getIncomeData = function () {
         if (!Strategy.Model.salaryPattern)
             return [];
         var arr = [];
-        var amountOfYears = Strategy.Model.salaryPattern.showTillAge - currentAge;
+        var amountOfYearsToWork = Strategy.Model.salaryPattern.retirementAge - currentAge;
         arr[0] = +$('#salary-income').val();
-        for (var i = 1; i < amountOfYears; i++)
+        for (var i = 1; i < amountOfYearsToWork; i++)
         {
             arr[i] = arr[i - 1] + arr[i - 1] * (increasePercentage / 100);
         }
@@ -136,6 +137,30 @@
         result.data = getIncomeData();
         return result;
     };
+    var getRetirementData = function (arr) {
+        if (!Strategy.Model.salaryPattern || !arr)
+            return [];
+        var amountOfYearsToRetire = Strategy.Model.salaryPattern.showTillAge - Strategy.Model.salaryPattern.retirementAge;
+        var amountOfYearsToWork = Strategy.Model.salaryPattern.retirementAge - currentAge;
+        for (var i = amountOfYearsToWork; i < amountOfYearsToWork + amountOfYearsToRetire; i++) {
+            arr[i] = arr[i - 1] - randomInteger(20000, 60000);
+        }
+        return arr;
+    };
+    var getRetirements = function (savings) {
+        var result = {
+            label: 'Витрати на пенсії',
+            backgroundColor: [
+                'rgba(51, 29, 71, 0.4)'
+            ],
+            borderColor: [
+                'rgba(54, 12, 35, 1)'
+            ],
+            fill: 0
+        };
+        result.data = getRetirementData(savings);
+        return result;
+    };
     var getSavedMoney = function (savings, position) {
         if (position == 0)
             return 0;
@@ -150,9 +175,12 @@
     {
         var savings = getDefaultIncome();
         for (var i = 0; i < savings.data.length; i++) {
-            savings.data[i] = savings.data[i] + getSavedMoney(savings, i) + getAdditionalIncome(incomeStrategy, i) - getAdditionalCosts(i, costsStrategy);
+            savings.data[i] = savings.data[i] + getSavedMoney(savings, i) +
+                getAdditionalIncome(incomeStrategy, i) - getAdditionalCosts(i, costsStrategy);
         }
-        updateGraphWithData(savings);
+        var retirements = getRetirements(savings.data);
+        var datasets = [savings, retirements];
+        updateGraphWithData(datasets);
     };
 
     var onDataChanged = function () {

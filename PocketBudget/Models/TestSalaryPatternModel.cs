@@ -16,5 +16,7 @@ namespace PocketBudget.Models
         public int IncreaseTillAge { get; set; }
 
         public int ShowTillAge { get; set; }
+
+        public int RetirementAge { get; set; }
     }
 }

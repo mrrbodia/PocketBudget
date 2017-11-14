@@ -31,6 +31,7 @@ namespace BookStore.Controllers
             result.IncreasePercentage = 3.0;
             result.ShowTillAge = 80;
             result.CurrentAge = 18;
+            result.RetirementAge = 65;
             return result;
         }
     }
