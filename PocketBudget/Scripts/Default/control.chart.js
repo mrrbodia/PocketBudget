@@ -42,16 +42,16 @@
         return costs[strategy][position] || 0;
     };
     var removeChartData = function (chart) {
-        chart.data.labels.pop();
+        chart.data.labels = [];
         chart.data.datasets.forEach(function(dataset, index) {
-            dataset.data = null;
+            dataset.data = [];
         });
         chart.update();
     };
-    var addChartData = function (chart, label, data) {
-        chart.data.labels.push(label);
+    var addChartData = function (chart, labels, datasets) {
+        chart.data.labels = labels;
         chart.data.datasets.forEach(function(dataset, index) {
-            dataset.data = data;
+            dataset.data = datasets[index];
         });
         chart.update();
     };
@@ -60,7 +60,9 @@
             type: 'line',
             data: {
                 labels: labels,
-                datasets: dataset
+                datasets: [
+                    dataset
+                ]
             },
             options: {
                 scales: {
@@ -95,15 +97,18 @@
         });
     };
     var updateGraphWithData = function (savings) {
-        var labels = [];
+        var label = [];
         for (var i = currentAge; i < Strategy.Model.salaryPattern.showTillAge; i++)
         {
-            labels[i - currentAge] = i;
+            label[i - currentAge] = i;
         }
-        if (!chart)
-            chart = createChart(labels, [savings]);
+        if (!chart) {
+            chart = createChart(label, savings);
+            return;
+        }
         removeChartData(chart);
-        addChartData(chart, labels, [savings]);
+        var datasets = [savings.data];
+        addChartData(chart, label, datasets);
     };
     var getIncomeData = function () {
         if (!Strategy.Model.salaryPattern)
