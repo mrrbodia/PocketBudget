@@ -1,5 +1,7 @@
 ﻿var Graph = (function () {
     var ctx = document.getElementById("chart");
+    var currentAge = +$('#salary-age').val();
+    var increasePercentage = +$('#salary-percentage').val();
     var goal = {
         label: 'Мета',
         data: [500000, 500000, 40000, 40000, 40000, 40000, 40000, 40000],
@@ -38,13 +40,17 @@
     var getAdditionalCosts = function (position, strategy) {
         return costs[strategy][position] || 0;
     };
+    var removeOldData = function () {
+        $('#chart-block').children('iframe').remove();
+    };
     var updateGraphWithData = function (savings) {
         var labels = [];
-        for (var i = Strategy.Model.salaryPattern.startWorkFrom; i < Strategy.Model.salaryPattern.showTillAge; i++)
+        for (var i = currentAge; i < Strategy.Model.salaryPattern.showTillAge; i++)
         {
-            labels[i - Strategy.Model.salaryPattern.startWorkFrom] = i;
+            labels[i - currentAge] = i;
         }
-        var myChart = new Chart(ctx, {
+        removeOldData();
+        new Chart(ctx, {
             type: 'line',
             data: {
                 labels: labels,
@@ -62,14 +68,22 @@
                         },
                         ticks: {
                             callback: function (value, index, array) {
-                                return (value % 5) ? "" : "Вік" + value;
+                                return (index % 5) ? "" : "Вік " + value;
                             }
                         }
                     }]
                 },
+                elements: {
+                    point: {
+                        radius: 0,
+                        hitRadius: 10,
+                        hoverRadius: 5
+                    }
+                },
                 tooltips: {
                     callbacks: {
                         label: function (item, data) {
+                            //return (item.index % 5) ? "" : item.yLabel.toFixed(2);
                             return item.yLabel.toFixed(2);
                         }
                     }
@@ -81,11 +95,11 @@
         if (!Strategy.Model.salaryPattern)
             return [];
         var arr = [];
-        var amountOfYears = Strategy.Model.salaryPattern.showTillAge - Strategy.Model.salaryPattern.startWorkFrom;
-        arr[0] = Strategy.Model.salaryPattern.incomePerYear;
+        var amountOfYears = Strategy.Model.salaryPattern.showTillAge - currentAge;
+        arr[0] = +$('#salary-income').val();
         for (var i = 1; i < amountOfYears; i++)
         {
-            arr[i] = arr[i - 1] + arr[i - 1] * (Strategy.Model.salaryPattern.increasePercentage / 100);
+            arr[i] = arr[i - 1] + arr[i - 1] * (increasePercentage / 100);
         }
         return arr;
     };
@@ -122,11 +136,20 @@
         updateGraphWithData(savings);
     };
 
+    var onDataChanged = function () {
+        var incomeStrategy = $('.input-strategy[name=income]:checked').val();
+        var costsStrategy = $('.input-strategy[name=costs]:checked').val();
+        currentAge = +$('#salary-age').val();
+        increasePercentage = +$('#salary-percentage').val();
+        changeStrategy(incomeStrategy, costsStrategy);
+    };
+
     var init = function () {
-        $('input[type=radio]').on('click', function (e) {
-            var incomeStrategy = $('.input-strategy[name=income]:checked').val();
-            var costsStrategy = $('.input-strategy[name=costs]:checked').val();
-            changeStrategy(incomeStrategy, costsStrategy);
+        $('.graph-updater[type=radio]').on('change', function(e){
+            onDataChanged();
+        });
+        $('.graph-updater[type=number]').on('input', function (e) {
+            onDataChanged();
         });
         changeStrategy('hrn', 'economically');
         setBank(0);

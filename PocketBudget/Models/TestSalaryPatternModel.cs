@@ -7,11 +7,11 @@ namespace PocketBudget.Models
 {
     public class TestSalaryPatternModel
     {
-        public int StartWorkFrom { get; set; }
-
         public decimal IncomePerYear { get; set; }
 
         public double IncreasePercentage { get; set; }
+
+        public int CurrentAge { get; set; }
         
         public int IncreaseTillAge { get; set; }
 

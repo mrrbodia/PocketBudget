@@ -29,8 +29,8 @@ namespace BookStore.Controllers
             result.IncomePerYear = 60000m;
             result.IncreaseTillAge = 45;
             result.IncreasePercentage = 3.0;
-            result.StartWorkFrom = 18;
-            result.ShowTillAge = 65;
+            result.ShowTillAge = 80;
+            result.CurrentAge = 18;
             return result;
         }
     }
