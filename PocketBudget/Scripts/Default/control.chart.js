@@ -132,7 +132,7 @@
             borderColor: [
                 'rgba(54, 162, 235, 1)'
             ],
-            fill: 0
+            fill: true
         };
         result.data = getIncomeData();
         return result;
@@ -142,21 +142,26 @@
             return [];
         var amountOfYearsToRetire = Strategy.Model.salaryPattern.showTillAge - Strategy.Model.salaryPattern.retirementAge;
         var amountOfYearsToWork = Strategy.Model.salaryPattern.retirementAge - currentAge;
+        var result = [];
+        arr.forEach(function (value, index) {
+            result[index] = null;
+        });
+        result[amountOfYearsToWork - 1] = arr[amountOfYearsToWork - 1];
         for (var i = amountOfYearsToWork; i < amountOfYearsToWork + amountOfYearsToRetire; i++) {
-            arr[i] = arr[i - 1] - randomInteger(20000, 60000);
+            result[i] = result[i - 1] - randomInteger(20000, 60000);
         }
-        return arr;
+        return result;
     };
     var getRetirements = function (savings) {
         var result = {
             label: 'Витрати на пенсії',
             backgroundColor: [
-                'rgba(51, 29, 71, 0.4)'
+                'rgba(255, 179, 179, 0.4)'
             ],
             borderColor: [
-                'rgba(54, 12, 35, 1)'
+                'rgba(255, 102, 102, 1)'
             ],
-            fill: 0
+            fill: true
         };
         result.data = getRetirementData(savings);
         return result;
