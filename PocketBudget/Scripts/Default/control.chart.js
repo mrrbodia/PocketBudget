@@ -30,11 +30,9 @@
         'euro': 2.35
     };
     var getAdditionalIncome = function (currency, month) {
-        return 0;
-
         if (month == 0)
             return 0;
-        return (deposit['sum'] * Math.pow(deposit[currency] / 100 / 12), month) / 12;
+        return (deposit['sum'] * (deposit[currency] / 100)) / 12;
     };
     //END
     var randomInteger = function (min, max) {
