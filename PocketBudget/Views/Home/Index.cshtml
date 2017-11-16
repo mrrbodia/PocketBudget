@@ -20,25 +20,11 @@
         <ul class="strategy-info collapsible col s6" data-collapsible="accordion">
             <li class="strategy-info-income">
                 <div class="collapsible-header active">
-                    <i class="icon-income"></i>
-                    Стратегія доходу
+                    <i class="icon icon-income"></i>
+                    Заробітня плата
                 </div>
-                <div class="collapsible-body row">
-                    <div class="col s6">
-                        <p>
-                            <input id="hrn" type="radio" name="income" class="input-strategy graph-updater" value="hrn" checked />
-                            <label class="text-strategy" for="hrn">Депозит в гривнях</label>
-                        </p>
-                        <p>
-                            <input id="dollar" type="radio" name="income" class="input-strategy graph-updater" value="dollar" />
-                            <label for="dollar">Депозит в доларах</label>
-                        </p>
-                        <p>
-                            <input id="euro" type="radio" name="income" class="input-strategy graph-updater" value="euro"  />
-                            <label for="euro">Депозит в євро</label>
-                        </p>
-                    </div>
-                    <div class="col s6">
+                <div class="collapsible-body">
+                    <div>
                         <p>
                             <input id="salary-income" type="number" name="salary-income" class="input-salary graph-updater" value="@Model.SalaryPattern.IncomePerYear" />
                             <label for="salary-income">Зарплата за рік</label>
@@ -54,10 +40,45 @@
                     </div>
                 </div>
             </li>
+            <li class="strategy-info-income">
+                <div class="collapsible-header active">
+                    <i class="icon icon-bank"></i>
+                    Депозити
+                </div>
+                <div class="collapsible-body">
+                    <div>
+                        @foreach (var deposit in Model.Deposits)
+                        {
+                            var inputId = deposit.CurrencyId + "-value";
+                            var visibilityClass = deposit.IsActive ? "active" : "hidden";
+                             <p>
+                                <input id="@deposit.CurrencyId" type="radio" name="income" class="input-strategy graph-updater" value="@deposit.CurrencyId" checked />
+                                <label class="text-strategy" for="@deposit.CurrencyId">Депозит в гривнях</label>
+                                <input id="@inputId" type="number" name="@inputId" class="graph-updater deposit-input @visibilityClass" value="@deposit.Total" />
+                            </p>
+                        }
+                        @*<p>
+                            <input id="hrn" type="radio" name="income" class="input-strategy graph-updater" value="hrn" checked />
+                            <label class="text-strategy" for="hrn">Депозит в гривнях</label>
+                            <input id="hrn-value" type="number" name="hrn-value" class="graph-updater deposit-input active" value="" />
+                        </p>
+                        <p>
+                            <input id="dollar" type="radio" name="income" class="input-strategy graph-updater" value="dollar" />
+                            <label for="dollar">Депозит в доларах</label>
+                            <input id="dollar-value" type="number" name="dollar-value" class="graph-updater deposit-input hidden" value="" />
+                        </p>
+                        <p>
+                            <input id="euro" type="radio" name="income" class="input-strategy graph-updater" value="euro"  />
+                            <label for="euro">Депозит в євро</label>
+                            <input id="euro-value" type="number" name="euro-value" class="graph-updater deposit-input hidden" value="" />
+                        </p>*@
+                    </div>
+                </div>
+            </li>
             <li class="strategy-info-costs">
                 <div class="collapsible-header">
-                    <i class="icon-costs"></i>
-                    Стратегія витрат
+                    <i class="icon icon-costs"></i>
+                    Витрати
                 </div>
                 <div class="collapsible-body">
                     <div>

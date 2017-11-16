@@ -18,8 +18,7 @@
     margin-bottom: 40px;
 }
 
-.icon-income:after {
-    background-image: url('../../content/files/income_icon.png');
+.icon:after {
     background-size: 30px 30px;
     display: inline-block;
     width: 30px;
@@ -27,11 +26,22 @@
     content: "";
 }
 
+.icon-bank:after {
+    background-image: url('../../content/files/income_bank.ico');
+}
+
+.icon-income:after {
+    background-image: url('../../content/files/income_icon.png');
+}
+
 .icon-costs:after {
     background-image: url('../../content/files/costs_icon.jpg');
-    background-size: 30px 30px;
+}
+
+.active {
     display: inline-block;
-    width: 30px;
-    height: 30px;
-    content: "";
+}
+
+.hidden {
+    display: none;
 }

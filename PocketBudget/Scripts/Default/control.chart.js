@@ -195,8 +195,10 @@
     };
 
     var init = function () {
-        $('.graph-updater[type=radio]').on('change', function(e){
+        $('.graph-updater[type=radio]').on('change', function(e) {
             onDataChanged();
+            $('.deposit-input.active').removeClass('active').addClass('hidden');
+            $(e.target).parent().find('.deposit-input.hidden').removeClass('hidden').addClass('active');
         });
         $('.graph-updater[type=number]').on('input', function (e) {
             onDataChanged();

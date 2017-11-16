@@ -13,5 +13,7 @@ namespace PocketBudget.Models
         public DepositCurrency DepositCurrency { get; set; }
 
         public TestSalaryPatternModel SalaryPattern { get; set; }
+
+        public IEnumerable<TestDepositModel> Deposits { get; set; }
     }
 }
