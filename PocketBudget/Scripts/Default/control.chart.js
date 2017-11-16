@@ -24,15 +24,41 @@
     //TODO: remove in new version
     //START
     var deposit = {
-        'sum': 108000, //4000$ dollars on deposit
+        'sum': 188000, //4000$ dollars on deposit
         'hrn': 14,
         'dollar': 3.75,
-        'euro': 2.35
+        'euro': 2.35,
+        'dangerousYear': null
     };
-    var getAdditionalIncome = function (currency, month) {
-        if (month == 0)
+    var getAdditionalIncome = function (currency, year) {
+        if (year == 0)
             return 0;
-        return (deposit['sum'] * (deposit[currency] / 100)) / 12;
+            
+        var profit = deposit['sum'] * Math.pow((1 + deposit[currency] / 100 / 12), year) - deposit['sum'] * Math.pow((1 + deposit[currency] / 100 / 12), year - 1);
+
+        if ($('#ready-to-risk').is(':checked'))
+        {
+            if (deposit['sum'] + profit > 200000 && randomInteger(1, 100) > getSelectedBankRating() * 20)
+            {
+                deposit['sum'] = 200000;
+                return 200000 - deposit['sum'];
+            }
+
+            return profit;
+        }
+        else
+        {
+            if (deposit['dangerousYear'] != null)
+                return deposit['sum'] * (deposit[currency] / 100);
+            if (deposit['sum'] + profit > 200000 && randomInteger(1, 100) > getSelectedBankRating() * 20)
+            {
+                deposit['dangerousYear'] = year;
+                deposit['sum'] = 200000;
+                return 0;
+            }
+            return profit;
+        }
+            
     };
     //END
     var randomInteger = function (min, max) {
@@ -96,6 +122,7 @@
             }
         });
     };
+
     var updateGraphWithData = function (datasets) {
         var label = [];
         for (var i = currentAge; i < Strategy.Model.salaryPattern.showTillAge; i++)
@@ -109,6 +136,7 @@
         removeChartData(chart);
         addChartData(chart, label, datasets);
     };
+
     var getIncomeData = function () {
         if (!Strategy.Model.salaryPattern)
             return [];
@@ -121,6 +149,7 @@
         }
         return arr;
     };
+
     var getDefaultIncome = function () {
         var result = {
             label: 'Доходи',
@@ -135,6 +164,7 @@
         result.data = getIncomeData();
         return result;
     };
+
     var getRetirementData = function (arr) {
         if (!Strategy.Model.salaryPattern || !arr)
             return [];
@@ -150,6 +180,7 @@
         }
         return result;
     };
+
     var getRetirements = function (savings) {
         var result = {
             label: 'Витрати на пенсії',
@@ -164,14 +195,19 @@
         result.data = getRetirementData(savings);
         return result;
     };
+
     var getSavedMoney = function (savings, position) {
         if (position == 0)
             return 0;
         return savings.data[position - 1];
     };
 
+    var getSelectedBankRating = function (){
+        var slider = document.getElementById('bank-rating-slider');
+        return slider.noUiSlider.get();
+    }
     var setBank = function (index) {
-        $('#sliderValue').html('<div>Bank: ' + bankRating.Name[index] + '</div><div>Rating: ' + bankRating.Rating[index] + '</div>');
+        $('#sliderValue').html('<div>Банк: ' + bankRating.Name[index] + '</div><div>Рейтинг: ' + bankRating.Rating[index] + '</div>');
     };
 
     var changeStrategy = function (incomeStrategy, costsStrategy)
@@ -203,6 +239,11 @@
         $('.graph-updater[type=number]').on('input', function (e) {
             onDataChanged();
         });
+
+        $('.graph-updater[type=checkbox]').on('change', function (e) {
+            onDataChanged();
+        });
+
         changeStrategy('hrn', 'economically');
         setBank(0);
 
@@ -247,6 +288,7 @@
 
             var index = bankRating.Rating.indexOf(parseFloat(values[handle]));
             setBank(index);
+            onDataChanged();
         });
     };
 
