@@ -30,6 +30,10 @@
     background-image: url('../../content/files/income_bank.ico');
 }
 
+
+.icon-deposit::after{
+        background-image: url('../../content/files/deposit_icon.png');
+}
 .icon-income:after {
     background-image: url('../../content/files/income_icon.png');
 }
@@ -45,3 +49,13 @@
 .hidden {
     display: none;
 }
+
+.bank-rating{
+    display: block;
+}
+
+.bank-rating-selector{
+    margin: 0;
+    padding: 2rem;
+}
+

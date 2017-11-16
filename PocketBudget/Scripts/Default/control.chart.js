@@ -171,7 +171,7 @@
     };
 
     var setBank = function (index) {
-        $('#sliderValue').html('<p>Bank: ' + bankRating.Name[index] + '</p><p>Rating: ' + bankRating.Rating[index] + '</p>');
+        $('#sliderValue').html('<div>Bank: ' + bankRating.Name[index] + '</div><div>Rating: ' + bankRating.Rating[index] + '</div>');
     };
 
     var changeStrategy = function (incomeStrategy, costsStrategy)
