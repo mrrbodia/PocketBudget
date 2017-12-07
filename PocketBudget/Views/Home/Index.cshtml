@@ -31,33 +31,6 @@
                             <label for="salary-age">Ваш вік</label>
                         </p>
                     </div>
-                    <div>
-                        @foreach (var deposit in Model.Deposits)
-                        {
-                            var inputId = deposit.CurrencyId + "-value";
-                            var visibilityClass = deposit.IsActive ? "active" : "hidden";
-                             <p>
-                                <input id="@deposit.CurrencyId" type="radio" name="income" class="input-strategy graph-updater" value="@deposit.CurrencyId" checked />
-                                <label class="text-strategy" for="@deposit.CurrencyId">Депозит в гривнях</label>
-                                <input id="@inputId" type="number" name="@inputId" class="graph-updater deposit-input @visibilityClass" value="@deposit.Total" />
-                            </p>
-                        }
-                        @*<p>
-                            <input id="hrn" type="radio" name="income" class="input-strategy graph-updater" value="hrn" checked />
-                            <label class="text-strategy" for="hrn">Депозит в гривнях</label>
-                            <input id="hrn-value" type="number" name="hrn-value" class="graph-updater deposit-input active" value="" />
-                        </p>
-                        <p>
-                            <input id="dollar" type="radio" name="income" class="input-strategy graph-updater" value="dollar" />
-                            <label for="dollar">Депозит в доларах</label>
-                            <input id="dollar-value" type="number" name="dollar-value" class="graph-updater deposit-input hidden" value="" />
-                        </p>
-                        <p>
-                            <input id="euro" type="radio" name="income" class="input-strategy graph-updater" value="euro"  />
-                            <label for="euro">Депозит в євро</label>
-                            <input id="euro-value" type="number" name="euro-value" class="graph-updater deposit-input hidden" value="" />
-                        </p>*@
-                    </div>
                 </div>
             </li>
             <li class="strategy-info-income">
@@ -93,6 +66,14 @@
                             <input id="euro-value" type="number" name="euro-value" class="graph-updater deposit-input hidden" value="" />
                         </p>*@
                     </div>
+                </div>
+            </li>
+             <li class="strategy-info-income bank-rating">
+                <div class="collapsible-header">
+                    <i class="icon icon-bank"></i>
+                    Банк
+                </div>
+                <div class="collapsible-body">
                     <div>
                         <div class="bank-rating-selector">
                             <div id="bank-rating-slider"></div>
