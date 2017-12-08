@@ -1,4 +1,5 @@
-﻿var Graph = (function () {
+﻿var PersonalFinances = PersonalFinances || {};
+PersonalFinances.Graph = (function () {
     var ctx = document.getElementById("chart");
     var currentAge = +$('#salary-age').val();
     var increasePercentage = +$('#salary-percentage').val();
@@ -16,6 +17,16 @@
         borderDash: [10, 15],
         borderDashOffset: 0,
         fill: false
+    };
+    var editFinances = function (e) {
+        var self = $(e.target);
+        var age = +self.attr('data-age');
+        var options = {
+            inputs: {
+                'age': age
+            }
+        };
+        PersonalFinances.Popups.open('#edit-finances-popup', options);
     };
     var bankRating = {
         'Name': ['Райффайзен Банк Аваль', 'Креди Агриколь Банк', 'УкрСиббанк', 'Ощадбанк', 'Кредобанк', 'Укргазбанк', 'ОТП Банк', 'ПроКредит Банк', 'Укрэксимбанк', 'Укрсоцбанк', 'Банк Форвард'],
@@ -112,9 +123,71 @@
                     }
                 },
                 tooltips: {
+                    enabled: false,
+                    intersect: false,
+                    custom: function (tooltipModel) {
+                        var tooltipElement = document.getElementById('tooltip-element');
+                        if (!tooltipElement){
+                            tooltipElement = document.createElement('div');
+                            tooltipElement.id = "tooltip-element";
+                            tooltipElement.innerHTML = "<div></div>";
+                            document.body.appendChild(tooltipElement);
+                        }
+                        if (tooltipModel.opacity == 0) {
+                            tooltipElement.style.opacity = 0;
+                            return;
+                        }
+                        if (tooltipModel.yAlign) {
+                            tooltipElement.classList.add(tooltipModel.yAlign);
+                        }
+                        else {
+                            tooltipElement.classList.add('no-transform');
+                        }
+                        function getBody(bodyItem) {
+                            return bodyItem.lines;
+                        }
+                        if (tooltipModel.body) {
+                            var bodyLines = tooltipModel.body.map(getBody);
+                            var innerHtml = "<div class='tooltip-element-titles'>";
+                            var age = tooltipModel.title || 18;
+                            innerHtml += "<h6>" + age + "</h6>";
+                            innerHtml += "</div><div class='tooltip-element-lines'>";
+                            bodyLines.forEach(function (body, i) {
+                                var colors = tooltipModel.labelColors[i];
+                                var style = "background:" + colors.backgroundColor;
+                                style += "; border-color:" + colors.borderColor;
+                                style += "; border-width: 2px";
+                                var span = "<span class='tooltip-element-span' style='" + style + "'>" + body + "</span>";
+                                innerHtml += "<div>" + span + "</div>";
+                            });
+                            innerHtml += "</div><div class='tooltip-element-option'>";
+                            innerHtml += '<a href="#" class="btn btn-edit-finances" data-age="' + age + '">Керувати фінансами</a>';
+                            innerHtml += "</div>";
+                            var divRoot = tooltipElement.querySelector('div');
+                            divRoot.innerHTML = innerHtml;
+                        }
+                        var position = this._chart.canvas.getBoundingClientRect();
+                        tooltipElement.style.opacity = 1;
+                        tooltipElement.style.left = position.left + tooltipModel.caretX + 'px';
+                        tooltipElement.style.top = position.top + tooltipModel.caretY + 'px';
+                        tooltipElement.style.fontFamily = tooltipModel._fontFamily;
+                        tooltipElement.style.fontSize = tooltipModel.fontSize;
+                        tooltipElement.style.fontStyle = tooltipModel._fontStyle;
+                        tooltipElement.style.padding = tooltipModel.yPadding = 'px ' + tooltipModel.xPadding + 'px';
+                        tooltipElement.onclick = function (e) {
+                            var self = $(e.target);
+                            var age = +self.attr('data-age');
+                            var options = {
+                                inputs: {
+                                    'age': age
+                                }
+                            };
+                            PersonalFinances.Popups.open('#edit-finances-popup', options);
+                        };
+                        tooltipElement
+                    },
                     callbacks: {
-                        label: function (item, data) {
-                            //return (item.index % 5) ? "" : item.yLabel.toFixed(2);
+                        label: function (item, chart) {
                             return item.yLabel.toFixed(2);
                         }
                     }
@@ -243,6 +316,18 @@
         $('.graph-updater[type=checkbox]').on('change', function (e) {
             onDataChanged();
         });
+        //$('#chart').on('click', function (e) {
+        //});
+        $(document).on('click', '.btn-edit-finances', function (e) {
+            var self = $(this);
+            var age = +self.attr('data-age');
+            var options = {
+                inputs: {
+                    'age': age
+                }
+            };
+            PersonalFinances.Popups.open('#edit-finances-popup', options);
+        });
 
         changeStrategy('hrn', 'economically');
         setBank(0);
@@ -301,5 +386,11 @@
 
 $(document).ready(function () {
     if (document.getElementById('chart-block'))
-        Graph.init();
+        PersonalFinances.Graph.init();
+    setTimeout(function () {
+        var el = document.createElement('div');
+        el.id = "btn-edit";
+        el.innerHTML = "<button class='btn-edit-finances'>TEST</button>";
+        document.body.appendChild(el);
+    }, 2000);
 });
