@@ -68,17 +68,31 @@
     border-radius: 3px;
     -webkit-transition: all .1s ease;
     transition: all .1s ease;
-    pointer-events: none;
+    /*pointer-events: none;*/
     -webkit-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
     z-index: 5000;
 }
 
-    #tooltip-element:hover {
-        display:block;
-        cursor: pointer;
+    /*#tooltip-element .tooltip-wrapper {
+        display:none;
+    }*/
+
+    #tooltip-element .tooltip-wrapper:hover {
+        opacity: 1;
     }
 
 .popup {
     display: none;
 }
+
+/*.line {
+    fill:none;
+    stroke:#ffab00;
+    stroke-width:3;
+}
+
+.dot {
+    fill: #ffab00;
+    stroke: #fff;
+}*/

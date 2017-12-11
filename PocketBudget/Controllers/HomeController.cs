@@ -17,6 +17,14 @@ namespace BookStore.Controllers
             return View(model);
         }
 
+        public ActionResult Test()
+        {
+            var model = new StrategyViewModel();
+            model.SalaryPattern = CreateTestSalaryPatternModel();
+            model.Deposits = CreateTestDepositModel();
+            return View(model);
+        }
+
         [HttpPost]
         public ActionResult GetDataForStrategy(StrategyViewModel model)
         {

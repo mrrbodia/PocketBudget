@@ -109,7 +109,7 @@ PersonalFinances.Graph = (function () {
                 datasets: datasets
             },
             options: {
-                onClick: graphClickEvent,
+                //onClick: graphClickEvent,
                 scales: {
                     xAxes: [{
                         time: {
@@ -132,19 +132,19 @@ PersonalFinances.Graph = (function () {
                 },
                 tooltips: {
                     enabled: false,
-                    intersect: false,
+                    //intersect: false,
                     custom: function (tooltipModel) {
                         var tooltipElement = document.getElementById('tooltip-element');
                         if (!tooltipElement){
                             tooltipElement = document.createElement('div');
                             tooltipElement.id = "tooltip-element";
-                            tooltipElement.innerHTML = "<div></div>";
+                            tooltipElement.innerHTML = "<div class='tooltip-wrapper'></div>";
                             document.body.appendChild(tooltipElement);
                         }
-                        if (tooltipModel.opacity == 0) {
-                            tooltipElement.style.opacity = 0;
-                            return;
-                        }
+                        //if (tooltipModel.opacity == 0) {
+                        //    tooltipElement.style.opacity = 0;
+                        //    return;
+                        //}
                         if (tooltipModel.yAlign) {
                             tooltipElement.classList.add(tooltipModel.yAlign);
                         }
@@ -312,6 +312,16 @@ PersonalFinances.Graph = (function () {
 
         $('.graph-updater[type=checkbox]').on('change', function (e) {
             onDataChanged();
+        });
+        $(document).on('click', 'a.btn-edit-finances', function (e) {
+            var btn = $(e.target);
+            var age = +btn.attr('data-age');
+            var options = {
+                inputs: {
+                    'age': age
+                }
+            };
+            PersonalFinances.Popups.open('#edit-finances-popup', options);
         });
 
         changeStrategy('hrn', 'economically');
