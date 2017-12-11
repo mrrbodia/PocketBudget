@@ -76,6 +76,7 @@
 
     #tooltip-element:hover {
         display:block;
+        cursor: pointer;
     }
 
 .popup {

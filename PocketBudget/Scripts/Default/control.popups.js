@@ -10,12 +10,6 @@ PersonalFinances.Popups = (function () {
                 input.value = inputs[prop];
             }
         }
-        //inputs.forEach(function (value, name) {
-        //    var input = popup.find('input[@name="' + name + '"]');
-        //    if (input) {
-        //        input.value = value;
-        //    }
-        //});
     };
     var open = function (selector, options) {
         var popup = $(selector);

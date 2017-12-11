@@ -18,16 +18,6 @@ PersonalFinances.Graph = (function () {
         borderDashOffset: 0,
         fill: false
     };
-    var editFinances = function (e) {
-        var self = $(e.target);
-        var age = +self.attr('data-age');
-        var options = {
-            inputs: {
-                'age': age
-            }
-        };
-        PersonalFinances.Popups.open('#edit-finances-popup', options);
-    };
     var bankRating = {
         'Name': ['Райффайзен Банк Аваль', 'Креди Агриколь Банк', 'УкрСиббанк', 'Ощадбанк', 'Кредобанк', 'Укргазбанк', 'ОТП Банк', 'ПроКредит Банк', 'Укрэксимбанк', 'Укрсоцбанк', 'Банк Форвард'],
         'Rating': [4.59, 4.37, 4.29, 4.07, 4.04, 3.83, 3.79, 3.67, 3.65, 3.48, 2.36]
@@ -94,6 +84,23 @@ PersonalFinances.Graph = (function () {
         });
         chart.update();
     };
+    var isElementClicked = function (element, x, y) {
+        var element = $(element);
+        var offset = element.offset();
+        return x >= offset.left && x <= offset.left + element.width() && y <= offset.top && y >= offset.top - element.height();
+    };
+    var graphClickEvent = function (e, array) {
+        if (isElementClicked('a.btn-edit-finances', e.offsetX, e.offsetY)) {
+            var btn = $('a.btn-edit-finances');
+            var age = +btn.attr('data-age');
+            var options = {
+                inputs: {
+                    'age': age
+                }
+            };
+            PersonalFinances.Popups.open('#edit-finances-popup', options);
+        }
+    };
     var createChart = function(labels, datasets){
         return new Chart(ctx, {
             type: 'line',
@@ -102,6 +109,7 @@ PersonalFinances.Graph = (function () {
                 datasets: datasets
             },
             options: {
+                onClick: graphClickEvent,
                 scales: {
                     xAxes: [{
                         time: {
@@ -174,17 +182,6 @@ PersonalFinances.Graph = (function () {
                         tooltipElement.style.fontSize = tooltipModel.fontSize;
                         tooltipElement.style.fontStyle = tooltipModel._fontStyle;
                         tooltipElement.style.padding = tooltipModel.yPadding = 'px ' + tooltipModel.xPadding + 'px';
-                        tooltipElement.onclick = function (e) {
-                            var self = $(e.target);
-                            var age = +self.attr('data-age');
-                            var options = {
-                                inputs: {
-                                    'age': age
-                                }
-                            };
-                            PersonalFinances.Popups.open('#edit-finances-popup', options);
-                        };
-                        tooltipElement
                     },
                     callbacks: {
                         label: function (item, chart) {
@@ -316,18 +313,6 @@ PersonalFinances.Graph = (function () {
         $('.graph-updater[type=checkbox]').on('change', function (e) {
             onDataChanged();
         });
-        //$('#chart').on('click', function (e) {
-        //});
-        $(document).on('click', '.btn-edit-finances', function (e) {
-            var self = $(this);
-            var age = +self.attr('data-age');
-            var options = {
-                inputs: {
-                    'age': age
-                }
-            };
-            PersonalFinances.Popups.open('#edit-finances-popup', options);
-        });
 
         changeStrategy('hrn', 'economically');
         setBank(0);
@@ -387,10 +372,4 @@ PersonalFinances.Graph = (function () {
 $(document).ready(function () {
     if (document.getElementById('chart-block'))
         PersonalFinances.Graph.init();
-    setTimeout(function () {
-        var el = document.createElement('div');
-        el.id = "btn-edit";
-        el.innerHTML = "<button class='btn-edit-finances'>TEST</button>";
-        document.body.appendChild(el);
-    }, 2000);
 });
