@@ -42,6 +42,10 @@
     background-image: url('../../content/files/costs_icon.jpg');
 }
 
+.tooltip-moreoptions:after {
+    background-image: url('../../content/files/more-icon.png');
+}
+
 .active {
     display: inline-block;
 }
@@ -62,8 +66,8 @@
 #tooltip-element {
     opacity: 1;
     position: absolute;
-    background: rgba(0, 0, 0, .7);
-    color: white;
+    background: rgba(255, 255, 255, .7);
+    color: black;
     padding: 3px;
     border-radius: 3px;
     -webkit-transition: all .1s ease;
@@ -72,6 +76,7 @@
     -webkit-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
     z-index: 5000;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
     /*#tooltip-element .tooltip-wrapper {
@@ -96,3 +101,7 @@
     fill: #ffab00;
     stroke: #fff;
 }*/
+
+.tooltip-body {
+    padding: 5px;
+}

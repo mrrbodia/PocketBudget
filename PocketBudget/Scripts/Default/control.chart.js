@@ -156,23 +156,12 @@ PersonalFinances.Graph = (function () {
                         }
                         if (tooltipModel.body) {
                             var bodyLines = tooltipModel.body.map(getBody);
-                            var innerHtml = "<div class='tooltip-element-titles'>";
+
                             var age = tooltipModel.title || 18;
-                            innerHtml += "<h6>" + age + "</h6>";
-                            innerHtml += "</div><div class='tooltip-element-lines'>";
-                            bodyLines.forEach(function (body, i) {
-                                var colors = tooltipModel.labelColors[i];
-                                var style = "background:" + colors.backgroundColor;
-                                style += "; border-color:" + colors.borderColor;
-                                style += "; border-width: 2px";
-                                var span = "<span class='tooltip-element-span' style='" + style + "'>" + body + "</span>";
-                                innerHtml += "<div>" + span + "</div>";
-                            });
-                            innerHtml += "</div><div class='tooltip-element-option'>";
-                            innerHtml += '<a href="#" class="btn btn-edit-finances" data-age="' + age + '">Керувати фінансами</a>';
-                            innerHtml += "</div>";
+                            var tooltip = $('#chartTooltip').html();
+                            data = data.replace("[ACUMULATED_AMOUNT]", bodyLines[0]);
                             var divRoot = tooltipElement.querySelector('div');
-                            divRoot.innerHTML = innerHtml;
+                            divRoot.innerHTML = data;
                         }
                         var position = this._chart.canvas.getBoundingClientRect();
                         tooltipElement.style.opacity = 1;
@@ -313,6 +302,11 @@ PersonalFinances.Graph = (function () {
         $('.graph-updater[type=checkbox]').on('change', function (e) {
             onDataChanged();
         });
+
+        $(document).on('click', '.tooltip-moreoptions', function () {
+            $(this).parent().find('.tooltip-body').toggle("slow");
+        });
+
         $(document).on('click', 'a.btn-edit-finances', function (e) {
             var btn = $(e.target);
             var age = +btn.attr('data-age');

@@ -205,6 +205,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_Popups.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Shared\_ChartTooltip.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Xml\" />
