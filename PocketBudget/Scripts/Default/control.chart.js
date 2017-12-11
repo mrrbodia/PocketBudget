@@ -159,6 +159,7 @@ PersonalFinances.Graph = (function () {
 
                             var age = tooltipModel.title || 18;
                             var tooltip = $('#chartTooltip').html();
+                            var data = tooltip.replace(new RegExp('\\[AGE\\]', 'g'), age);
                             data = data.replace("[ACUMULATED_AMOUNT]", bodyLines[0]);
                             var divRoot = tooltipElement.querySelector('div');
                             divRoot.innerHTML = data;
