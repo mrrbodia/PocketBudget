@@ -153,11 +153,11 @@ PersonalFinances.Graph = (function () {
                                 "AGE": age,
                                 "ACUMULATED_AMOUNT": bodyLines[0]
                             };
-                            var innerHtml = replaceTooltipTags($('#tooltip-content').html(), mapObj);
+                            var innerHtml = replaceTooltipTags($(tooltipElement).html(), mapObj);
                             tooltipElement.innerHTML = innerHtml;
                         }
                         var position = this._chart.canvas.getBoundingClientRect();
-                        tooltipElement.style.opacity = 1;
+                        tooltipElement.style.display = 'block';
                         tooltipElement.style.left = position.left + tooltipModel.caretX + 'px';
                         tooltipElement.style.top = position.top + tooltipModel.caretY + 'px';
                         tooltipElement.style.fontFamily = tooltipModel._fontFamily;
