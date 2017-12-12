@@ -4,6 +4,15 @@ PersonalFinances.Graph = (function () {
     var currentAge = +$('#salary-age').val();
     var increasePercentage = +$('#salary-percentage').val();
     var chart = null;
+    var onDataChanged = function () {
+        var currency = $('.input-strategy[name=income]:checked').val();
+        var strategy = $('.input-strategy[name=costs]:checked').val();
+        currentAge = +$('#salary-age').val();
+        increasePercentage = +$('#salary-percentage').val();
+        setStrategy(currency, strategy);
+    };
+    //TODO: remove in new version
+    //START
     var goal = {
         label: 'Мета',
         data: [500000, 500000, 40000, 40000, 40000, 40000, 40000, 40000],
@@ -18,12 +27,6 @@ PersonalFinances.Graph = (function () {
         borderDashOffset: 0,
         fill: false
     };
-    var bankRating = {
-        'Name': ['Райффайзен Банк Аваль', 'Креди Агриколь Банк', 'УкрСиббанк', 'Ощадбанк', 'Кредобанк', 'Укргазбанк', 'ОТП Банк', 'ПроКредит Банк', 'Укрэксимбанк', 'Укрсоцбанк', 'Банк Форвард'],
-        'Rating': [4.59, 4.37, 4.29, 4.07, 4.04, 3.83, 3.79, 3.67, 3.65, 3.48, 2.36]
-    };
-    //TODO: remove in new version
-    //START
     var deposit = {
         'sum': 188000, //4000$ dollars on deposit
         'hrn': 14,
@@ -39,7 +42,7 @@ PersonalFinances.Graph = (function () {
 
         if ($('#ready-to-risk').is(':checked'))
         {
-            if (deposit['sum'] + profit > 200000 && randomInteger(1, 100) > getSelectedBankRating() * 20)
+            if (deposit['sum'] + profit > 200000 && randomInteger(1, 100) > PersonalFinances.Slider.getSelectedBankRating() * 20)
             {
                 deposit['sum'] = 200000;
                 return 200000 - deposit['sum'];
@@ -51,7 +54,7 @@ PersonalFinances.Graph = (function () {
         {
             if (deposit['dangerousYear'] != null)
                 return deposit['sum'] * (deposit[currency] / 100);
-            if (deposit['sum'] + profit > 200000 && randomInteger(1, 100) > getSelectedBankRating() * 20)
+            if (deposit['sum'] + profit > 200000 && randomInteger(1, 100) > PersonalFinances.Slider.getSelectedBankRating() * 20)
             {
                 deposit['dangerousYear'] = year;
                 deposit['sum'] = 200000;
@@ -84,24 +87,14 @@ PersonalFinances.Graph = (function () {
         });
         chart.update();
     };
-    var isElementClicked = function (element, x, y) {
-        var element = $(element);
-        var offset = element.offset();
-        return x >= offset.left && x <= offset.left + element.width() && y <= offset.top && y >= offset.top - element.height();
-    };
-    var graphClickEvent = function (e, array) {
-        if (isElementClicked('a.btn-edit-finances', e.offsetX, e.offsetY)) {
-            var btn = $('a.btn-edit-finances');
-            var age = +btn.attr('data-age');
-            var options = {
-                inputs: {
-                    'age': age
-                }
-            };
-            PersonalFinances.Popups.open('#edit-finances-popup', options);
+    var replaceTooltipTags = function (str, mapObj) {
+        var result = str;
+        for (var key in mapObj) {
+            result = result.replace(new RegExp('\\[' + key + '\\]', 'g'), mapObj[key]);
         }
+        return result;
     };
-    var createChart = function(labels, datasets){
+    var createChart = function(labels, datasets) {
         return new Chart(ctx, {
             type: 'line',
             data: {
@@ -135,10 +128,9 @@ PersonalFinances.Graph = (function () {
                     //intersect: false,
                     custom: function (tooltipModel) {
                         var tooltipElement = document.getElementById('tooltip-element');
-                        if (!tooltipElement){
+                        if (!tooltipElement) {
                             tooltipElement = document.createElement('div');
                             tooltipElement.id = "tooltip-element";
-                            tooltipElement.innerHTML = "<div class='tooltip-wrapper'></div>";
                             document.body.appendChild(tooltipElement);
                         }
                         //if (tooltipModel.opacity == 0) {
@@ -156,13 +148,13 @@ PersonalFinances.Graph = (function () {
                         }
                         if (tooltipModel.body) {
                             var bodyLines = tooltipModel.body.map(getBody);
-
                             var age = tooltipModel.title || 18;
-                            var tooltip = $('#chartTooltip').html();
-                            var data = tooltip.replace(new RegExp('\\[AGE\\]', 'g'), age);
-                            data = data.replace("[ACUMULATED_AMOUNT]", bodyLines[0]);
-                            var divRoot = tooltipElement.querySelector('div');
-                            divRoot.innerHTML = data;
+                            var mapObj = {
+                                "AGE": age,
+                                "ACUMULATED_AMOUNT": bodyLines[0]
+                            };
+                            var innerHtml = replaceTooltipTags($('#tooltip-content').html(), mapObj);
+                            tooltipElement.innerHTML = innerHtml;
                         }
                         var position = this._chart.canvas.getBoundingClientRect();
                         tooltipElement.style.opacity = 1;
@@ -197,7 +189,7 @@ PersonalFinances.Graph = (function () {
         addChartData(chart, label, datasets);
     };
 
-    var getIncomeData = function () {
+    var getIncomeData = function (currency, strategy) {
         if (!Strategy.Model.salaryPattern)
             return [];
         var arr = [];
@@ -207,22 +199,11 @@ PersonalFinances.Graph = (function () {
         {
             arr[i] = arr[i - 1] + arr[i - 1] * (increasePercentage / 100);
         }
+        for (var i = 0; i < arr.length; i++) {
+            arr[i] = arr[i] + getSavedMoney(arr, i) +
+                getAdditionalIncome(currency, i) - getAdditionalCosts(i, strategy);
+        }
         return arr;
-    };
-
-    var getDefaultIncome = function () {
-        var result = {
-            label: 'Доходи',
-            backgroundColor: [
-                'rgba(21, 229, 171, 0.4)'
-            ],
-            borderColor: [
-                'rgba(54, 162, 235, 1)'
-            ],
-            fill: true
-        };
-        result.data = getIncomeData();
-        return result;
     };
 
     var getRetirementData = function (arr) {
@@ -241,7 +222,7 @@ PersonalFinances.Graph = (function () {
         return result;
     };
 
-    var getRetirements = function (savings) {
+    var applyRetirements = function (income) {
         var result = {
             label: 'Витрати на пенсії',
             backgroundColor: [
@@ -252,46 +233,40 @@ PersonalFinances.Graph = (function () {
             ],
             fill: true
         };
-        result.data = getRetirementData(savings);
+        result.data = getRetirementData(income);
         return result;
     };
 
-    var getSavedMoney = function (savings, position) {
+    var getSavedMoney = function (data, position) {
         if (position == 0)
             return 0;
-        return savings.data[position - 1];
+        return data[position - 1];
     };
 
-    var getSelectedBankRating = function (){
-        var slider = document.getElementById('bank-rating-slider');
-        return slider.noUiSlider.get();
-    }
-    var setBank = function (index) {
-        $('#sliderValue').html('<div>Банк: ' + bankRating.Name[index] + '</div><div>Рейтинг: ' + bankRating.Rating[index] + '</div>');
+    var prepareIncomeGraphData = function (currency, strategy) {
+        var result = {
+            label: 'Доходи',
+            backgroundColor: [
+                'rgba(21, 229, 171, 0.4)'
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)'
+            ],
+            fill: true
+        };
+        result.data = getIncomeData(currency, strategy);
+        return result;
     };
-
-    var changeStrategy = function (incomeStrategy, costsStrategy)
+    var setStrategy = function (currency, strategy)
     {
-        var savings = getDefaultIncome();
-        for (var i = 0; i < savings.data.length; i++) {
-            savings.data[i] = savings.data[i] + getSavedMoney(savings, i) +
-                getAdditionalIncome(incomeStrategy, i) - getAdditionalCosts(i, costsStrategy);
-        }
-        var retirements = getRetirements(savings.data);
-        var datasets = [savings, retirements];
+        var incomeLine = prepareIncomeGraphData(currency, strategy);
+        var retirementLine = applyRetirements(incomeLine.data);
+        var datasets = [incomeLine, retirementLine];
         updateGraphWithData(datasets);
     };
 
-    var onDataChanged = function () {
-        var incomeStrategy = $('.input-strategy[name=income]:checked').val();
-        var costsStrategy = $('.input-strategy[name=costs]:checked').val();
-        currentAge = +$('#salary-age').val();
-        increasePercentage = +$('#salary-percentage').val();
-        changeStrategy(incomeStrategy, costsStrategy);
-    };
-
-    var init = function () {
-        $('.graph-updater[type=radio]').on('change', function(e) {
+    var initEvents = function () {
+        $('.graph-updater[type=radio]').on('change', function (e) {
             onDataChanged();
             $('.deposit-input.active').removeClass('active').addClass('hidden');
             $(e.target).parent().find('.deposit-input.hidden').removeClass('hidden').addClass('active');
@@ -304,72 +279,32 @@ PersonalFinances.Graph = (function () {
             onDataChanged();
         });
 
-        $(document).on('click', '.tooltip-moreoptions', function () {
-            $(this).parent().find('.tooltip-body').toggle("slow");
+        $(document).on('click', '.tooltip-moreoptions', function (e) {
+            $(this).next('.tooltip-body').toggle("slow");
         });
+        //$(document).on('click', 'a.btn-edit-finances', function (e) {
+        //    var btn = $(e.target);
+        //    var age = +btn.attr('data-age');
+        //    var options = {
+        //        inputs: {
+        //            'age': age
+        //        }
+        //    };
+        //    PersonalFinances.Popups.open('#edit-finances-popup', options);
+        //});
+    };
 
-        $(document).on('click', 'a.btn-edit-finances', function (e) {
-            var btn = $(e.target);
-            var age = +btn.attr('data-age');
-            var options = {
-                inputs: {
-                    'age': age
-                }
-            };
-            PersonalFinances.Popups.open('#edit-finances-popup', options);
-        });
-
-        changeStrategy('hrn', 'economically');
-        setBank(0);
-
-        var slider = document.getElementById('bank-rating-slider');
-        noUiSlider.create(slider, {
-            start: [4.59],
-            snap: true,
-            connect: true,
-            range: {
-                'min': 0,
-                '91.8%': 4.59,
-                '87.4%': 4.37,
-                '85.8%': 4.29,
-                '80.14%': 4.07,
-                '80.08%': 4.04,
-                '76.6%': 3.83,
-                '75.8%': 3.79,
-                '73.4%': 3.67,
-                '73%': 3.65,
-                '69.6%': 3.48,
-                '47.2%': 2.36,
-                'max': 5
-            },
-            pips: {
-                mode: 'values',
-                values: [0, 1, 2, 3, 4, 5],
-                density: 5
-            }
-        });
-
-        slider.noUiSlider.on('change', function (values, handle) {
-            var min = Math.min.apply(Math, bankRating.Rating);
-            var max = Math.max.apply(Math, bankRating.Rating);
-
-            if (values[handle] < min) {
-                slider.noUiSlider.set(min);
-                values[handle] = min;
-            } else if (values[handle] > max) {
-                slider.noUiSlider.set(max);
-                values[handle] = max;
-            }
-
-            var index = bankRating.Rating.indexOf(parseFloat(values[handle]));
-            setBank(index);
-            onDataChanged();
-        });
+    var init = function () {
+        initEvents();
+        setStrategy('hrn', 'economically');
     };
 
     return {
         init: function () {
             init();
+        },
+        onDataChanged: function() {
+            onDataChanged();
         }
     };
 })();

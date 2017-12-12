@@ -185,6 +185,7 @@
     <Content Include="Scripts\d3.min.js" />
     <Content Include="Scripts\Default\control.popups.js" />
     <Content Include="Scripts\Default\control.d3.js" />
+    <Content Include="Scripts\Default\control.slider.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
