@@ -115,6 +115,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdditionalFinancesViewModel.cs" />
     <Compile Include="Models\StrategyViewModel.cs" />
     <Compile Include="Models\TestDepositModel.cs" />
     <Compile Include="Models\TestSalaryPatternModel.cs" />
@@ -207,6 +208,7 @@
     <Content Include="Views\Shared\_Popups.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Shared\_ChartTooltip.cshtml" />
+    <Content Include="Views\Home\_EditFinances.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Xml\" />

@@ -11,6 +11,7 @@ PersonalFinances.Popups = (function () {
             }
         }
     };
+
     var open = function (selector, options) {
         var popup = $(selector);
         if (!popup)
@@ -20,6 +21,7 @@ PersonalFinances.Popups = (function () {
         }
         popup.show();
     };
+
     var close = function (selector) {
         var popup = $(selector);
         if (!popup)

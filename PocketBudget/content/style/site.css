@@ -79,10 +79,6 @@
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
-    /*#tooltip-element .tooltip-content {
-        display: none;
-    }*/
-
     #tooltip-element:not(:hover) + .tooltip-content {
         display: none;
     }
@@ -94,17 +90,6 @@
 .popup {
     display: none;
 }
-
-/*.line {
-    fill:none;
-    stroke:#ffab00;
-    stroke-width:3;
-}
-
-.dot {
-    fill: #ffab00;
-    stroke: #fff;
-}*/
 
 .tooltip-body {
     padding: 5px;

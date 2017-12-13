@@ -13,20 +13,6 @@ PersonalFinances.Graph = (function () {
     };
     //TODO: remove in new version
     //START
-    var goal = {
-        label: 'Мета',
-        data: [500000, 500000, 40000, 40000, 40000, 40000, 40000, 40000],
-        backgroundColor: [
-            'rgba(54, 162, 235, 0.2)'
-        ],
-        borderColor: [
-            'rgba(255,99,132,1)'
-        ],
-        borderCapStyle: 'dash',
-        borderDash: [10, 15],
-        borderDashOffset: 0,
-        fill: false
-    };
     var deposit = {
         'sum': 188000, //4000$ dollars on deposit
         'hrn': 14,
@@ -280,18 +266,26 @@ PersonalFinances.Graph = (function () {
         });
 
         $(document).on('click', '.tooltip-moreoptions', function (e) {
-            $(this).next('.tooltip-body').toggle("slow");
+            //$(this).next('.tooltip-body').toggle("slow");
+                var btn = $(e.target);
+                var age = +btn.attr('data-age');
+                var data = {
+                    fromAge: age
+                };
+                $.ajax({
+                    url: 'editfinances',
+                    type: 'POST',
+                    data: data,
+                    success: function (data) {
+                        var newHtml = data.trim();
+                        $('#edit-finances-popup').find('.popup-content').html(newHtml);
+                        PersonalFinances.Popups.open('#edit-finances-popup');
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
         });
-        //$(document).on('click', 'a.btn-edit-finances', function (e) {
-        //    var btn = $(e.target);
-        //    var age = +btn.attr('data-age');
-        //    var options = {
-        //        inputs: {
-        //            'age': age
-        //        }
-        //    };
-        //    PersonalFinances.Popups.open('#edit-finances-popup', options);
-        //});
     };
 
     var init = function () {

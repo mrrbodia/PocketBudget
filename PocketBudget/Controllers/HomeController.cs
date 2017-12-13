@@ -13,7 +13,6 @@ namespace BookStore.Controllers
         {
             var model = new StrategyViewModel();
             model.SalaryPattern = CreateTestSalaryPatternModel();
-            model.Deposits = CreateTestDepositModel();
             return View(model);
         }
 
@@ -21,14 +20,16 @@ namespace BookStore.Controllers
         {
             var model = new StrategyViewModel();
             model.SalaryPattern = CreateTestSalaryPatternModel();
-            model.Deposits = CreateTestDepositModel();
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult GetDataForStrategy(StrategyViewModel model)
+        public ActionResult EditFinances(int fromAge)
         {
-            return Json(1);
+            var model = new AdditionalFinancesViewModel();
+            model.Deposits = CreateTestDepositModel();
+            model.FromAge = fromAge;
+            return View("_EditFinances", model);
         }
 
         protected IEnumerable<TestDepositModel> CreateTestDepositModel()
