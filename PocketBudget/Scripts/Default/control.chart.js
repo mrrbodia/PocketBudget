@@ -80,6 +80,12 @@ PersonalFinances.Graph = (function () {
         }
         return result;
     };
+    var initTimeout = function(el, timeout) {
+        return setTimeout(function () {
+            el.style.display = 'none';
+        }, timeout || 0);
+    }
+    var tmpTimer = null;
     var createChart = function(labels, datasets) {
         return new Chart(ctx, {
             type: 'line',
@@ -114,15 +120,12 @@ PersonalFinances.Graph = (function () {
                     //intersect: false,
                     custom: function (tooltipModel) {
                         var tooltipElement = document.getElementById('tooltip-element');
+
                         if (!tooltipElement) {
                             tooltipElement = document.createElement('div');
                             tooltipElement.id = "tooltip-element";
                             document.body.appendChild(tooltipElement);
                         }
-                        //if (tooltipModel.opacity == 0) {
-                        //    tooltipElement.style.opacity = 0;
-                        //    return;
-                        //}
                         if (tooltipModel.yAlign) {
                             tooltipElement.classList.add(tooltipModel.yAlign);
                         }
@@ -139,7 +142,7 @@ PersonalFinances.Graph = (function () {
                                 "AGE": age,
                                 "ACUMULATED_AMOUNT": bodyLines[0]
                             };
-                            var innerHtml = replaceTooltipTags($(tooltipElement).html(), mapObj);
+                            var innerHtml = replaceTooltipTags($('#tooltip-element-content').html(), mapObj);
                             tooltipElement.innerHTML = innerHtml;
                         }
                         var position = this._chart.canvas.getBoundingClientRect();
@@ -150,6 +153,22 @@ PersonalFinances.Graph = (function () {
                         tooltipElement.style.fontSize = tooltipModel.fontSize;
                         tooltipElement.style.fontStyle = tooltipModel._fontStyle;
                         tooltipElement.style.padding = tooltipModel.yPadding = 'px ' + tooltipModel.xPadding + 'px';
+
+
+                        if (tooltipModel.opacity == 1) {
+                            clearTimeout(tmpTimer);
+                            return;
+                        }
+
+                        clearTimeout(tmpTimer);
+                        tmpTimer = initTimeout(tooltipElement, 750);
+
+                        tooltipElement.onmouseenter = function () {
+                            clearTimeout(tmpTimer);
+                        };
+                        tooltipElement.onmouseleave = function () {
+                            tmpTimer = initTimeout(tooltipElement, 250);
+                        };
                     },
                     callbacks: {
                         label: function (item, chart) {
@@ -280,6 +299,7 @@ PersonalFinances.Graph = (function () {
                         var newHtml = data.trim();
                         $('#edit-finances-popup').find('.popup-content').html(newHtml);
                         PersonalFinances.Popups.open('#edit-finances-popup');
+                        $('.collapsible').collapsible();
                     },
                     error: function (err) {
                         console.log(err);
