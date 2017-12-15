@@ -5,50 +5,53 @@
         <span class="edit-finances-header">Витрати</span>
     </div>
     <div class="edit-finances-tabs-wrapper">
-        <div class="edit-finances-tab active" data-tab="income">
+        <div class="edit-finances-tab additional-path-income active">
             <div>
                 <span>Керування фінансами у віці </span>
                 @Html.EditorFor(m => m.FromAge)
             </div>
-            <div>
-                <ul class="collapsible" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header active">
-                            <i class="icon icon-deposit"></i>
-                            Покласти гроші на депозит
+            <ul>
+                <li class="additional-path-item">
+                    <div>
+                        <div>
+                            @foreach (var deposit in Model.Deposits)
+                            {
+                                var totalId = deposit.CurrencyId + "total";
+                                var yearsId = deposit.CurrencyId + "years";
+                                var percentageId = deposit.CurrencyId + "percentage";
+                                var visibilityClass = deposit.IsActive ? "active" : "hidden";
+                                var selected = deposit.IsActive ? "checked" : "";
+                                <p>
+                                    <input id="@deposit.CurrencyId" type="radio" name="deposit" class="deposit-input" value="@deposit.CurrencyId" @selected />
+                                    <label class="text-strategy" for="@deposit.CurrencyId">@GetDepositTitle(deposit.CurrencyId) (@string.Format("{0:0.00}% річних", deposit.Percentage))</label>
+                                    <input type="number" name="@percentageId" class="hidden" value="@deposit.Percentage" />
+                                    <input id="@totalId" type="number" name="@totalId" class="deposit-input @visibilityClass" value="@deposit.Total" />
+                                    <input id="@yearsId" type="number" name="@yearsId" class="deposit-input @visibilityClass" value="@deposit.Years" />
+                                </p>
+                            }
                         </div>
-                        <div class="collapsible-body">
-                            <div>
-                                @*//TODO:
-                                @for (int i = 0; i < Model.Deposits.Count; ++i)
-                                {
-                                     @Html.Partial("_EditDeposit")
-                                }*@
-
-                                @foreach (var deposit in Model.Deposits)
-                                {
-                                    var inputId = deposit.CurrencyId + "-value";
-                                    var visibilityClass = deposit.IsActive ? "active" : "hidden";
-                                    <p>
-                                        <input id="@deposit.CurrencyId" type="radio" name="income" class="input-strategy graph-updater" value="@deposit.CurrencyId" checked />
-                                        <label class="text-strategy" for="@deposit.CurrencyId">Депозит в гривнях</label>
-                                        <input id="@inputId" type="number" name="@inputId" class="graph-updater deposit-input @visibilityClass" value="@deposit.Total" />
-                                    </p>
-                                }
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header">
-                        </div>
-                        <div class="collapsible-body">
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                    </div>
+                </li>
+            </ul>
         </div>
-        <div class="edit-finances-tab hidden" data-tab="costs">
+        <div class="edit-finances-tab additional-path-costs hidden">
 
+        </div>
+        <div class="btn-group">
+            <button class="btn save-edit-finances">Зберегти</button>
         </div>
     </div>
 </div>
+
+@functions
+{
+    public string GetDepositTitle(string currencyId)
+    {
+        switch(currencyId)
+        {
+            case "euro": return "Депозит в євро";
+            case "dollar": return "Депозит в доларах";
+            default: return "Депозит в гривнях";
+        }
+    }
+}

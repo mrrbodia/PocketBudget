@@ -90,6 +90,40 @@
                 </div>
             </li>
         </ul>
+        @*<ul class="additional-strategy-info collapsible col s6" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header active">
+                    <i class="icon icon-deposit"></i>
+                    Покласти гроші на депозит
+                </div>
+                <div class="collapsible-body">
+                    <div>
+                        //TODO:
+                        @for (int i = 0; i < Model.Deposits.Count; ++i)
+                        {
+                                @Html.Partial("_EditDeposit")
+                        }
+
+                        @foreach (var deposit in Model.Deposits)
+                        {
+                            var inputId = deposit.CurrencyId + "-value";
+                            var visibilityClass = deposit.IsActive ? "active" : "hidden";
+                            <p>
+                                <input id="@deposit.CurrencyId" type="radio" name="income" class="input-strategy graph-updater" value="@deposit.CurrencyId" checked />
+                                <label class="text-strategy" for="@deposit.CurrencyId">Депозит в гривнях</label>
+                                <input id="@inputId" type="number" name="@inputId" class="graph-updater deposit-input @visibilityClass" value="@deposit.Total" />
+                            </p>
+                        }
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">
+                </div>
+                <div class="collapsible-body">
+                </div>
+            </li>
+        </ul>*@
     </div>
 </div>
 <div id="tooltip-element-content">@Html.Partial("_ChartTooltip")</div>
