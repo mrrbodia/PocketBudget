@@ -55,11 +55,6 @@ PersonalFinances.AdditionalPath = (function () {
         $(e.target).parent().find('.deposit-input.hidden').removeClass('hidden').addClass('active');
     });
 
-    $(document).on('click', '.save-edit-finances', function (e) {
-        PersonalFinances.AdditionalPath.saveAdditionalValuesSelection();
-        updateGraph();
-    });
-
     return {
         saveAdditionalValuesSelection: saveAdditionalValuesSelection,
         applyAdditionalSavingsChanges: applyAdditionalSavingsChanges

@@ -237,7 +237,10 @@ PersonalFinances.GraphNew = (function () {
         $('.graph-updater[type=number]').on('input', function (e) {
             onDataChanged();
         });
-        
+        $(document).on('click', '.save-edit-finances', function (e) {
+            PersonalFinances.AdditionalPath.saveAdditionalValuesSelection();
+            updateGraph();
+        });
         $(document).on('click', '.tooltip-moreoptions', function (e) {
             var btn = $(e.target);
             var age = +btn.attr('data-age');
@@ -250,7 +253,7 @@ PersonalFinances.GraphNew = (function () {
                 data: data,
                 success: function (data) {
                     var newHtml = data.trim();
-                    $('#edit-finances-popup').find('.popup-content').html(newHtml);
+                    $('#edit-finances-popup').find('.modal-content').html(newHtml);
                     PersonalFinances.Popups.open('#edit-finances-popup');
                 },
                 error: function (err) {

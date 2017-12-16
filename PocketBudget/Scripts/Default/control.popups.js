@@ -19,17 +19,19 @@ PersonalFinances.Popups = (function () {
         if (options && options.inputs) {
             fillPopupInputs(popup, options.inputs);
         }
-        popup.show();
+        $(selector).openModal();
+        //popup.show();
     };
 
     var close = function (selector) {
         var popup = $(selector);
         if (!popup)
             return;
-        popup.hide();
+        $(selector).closeModal();
+        //popup.hide();
     };
     return {
         open: open,
         close: close
-    }
+    };
 }());
