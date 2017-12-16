@@ -221,3 +221,4 @@ packages/
 PocketBudget.v11.suo
 .vs/
 *.ide
+bin/
