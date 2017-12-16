@@ -3,11 +3,11 @@ PersonalFinances.GraphNew = (function () {
     var ctx = document.getElementById("chart");
     var chart = null;
 
-    var initTimeout = function(el, timeout) {
+    var initTimeout = function (el, timeout) {
         return setTimeout(function () {
             el.style.display = 'none';
         }, timeout || 0);
-    }
+    };
     var tmpTimer = null;
     var createChart = function(labels, datasets) {
         return new Chart(ctx, {
@@ -26,7 +26,7 @@ PersonalFinances.GraphNew = (function () {
                         },
                         ticks: {
                             callback: function (value, index, array) {
-                                return (index % 5) ? "" : "Вік " + value;
+                                return index % 5 ? "" : "Вік " + value;
                             }
                         }
                     }]
@@ -81,8 +81,7 @@ PersonalFinances.GraphNew = (function () {
                         tooltipElement.style.fontStyle = tooltipModel._fontStyle;
                         tooltipElement.style.padding = tooltipModel.yPadding = 'px ' + tooltipModel.xPadding + 'px';
 
-
-                        if (tooltipModel.opacity == 1) {
+                        if (tooltipModel.opacity === 1) {
                             clearTimeout(tmpTimer);
                             return;
                         }
@@ -156,7 +155,7 @@ PersonalFinances.GraphNew = (function () {
         }
         //TODO:check a possibility to add additional values in retirement age
         values = getAdditionalSavingsValues(values);
-        for (var i = 1; i < PersonalFinances.Path.AgeRetirement - PersonalFinances.Path.CurrentAge; i++) {
+        for (i = 1; i < PersonalFinances.Path.AgeRetirement - PersonalFinances.Path.CurrentAge; i++) {
             values[i] = values[i - 1] + values[i];
         }
         return values;
@@ -238,14 +237,7 @@ PersonalFinances.GraphNew = (function () {
         $('.graph-updater[type=number]').on('input', function (e) {
             onDataChanged();
         });
-        $(document).on('click', 'input[name=deposit]').on('change', function (e) {
-            $('.deposit-input.active').removeClass('active').addClass('hidden');
-            $(e.target).parent().find('.deposit-input.hidden').removeClass('hidden').addClass('active');
-        });
-        $(document).on('click', '.save-edit-finances', function (e) {
-            PersonalFinances.AdditionalPath.saveAdditionalValuesSelection();
-            updateGraph();
-        });
+        
         $(document).on('click', '.tooltip-moreoptions', function (e) {
             var btn = $(e.target);
             var age = +btn.attr('data-age');

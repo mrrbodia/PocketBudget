@@ -50,9 +50,19 @@ PersonalFinances.AdditionalPath = (function () {
         saveDepositSelection();
     };
 
+    $(document).on('click', 'input[name=deposit]', function (e) {
+        $('.deposit-input.active').removeClass('active').addClass('hidden');
+        $(e.target).parent().find('.deposit-input.hidden').removeClass('hidden').addClass('active');
+    });
+
+    $(document).on('click', '.save-edit-finances', function (e) {
+        PersonalFinances.AdditionalPath.saveAdditionalValuesSelection();
+        updateGraph();
+    });
+
     return {
         saveAdditionalValuesSelection: saveAdditionalValuesSelection,
         applyAdditionalSavingsChanges: applyAdditionalSavingsChanges
-    }
+    };
 })();
 
