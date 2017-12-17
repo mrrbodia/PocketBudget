@@ -1,0 +1,54 @@
+﻿@model PocketBudget.Models.PathViewModel
+@using PocketBudget.Extensions
+@{
+    Layout = "~/Views/Shared/_Base.cshtml";
+    var test = Model;
+}
+
+<div>
+    <div class="budget-block row">
+        <div id="chart-block-new" style="width:900px; height:800px;" class="col s6">
+            <canvas id="chart"></canvas>
+        </div>
+        <div class="col s4">
+            <div class="edit-savings">
+                <p>
+                    <label for="target-savings">Збереження / місяць</label>
+                    <input id="target-savings" class="graph-updater" type="number" value="@Model.Savings.ToJson()" />
+                </p>
+            </div>
+            <div class="edit-spendings">
+                <p>
+                    <label for="target-spendings">Витрати на пенсії / місяць</label>
+                    <input id="target-spendings" class="graph-updater" type="number" value="@Model.Spendings.ToJson()" />
+                </p>
+            </div>
+            <div class="edit-age">
+                <p>
+                    <label for="age-current">Ваш вік</label>
+                    <input id="age-current" class="graph-updater" type="number" value="@Model.CurrentAge.ToJson()" />
+                </p>
+                <p>
+                    <label for="age-retirement">Вихід на пенсію</label>
+                    <input id="age-retirement" class="graph-updater" type="number" value="@Model.RetirementAge.ToJson()" />
+                </p>
+                <p>
+                    <label for="age-life-expectancy">Тривалість життя</label>
+                    <input id="age-life-expectancy" class="graph-updater" type="number" value="@Model.LifeExpectancy.ToJson()" />
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="tooltip-element-content">@Html.Partial("_ChartTooltip")</div>
+<div id="tooltip-element"></div>
+
+<script type="text/javascript">
+    var PersonalFinances = PersonalFinances || {};
+    PersonalFinances.Path = PersonalFinances.Path || {};
+    PersonalFinances.Path.CurrentAge = @Model.CurrentAge.ToJson()
+    PersonalFinances.Path.RetirementAge = @Model.RetirementAge.ToJson()
+    PersonalFinances.Path.LifeExpectancy = @Model.LifeExpectancy.ToJson()
+    PersonalFinances.Path.Savings = @Model.Savings.ToJson()
+    PersonalFinances.Path.Spendings = @Model.Spendings.ToJson()
+</script>

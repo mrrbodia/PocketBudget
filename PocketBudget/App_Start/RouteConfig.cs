@@ -14,6 +14,12 @@ namespace PocketBudget
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "v2",
+                url: "v2",
+                defaults: new { controller = "Home", action = "v2" }
+            );
+
+            routes.MapRoute(
                 name: "EditFinances",
                 url: "editfinances",
                 defaults: new { controller = "Home", action = "EditFinances" }

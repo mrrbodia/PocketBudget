@@ -116,6 +116,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AdditionalFinancesViewModel.cs" />
+    <Compile Include="Models\PathViewModel.cs" />
     <Compile Include="Models\StrategyViewModel.cs" />
     <Compile Include="Models\TestDepositModel.cs" />
     <Compile Include="Models\TestSalaryPatternModel.cs" />
@@ -184,9 +185,11 @@
     <Content Include="content\materialize\font\material-design-icons\Material-Design-Icons.eot" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\d3.min.js" />
+    <Content Include="Scripts\Default\control.additionalpath.js" />
     <Content Include="Scripts\Default\control.popups.js" />
     <Content Include="Scripts\Default\control.d3.js" />
     <Content Include="Scripts\Default\control.slider.js" />
+    <Content Include="Scripts\Default\control.chart.new.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -209,8 +212,12 @@
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Shared\_ChartTooltip.cshtml" />
     <Content Include="Views\Home\_EditFinances.cshtml" />
+    <Content Include="Views\Home\v2.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\Texts\" />
     <Folder Include="App_Data\Xml\" />
   </ItemGroup>
   <ItemGroup>

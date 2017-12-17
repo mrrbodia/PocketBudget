@@ -279,11 +279,12 @@ PersonalFinances.Graph = (function () {
         $('.graph-updater[type=number]').on('input', function (e) {
             onDataChanged();
         });
-
         $('.graph-updater[type=checkbox]').on('change', function (e) {
             onDataChanged();
         });
+        $(document).on('click', '.save-edit-finances', function () {
 
+        });
         $(document).on('click', '.tooltip-moreoptions', function (e) {
             //$(this).next('.tooltip-body').toggle("slow");
                 var btn = $(e.target);

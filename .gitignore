@@ -219,3 +219,6 @@ obj/
 packages/
 *.cache
 PocketBudget.v11.suo
+.vs/
+*.ide
+bin/

@@ -78,7 +78,7 @@
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
-.popup {
+.modal {
     display: none;
 }
 
@@ -88,4 +88,8 @@
 
 #tooltip-element-content {
     display: none;
+}
+
+.additional-strategy-info {
+    display:none;
 }

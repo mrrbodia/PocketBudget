@@ -13,6 +13,8 @@ namespace PocketBudget.Models
 
         public string CurrencyId { get; set; }
 
+        public short Years { get; set; }
+
         public bool IsActive { get; set; }
     }
 }
