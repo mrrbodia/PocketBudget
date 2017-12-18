@@ -39,14 +39,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actives\ActiveAggregate.cs" />
+    <Compile Include="Actives\ActiveIterator.cs" />
+    <Compile Include="DataProviders\AccountDataProvider.cs" />
+    <Compile Include="DataProviders\BankDataProvider.cs" />
+    <Compile Include="DataProviders\IDataProvider.cs" />
+    <Compile Include="DomainModel\Account\Account.cs" />
+    <Compile Include="DomainModel\Active\Bank.cs" />
+    <Compile Include="Managers\Account\AccountManager.cs" />
+    <Compile Include="Managers\Account\IAccountManager.cs" />
+    <Compile Include="Managers\Bank\BankManager.cs" />
+    <Compile Include="Managers\Bank\IBankManager.cs" />
+    <Compile Include="Managers\IManager.cs" />
     <Compile Include="Managers\StrategyManager.cs" />
     <Compile Include="Models\Costs.cs" />
+    <Compile Include="Models\Deposit.cs" />
     <Compile Include="Models\DepositCurrency.cs" />
     <Compile Include="Models\DepositData.cs" />
     <Compile Include="Models\Goal.cs" />
+    <Compile Include="Models\IActive.cs" />
     <Compile Include="Models\Income.cs" />
     <Compile Include="Models\StrategyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Salary\CustomSalaryStrategy.cs" />
+    <Compile Include="Salary\DefaultSalaryStrategy.cs" />
+    <Compile Include="Salary\ISalaryStrategy.cs" />
+    <Compile Include="Salary\SalaryStrategy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
