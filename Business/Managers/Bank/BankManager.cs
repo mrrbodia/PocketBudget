@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business.DataProviders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace Business.Managers
 {
     public class BankManager : IBankManager
     {
+        public BankDataProvider Provider { get; set; }
+
         public DomainModel.Active.Bank Create(DomainModel.Active.Bank bank)
         {
             throw new NotImplementedException();
@@ -24,6 +27,11 @@ namespace Business.Managers
         }
 
         public void Delete(DomainModel.Active.Bank bank)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<DomainModel.Active.Bank> GetAll()
         {
             throw new NotImplementedException();
         }

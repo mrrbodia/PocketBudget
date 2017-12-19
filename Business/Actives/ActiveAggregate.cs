@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Business.DomainModel.Active;
+using Business.Models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,7 @@ namespace Business.Actives
 
     public class ActiveAggregate : Aggregate
     {
-        private ArrayList items = new ArrayList();
+        private List<IActive> items = new List<IActive>();
 
         public override Iterator CreateIterator()
         {
@@ -26,7 +28,7 @@ namespace Business.Actives
             get { return items.Count; }
         }
 
-        public object this[int index]
+        public IActive this[int index]
         {
             get { return items[index]; }
             set { items.Insert(index, value); }

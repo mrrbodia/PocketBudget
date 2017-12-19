@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.DataProviders
+namespace Business.Managers.Chart
 {
-    public interface IDataProvider
+    public class ChartManager
     {
+
     }
 }

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.Models
+namespace Business.DomainModel.Account
 {
-    public interface IActive
+    public enum Role
     {
-        decimal GetIncomePerYear();
+        Admin,
+        User
     }
 }

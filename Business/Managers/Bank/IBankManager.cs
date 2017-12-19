@@ -15,6 +15,8 @@ namespace Business.Managers
 
         Bank Get(string id);
 
+        IEnumerable<Bank> GetAll();
+
         void Delete(Bank bank);
     }
 }

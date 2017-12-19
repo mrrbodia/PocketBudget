@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business.DataProviders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace Business.Managers
 {
     public class AccountManager : IAccountManager
     {
+        public AccountDataProvider Provider { get; set; }
+
         public void Register(DomainModel.Account.Account account)
         {
             throw new NotImplementedException();
