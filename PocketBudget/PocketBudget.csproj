@@ -122,7 +122,7 @@
     <Compile Include="App_Start\DependencyInjection.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BankController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FrontendBaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -249,7 +249,7 @@
     <Content Include="Views\Shared\_Base.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Business\Business_old.csproj">
+    <ProjectReference Include="..\Business\Business.csproj">
       <Project>{61e7b7af-d623-4ad2-b24a-2956f4dce5f0}</Project>
       <Name>Business_old</Name>
     </ProjectReference>

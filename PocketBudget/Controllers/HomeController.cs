@@ -27,13 +27,12 @@ namespace PocketBudget.Controllers
         public ActionResult Index()
         {
             var model = new PathViewModel();
-            var banks = PersonalFinances.Bank.GetAll();
             model.CurrentAge = 20;
             model.LifeExpectancy = 80;
             model.RetirementAge = 60;
             model.Savings = 5000;
             model.Spendings = 15000;
-            return View(model);
+            return View("v2", model);
         }
 
         //TODO: fromAge can be null also
