@@ -1,4 +1,5 @@
 ﻿using Business.DataProviders;
+using Business.DomainModel.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,21 +10,18 @@ namespace Business.Managers
 {
     public class AccountManager : IAccountManager
     {
-        public AccountDataProvider Provider { get; set; }
+        public AccountDataProvider Provider = new AccountDataProvider();
 
-        public void Register(DomainModel.Account.Account account)
+        public void Register(Account account)
         {
-            throw new NotImplementedException();
+            //TODO: add password salt
+            account.Id = account.Id ?? Guid.NewGuid().ToString();
+            Provider.Create(account);
         }
 
-        public void Login()
+        public Account GetByEmail(string email)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Logout()
-        {
-            throw new NotImplementedException();
+            return Provider.GetByEmail(email);
         }
     }
 }

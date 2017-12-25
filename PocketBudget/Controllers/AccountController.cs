@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Business.DomainModel.Account;
+using PocketBudget.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace PocketBudget.Controllers
 {
@@ -14,22 +17,50 @@ namespace PocketBudget.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult Register()
         {
-            PersonalFinances.Account.Register(new Business.DomainModel.Account.Account());
-            return View();
+            var model = new AccountViewModel();
+            return View(model);
         }
 
+        [HttpPost]
+        public ActionResult Register(AccountViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+            var existingAccount = PersonalFinances.Account.GetByEmail(model.Email);
+            if (existingAccount != null)
+                return View(model);
+            var account = new Account() { Email = model.Email, Password = model.Password, Role = Role.User };
+            PersonalFinances.Account.Register(account);
+            FormsAuthentication.SetAuthCookie(model.Email, false);
+            return RedirectToRoute("Home");
+        }
+
+        [HttpGet]
         public ActionResult Login()
         {
-            PersonalFinances.Account.Login();
-            return View();
+            if (Request?.RequestContext?.HttpContext?.User?.Identity?.IsAuthenticated ?? false)
+                return RedirectToRoute("Home");
+
+            return View(); 
+        }
+
+        [HttpPost]
+        public ActionResult Login(AccountViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            FormsAuthentication.SetAuthCookie(model.Email, false);
+            return RedirectToRoute("Home");
         }
 
         public ActionResult Logout()
         {
-            PersonalFinances.Account.Logout();
-            return View();
+            FormsAuthentication.SignOut();
+            return RedirectToRoute("Home");
         }
 
     }

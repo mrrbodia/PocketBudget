@@ -8,12 +8,12 @@ namespace Business.DomainModel.Active
 {
     public class Bank
     {
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
-        public short Rating { get; set; }
+        public virtual short Rating { get; set; }
 
-        public IEnumerable<Deposit> Deposits { get; set; }
+        public virtual IEnumerable<Deposit> Deposits { get; set; }
     }
 }

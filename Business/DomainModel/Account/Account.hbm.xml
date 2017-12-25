@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"  assembly="Business" namespace="Business.DomainModel.Account">
+  <class name="Account" table="Accounts">
+    <id name="Id" type="string"></id>
+    <property name="Email" type="string"/>
+    <property name="Password" type="string"/>
+    <property name="Role" type="int"/>
+  </class>
+</hibernate-mapping>

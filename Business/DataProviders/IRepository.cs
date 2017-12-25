@@ -10,7 +10,7 @@ namespace Business.DataProviders
         where T : class
     {
         void Create(T entity);
-        void Update(string id, Action<T> updateAction);
+        void Update(T entity);
         void Delete(string id);
         T Get(string id);
     }

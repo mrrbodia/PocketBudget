@@ -1,39 +1,37 @@
 ﻿using Business.DataProviders;
+using Business.DomainModel.Active;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Managers
 {
     public class BankManager : IBankManager
     {
-        public BankDataProvider Provider { get; set; }
+        public BankDataProvider Provider = new BankDataProvider();
 
-        public DomainModel.Active.Bank Create(DomainModel.Active.Bank bank)
+        public void Create(Bank bank)
         {
-            throw new NotImplementedException();
+            Provider.Create(bank);
         }
 
-        public DomainModel.Active.Bank Update(DomainModel.Active.Bank bank)
+        public void Update(Bank bank)
         {
-            throw new NotImplementedException();
+            Provider.Update(bank);
         }
 
-        public DomainModel.Active.Bank Get(string id)
+        public Bank Get(string id)
         {
-            throw new NotImplementedException();
+            return Provider.Get(id);
         }
 
-        public void Delete(DomainModel.Active.Bank bank)
+        public void Delete(string id)
         {
-            throw new NotImplementedException();
+            Provider.Delete(id);
         }
 
-        public IEnumerable<DomainModel.Active.Bank> GetAll()
+        public IEnumerable<Bank> GetAll()
         {
-            throw new NotImplementedException();
+            return Provider.GetAll();
         }
     }
 }

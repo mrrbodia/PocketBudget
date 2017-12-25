@@ -11,6 +11,8 @@ namespace Business.DataProviders
     public class SQLDataProvider<T> : IRepository<T>
         where T : class
     {
+        SessionHelper sessionHelper = new SessionHelper();
+
         public void Create(T entity)
         {
             Execute(session =>
@@ -23,18 +25,13 @@ namespace Business.DataProviders
             });
         }
 
-        public void Update(string id, Action<T> updateAction)
+        public void Update(T entity)
         {
             Execute(session =>
             {
                 using (var transaction = session.BeginTransaction())
                 {
-                    var entityToUpdate = session.Get<T>(id);
-
-                    updateAction(entityToUpdate);
-
-                    session.Update(entityToUpdate);
-
+                    session.Update(entity);
                     transaction.Commit();
                 }
             });
@@ -66,7 +63,7 @@ namespace Business.DataProviders
 
         protected T Execute<T>(Func<ISession, T> expression)
         {
-            using (var session = NhibernateSessionHelper.OpenSession())
+            using (var session = sessionHelper.OpenSession())
             {
                 return expression(session);
             }
@@ -74,7 +71,7 @@ namespace Business.DataProviders
 
         protected bool Execute(Func<ISession, bool> expression)
         {
-            using (var session = NhibernateSessionHelper.OpenSession())
+            using (var session = sessionHelper.OpenSession())
             {
                 return expression(session);
             }
@@ -82,7 +79,7 @@ namespace Business.DataProviders
 
         protected void Execute(Action<ISession> expression)
         {
-            using (var session = NhibernateSessionHelper.OpenSession())
+            using (var session = sessionHelper.OpenSession())
             {
                 expression(session);
             }

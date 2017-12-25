@@ -69,7 +69,8 @@
     <Compile Include="Models\Goal.cs" />
     <Compile Include="Models\Income.cs" />
     <Compile Include="Models\StrategyModel.cs" />
-    <Compile Include="NHIbernate\NhibernateSessionHelper.cs" />
+    <Compile Include="NHIbernate\NHibernateHelper.cs" />
+    <Compile Include="NHIbernate\SessionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Salary\CustomSalaryStrategy.cs" />
     <Compile Include="Salary\DefaultSalaryStrategy.cs" />
@@ -77,8 +78,13 @@
     <Compile Include="Salary\SalaryStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DomainModel\Account\Account.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DomainModel\Active\Active.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

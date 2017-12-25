@@ -11,8 +11,6 @@ namespace Business.Managers
     {
         void Register(Account account);
 
-        void Login();
-
-        void Logout();
+        Account GetByEmail(string email);
     }
 }

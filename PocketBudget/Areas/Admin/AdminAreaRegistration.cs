@@ -15,9 +15,21 @@ namespace PocketBudget.Areas.Admin
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "Admin_bank",
-                "createbank/{action}/{id}",
-                new { controller = "Bank", action = "Index", id = UrlParameter.Optional }
+                "Admin_BankDelete",
+                "admin/bank/delete/{id}",
+                new { controller = "Bank", action = "Delete", id = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "Admin_Banks",
+                "admin/bank/list",
+                new { controller = "Bank", action = "Index" }
+            );
+
+            context.MapRoute(
+                "Admin_CreateBank",
+                "admin/bank/create",
+                new { controller = "Bank", action = "Create" }
             );
 
             context.MapRoute(

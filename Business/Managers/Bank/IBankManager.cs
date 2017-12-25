@@ -9,14 +9,14 @@ namespace Business.Managers
 {
     public interface IBankManager : IManager
     {
-        Bank Create(Bank bank);
+        void Create(Bank bank);
 
-        Bank Update(Bank bank);
+        void Update(Bank bank);
 
         Bank Get(string id);
 
         IEnumerable<Bank> GetAll();
 
-        void Delete(Bank bank);
+        void Delete(string id);
     }
 }

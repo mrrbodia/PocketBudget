@@ -8,15 +8,15 @@ namespace Business.DomainModel.Active
 {
     public class Deposit : IActive
     {
-        public float Percentage { get; set; }
+        public virtual float Percentage { get; set; }
 
-        public decimal Total { get; set; }
+        public virtual decimal Total { get; set; }
 
-        public string CurrencyId { get; set; }
+        public virtual string CurrencyId { get; set; }
 
-        public short Years { get; set; }
+        public virtual short Years { get; set; }
 
-        public decimal GetIncomePerYear()
+        public virtual decimal GetIncomePerYear()
         {
             return 0;
         }

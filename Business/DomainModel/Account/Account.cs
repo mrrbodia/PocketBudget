@@ -8,12 +8,12 @@ namespace Business.DomainModel.Account
 {
     public class Account
     {
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
-        public string Email { get; set; }
+        public virtual string Email { get; set; }
 
-        public string Password { get; set; }
+        public virtual string Password { get; set; }
 
-        public Role Role { get; set; }
+        public virtual Role Role { get; set; }
     }
 }
