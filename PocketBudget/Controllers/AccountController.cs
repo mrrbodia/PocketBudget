@@ -41,7 +41,7 @@ namespace PocketBudget.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            if (Request?.RequestContext?.HttpContext?.User?.Identity?.IsAuthenticated ?? false)
+            if (Request.RequestContext.HttpContext.User.Identity.IsAuthenticated)
                 return RedirectToRoute("Home");
 
             return View(); 
