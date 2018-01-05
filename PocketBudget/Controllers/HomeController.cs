@@ -1,4 +1,5 @@
-﻿using PocketBudget;
+﻿using Business.Models;
+using PocketBudget;
 using PocketBudget.Models;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,13 @@ namespace PocketBudget.Controllers
         //    model.SalaryPattern = CreateSalaryPatternModel();
         //    return View(model);
         //}
+
+        public ActionResult GetChartLines()
+        {
+            var path = new PathModel();
+            var chartLines = PersonalFinances.Chart.GetChartLines(path);
+            return Json(1);
+        }
 
         public ActionResult Index()
         {

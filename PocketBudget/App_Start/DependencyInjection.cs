@@ -7,6 +7,8 @@ using Autofac.Integration.Mvc;
 using System.Web.Mvc;
 using Business.Managers;
 using Business.DataProviders;
+using Business.Managers.Chart;
+using Business.Components.AdditionalPath;
 
 namespace PocketBudget.App_Start
 {
@@ -25,7 +27,14 @@ namespace PocketBudget.App_Start
             //Register managers instances
             builder.RegisterType<AccountManager>().As<IAccountManager>();
             builder.RegisterType<BankManager>().As<IBankManager>();
+            builder.RegisterType<ChartManager>().As<IChartManager>();
+        }
 
+        protected static void RegisterAdditionalProcessor(ContainerBuilder builder)
+        {
+            builder.RegisterType<AdditionalPathProcessor>().As<AdditionalPathProcessor>();
+
+            builder.RegisterType<DepositIncomeStep>().As<IAdditionalIncomeStep>();
         }
     }
 }

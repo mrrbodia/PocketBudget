@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Actives\ActiveAggregate.cs" />
     <Compile Include="Actives\ActiveIterator.cs" />
+    <Compile Include="Components\AdditionalPath\DepositIncomeStep.cs" />
     <Compile Include="DataProviders\AccountDataProvider.cs" />
     <Compile Include="DataProviders\BankDataProvider.cs" />
     <Compile Include="DataProviders\IRepository.cs" />
@@ -58,16 +59,23 @@
     <Compile Include="DomainModel\Active\IActive.cs" />
     <Compile Include="Managers\Account\AccountManager.cs" />
     <Compile Include="Managers\Account\IAccountManager.cs" />
+    <Compile Include="Components\AdditionalPath\IAdditionalIncomeStep.cs" />
     <Compile Include="Managers\Bank\BankManager.cs" />
     <Compile Include="Managers\Bank\IBankManager.cs" />
+    <Compile Include="Components\AdditionalPath\AdditionalPathProcessor.cs" />
+    <Compile Include="Managers\Chart\ChartDataPreparer.cs" />
     <Compile Include="Managers\Chart\ChartManager.cs" />
+    <Compile Include="Managers\Chart\IChartManager.cs" />
     <Compile Include="Managers\IManager.cs" />
     <Compile Include="Managers\StrategyManager.cs" />
+    <Compile Include="Models\ChartLine.cs" />
     <Compile Include="Models\Costs.cs" />
     <Compile Include="Models\DepositCurrency.cs" />
     <Compile Include="Models\DepositData.cs" />
+    <Compile Include="Models\Fork.cs" />
     <Compile Include="Models\Goal.cs" />
     <Compile Include="Models\Income.cs" />
+    <Compile Include="Models\PathModel.cs" />
     <Compile Include="Models\StrategyModel.cs" />
     <Compile Include="NHIbernate\NHibernateHelper.cs" />
     <Compile Include="NHIbernate\SessionHelper.cs" />

@@ -14,6 +14,12 @@ namespace PocketBudget
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "GetChartLines",
+                url: "getchartlines",
+                defaults: new { controller = "Home", action = "GetChartLines" }
+            );
+
+            routes.MapRoute(
                 name: "Logout",
                 url: "account/logout",
                 defaults: new { controller = "Account", action = "Logout" }

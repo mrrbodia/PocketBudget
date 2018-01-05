@@ -1,4 +1,5 @@
 ﻿using Business.Managers;
+using Business.Managers.Chart;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,14 @@ namespace PocketBudget
             get
             {
                 return DependencyResolver.Current.GetService<IBankManager>();
+            }
+        }
+
+        public static IChartManager Chart
+        {
+            get
+            {
+                return DependencyResolver.Current.GetService<IChartManager>();
             }
         }
     }
