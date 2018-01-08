@@ -1,0 +1,15 @@
+﻿@model IEnumerable<PocketBudget.Areas.Admin.Models.BankViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+@if (Model != null)
+{
+    foreach (var model in Model)
+    {
+        <div>
+            @Html.DisplayFor(m => model.Name)
+            @Html.DisplayFor(m => model.Rating)
+            <a href="@Url.Action("Delete", "Bank", new { id = model.Id })">Видалити</a>
+        </div>
+    }
+}

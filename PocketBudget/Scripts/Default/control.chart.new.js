@@ -164,7 +164,7 @@ PersonalFinances.GraphNew = (function () {
     var getAdditionalSavingsValues = function (values) {
         if (!PersonalFinances || !PersonalFinances.AdditionalPath)
             return values;
-        return PersonalFinances.AdditionalPath.applyAdditionalSavingsChanges(values);
+        return PersonalFinances.AdditionalPath.applyAdditionalSavingsChange(values);
     };
 
     var getSpendingsValues = function (savings) {
@@ -223,9 +223,24 @@ PersonalFinances.GraphNew = (function () {
         PersonalFinances.Path.Spendings = +$('#target-spendings').val();
     };
 
+    var getChartLines = function ()
+    {
+        $.ajax({
+            url: 'getchartlines',
+            type: 'POST',
+            success: function (data) {
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    };
+
     var updateGraph = function ()
     {
         initInputValues();
+
         var savingsLine = getSavingsChartLine();
         var spendingsLine = getSpendingsChartLine(savingsLine);
         //var neededLine = getNeededChartLine();

@@ -1,0 +1,10 @@
+﻿@model PocketBudget.Areas.Admin.Models.BankViewModel
+@{
+    ViewBag.Title = "Create";
+}
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.EditorForModel()
+    <input type="submit" value="Створити" />
+}

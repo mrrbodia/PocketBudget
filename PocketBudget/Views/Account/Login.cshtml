@@ -1,0 +1,9 @@
+﻿@model AccountViewModel
+@{
+    ViewBag.Title = "Login";
+}
+@using (Html.BeginForm())
+{
+    @Html.EditorForModel()
+    <input type="submit" value="Вхід" />
+}

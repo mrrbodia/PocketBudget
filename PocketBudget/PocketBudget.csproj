@@ -41,6 +41,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.1.5\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\packages\Autofac.Mvc4.3.1.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -110,16 +119,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\DependencyInjection.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BankController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Models\BankViewModel.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FrontendBaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\AdditionalFinancesViewModel.cs" />
     <Compile Include="Models\PathViewModel.cs" />
     <Compile Include="Models\StrategyViewModel.cs" />
     <Compile Include="Models\TestDepositModel.cs" />
     <Compile Include="Models\TestSalaryPatternModel.cs" />
+    <Compile Include="PersonalFinances.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +201,10 @@
     <Content Include="content\materialize\font\material-design-icons\Material-Design-Icons.woff" />
     <Content Include="content\materialize\font\material-design-icons\Material-Design-Icons.ttf" />
     <Content Include="content\materialize\font\material-design-icons\Material-Design-Icons.eot" />
+    <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Bank\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Bank\Create.cshtml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\d3.min.js" />
     <Content Include="Scripts\Default\control.additionalpath.js" />
@@ -215,10 +237,13 @@
     <Content Include="Views\Home\v2.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Texts\" />
     <Folder Include="App_Data\Xml\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -232,7 +257,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Business\Business.csproj">
       <Project>{61e7b7af-d623-4ad2-b24a-2956f4dce5f0}</Project>
-      <Name>Business</Name>
+      <Name>Business_old</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

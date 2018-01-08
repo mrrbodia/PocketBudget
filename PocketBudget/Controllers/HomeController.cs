@@ -1,29 +1,38 @@
-﻿using PocketBudget.Models;
+﻿using Business.Models;
+using PocketBudget;
+using PocketBudget.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace BookStore.Controllers
+namespace PocketBudget.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : FrontendBaseController
     {
+        //public ActionResult Index()
+        //{
+        //    var model = new StrategyViewModel();
+        //    model.SalaryPattern = CreateSalaryPatternModel();
+        //    return View(model);
+        //}
+
+        //public ActionResult Test()
+        //{
+        //    var model = new StrategyViewModel();
+        //    model.SalaryPattern = CreateSalaryPatternModel();
+        //    return View(model);
+        //}
+
+        public ActionResult GetChartLines()
+        {
+            var path = new PathModel();
+            var chartLines = PersonalFinances.Chart.GetChartLines(path);
+            return Json(1);
+        }
+
         public ActionResult Index()
-        {
-            var model = new StrategyViewModel();
-            model.SalaryPattern = CreateTestSalaryPatternModel();
-            return View(model);
-        }
-
-        public ActionResult Test()
-        {
-            var model = new StrategyViewModel();
-            model.SalaryPattern = CreateTestSalaryPatternModel();
-            return View(model);
-        }
-
-        public ActionResult v2()
         {
             var model = new PathViewModel();
             model.CurrentAge = 20;
@@ -31,7 +40,7 @@ namespace BookStore.Controllers
             model.RetirementAge = 60;
             model.Savings = 5000;
             model.Spendings = 15000;
-            return View(model);
+            return View("v2", model);
         }
 
         //TODO: fromAge can be null also
@@ -39,12 +48,12 @@ namespace BookStore.Controllers
         public ActionResult EditFinances(int fromAge)
         {
             var model = new AdditionalFinancesViewModel();
-            model.Deposits = CreateTestDepositModel();
+            model.Deposits = CreateDepositModel();
             model.FromAge = fromAge;
             return View("_EditFinances", model);
         }
 
-        protected IEnumerable<TestDepositModel> CreateTestDepositModel()
+        protected IEnumerable<TestDepositModel> CreateDepositModel()
         {
             var result = new List<TestDepositModel>();
             result.Add(new TestDepositModel() { CurrencyId = "hrn", Percentage = 14.0f, Total = 100000m, Years = 1, IsActive = true });
@@ -53,7 +62,7 @@ namespace BookStore.Controllers
             return result;
         }
 
-        protected TestSalaryPatternModel CreateTestSalaryPatternModel()
+        protected TestSalaryPatternModel CreateSalaryPatternModel()
         {
             var result = new TestSalaryPatternModel();
             result.IncomePerYear = 60000m;

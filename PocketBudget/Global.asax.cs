@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PocketBudget.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,6 +20,7 @@ namespace PocketBudget
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            DependencyInjection.RegisterDependencies();
         }
     }
 }
