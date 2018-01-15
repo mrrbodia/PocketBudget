@@ -1,5 +1,5 @@
 ﻿var PersonalFinances = PersonalFinances || {};
-PersonalFinances.GraphNew = (function () {
+PersonalFinances.Graph = (function () {
     var ctx = document.getElementById("chart");
     var chart = null;
 
@@ -9,7 +9,9 @@ PersonalFinances.GraphNew = (function () {
         }, timeout || 0);
     };
     var tmpTimer = null;
-    var createChart = function(labels, datasets) {
+    var createChart = function (labels, datasets) {
+        var date = new Date();
+        var currentYear = date.getFullYear();
         return new Chart(ctx, {
             type: 'line',
             data: {
@@ -26,7 +28,8 @@ PersonalFinances.GraphNew = (function () {
                         },
                         ticks: {
                             callback: function (value, index, array) {
-                                return index % 5 ? "" : "Вік " + value;
+                                var year = currentYear + index;
+                                return index % 5 ? "" : ["Вік " + value + " / " + year + " рік"];
                             }
                         }
                     }]
@@ -116,9 +119,19 @@ PersonalFinances.GraphNew = (function () {
 
     var updateGraphWithData = function (datasets) {
         var labels = [];
+        var date = new Date();
+        var currentYear = date.getFullYear();
         for (var i = PersonalFinances.Path.CurrentAge; i < PersonalFinances.Path.LifeExpectancy; i++)
         {
-            labels[i - PersonalFinances.Path.CurrentAge] = i;
+            var index = i - PersonalFinances.Path.CurrentAge;
+            labels[index] = i;
+            //if (i % 5) {
+            //    labels[index] = "";
+            //}
+            //else {
+            //    var year = currentYear + index;
+            //    labels[index] = "Вік " + i + " / " + year + " рік";
+            //}
         }
         if (!chart) {
             chart = createChart(labels, datasets);
@@ -192,7 +205,7 @@ PersonalFinances.GraphNew = (function () {
 
     var updateGraphLines = function ()
     {
-        return $.ajax({
+        $.ajax({
             url: 'getchartlines',
             type: 'POST',
             data: PersonalFinances.Path,
@@ -219,7 +232,7 @@ PersonalFinances.GraphNew = (function () {
             onDataChanged();
         });
         $(document).on('click', '.save-edit-finances', function (e) {
-            PersonalFinances.AdditionalPath.saveAdditionalValuesSelection();
+            PersonalFinances.Path.AdditionalPath.saveAdditionalValuesSelection();
             updateGraph();
         });
         $(document).on('click', '.tooltip-moreoptions', function (e) {
@@ -261,5 +274,5 @@ PersonalFinances.GraphNew = (function () {
 
 $(document).ready(function () {
     if (document.getElementById('chart-block-new'))
-        PersonalFinances.GraphNew.init();
+        PersonalFinances.Graph.init();
 });

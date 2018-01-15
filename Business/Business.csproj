@@ -45,8 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actives\ActiveAggregate.cs" />
-    <Compile Include="Actives\ActiveIterator.cs" />
     <Compile Include="Components\AdditionalPath\DepositIncomeStep.cs" />
     <Compile Include="DataProviders\AccountDataProvider.cs" />
     <Compile Include="DataProviders\BankDataProvider.cs" />
@@ -68,6 +66,7 @@
     <Compile Include="Managers\Chart\IChartManager.cs" />
     <Compile Include="Managers\IManager.cs" />
     <Compile Include="Managers\StrategyManager.cs" />
+    <Compile Include="Models\AdditionalPathModel.cs" />
     <Compile Include="Models\ChartLine.cs" />
     <Compile Include="Models\Costs.cs" />
     <Compile Include="Models\DepositCurrency.cs" />

@@ -135,8 +135,8 @@
     <Compile Include="Models\AdditionalFinancesViewModel.cs" />
     <Compile Include="Models\PathViewModel.cs" />
     <Compile Include="Models\StrategyViewModel.cs" />
-    <Compile Include="Models\TestDepositModel.cs" />
-    <Compile Include="Models\TestSalaryPatternModel.cs" />
+    <Compile Include="Models\DepositModel.cs" />
+    <Compile Include="Models\SalaryPatternModel.cs" />
     <Compile Include="PersonalFinances.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -209,13 +209,11 @@
     <Content Include="Scripts\d3.min.js" />
     <Content Include="Scripts\Default\control.additionalpath.js" />
     <Content Include="Scripts\Default\control.popups.js" />
-    <Content Include="Scripts\Default\control.d3.js" />
     <Content Include="Scripts\Default\control.slider.js" />
-    <Content Include="Scripts\Default\control.chart.new.js" />
+    <Content Include="Scripts\Default\control.chart.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
-    <Content Include="Scripts\Default\control.chart.js" />
     <Content Include="Scripts\materialize\materialize.js" />
     <Content Include="Scripts\materialize\materialize.min.js" />
     <Content Include="Scripts\nouislider\nouislider.js" />

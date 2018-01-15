@@ -18,6 +18,8 @@ namespace Business.Models
 
         public decimal Spendings { get; set; }
 
+        public AdditionalPathModel AdditionalPath { get; set; }
+
         //TODO: first main fork should be added as default
         //public List<ChartLine> Lines { get; set; }
     }
