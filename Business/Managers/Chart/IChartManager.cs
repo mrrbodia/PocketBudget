@@ -9,6 +9,6 @@ namespace Business.Managers.Chart
 {
     public interface IChartManager
     {
-        List<List<decimal>> GetChartLines(PathModel path);
+        List<List<decimal?>> GetChartLines(PathModel path);
     }
 }

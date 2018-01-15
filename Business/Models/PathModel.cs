@@ -14,9 +14,9 @@ namespace Business.Models
 
         public short LifeExpectancy { get; set; }
 
-        //public decimal Savings { get; set; }
+        public decimal Savings { get; set; }
 
-        //public decimal Spendings { get; set; }
+        public decimal Spendings { get; set; }
 
         //TODO: first main fork should be added as default
         //public List<ChartLine> Lines { get; set; }

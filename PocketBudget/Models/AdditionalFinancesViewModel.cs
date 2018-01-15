@@ -9,6 +9,6 @@ namespace PocketBudget.Models
     {
         public int FromAge { get; set; }
 
-        public IEnumerable<TestDepositModel> Deposits { get; set; }
+        public IEnumerable<DepositModel> Deposits { get; set; }
     }
 }

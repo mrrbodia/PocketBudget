@@ -28,11 +28,13 @@ namespace PocketBudget.App_Start
             builder.RegisterType<AccountManager>().As<IAccountManager>();
             builder.RegisterType<BankManager>().As<IBankManager>();
             builder.RegisterType<ChartManager>().As<IChartManager>();
+
+            RegisterAdditionalProcessor(builder);
         }
 
         protected static void RegisterAdditionalProcessor(ContainerBuilder builder)
         {
-            builder.RegisterType<AdditionalPathProcessor>().As<AdditionalPathProcessor>();
+            builder.RegisterType<AdditionalSavingsProcessor>().As<AdditionalSavingsProcessor>();
 
             builder.RegisterType<DepositIncomeStep>().As<IAdditionalIncomeStep>();
         }

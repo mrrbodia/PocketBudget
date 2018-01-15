@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Business.Components.AdditionalPath
 {
-    public class AdditionalPathProcessor
+    public class AdditionalSavingsProcessor
     {
         private readonly IEnumerable<IAdditionalIncomeStep> steps;
 
-        public AdditionalPathProcessor(IEnumerable<IAdditionalIncomeStep> steps)
+        public AdditionalSavingsProcessor(IEnumerable<IAdditionalIncomeStep> steps)
         {
             this.steps = steps;
         }

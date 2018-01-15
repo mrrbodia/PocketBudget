@@ -10,6 +10,6 @@ namespace PocketBudget.Models
     {
         public Cost Cost { get; set; }
 
-        public TestSalaryPatternModel SalaryPattern { get; set; }
+        public SalaryPatternModel SalaryPattern { get; set; }
     }
 }

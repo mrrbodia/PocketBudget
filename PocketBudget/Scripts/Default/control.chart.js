@@ -1,90 +1,13 @@
 ﻿var PersonalFinances = PersonalFinances || {};
-PersonalFinances.Graph = (function () {
+PersonalFinances.GraphNew = (function () {
     var ctx = document.getElementById("chart");
-    var currentAge = +$('#salary-age').val();
-    var increasePercentage = +$('#salary-percentage').val();
     var chart = null;
-    var onDataChanged = function () {
-        var currency = $('.input-strategy[name=income]:checked').val();
-        var strategy = $('.input-strategy[name=costs]:checked').val();
-        currentAge = +$('#salary-age').val();
-        increasePercentage = +$('#salary-percentage').val();
-        setStrategy(currency, strategy);
-    };
-    //TODO: remove in new version
-    //START
-    var deposit = {
-        'sum': 188000, //4000$ dollars on deposit
-        'hrn': 14,
-        'dollar': 3.75,
-        'euro': 2.35,
-        'dangerousYear': null
-    };
-    var getAdditionalIncome = function (currency, year) {
-        if (year == 0)
-            return 0;
-            
-        var profit = deposit['sum'] * Math.pow((1 + deposit[currency] / 100 / 12), year) - deposit['sum'] * Math.pow((1 + deposit[currency] / 100 / 12), year - 1);
 
-        if ($('#ready-to-risk').is(':checked'))
-        {
-            if (deposit['sum'] + profit > 200000 && randomInteger(1, 100) > PersonalFinances.Slider.getSelectedBankRating() * 20)
-            {
-                deposit['sum'] = 200000;
-                return 200000 - deposit['sum'];
-            }
-
-            return profit;
-        }
-        else
-        {
-            if (deposit['dangerousYear'] != null)
-                return deposit['sum'] * (deposit[currency] / 100);
-            if (deposit['sum'] + profit > 200000 && randomInteger(1, 100) > PersonalFinances.Slider.getSelectedBankRating() * 20)
-            {
-                deposit['dangerousYear'] = year;
-                deposit['sum'] = 200000;
-                return 0;
-            }
-            return profit;
-        }
-            
-    };
-    //END
-    var randomInteger = function (min, max) {
-        var rand = min + Math.random() * (max - min);
-        rand = Math.round(rand);
-        return rand;
-    };
-    var getAdditionalCosts = function (position, strategy) {
-        return strategy == 'economically' ? randomInteger(3000, 5000) : randomInteger(6000, 10000);
-    };
-    var removeChartData = function (chart) {
-        chart.data.labels = [];
-        chart.data.datasets.forEach(function(dataset, index) {
-            dataset.data = [];
-        });
-        chart.update();
-    };
-    var addChartData = function (chart, labels, datasets) {
-        chart.data.labels = labels;
-        chart.data.datasets.forEach(function(dataset, index) {
-            dataset.data = datasets[index].data;
-        });
-        chart.update();
-    };
-    var replaceTooltipTags = function (str, mapObj) {
-        var result = str;
-        for (var key in mapObj) {
-            result = result.replace(new RegExp('\\[' + key + '\\]', 'g'), mapObj[key]);
-        }
-        return result;
-    };
-    var initTimeout = function(el, timeout) {
+    var initTimeout = function (el, timeout) {
         return setTimeout(function () {
             el.style.display = 'none';
         }, timeout || 0);
-    }
+    };
     var tmpTimer = null;
     var createChart = function(labels, datasets) {
         return new Chart(ctx, {
@@ -103,7 +26,7 @@ PersonalFinances.Graph = (function () {
                         },
                         ticks: {
                             callback: function (value, index, array) {
-                                return (index % 5) ? "" : "Вік " + value;
+                                return index % 5 ? "" : "Вік " + value;
                             }
                         }
                     }]
@@ -119,6 +42,10 @@ PersonalFinances.Graph = (function () {
                     enabled: false,
                     //intersect: false,
                     custom: function (tooltipModel) {
+                        //TODO:
+                        //if (neededLine)
+                        //    return;
+
                         var tooltipElement = document.getElementById('tooltip-element');
 
                         if (!tooltipElement) {
@@ -154,8 +81,7 @@ PersonalFinances.Graph = (function () {
                         tooltipElement.style.fontStyle = tooltipModel._fontStyle;
                         tooltipElement.style.padding = tooltipModel.yPadding = 'px ' + tooltipModel.xPadding + 'px';
 
-
-                        if (tooltipModel.opacity == 1) {
+                        if (tooltipModel.opacity === 1) {
                             clearTimeout(tmpTimer);
                             return;
                         }
@@ -180,54 +106,64 @@ PersonalFinances.Graph = (function () {
         });
     };
 
-    var updateGraphWithData = function (datasets) {
-        var label = [];
-        for (var i = currentAge; i < Strategy.Model.salaryPattern.showTillAge; i++)
-        {
-            label[i - currentAge] = i;
-        }
-        if (!chart) {
-            chart = createChart(label, datasets);
-            return;
-        }
-        removeChartData(chart);
-        addChartData(chart, label, datasets);
-    };
-
-    var getIncomeData = function (currency, strategy) {
-        if (!Strategy.Model.salaryPattern)
-            return [];
-        var arr = [];
-        var amountOfYearsToWork = Strategy.Model.salaryPattern.retirementAge - currentAge;
-        arr[0] = +$('#salary-income').val();
-        for (var i = 1; i < amountOfYearsToWork; i++)
-        {
-            arr[i] = arr[i - 1] + arr[i - 1] * (increasePercentage / 100);
-        }
-        for (var i = 0; i < arr.length; i++) {
-            arr[i] = arr[i] + getSavedMoney(arr, i) +
-                getAdditionalIncome(currency, i) - getAdditionalCosts(i, strategy);
-        }
-        return arr;
-    };
-
-    var getRetirementData = function (arr) {
-        if (!Strategy.Model.salaryPattern || !arr)
-            return [];
-        var amountOfYearsToRetire = Strategy.Model.salaryPattern.showTillAge - Strategy.Model.salaryPattern.retirementAge;
-        var amountOfYearsToWork = Strategy.Model.salaryPattern.retirementAge - currentAge;
-        var result = [];
-        arr.forEach(function (value, index) {
-            result[index] = null;
-        });
-        result[amountOfYearsToWork - 1] = arr[amountOfYearsToWork - 1];
-        for (var i = amountOfYearsToWork; i < amountOfYearsToWork + amountOfYearsToRetire; i++) {
-            result[i] = result[i - 1] - randomInteger(20000, 60000);
+    var replaceTooltipTags = function (str, mapObj) {
+        var result = str;
+        for (var key in mapObj) {
+            result = result.replace(new RegExp('\\[' + key + '\\]', 'g'), mapObj[key]);
         }
         return result;
     };
 
-    var applyRetirements = function (income) {
+    var updateGraphWithData = function (datasets) {
+        var labels = [];
+        for (var i = PersonalFinances.Path.CurrentAge; i < PersonalFinances.Path.LifeExpectancy; i++)
+        {
+            labels[i - PersonalFinances.Path.CurrentAge] = i;
+        }
+        if (!chart) {
+            chart = createChart(labels, datasets);
+            return;
+        }
+        removeChartData(chart);
+        addChartData(chart, labels, datasets);
+    };
+
+    var removeChartData = function (chart) {
+        chart.data.labels = [];
+        chart.data.datasets.forEach(function (dataset, index) {
+            dataset.data = [];
+        });
+        chart.update();
+    };
+
+    var addChartData = function (chart, labels, datasets) {
+        chart.data.labels = labels;
+        chart.data.datasets.forEach(function (dataset, index) {
+            dataset.data = datasets[index].data;
+        });
+        chart.update();
+    };
+
+    var onDataChanged = function () {
+        updateGraph();
+    };
+
+    var getSavingsChartLine = function (data) {
+        var result = {
+            label: 'Збереження',
+            backgroundColor: [
+                'rgba(21, 229, 171, 0.4)'
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)'
+            ],
+            fill: true
+        };
+        result.data = data;
+        return result;
+    };
+
+    var getSpendingsChartLine = function (data) {
         var result = {
             label: 'Витрати на пенсії',
             backgroundColor: [
@@ -238,80 +174,79 @@ PersonalFinances.Graph = (function () {
             ],
             fill: true
         };
-        result.data = getRetirementData(income);
+        result.data = data;
         return result;
     };
 
-    var getSavedMoney = function (data, position) {
-        if (position == 0)
-            return 0;
-        return data[position - 1];
+    var getNeededChartLine = function () {
+
     };
 
-    var prepareIncomeGraphData = function (currency, strategy) {
-        var result = {
-            label: 'Доходи',
-            backgroundColor: [
-                'rgba(21, 229, 171, 0.4)'
-            ],
-            borderColor: [
-                'rgba(54, 162, 235, 1)'
-            ],
-            fill: true
-        };
-        result.data = getIncomeData(currency, strategy);
-        return result;
+    var initInputValues = function () {
+        PersonalFinances.Path.CurrentAge = +$('#age-current').val();
+        PersonalFinances.Path.RetirementAge = +$('#age-retirement').val();
+        PersonalFinances.Path.LifeExpectancy = +$('#age-life-expectancy').val();
+        PersonalFinances.Path.Savings = +$('#target-savings').val();
+        PersonalFinances.Path.Spendings = +$('#target-spendings').val();
     };
-    var setStrategy = function (currency, strategy)
+
+    var updateGraphLines = function ()
     {
-        var incomeLine = prepareIncomeGraphData(currency, strategy);
-        var retirementLine = applyRetirements(incomeLine.data);
-        var datasets = [incomeLine, retirementLine];
-        updateGraphWithData(datasets);
+        return $.ajax({
+            url: 'getchartlines',
+            type: 'POST',
+            data: PersonalFinances.Path,
+            success: function (data) {
+                var savings = getSavingsChartLine(data[0]);
+                var spendings = getSpendingsChartLine(data[1]);
+                var lines = [savings, spendings];
+                updateGraphWithData(lines);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    };
+
+    var updateGraph = function ()
+    {
+        initInputValues();
+        updateGraphLines();
     };
 
     var initEvents = function () {
-        $('.graph-updater[type=radio]').on('change', function (e) {
-            onDataChanged();
-            $('.deposit-input.active').removeClass('active').addClass('hidden');
-            $(e.target).parent().find('.deposit-input.hidden').removeClass('hidden').addClass('active');
-        });
         $('.graph-updater[type=number]').on('input', function (e) {
             onDataChanged();
         });
-        $('.graph-updater[type=checkbox]').on('change', function (e) {
-            onDataChanged();
-        });
-        $(document).on('click', '.save-edit-finances', function () {
-
+        $(document).on('click', '.save-edit-finances', function (e) {
+            PersonalFinances.AdditionalPath.saveAdditionalValuesSelection();
+            updateGraph();
         });
         $(document).on('click', '.tooltip-moreoptions', function (e) {
-            //$(this).next('.tooltip-body').toggle("slow");
-                var btn = $(e.target);
-                var age = +btn.attr('data-age');
-                var data = {
-                    fromAge: age
-                };
-                $.ajax({
-                    url: 'editfinances',
-                    type: 'POST',
-                    data: data,
-                    success: function (data) {
-                        var newHtml = data.trim();
-                        $('#edit-finances-popup').find('.popup-content').html(newHtml);
-                        PersonalFinances.Popups.open('#edit-finances-popup');
-                        $('.collapsible').collapsible();
-                    },
-                    error: function (err) {
-                        console.log(err);
-                    }
-                });
+            var btn = $(e.target);
+            var age = +btn.attr('data-age');
+            var data = {
+                fromAge: age
+            };
+            $.ajax({
+                url: 'editfinances',
+                type: 'POST',
+                data: data,
+                success: function (data) {
+                    var newHtml = data.trim();
+                    $('#edit-finances-popup').find('.modal-content').html(newHtml);
+                    PersonalFinances.Popups.open('#edit-finances-popup');
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
         });
     };
 
     var init = function () {
         initEvents();
-        setStrategy('hrn', 'economically');
+        updateGraph();
     };
 
     return {
@@ -325,6 +260,6 @@ PersonalFinances.Graph = (function () {
 })();
 
 $(document).ready(function () {
-    if (document.getElementById('chart-block'))
-        PersonalFinances.Graph.init();
+    if (document.getElementById('chart-block-new'))
+        PersonalFinances.GraphNew.init();
 });

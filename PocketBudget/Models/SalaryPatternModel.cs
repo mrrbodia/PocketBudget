@@ -5,7 +5,7 @@ using System.Web;
 
 namespace PocketBudget.Models
 {
-    public class TestSalaryPatternModel
+    public class SalaryPatternModel
     {
         public decimal IncomePerYear { get; set; }
 

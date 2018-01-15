@@ -11,27 +11,6 @@ namespace PocketBudget.Controllers
 {
     public class HomeController : FrontendBaseController
     {
-        //public ActionResult Index()
-        //{
-        //    var model = new StrategyViewModel();
-        //    model.SalaryPattern = CreateSalaryPatternModel();
-        //    return View(model);
-        //}
-
-        //public ActionResult Test()
-        //{
-        //    var model = new StrategyViewModel();
-        //    model.SalaryPattern = CreateSalaryPatternModel();
-        //    return View(model);
-        //}
-
-        public ActionResult GetChartLines()
-        {
-            var path = new PathModel();
-            var chartLines = PersonalFinances.Chart.GetChartLines(path);
-            return Json(1);
-        }
-
         public ActionResult Index()
         {
             var model = new PathViewModel();
@@ -40,7 +19,14 @@ namespace PocketBudget.Controllers
             model.RetirementAge = 60;
             model.Savings = 5000;
             model.Spendings = 15000;
-            return View("v2", model);
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult GetChartLines(PathModel pathModel)
+        {
+            var chartLines = PersonalFinances.Chart.GetChartLines(pathModel);
+            return Json(chartLines);
         }
 
         //TODO: fromAge can be null also
@@ -53,18 +39,18 @@ namespace PocketBudget.Controllers
             return View("_EditFinances", model);
         }
 
-        protected IEnumerable<TestDepositModel> CreateDepositModel()
+        protected IEnumerable<DepositModel> CreateDepositModel()
         {
-            var result = new List<TestDepositModel>();
-            result.Add(new TestDepositModel() { CurrencyId = "hrn", Percentage = 14.0f, Total = 100000m, Years = 1, IsActive = true });
-            result.Add(new TestDepositModel() { CurrencyId = "dollar", Percentage = 3.75f, Total = 4000m, Years = 1 });
-            result.Add(new TestDepositModel() { CurrencyId = "euro", Percentage = 2.35f, Total = 3000m, Years = 1 });
+            var result = new List<DepositModel>();
+            result.Add(new DepositModel() { CurrencyId = "hrn", Percentage = 14.0f, Total = 100000m, Years = 1, IsActive = true });
+            result.Add(new DepositModel() { CurrencyId = "dollar", Percentage = 3.75f, Total = 4000m, Years = 1 });
+            result.Add(new DepositModel() { CurrencyId = "euro", Percentage = 2.35f, Total = 3000m, Years = 1 });
             return result;
         }
 
-        protected TestSalaryPatternModel CreateSalaryPatternModel()
+        protected SalaryPatternModel CreateSalaryPatternModel()
         {
-            var result = new TestSalaryPatternModel();
+            var result = new SalaryPatternModel();
             result.IncomePerYear = 60000m;
             result.IncreaseTillAge = 45;
             result.IncreasePercentage = 3.0;

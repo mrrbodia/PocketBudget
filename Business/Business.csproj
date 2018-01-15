@@ -62,7 +62,7 @@
     <Compile Include="Components\AdditionalPath\IAdditionalIncomeStep.cs" />
     <Compile Include="Managers\Bank\BankManager.cs" />
     <Compile Include="Managers\Bank\IBankManager.cs" />
-    <Compile Include="Components\AdditionalPath\AdditionalPathProcessor.cs" />
+    <Compile Include="Components\AdditionalPath\AdditionalSavingsProcessor.cs" />
     <Compile Include="Managers\Chart\ChartDataPreparer.cs" />
     <Compile Include="Managers\Chart\ChartManager.cs" />
     <Compile Include="Managers\Chart\IChartManager.cs" />

@@ -10,34 +10,26 @@ namespace Business.Managers.Chart
 {
     public class ChartManager : IChartManager
     {
-        private readonly AdditionalPathProcessor additionalPathProcessor;
+        private readonly AdditionalSavingsProcessor additionalSavingsProcessor;
 
-        public ChartManager(AdditionalPathProcessor additionalPathProcessor)
+        public ChartManager(AdditionalSavingsProcessor additionalSavingsProcessor)
         {
-            this.additionalPathProcessor = additionalPathProcessor;
+            this.additionalSavingsProcessor = additionalSavingsProcessor;
         }
 
-        public List<List<decimal>> GetChartLines(PathModel path)
+        public List<List<decimal?>> GetChartLines(PathModel path)
         {
-            var result = new List<List<decimal>>();
-            result.AddRange(GetSavingsLines(path));
-            //result.Add();
+            var result = new List<List<decimal?>>();
+            var savingsLines = GetSavingsLines(path);
+            result.AddRange(savingsLines);
+            result.AddRange(GetSpendingLines(path, savingsLines));
             return result;
         }
 
-        protected List<List<decimal>> GetSavingsLines(PathModel path)
+        protected List<List<decimal?>> GetSavingsLines(PathModel path)
         {
-            //var values = [];
-            //for (var i = 0; i < PersonalFinances.Path.AgeRetirement - PersonalFinances.Path.CurrentAge; i++) {
-            //    values[i] = PersonalFinances.Path.Savings * 12;
-            //}
-            ////TODO:check a possibility to add additional values in retirement age
-            //values = getAdditionalSavingsValues(values);
-            //for (i = 1; i < PersonalFinances.Path.AgeRetirement - PersonalFinances.Path.CurrentAge; i++) {
-            //    values[i] = values[i - 1] + values[i];
-            //}
-            //return values;
-            var savingsLines = new List<List<decimal>>();
+            var savingsLines = new List<List<decimal?>>();
+            savingsLines.Add(GetSavingsLine(path));
             //foreach (var fork in path.Lines)
             //{
                 //savingsLines.Add(GetSavingsLine(path, fork));
@@ -45,15 +37,42 @@ namespace Business.Managers.Chart
             return savingsLines;
         }
 
-        protected List<decimal> GetSavingsLine(PathModel path, Fork fork)
+        protected List<decimal?> GetSavingsLine(PathModel path)
         {
-            var savingsLine = new List<decimal>();
-            for (int i = 0; i < path.RetirementAge; ++i)
+            var savingsLine = new List<decimal?>();
+            var workingPeriod = path.RetirementAge - path.CurrentAge;
+            for (int i = 0; i < workingPeriod; ++i)
             {
-                savingsLine.Add(fork.Savings * 12);
+                savingsLine.Add(path.Savings * 12);
             }
-            //additionalPathProcessor.Execute();
+            //additionalSavingsProcessor.Execute();
+            for (int i = 1; i < workingPeriod; ++i)
+            {
+                savingsLine[i] = savingsLine[i - 1] + savingsLine[i];
+            }
             return savingsLine;
+        }
+
+        protected List<List<decimal?>> GetSpendingLines(PathModel path, List<List<decimal?>> savingsLines)
+        {
+            var spendingLines = new List<List<decimal?>>();
+            //foreach (var line in savingsLines)
+            spendingLines.Add(GetSpendingLine(path, savingsLines[0]));
+            return spendingLines;
+        }
+
+        protected List<decimal?> GetSpendingLine(PathModel path, List<decimal?> savingsLines)
+        {
+            var spendingLines = new List<decimal?>();
+            var workingPeriod = path.RetirementAge - path.CurrentAge;
+            var retirementPeriod = path.LifeExpectancy - path.RetirementAge;
+            for (int i = 0; i < workingPeriod; ++i)
+                spendingLines.Add(null);
+            spendingLines[workingPeriod - 1] = savingsLines[workingPeriod - 1];
+            for (int i = workingPeriod; i < workingPeriod + retirementPeriod; ++i)
+                spendingLines.Add(spendingLines[i - 1] - path.Spendings * 12);
+            //additionalSpendingsProcessor.Execute();
+            return spendingLines;
         }
     }
 }

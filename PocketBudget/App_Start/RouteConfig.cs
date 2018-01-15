@@ -50,12 +50,6 @@ namespace PocketBudget
             );
 
             routes.MapRoute(
-                name: "Test",
-                url: "test",
-                defaults: new { controller = "Home", action = "Test" }
-            );
-
-            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

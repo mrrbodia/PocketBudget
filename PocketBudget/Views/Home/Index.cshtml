@@ -1,4 +1,4 @@
-﻿@model PocketBudget.Models.StrategyViewModel
+﻿@model PocketBudget.Models.PathViewModel
 @using PocketBudget.Extensions
 @{
     Layout = "~/Views/Shared/_Base.cshtml";
@@ -7,133 +7,48 @@
 
 <div>
     <div class="budget-block row">
-        <div id="chart-block" style="width:900px; height:800px;" class="col s6">
+        <div id="chart-block-new" style="width:900px; height:800px;" class="col s6">
             <canvas id="chart"></canvas>
         </div>
-        <ul class="strategy-info collapsible col s6" data-collapsible="accordion">
-            <li class="strategy-info-income">
-                <div class="collapsible-header active">
-                    <i class="icon icon-income"></i>
-                    Заробітня плата
-                </div>
-                <div class="collapsible-body">
-                    <div>
-                        <p>
-                            <input id="salary-income" type="number" name="salary-income" class="input-salary graph-updater" value="@Model.SalaryPattern.IncomePerYear" />
-                            <label for="salary-income">Зарплата за рік</label>
-                        </p>
-                        <p>
-                            <input id="salary-percentage" type="number" name="salary-percentage" class="input-salary graph-updater" value="@Model.SalaryPattern.IncreasePercentage" />
-                            <label for="salary-percentage">Річний приріст в %</label>
-                        </p>
-                        <p>
-                            <input id="salary-age" type="number" name="salary-age" class="input-salary graph-updater" value="@Model.SalaryPattern.CurrentAge" />
-                            <label for="salary-age">Ваш вік</label>
-                        </p>
-                    </div>
-                </div>
-            </li>
-            @*<li class="strategy-info-income">
-                <div class="collapsible-header active">
-                    <i class="icon icon-deposit"></i>
-                    Депозити
-                </div>
-                <div class="collapsible-body">
-                    <div>
-                        @foreach (var deposit in Model.Deposits)
-                        {
-                            var inputId = deposit.CurrencyId + "-value";
-                            var visibilityClass = deposit.IsActive ? "active" : "hidden";
-                            <p>
-                                <input id="@deposit.CurrencyId" type="radio" name="income" class="input-strategy graph-updater" value="@deposit.CurrencyId" checked />
-                                <label class="text-strategy" for="@deposit.CurrencyId">Депозит в гривнях</label>
-                                <input id="@inputId" type="number" name="@inputId" class="graph-updater deposit-input @visibilityClass" value="@deposit.Total" />
-                            </p>
-                        }
-                    </div>
-                </div>
-            </li>*@
-            <li class="strategy-info-income bank-rating">
-                <div class="collapsible-header">
-                    <i class="icon icon-bank"></i>
-                    Банк
-                </div>
-                <div class="collapsible-body">
-                    <div>
-                        <div class="bank-rating-selector">
-                            <div id="bank-rating-slider"></div>
-                            <div id="sliderValue"></div>
-                        </div>
-                        <p>
-                            <input type="checkbox" id="ready-to-risk" class="graph-updater" />
-                            <label class="tooltipped" data-position="top" data-delay="50" data-html="true" data-tooltip="Максимальний розмір відшкодування - 200 000 грн" for="ready-to-risk">Готовий ризикувати</label>
-                        </p>
-                    </div>
-                </div>
-            </li>
-            <li class="strategy-info-costs">
-                <div class="collapsible-header">
-                    <i class="icon icon-costs"></i>
-                    Витрати
-                </div>
-                <div class="collapsible-body">
-                    <div>
-                        <p>
-                            <input id="economically" type="radio" name="costs" class="input-strategy graph-updater" value="economically" checked />
-                            <label class="text-strategy" for="economically">Економний спосіб життя</label>
-                        </p>
-                        <p>
-                            <input id="non-economically" type="radio" name="costs" class="input-strategy graph-updater" value="non-economically"  />
-                            <label class="text-strategy" for="non-economically">Звичайний спосіб життя</label>
-                        </p>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        @*<ul class="additional-strategy-info collapsible col s6" data-collapsible="accordion">
-            <li>
-                <div class="collapsible-header active">
-                    <i class="icon icon-deposit"></i>
-                    Покласти гроші на депозит
-                </div>
-                <div class="collapsible-body">
-                    <div>
-                        //TODO:
-                        @for (int i = 0; i < Model.Deposits.Count; ++i)
-                        {
-                                @Html.Partial("_EditDeposit")
-                        }
-
-                        @foreach (var deposit in Model.Deposits)
-                        {
-                            var inputId = deposit.CurrencyId + "-value";
-                            var visibilityClass = deposit.IsActive ? "active" : "hidden";
-                            <p>
-                                <input id="@deposit.CurrencyId" type="radio" name="income" class="input-strategy graph-updater" value="@deposit.CurrencyId" checked />
-                                <label class="text-strategy" for="@deposit.CurrencyId">Депозит в гривнях</label>
-                                <input id="@inputId" type="number" name="@inputId" class="graph-updater deposit-input @visibilityClass" value="@deposit.Total" />
-                            </p>
-                        }
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header">
-                </div>
-                <div class="collapsible-body">
-                </div>
-            </li>
-        </ul>*@
+        <div class="col s4">
+            <div class="edit-savings">
+                <p>
+                    <label for="target-savings">Збереження / місяць</label>
+                    <input id="target-savings" class="graph-updater" type="number" value="@Model.Savings.ToJson()" />
+                </p>
+            </div>
+            <div class="edit-spendings">
+                <p>
+                    <label for="target-spendings">Витрати на пенсії / місяць</label>
+                    <input id="target-spendings" class="graph-updater" type="number" value="@Model.Spendings.ToJson()" />
+                </p>
+            </div>
+            <div class="edit-age">
+                <p>
+                    <label for="age-current">Ваш вік</label>
+                    <input id="age-current" class="graph-updater" type="number" value="@Model.CurrentAge.ToJson()" />
+                </p>
+                <p>
+                    <label for="age-retirement">Вихід на пенсію</label>
+                    <input id="age-retirement" class="graph-updater" type="number" value="@Model.RetirementAge.ToJson()" />
+                </p>
+                <p>
+                    <label for="age-life-expectancy">Тривалість життя</label>
+                    <input id="age-life-expectancy" class="graph-updater" type="number" value="@Model.LifeExpectancy.ToJson()" />
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 <div id="tooltip-element-content">@Html.Partial("_ChartTooltip")</div>
 <div id="tooltip-element"></div>
 
 <script type="text/javascript">
-    var Strategy = Strategy || {};
-    Strategy.Model = Strategy.Model || {};
-    Strategy.Model.salaryPattern = {};
-    Strategy.Model.salaryPattern.increaseTillAge = @Model.SalaryPattern.IncreaseTillAge.ToJson()
-    Strategy.Model.salaryPattern.showTillAge = @Model.SalaryPattern.ShowTillAge.ToJson()
-    Strategy.Model.salaryPattern.retirementAge = @Model.SalaryPattern.RetirementAge.ToJson()
+    var PersonalFinances = PersonalFinances || {};
+    PersonalFinances.Path = PersonalFinances.Path || {};
+    PersonalFinances.Path.CurrentAge = @Model.CurrentAge.ToJson()
+    PersonalFinances.Path.RetirementAge = @Model.RetirementAge.ToJson()
+    PersonalFinances.Path.LifeExpectancy = @Model.LifeExpectancy.ToJson()
+    PersonalFinances.Path.Savings = @Model.Savings.ToJson()
+    PersonalFinances.Path.Spendings = @Model.Spendings.ToJson()
 </script>

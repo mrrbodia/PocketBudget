@@ -231,12 +231,8 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_Popups.cshtml" />
-    <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Shared\_ChartTooltip.cshtml" />
     <Content Include="Views\Home\_EditFinances.cshtml" />
-    <Content Include="Views\Home\v2.cshtml">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
