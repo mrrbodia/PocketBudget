@@ -1,4 +1,6 @@
-﻿using PocketBudget.App_Start;
+﻿using Business.Models;
+using PocketBudget.App_Start;
+using PocketBudget.Web.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,12 @@ namespace PocketBudget
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             DependencyInjection.RegisterDependencies();
+            RegisterMvc();
+        }
+
+        protected void RegisterMvc()
+        {
+            ModelBinders.Binders.Add(typeof(PathModel), DependencyResolver.Current.GetService<PathModelBinder>());
         }
     }
 }

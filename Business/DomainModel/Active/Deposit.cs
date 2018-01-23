@@ -16,6 +16,8 @@ namespace Business.DomainModel.Active
 
         public virtual short Years { get; set; }
 
+        public virtual short FromAge { get; set; }
+
         public virtual decimal GetIncomePerYear()
         {
             return 0;

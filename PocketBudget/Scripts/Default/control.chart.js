@@ -206,12 +206,46 @@ PersonalFinances.Graph = (function () {
         PersonalFinances.Path.Spendings = +$('#target-spendings').val();
     };
 
+    var getPathModelForm = function () {
+        if (!PersonalFinances.Path)
+            return;
+        var formData = {
+            "action": "getchartlines",
+            "method": "post",
+            "elements":
+            [
+                {
+                    "CurrentAge": PersonalFinances.Path.CurrentAge,
+                    "RetirementAge": PersonalFinances.Path.RetirementAge,
+                    "LifeExpectancy": PersonalFinances.Path.LifeExpectancy,
+                    "Savings": PersonalFinances.Path.Savings,
+                    "Spendings": PersonalFinances.Path.Spendings,
+                    "AdditionalPath": {
+                        //"Deposits": PersonalFinances.Path.AdditionalPath.Deposits.serializeArray()
+                    }
+                },
+                {
+                    "type": "submit",
+                    "value": "Submit"
+                }
+            ]
+        };
+        var form = document.createElement('form');
+        form.buildForm(formData);
+        //form.Ad
+    };
+
     var updateGraphLines = function ()
     {
+        var form = getPathModelForm();
         $.ajax({
             url: 'getchartlines',
             type: 'POST',
             data: PersonalFinances.Path,
+            //data: {
+            //    pathModel: PersonalFinances.Path,
+            //    additionalPathModel: PersonalFinances.Path.AdditionalPath
+            //},
             success: function (data) {
                 var savings = getSavingsChartLine(data[0]);
                 var spendings = getSpendingsChartLine(data[1]);

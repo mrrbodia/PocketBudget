@@ -15,6 +15,8 @@ namespace PocketBudget.Models
 
         public short Years { get; set; }
 
+        public short FromAge { get; set; }
+
         public bool IsActive { get; set; }
     }
 }

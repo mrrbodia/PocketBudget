@@ -23,7 +23,7 @@ namespace PocketBudget.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetChartLines(PathModel pathModel)//additionalPath == fork
+        public ActionResult GetChartLines(PathModel pathModel)//, AdditionalPathModel additionalPathModel)//additionalPath == fork
         {
             var chartLines = PersonalFinances.Chart.GetChartLines(pathModel);
             return Json(chartLines);

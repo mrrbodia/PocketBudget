@@ -9,6 +9,6 @@ namespace Business.Models
 {
     public class AdditionalPathModel
     {
-        public List<Deposit> Deposit { get; set; }
+        public List<Deposit> Deposits { get; set; }
     }
 }

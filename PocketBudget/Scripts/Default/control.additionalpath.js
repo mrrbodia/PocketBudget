@@ -1,16 +1,17 @@
 ﻿//TODO: move all calculation login to backend (return properly values for Chart)
 var PersonalFinances = PersonalFinances || {};
 PersonalFinances.Path.AdditionalPath = (function () {
-    var saveDepositSelection = function () {
-        PersonalFinances.Path.AdditionalPath.Deposit = [];//PersonalFinances.Path.AdditionalPath.Deposit || [];
+    var saveDepositSelection = function (fromAge) {
+        PersonalFinances.Path.AdditionalPath.Deposits = [];//PersonalFinances.Path.AdditionalPath.Deposit || [];
         var currencyId = $('input[name=deposit]:checked').val();
         var deposit = {
             CurrencyId: currencyId,
             Total: +$('input[name=' + currencyId + 'total]').val(),
             Percentage: +$('input[name=' + currencyId + 'percentage]').val(),
-            Years: +$('input[name=' + currencyId + 'years]').val()
+            Years: +$('input[name=' + currencyId + 'years]').val(),
+            FromAge: fromAge
         };
-        PersonalFinances.Path.AdditionalPath.Deposit.push(deposit);
+        PersonalFinances.Path.AdditionalPath.Deposits.push(deposit);
         //PersonalFinances.Path.AdditionalPath.Deposit[0].CurrencyId = currencyId;
         //PersonalFinances.Path.AdditionalPath.Deposit[0].Total = +$('input[name='+currencyId+'total]').val();
         //PersonalFinances.Path.AdditionalPath.Deposit[0].Percentage = +$('input[name='+currencyId+'percentage]').val();
@@ -18,8 +19,8 @@ PersonalFinances.Path.AdditionalPath = (function () {
     };
 
     var saveAdditionalValuesSelection = function () {
-        PersonalFinances.Path.AdditionalPath.FromAge = +$('input[name=FromAge]').val();
-        saveDepositSelection();
+        var fromAge = +$('input[name=FromAge]').val();
+        saveDepositSelection(fromAge);
     };
     
     $(document).on('click', 'input[name=deposit]', function (e) {

@@ -9,6 +9,7 @@ using Business.Managers;
 using Business.DataProviders;
 using Business.Managers.Chart;
 using Business.Components.AdditionalPath;
+using PocketBudget.Web.Mvc;
 
 namespace PocketBudget.App_Start
 {
@@ -28,6 +29,7 @@ namespace PocketBudget.App_Start
             builder.RegisterType<AccountManager>().As<IAccountManager>();
             builder.RegisterType<BankManager>().As<IBankManager>();
             builder.RegisterType<ChartManager>().As<IChartManager>();
+            builder.RegisterType<PathModelBinder>().As<PathModelBinder>();
 
             RegisterAdditionalProcessor(builder);
         }
