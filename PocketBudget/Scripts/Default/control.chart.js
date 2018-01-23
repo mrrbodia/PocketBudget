@@ -67,9 +67,12 @@ PersonalFinances.Graph = (function () {
                         }
                         if (tooltipModel.body) {
                             var bodyLines = tooltipModel.body.map(getBody);
-                            var age = tooltipModel.title || 18;
+                            var currentIndex = tooltipModel.dataPoints[0].index;
+                            var age = currentIndex + 20;
+                            var year = currentYear + parseInt(currentIndex)
                             var mapObj = {
                                 "AGE": age,
+                                "TOOLTIP_TITLE": "Вік " + age + " / " + year + " рік",
                                 "ACUMULATED_AMOUNT": bodyLines[0]
                             };
                             var innerHtml = replaceTooltipTags($('#tooltip-element-content').html(), mapObj);
