@@ -274,7 +274,7 @@ PersonalFinances.Graph = (function () {
         if (PersonalFinances.Path.AdditionalPath.Deposits != undefined)
         {
             $.each(PersonalFinances.Path.AdditionalPath.Deposits, function (i) {
-                data['AdditionalPath.Deposits[' + i + '].Percentage'] = PersonalFinances.Path.AdditionalPath.Deposits[i].Persentage;
+                data['AdditionalPath.Deposits[' + i + '].Percentage'] = PersonalFinances.Path.AdditionalPath.Deposits[i].Percentage;
                 data['AdditionalPath.Deposits[' + i + '].Total'] = PersonalFinances.Path.AdditionalPath.Deposits[i].Total;
                 data['AdditionalPath.Deposits[' + i + '].CurrencyId'] = PersonalFinances.Path.AdditionalPath.Deposits[i].CurrencyId;
                 data['AdditionalPath.Deposits[' + i + '].Years'] = PersonalFinances.Path.AdditionalPath.Deposits[i].Years;
