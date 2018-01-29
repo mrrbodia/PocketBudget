@@ -11,11 +11,16 @@ namespace PocketBudget.Controllers
 {
     public class HomeController : FrontendBaseController
     {
+        private short DefaultLifeExpectancy
+        {
+            get { return 80; }
+        }
+
         public ActionResult Index()
         {
             var model = new PathViewModel();
             model.CurrentAge = 20;
-            model.LifeExpectancy = 80;
+            model.LifeExpectancy = DefaultLifeExpectancy;
             model.RetirementAge = 60;
             model.Savings = 5000;
             model.Spendings = 15000;
@@ -36,6 +41,7 @@ namespace PocketBudget.Controllers
             var model = new AdditionalFinancesViewModel();
             model.Deposits = CreateDepositModel();
             model.FromAge = fromAge;
+            model.ToAge = DefaultLifeExpectancy;
             return View("_EditFinances", model);
         }
 

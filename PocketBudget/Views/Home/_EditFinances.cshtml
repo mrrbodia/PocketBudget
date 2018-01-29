@@ -1,14 +1,17 @@
 ﻿@model PocketBudget.Models.AdditionalFinancesViewModel
 <div class="edit-finances-content">
-    <div class="edit-finances-tabs-header">
-        <span class="edit-finances-header">Доходи</span>
-        <span class="edit-finances-header">Витрати</span>
-    </div>
     <div class="edit-finances-tabs-wrapper">
         <div class="edit-finances-tab additional-path-income active">
-            <div>
-                <span>Додаткові доходи з віку </span>
-                @Html.EditorFor(m => m.FromAge)
+            <div class="row">
+                <div>Додаткові доходи</div>
+                <div class="input-field col s6">
+                    <span>з</span>
+                    @Html.EditorFor(m => m.FromAge)
+                </div>
+                <div class="input-field col s6">
+                    <span>по</span>
+                    @Html.EditorFor(m => m.ToAge)
+                </div>
             </div>
             <ul>
                 <li class="additional-path-item">

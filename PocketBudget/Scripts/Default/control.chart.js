@@ -279,6 +279,7 @@ PersonalFinances.Graph = (function () {
                 data['AdditionalPath.Deposits[' + i + '].CurrencyId'] = PersonalFinances.Path.AdditionalPath.Deposits[i].CurrencyId;
                 data['AdditionalPath.Deposits[' + i + '].Years'] = PersonalFinances.Path.AdditionalPath.Deposits[i].Years;
                 data['AdditionalPath.Deposits[' + i + '].FromAge'] = PersonalFinances.Path.AdditionalPath.Deposits[i].FromAge;
+                data['AdditionalPath.Deposits[' + i + '].ToAge'] = PersonalFinances.Path.AdditionalPath.Deposits[i].ToAge;
             });
         }
         return data;

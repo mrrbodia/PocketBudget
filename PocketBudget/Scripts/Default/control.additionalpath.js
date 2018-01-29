@@ -1,7 +1,7 @@
 ﻿//TODO: move all calculation login to backend (return properly values for Chart)
 var PersonalFinances = PersonalFinances || {};
 PersonalFinances.Path.AdditionalPath = (function () {
-    var saveDepositSelection = function (fromAge) {
+    var saveDepositSelection = function (fromAge, toAge) {
         PersonalFinances.Path.AdditionalPath.Deposits = [];//PersonalFinances.Path.AdditionalPath.Deposit || [];
         var currencyId = $('input[name=deposit]:checked').val();
         var deposit = {
@@ -9,18 +9,16 @@ PersonalFinances.Path.AdditionalPath = (function () {
             Total: +$('input[name=' + currencyId + 'total]').val(),
             Percentage: +$('input[name=' + currencyId + 'percentage]').val(),
             Years: +$('input[name=' + currencyId + 'years]').val(),
-            FromAge: fromAge
+            FromAge: fromAge,
+            ToAge: toAge
         };
         PersonalFinances.Path.AdditionalPath.Deposits.push(deposit);
-        //PersonalFinances.Path.AdditionalPath.Deposit[0].CurrencyId = currencyId;
-        //PersonalFinances.Path.AdditionalPath.Deposit[0].Total = +$('input[name='+currencyId+'total]').val();
-        //PersonalFinances.Path.AdditionalPath.Deposit[0].Percentage = +$('input[name='+currencyId+'percentage]').val();
-        //PersonalFinances.Path.AdditionalPath.Deposit[0].Years = +$('input[name=' + currencyId + 'years]').val();
     };
 
     var saveAdditionalValuesSelection = function () {
         var fromAge = +$('input[name=FromAge]').val();
-        saveDepositSelection(fromAge);
+        var toAge = +$('input[name=ToAge]').val();
+        saveDepositSelection(fromAge, toAge);
     };
     
     $(document).on('click', 'input[name=deposit]', function (e) {
