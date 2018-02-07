@@ -179,6 +179,15 @@ PersonalFinances.Graph = (function () {
         return result;
     };
 
+    var getDepositsChartLine = function (data) {
+        var result = {
+            label: 'Депозит',
+            fill: true
+        };
+        result.data = data;
+        return result;
+    };
+
     var getSpendingsChartLine = function (data) {
         var result = {
             label: 'Витрати на пенсії',
@@ -253,7 +262,8 @@ PersonalFinances.Graph = (function () {
             success: function (data) {
                 var savings = getSavingsChartLine(data[0]);
                 var spendings = getSpendingsChartLine(data[1]);
-                var lines = [savings, spendings];
+                var deposits = getDepositsChartLine(data[2]);
+                var lines = [savings, spendings, deposits];
                 updateGraphWithData(lines);
             },
             error: function (err) {
