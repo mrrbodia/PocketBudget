@@ -22,17 +22,13 @@ namespace Business.Managers.Chart
         {
             var chartLines = new List<ChartLine>();
             var savingsLines = GetSavingsLines(path);
-            //var baseSavingsLine = GetSavingsLine(path);
             var spendingLines = GetSpendingLines(path, savingsLines);
 
-            //var depositLines = GetSavingsByDepositsLines(path, baseSavingsLine);
             chartLines.AddRange(savingsLines);
             chartLines.AddRange(spendingLines);
-            //chartLines.AddRange(depositLines);
             return chartLines;
         }
-
-        //TODO: ADD CHART LINE TYPE: Savings, Spendings
+        
         protected List<ChartLine> GetSavingsLines(PathModel path)
         {
             var savingsLines = new List<ChartLine>();

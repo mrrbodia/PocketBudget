@@ -154,8 +154,8 @@ PersonalFinances.Graph = (function () {
 
     var addChartData = function (chart, labels, datasets) {
         chart.data.labels = labels;
-        chart.data.datasets.forEach(function (dataset, index) {
-            dataset.data = datasets[index].data;
+        datasets.forEach(function (dataset, index) {
+            chart.data.datasets[index] = dataset;
         });
         chart.update();
     };
@@ -201,45 +201,6 @@ PersonalFinances.Graph = (function () {
         }
     };
 
-    var getSavingsChartLine = function (data) {
-        var result = {
-            label: 'Збереження',
-            backgroundColor: [
-                'rgba(21, 229, 171, 0.4)'
-            ],
-            borderColor: [
-                'rgba(54, 162, 235, 1)'
-            ],
-            fill: true
-        };
-        result.data = data;
-        return result;
-    };
-
-    var getDepositsChartLine = function (data) {
-        var result = {
-            label: 'Депозит',
-            fill: true
-        };
-        result.data = data;
-        return result;
-    };
-
-    var getSpendingsChartLine = function (data) {
-        var result = {
-            label: 'Витрати на пенсії',
-            backgroundColor: [
-                'rgba(255, 179, 179, 0.4)'
-            ],
-            borderColor: [
-                'rgba(255, 102, 102, 1)'
-            ],
-            fill: true
-        };
-        result.data = data;
-        return result;
-    };
-
     var initInputValues = function () {
         PersonalFinances.Path.CurrentAge = +$('#age-current').val();
         PersonalFinances.Path.RetirementAge = +$('#age-retirement').val();
@@ -258,12 +219,8 @@ PersonalFinances.Graph = (function () {
             dataType: "json",
             data: model,
             success: function (data) {
-                var savings = getSavingsChartLine(data[0].Points);
-                //var deposits = getDepositsChartLine(data[1].Points);
-                var spendings = getSpendingsChartLine(data[1].Points);
-                var lines = [savings, spendings];//, deposits];
                 var chartLines = getChartLines(data);
-                updateGraphWithData(lines);
+                updateGraphWithData(chartLines);
             },
             error: function (err) {
                 console.log(err);
