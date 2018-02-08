@@ -1,10 +1,6 @@
 ﻿using Business.Models;
-using PocketBudget;
 using PocketBudget.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PocketBudget.Controllers
@@ -23,7 +19,7 @@ namespace PocketBudget.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetChartLines(PathModel pathModel)//, AdditionalPathModel additionalPathModel)//additionalPath == fork
+        public ActionResult GetChartLines(PathModel pathModel)
         {
             var chartLines = PersonalFinances.Chart.GetChartLines(pathModel);
             return Json(chartLines);

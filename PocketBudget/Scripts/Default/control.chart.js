@@ -164,6 +164,43 @@ PersonalFinances.Graph = (function () {
         updateGraph();
     };
 
+    var getChartLines = function (data) {
+        var result = [];
+        for (var i = 0; i < data.length; i++) {
+            result[i] = getChartLine(data[i]);
+        }
+        return result;
+    };
+
+    var getChartLine = function (line) {
+        if (line.Type === 'savings') {
+            return {
+                label: 'Збереження',
+                backgroundColor: [
+                    'rgba(21, 229, 171, 0.4)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)'
+                ],
+                fill: true,
+                data: line.Points
+            }
+        }
+        else {
+            return {
+                label: 'Витрати на пенсії',
+                backgroundColor: [
+                    'rgba(255, 179, 179, 0.4)'
+                ],
+                borderColor: [
+                    'rgba(255, 102, 102, 1)'
+                ],
+                fill: true,
+                data: line.Points
+            }
+        }
+    };
+
     var getSavingsChartLine = function (data) {
         var result = {
             label: 'Збереження',
@@ -203,10 +240,6 @@ PersonalFinances.Graph = (function () {
         return result;
     };
 
-    var getNeededChartLine = function () {
-
-    };
-
     var initInputValues = function () {
         PersonalFinances.Path.CurrentAge = +$('#age-current').val();
         PersonalFinances.Path.RetirementAge = +$('#age-retirement').val();
@@ -215,55 +248,21 @@ PersonalFinances.Graph = (function () {
         PersonalFinances.Path.Spendings = +$('#target-spendings').val();
     };
 
-    var getPathModelForm = function () {
-        if (!PersonalFinances.Path)
-            return;
-        var formData = {
-            "action": "getchartlines",
-            "method": "post",
-            "elements":
-            [
-                {
-                    "CurrentAge": PersonalFinances.Path.CurrentAge,
-                    "RetirementAge": PersonalFinances.Path.RetirementAge,
-                    "LifeExpectancy": PersonalFinances.Path.LifeExpectancy,
-                    "Savings": PersonalFinances.Path.Savings,
-                    "Spendings": PersonalFinances.Path.Spendings,
-                    "AdditionalPath": {
-                        "Deposits": PersonalFinances.Path.AdditionalPath.Deposits
-                    }
-                },
-                {
-                    "type": "submit",
-                    "value": "Submit"
-                }
-            ]
-        };
-        var form = document.createElement('form');
-        //form.buildForm(formData);
-        //form.Ad
-    };
-
     var updateGraphLines = function ()
     {
-        var form = getPathModelForm();
         console.log($.toJSON(PersonalFinances.Path))
         var model = bindPathModel();
         $.ajax({
             url: 'getchartlines',
             type: 'POST',
             dataType: "json",
-            //data: { PersonalFinances.Path, PersonalFinances.Path.AdditionalPath },
-            //data: {
-            //    "pathModel": PersonalFinances.Path,
-            //    "additionalPathModel": PersonalFinances.Path.AdditionalPath
-            //},
             data: model,
             success: function (data) {
-                var savings = getSavingsChartLine(data[0]);
-                var spendings = getSpendingsChartLine(data[1]);
-                var deposits = getDepositsChartLine(data[2]);
-                var lines = [savings, spendings, deposits];
+                var savings = getSavingsChartLine(data[0].Points);
+                //var deposits = getDepositsChartLine(data[1].Points);
+                var spendings = getSpendingsChartLine(data[1].Points);
+                var lines = [savings, spendings];//, deposits];
+                var chartLines = getChartLines(data);
                 updateGraphWithData(lines);
             },
             error: function (err) {
@@ -272,8 +271,7 @@ PersonalFinances.Graph = (function () {
         });
     };
 
-    var bindPathModel = function ()
-    {
+    var bindPathModel = function () {
         var data = {
             'CurrentAge': PersonalFinances.Path.CurrentAge,
             'RetirementAge': PersonalFinances.Path.RetirementAge,
@@ -281,18 +279,17 @@ PersonalFinances.Graph = (function () {
             'Savings': PersonalFinances.Path.Savings,
             'Spendings': PersonalFinances.Path.Spendings
         }
-        if (PersonalFinances.Path.AdditionalPath.Deposits != undefined)
-        {
+        if (PersonalFinances.Path.AdditionalPath.Deposits) {
             $.each(PersonalFinances.Path.AdditionalPath.Deposits, function (i) {
-                data['AdditionalPath.Deposits[' + i + '].Percentage'] = PersonalFinances.Path.AdditionalPath.Deposits[i].Percentage;
-                data['AdditionalPath.Deposits[' + i + '].Total'] = PersonalFinances.Path.AdditionalPath.Deposits[i].Total;
-                data['AdditionalPath.Deposits[' + i + '].CurrencyId'] = PersonalFinances.Path.AdditionalPath.Deposits[i].CurrencyId;
-                data['AdditionalPath.Deposits[' + i + '].Years'] = PersonalFinances.Path.AdditionalPath.Deposits[i].Years;
-                data['AdditionalPath.Deposits[' + i + '].FromAge'] = PersonalFinances.Path.AdditionalPath.Deposits[i].FromAge;
+                data['AdditionalPath.AdditionalIncomes[' + i + '].Deposit.Percentage'] = PersonalFinances.Path.AdditionalPath.Deposits[i].Percentage;
+                data['AdditionalPath.AdditionalIncomes[' + i + '].Deposit.Total'] = PersonalFinances.Path.AdditionalPath.Deposits[i].Total;
+                data['AdditionalPath.AdditionalIncomes[' + i + '].Deposit.CurrencyId'] = PersonalFinances.Path.AdditionalPath.Deposits[i].CurrencyId;
+                data['AdditionalPath.AdditionalIncomes[' + i + '].Deposit.Years'] = PersonalFinances.Path.AdditionalPath.Deposits[i].Years;
+                data['AdditionalPath.AdditionalIncomes[' + i + '].Deposit.FromAge'] = PersonalFinances.Path.AdditionalPath.Deposits[i].FromAge;
             });
         }
         return data;
-    }
+    };
 
     var updateGraph = function ()
     {

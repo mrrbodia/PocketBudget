@@ -1,4 +1,5 @@
-﻿using Business.Models;
+﻿using Business.DomainModel.Active;
+using Business.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,21 +10,16 @@ namespace Business.Components.AdditionalPath
 {
     public class DepositIncomeStep : IAdditionalIncomeStep
     {
-        public void Execute()
+        public void Execute(AdditionalIncome additionalIncome, List<decimal?> points)
         {
+            if (additionalIncome.Deposit == null)
+                return;
 
+            for (int i = additionalIncome.From; i < additionalIncome.To; ++i)
+            {
+                //var income = additionalIncome.Deposit.Total * (decimal)Math.Pow((1 + additionalIncome.Deposit.Percentage / 100), i - additionalIncome.From);
+                points[i] = points[i] + additionalIncome.Deposit.GetIncomePerYear();
+            }
         }
-
-        //public void Execute(PathModel path)
-        //{
-        //    if (!path.Deposit)
-        //        return values;
-        //    var position = PersonalFinances.AdditionalPath.FromAge - PersonalFinances.Path.CurrentAge;
-        //    for (var i = position; i < position + PersonalFinances.AdditionalPath.Deposit.Years; i++)
-        //    {
-        //        values[i] = values[i] + getDepositIncomePerYear();
-        //    }
-        //    return values;
-        //}
     }
 }

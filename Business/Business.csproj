@@ -46,12 +46,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\AdditionalPath\DepositIncomeStep.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="DataProviders\AccountDataProvider.cs" />
     <Compile Include="DataProviders\BankDataProvider.cs" />
     <Compile Include="DataProviders\IRepository.cs" />
     <Compile Include="DataProviders\SQLDataProvider.cs" />
     <Compile Include="DomainModel\Account\Account.cs" />
     <Compile Include="DomainModel\Account\Role.cs" />
+    <Compile Include="DomainModel\Active\AdditionalIncome.cs" />
     <Compile Include="DomainModel\Active\Bank.cs" />
     <Compile Include="DomainModel\Active\Deposit.cs" />
     <Compile Include="DomainModel\Active\IActive.cs" />

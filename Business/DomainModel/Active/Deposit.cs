@@ -8,7 +8,7 @@ namespace Business.DomainModel.Active
 {
     public class Deposit : IActive
     {
-        public virtual float Percentage { get; set; }
+        public virtual double Percentage { get; set; }
 
         public virtual decimal Total { get; set; }
 
@@ -18,9 +18,27 @@ namespace Business.DomainModel.Active
 
         public virtual short FromAge { get; set; }
 
+        //TODO: Get Income for difficult percents
         public virtual decimal GetIncomePerYear()
         {
-            return 0;
+            return Total * (decimal)(Percentage / 100) * GetCurrencyExchangeValue();
+        }
+
+        //TODO: Replace with better solution
+        protected decimal GetCurrencyExchangeValue()
+        {
+            switch (CurrencyId)
+            {
+                case Constants.Currency.Dollar:
+                    return 27.95m;
+                case Constants.Currency.Euro:
+                    return 31.15m;
+                case Constants.Currency.Hrn:
+                    return 1.0m;
+                default:
+                    return 1.0m;
+
+            }
         }
     }
 }

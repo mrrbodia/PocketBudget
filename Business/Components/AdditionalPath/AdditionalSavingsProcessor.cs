@@ -1,8 +1,5 @@
-﻿using System;
+﻿using Business.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Components.AdditionalPath
 {
@@ -15,11 +12,14 @@ namespace Business.Components.AdditionalPath
             this.steps = steps;
         }
 
-        public void Execute()
+        public void Execute(PathModel path, List<decimal?> points)
         {
-            foreach (var step in this.steps)
+            foreach (var additionalIncome in path.AdditionalPath.AdditionalIncomes)
             {
-                step.Execute();
+                foreach (var step in this.steps)
+                {
+                    step.Execute(additionalIncome, points);
+                }
             }
         }
     }
