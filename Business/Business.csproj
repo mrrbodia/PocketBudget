@@ -70,14 +70,8 @@
     <Compile Include="Managers\StrategyManager.cs" />
     <Compile Include="Models\AdditionalPathModel.cs" />
     <Compile Include="Models\ChartLine.cs" />
-    <Compile Include="Models\Costs.cs" />
-    <Compile Include="Models\DepositCurrency.cs" />
-    <Compile Include="Models\DepositData.cs" />
-    <Compile Include="Models\Fork.cs" />
-    <Compile Include="Models\Goal.cs" />
-    <Compile Include="Models\Income.cs" />
     <Compile Include="Models\PathModel.cs" />
-    <Compile Include="Models\StrategyModel.cs" />
+    <Compile Include="Models\SalaryModel.cs" />
     <Compile Include="NHIbernate\NHibernateHelper.cs" />
     <Compile Include="NHIbernate\SessionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

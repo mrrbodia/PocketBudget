@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Business.Models
 {
-    public class Income
+    public class SalaryModel
     {
-        public IList<float> Data { get; set; }
+        public decimal Amount { get; set; }
     }
 }

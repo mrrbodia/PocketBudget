@@ -8,8 +8,6 @@ namespace PocketBudget.Models
 {
     public class StrategyViewModel
     {
-        public Cost Cost { get; set; }
-
         public SalaryPatternModel SalaryPattern { get; set; }
     }
 }
