@@ -2,7 +2,7 @@
 var PersonalFinances = PersonalFinances || {};
 PersonalFinances.Path.AdditionalPath = (function () {
     var saveDepositSelection = function (fromAge) {
-        PersonalFinances.Path.AdditionalPath.Deposits = [];
+        PersonalFinances.Path.AdditionalPath.Deposits = PersonalFinances.Path.AdditionalPath.Deposits || [];
         var currencyId = $('input[name=deposit]:checked').val();
         var deposit = {
             CurrencyId: currencyId,

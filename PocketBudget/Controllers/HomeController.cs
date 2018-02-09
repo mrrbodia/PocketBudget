@@ -25,6 +25,7 @@ namespace PocketBudget.Controllers
             return Json(chartLines);
         }
 
+        //TODO: Create session (save chosen user data)
         //TODO: fromAge can be null also
         [HttpPost]
         public ActionResult EditFinances(int fromAge)
