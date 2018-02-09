@@ -239,6 +239,7 @@ PersonalFinances.Graph = (function () {
         if (PersonalFinances.Path.AdditionalPath.Deposits) {
             //each additional income, not deposit
             $.each(PersonalFinances.Path.AdditionalPath.Deposits, function (index) {
+                PersonalFinances.Binder.bindDeposit(data, index);
             });
         }
         return data;
