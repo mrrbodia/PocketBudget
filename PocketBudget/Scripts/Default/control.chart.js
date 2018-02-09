@@ -205,8 +205,8 @@ PersonalFinances.Graph = (function () {
         PersonalFinances.Path.CurrentAge = +$('#age-current').val();
         PersonalFinances.Path.RetirementAge = +$('#age-retirement').val();
         PersonalFinances.Path.LifeExpectancy = +$('#age-life-expectancy').val();
-        PersonalFinances.Path.Savings = +$('#target-savings').val();
-        PersonalFinances.Path.Spendings = +$('#target-spendings').val();
+        PersonalFinances.Path.Savings.Amount = +$('#target-savings').val();
+        PersonalFinances.Path.Spendings.Amount = +$('#target-spendings').val();
     };
 
     var updateGraphLines = function ()
@@ -233,16 +233,12 @@ PersonalFinances.Graph = (function () {
             'CurrentAge': PersonalFinances.Path.CurrentAge,
             'RetirementAge': PersonalFinances.Path.RetirementAge,
             'LifeExpectancy': PersonalFinances.Path.LifeExpectancy,
-            'Savings': PersonalFinances.Path.Savings,
-            'Spendings': PersonalFinances.Path.Spendings
+            'Savings.Amount': PersonalFinances.Path.Savings.Amount,
+            'Spendings.Amount': PersonalFinances.Path.Spendings.Amount
         }
         if (PersonalFinances.Path.AdditionalPath.Deposits) {
-            $.each(PersonalFinances.Path.AdditionalPath.Deposits, function (i) {
-                data['AdditionalPath.AdditionalIncomes[' + i + '].Deposit.Percentage'] = PersonalFinances.Path.AdditionalPath.Deposits[i].Percentage;
-                data['AdditionalPath.AdditionalIncomes[' + i + '].Deposit.Total'] = PersonalFinances.Path.AdditionalPath.Deposits[i].Total;
-                data['AdditionalPath.AdditionalIncomes[' + i + '].Deposit.CurrencyId'] = PersonalFinances.Path.AdditionalPath.Deposits[i].CurrencyId;
-                data['AdditionalPath.AdditionalIncomes[' + i + '].Deposit.Years'] = PersonalFinances.Path.AdditionalPath.Deposits[i].Years;
-                data['AdditionalPath.AdditionalIncomes[' + i + '].Deposit.FromAge'] = PersonalFinances.Path.AdditionalPath.Deposits[i].FromAge;
+            //each additional income, not deposit
+            $.each(PersonalFinances.Path.AdditionalPath.Deposits, function (index) {
             });
         }
         return data;

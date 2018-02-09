@@ -209,6 +209,7 @@
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\d3.min.js" />
     <Content Include="Scripts\Default\control.additionalpath.js" />
+    <Content Include="Scripts\Default\control.binder.js" />
     <Content Include="Scripts\Default\control.popups.js" />
     <Content Include="Scripts\Default\control.slider.js" />
     <Content Include="Scripts\Default\control.chart.js" />

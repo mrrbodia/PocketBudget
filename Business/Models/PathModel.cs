@@ -11,9 +11,9 @@ namespace Business.Models
 
         public SalaryModel Salary { get; set; }
 
-        public decimal Savings { get; set; }
+        public SavingsModel Savings { get; set; }
 
-        public decimal Spendings { get; set; }
+        public SpendingsModel Spendings { get; set; }
 
         public AdditionalPathModel AdditionalPath { get; set; }
     }

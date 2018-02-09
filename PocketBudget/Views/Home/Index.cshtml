@@ -11,16 +11,21 @@
             <canvas id="chart"></canvas>
         </div>
         <div class="col s4">
+            <div class="edit-salary">
+                <p>
+                    <input id="target-salary" class="graph-updater" type="number" value="@Model.Salary.Amount.ToJson()"/>
+                </p>
+            </div>
             <div class="edit-savings">
                 <p>
                     <label for="target-savings">Збереження / місяць</label>
-                    <input id="target-savings" class="graph-updater" type="number" value="@Model.Savings.ToJson()" />
+                    <input id="target-savings" class="graph-updater" type="number" value="@Model.Savings.Amount.ToJson()" />
                 </p>
             </div>
             <div class="edit-spendings">
                 <p>
                     <label for="target-spendings">Витрати на пенсії / місяць</label>
-                    <input id="target-spendings" class="graph-updater" type="number" value="@Model.Spendings.ToJson()" />
+                    <input id="target-spendings" class="graph-updater" type="number" value="@Model.Spendings.Amount.ToJson()" />
                 </p>
             </div>
             <div class="edit-age">
@@ -49,6 +54,8 @@
     PersonalFinances.Path.CurrentAge = @Model.CurrentAge.ToJson()
     PersonalFinances.Path.RetirementAge = @Model.RetirementAge.ToJson()
     PersonalFinances.Path.LifeExpectancy = @Model.LifeExpectancy.ToJson()
-    PersonalFinances.Path.Savings = @Model.Savings.ToJson()
-    PersonalFinances.Path.Spendings = @Model.Spendings.ToJson()
+    PersonalFinances.Path.Savings = PersonalFinances.Path.Savings || [];
+    PersonalFinances.Path.Spendings = PersonalFinances.Path.Spendings || [];
+    PersonalFinances.Path.Savings.Amount = @Model.Savings.Amount.ToJson()
+    PersonalFinances.Path.Spendings.Amount = @Model.Spendings.Amount.ToJson()
 </script>

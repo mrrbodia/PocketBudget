@@ -51,7 +51,7 @@ namespace Business.Managers.Chart
             var workingPeriod = path.RetirementAge - path.CurrentAge;
             for (int i = 0; i < workingPeriod; ++i)
             {
-                savingsLine.Add(path.Savings * 12);
+                savingsLine.Add(path.Savings.Amount * 12);
             }
             for (int i = 1; i < workingPeriod; ++i)
             {
@@ -83,7 +83,7 @@ namespace Business.Managers.Chart
                 spendingLine.Add(null);
             spendingLine[workingPeriod - 1] = savingsLines[workingPeriod - 1];
             for (int i = workingPeriod; i < workingPeriod + retirementPeriod; ++i)
-                spendingLine.Add(spendingLine[i - 1] - path.Spendings * 12);
+                spendingLine.Add(spendingLine[i - 1] - path.Spendings.Amount * 12);
             //additionalSpendingsProcessor.Execute();
             return new ChartLine(Constants.ChartLineType.Spendings, spendingLine);
         }

@@ -72,6 +72,8 @@
     <Compile Include="Models\ChartLine.cs" />
     <Compile Include="Models\PathModel.cs" />
     <Compile Include="Models\SalaryModel.cs" />
+    <Compile Include="Models\SavingsModel.cs" />
+    <Compile Include="Models\SpendingsModel.cs" />
     <Compile Include="NHIbernate\NHibernateHelper.cs" />
     <Compile Include="NHIbernate\SessionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -13,8 +13,8 @@ namespace PocketBudget.Controllers
             model.CurrentAge = 20;
             model.LifeExpectancy = 80;
             model.RetirementAge = 60;
-            model.Savings = 5000;
-            model.Spendings = 15000;
+            model.Savings.Amount = 5000;
+            model.Spendings.Amount = 15000;
             return View(model);
         }
 
