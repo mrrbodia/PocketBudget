@@ -14,12 +14,16 @@
             <div class="edit-salary">
                 <p>
                     <label for="target-salary">Заробітня плата / місяць</label>
-                    <input id="target-salary" class="graph-updater" type="number" value="@Model.Salary.Amount.ToJson()"/>
+
+                    <input id="target-salary" class="graph-updater" type="number" value="@Model.Salary.Amount.ToJson()" />
                 </p>
             </div>
             <div class="edit-savings">
                 <p>
                     <label for="target-savings">Збереження / місяць</label>
+                    <input type="radio" name="target-savings-type" class="graph-updater target-savings-percentage" value="Відсотки" />
+                    <input type="radio" name="target-savings-type" class="graph-updater target-savings-fixed" value="Фіксована сума" />
+                    <input type="radio" name="target-savings-type" class="graph-updater target-savings-custom" value="Інше" />
                     <input id="target-savings" class="graph-updater" type="number" value="@Model.Savings.Amount.ToJson()" />
                 </p>
             </div>
