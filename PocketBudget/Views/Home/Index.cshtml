@@ -27,6 +27,22 @@
                     <input id="target-savings" class="graph-updater" type="number" value="@Model.Savings.Amount.ToJson()" />
                 </p>
             </div>
+            <div class="pension">
+                <p>
+                    <label for="target-spendings">Пенсія</label>
+                </p>
+                <p>
+                    <input name="pension-pattern" type="radio" id="pension-min" value="1373" @When(Model.Pension.Amount == 1373m, "checked")/>
+                    <label for="pension-min">мінімальна</label>
+                    <input name="pension-pattern" type="radio" id="pension-3000" value="3000" @When(Model.Pension.Amount == 3000m, "checked")/>
+                    <label for="pension-3000">3000</label>
+                    <input name="pension-pattern" type="radio" id="pension-8000" value="8000" @When(Model.Pension.Amount == 8000m, "checked")/>
+                    <label for="pension-8000">8000</label>
+                </p>
+                <p>
+                    <input id="pension" class="graph-updater" type="number" value="@Model.Pension.Amount.ToJson()" />
+                </p>
+            </div>
             <div class="edit-spendings">
                 <p>
                     <label for="target-spendings">Витрати на пенсії / місяць</label>
@@ -64,3 +80,11 @@
     PersonalFinances.Path.Savings.Amount = @Model.Savings.Amount.ToJson()
     PersonalFinances.Path.Spendings.Amount = @Model.Spendings.Amount.ToJson()
 </script>
+
+@functions
+{
+    protected string When(bool condition, string then, string otherwise = null)
+    {
+        return condition ? then : otherwise;
+    }
+}

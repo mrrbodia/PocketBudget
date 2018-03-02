@@ -279,6 +279,10 @@ PersonalFinances.Graph = (function () {
                 }
             });
         });
+        $(document).on('change', 'input[name="pension-pattern"]', function (e) {
+            var patternValue = $(this).val();
+            $('#pension').val(patternValue);
+        });
     };
 
     var init = function () {

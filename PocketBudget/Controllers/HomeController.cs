@@ -15,6 +15,7 @@ namespace PocketBudget.Controllers
             model.RetirementAge = 60;
             model.Savings.Amount = 5000;
             model.Spendings.Amount = 15000;
+            model.Pension.Amount = 3000;
             return View(model);
         }
 

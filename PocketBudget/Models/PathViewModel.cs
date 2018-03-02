@@ -13,6 +13,7 @@ namespace PocketBudget.Models
             Salary = new SalaryModel();
             Savings = new SavingsModel();
             Spendings = new SpendingsModel();
+            Pension = new PensionModel();
         }
 
         public short CurrentAge { get; set; }
@@ -26,5 +27,7 @@ namespace PocketBudget.Models
         public SavingsModel Savings { get; set; }
 
         public SpendingsModel Spendings { get; set; }
+
+        public PensionModel Pension { get; set; }
     }
 }
