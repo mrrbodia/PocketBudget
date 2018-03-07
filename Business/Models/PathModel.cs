@@ -16,5 +16,7 @@ namespace Business.Models
         public SpendingsModel Spendings { get; set; }
 
         public AdditionalPathModel AdditionalPath { get; set; }
+
+        public PensionModel Pension { get; set; }
     }
 }

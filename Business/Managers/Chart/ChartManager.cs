@@ -92,7 +92,7 @@ namespace Business.Managers.Chart
                 spendingLine.Add(null);
             spendingLine[workingPeriod - 1] = savingsLines[workingPeriod - 1];
             for (int i = workingPeriod; i < workingPeriod + retirementPeriod; ++i)
-                spendingLine.Add(spendingLine[i - 1] - path.Spendings.Amount * 12);
+                spendingLine.Add(spendingLine[i - 1] + path.Pension.Amount * 12 - path.Spendings.Amount * 12);
             //additionalSpendingsProcessor.Execute();
             return new ChartLine(Constants.ChartLineType.Spendings, spendingLine);
         }

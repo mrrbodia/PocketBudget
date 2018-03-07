@@ -86,11 +86,13 @@
     PersonalFinances.Path.RetirementAge = @Model.RetirementAge.ToJson();
     PersonalFinances.Path.LifeExpectancy = @Model.LifeExpectancy.ToJson();
     PersonalFinances.Path.Savings = PersonalFinances.Path.Savings || [];
+    PersonalFinances.Path.Pension = PersonalFinances.Path.Pension || [];
     PersonalFinances.Path.Spendings = PersonalFinances.Path.Spendings || [];
     PersonalFinances.Path.Salary = PersonalFinances.Path.Salary || [];
     PersonalFinances.Path.Savings.Type = @Model.Savings.Type.ToJson();
     PersonalFinances.Path.Savings.Amount = @Model.Savings.Amount.ToJson();
     PersonalFinances.Path.Spendings.Amount = @Model.Spendings.Amount.ToJson();
+    PersonalFinances.Path.Pension.Amount = PersonalFinances.Path.Pension.Amount || [];
     PersonalFinances.Path.Salary.Amount = @Model.Salary.Amount.ToJson();
 </script>
 
