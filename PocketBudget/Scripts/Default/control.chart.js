@@ -206,7 +206,9 @@ PersonalFinances.Graph = (function () {
         PersonalFinances.Path.RetirementAge = +$('#age-retirement').val();
         PersonalFinances.Path.LifeExpectancy = +$('#age-life-expectancy').val();
         PersonalFinances.Path.Savings.Amount = +$('#target-savings').val();
+        PersonalFinances.Path.Savings.Type = $('input[name=target-savings-type]:checked').val();
         PersonalFinances.Path.Spendings.Amount = +$('#target-spendings').val();
+        PersonalFinances.Path.Salary.Amount = +$('#target-salary').val();
     };
 
     var updateGraphLines = function ()
@@ -233,11 +235,13 @@ PersonalFinances.Graph = (function () {
             'CurrentAge': PersonalFinances.Path.CurrentAge,
             'RetirementAge': PersonalFinances.Path.RetirementAge,
             'LifeExpectancy': PersonalFinances.Path.LifeExpectancy,
+            'Savings.Type': PersonalFinances.Path.Savings.Type,
             'Savings.Amount': PersonalFinances.Path.Savings.Amount,
-            'Spendings.Amount': PersonalFinances.Path.Spendings.Amount
+            'Spendings.Amount': PersonalFinances.Path.Spendings.Amount,
+            'Salary.Amount': PersonalFinances.Path.Salary.Amount
         }
         if (PersonalFinances.Path.AdditionalPath.Deposits) {
-            //each additional income, not deposit
+            //TODO: each additional income, not deposit
             $.each(PersonalFinances.Path.AdditionalPath.Deposits, function (index) {
                 PersonalFinances.Binder.bindDeposit(data, index);
             });
@@ -282,6 +286,11 @@ PersonalFinances.Graph = (function () {
         $(document).on('change', 'input[name="pension-pattern"]', function (e) {
             var patternValue = $(this).val();
             $('#pension').val(patternValue);
+        });
+        $(document).on('change', 'input[name="target-savings-type"]', function (e) {
+            var value = $(this).attr('data-value');
+            $('#target-savings').val(value);
+            onDataChanged();
         });
     };
 

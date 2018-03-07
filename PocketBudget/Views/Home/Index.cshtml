@@ -5,6 +5,8 @@
     var test = Model;
 }
 
+@*TODO: default model binder? (remove names)*@
+
 <div>
     <div class="budget-block row">
         <div id="chart-block-new" style="width:900px; height:800px;" class="col s6">
@@ -21,9 +23,17 @@
             <div class="edit-savings">
                 <p>
                     <label for="target-savings">Збереження / місяць</label>
-                    <input type="radio" name="target-savings-type" class="graph-updater target-savings-percentage" value="Відсотки" />
-                    <input type="radio" name="target-savings-type" class="graph-updater target-savings-fixed" value="Фіксована сума" />
-                    <input type="radio" name="target-savings-type" class="graph-updater target-savings-custom" value="Інше" />
+                </p>
+                <p>
+                    <input type="radio" name="target-savings-type" id="target-savings-fixed" class="graph-updater" data-value="@Model.Savings.Amount.ToJson()" 
+                           value="@Business.Models.SavingsType.Fixed" checked />
+                    <label for="target-savings-fixed">Фіксована сума</label>
+                    <input type="radio" name="target-savings-type" id="target-savings-percentage" class="graph-updater" data-value="20" value="@Business.Models.SavingsType.Percentage" />
+                    <label for="target-savings-percentage">Відсотки від зарплати</label>
+                    <input type="radio" name="target-savings-type" id="target-savings-custom" class="graph-updater" value="@Business.Models.SavingsType.Custom" />
+                    <label for="target-savings-custom">Інше</label>
+                </p>
+                <p>
                     <input id="target-savings" class="graph-updater" type="number" value="@Model.Savings.Amount.ToJson()" />
                 </p>
             </div>
@@ -72,13 +82,16 @@
 <script type="text/javascript">
     var PersonalFinances = PersonalFinances || {};
     PersonalFinances.Path = PersonalFinances.Path || {};
-    PersonalFinances.Path.CurrentAge = @Model.CurrentAge.ToJson()
-    PersonalFinances.Path.RetirementAge = @Model.RetirementAge.ToJson()
-    PersonalFinances.Path.LifeExpectancy = @Model.LifeExpectancy.ToJson()
+    PersonalFinances.Path.CurrentAge = @Model.CurrentAge.ToJson();
+    PersonalFinances.Path.RetirementAge = @Model.RetirementAge.ToJson();
+    PersonalFinances.Path.LifeExpectancy = @Model.LifeExpectancy.ToJson();
     PersonalFinances.Path.Savings = PersonalFinances.Path.Savings || [];
     PersonalFinances.Path.Spendings = PersonalFinances.Path.Spendings || [];
-    PersonalFinances.Path.Savings.Amount = @Model.Savings.Amount.ToJson()
-    PersonalFinances.Path.Spendings.Amount = @Model.Spendings.Amount.ToJson()
+    PersonalFinances.Path.Salary = PersonalFinances.Path.Salary || [];
+    PersonalFinances.Path.Savings.Type = @Model.Savings.Type.ToJson();
+    PersonalFinances.Path.Savings.Amount = @Model.Savings.Amount.ToJson();
+    PersonalFinances.Path.Spendings.Amount = @Model.Spendings.Amount.ToJson();
+    PersonalFinances.Path.Salary.Amount = @Model.Salary.Amount.ToJson();
 </script>
 
 @functions

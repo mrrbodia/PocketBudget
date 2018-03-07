@@ -6,6 +6,7 @@ using System.Web;
 
 namespace PocketBudget.Models
 {
+    //TODO: PathModel - PathViewModel ?
     public class PathViewModel
     {
         public PathViewModel()

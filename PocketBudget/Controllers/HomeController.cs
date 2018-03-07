@@ -14,7 +14,9 @@ namespace PocketBudget.Controllers
             model.LifeExpectancy = 80;
             model.RetirementAge = 60;
             model.Savings.Amount = 5000;
+            model.Savings.Type = SavingsType.Fixed;
             model.Spendings.Amount = 15000;
+            model.Salary.Amount = 7000;
             model.Pension.Amount = 3000;
             return View(model);
         }

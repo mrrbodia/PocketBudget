@@ -6,8 +6,17 @@ using System.Threading.Tasks;
 
 namespace Business.Models
 {
+    public enum SavingsType
+    {
+        Fixed,
+        Percentage,
+        Custom
+    }
+
     public class SavingsModel
     {
         public decimal Amount { get; set; }
+
+        public SavingsType Type { get; set; }
     }
 }

@@ -82,6 +82,10 @@
     <Compile Include="Salary\DefaultSalaryStrategy.cs" />
     <Compile Include="Salary\ISalaryStrategy.cs" />
     <Compile Include="Salary\SalaryStrategy.cs" />
+    <Compile Include="Savings\CustomSavingsStrategy.cs" />
+    <Compile Include="Savings\FixedSavingsStrategy.cs" />
+    <Compile Include="Savings\PercentageSavingsStrategy.cs" />
+    <Compile Include="Savings\SavingsStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -92,6 +96,7 @@
   <ItemGroup>
     <EmbeddedResource Include="DomainModel\Active\Active.hbm.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

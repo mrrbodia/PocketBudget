@@ -1,5 +1,6 @@
 ﻿using Business.Components.AdditionalPath;
 using Business.Models;
+using Business.Savings;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,6 +10,8 @@ namespace Business.Managers.Chart
     {
         private readonly AdditionalSavingsProcessor additionalSavingsProcessor;
 
+        private SavingsStrategy savingsStrategy;
+
         public ChartManager(AdditionalSavingsProcessor additionalSavingsProcessor)
         {
             this.additionalSavingsProcessor = additionalSavingsProcessor;
@@ -17,6 +20,7 @@ namespace Business.Managers.Chart
         public List<ChartLine> GetChartLines(PathModel path)
         {
             var chartLines = new List<ChartLine>();
+            PrepareCalculationData(path);
             var savingsLines = GetSavingsLines(path);
             var spendingLines = GetSpendingLines(path, savingsLines);
 
@@ -24,7 +28,12 @@ namespace Business.Managers.Chart
             chartLines.AddRange(spendingLines);
             return chartLines;
         }
-        
+
+        protected void PrepareCalculationData(PathModel path)
+        {
+            this.savingsStrategy = SavingsStrategy.GetSavingsStragery(path.Savings.Type);
+        }
+
         protected List<ChartLine> GetSavingsLines(PathModel path)
         {
             var savingsLines = new List<ChartLine>();
@@ -51,7 +60,7 @@ namespace Business.Managers.Chart
             var workingPeriod = path.RetirementAge - path.CurrentAge;
             for (int i = 0; i < workingPeriod; ++i)
             {
-                savingsLine.Add(path.Savings.Amount * 12);
+                savingsLine.Add(savingsStrategy.GetSavingsLineAmount(path));
             }
             for (int i = 1; i < workingPeriod; ++i)
             {
