@@ -1,6 +1,7 @@
 ﻿using Business.Components.AdditionalPath;
 using Business.Models;
 using Business.Savings;
+using Business.Spendings;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,6 +12,8 @@ namespace Business.Managers.Chart
         private readonly AdditionalSavingsProcessor additionalSavingsProcessor;
 
         private SavingsStrategy savingsStrategy;
+
+        private SpendingsStrategy spendingsStrategy;
 
         public ChartManager(AdditionalSavingsProcessor additionalSavingsProcessor)
         {
@@ -32,6 +35,7 @@ namespace Business.Managers.Chart
         protected void PrepareCalculationData(PathModel path)
         {
             this.savingsStrategy = SavingsStrategy.GetSavingsStragery(path.Savings.Type);
+            this.spendingsStrategy = SpendingsStrategy.GetSpendingsStragery(path.Spendings.Type);
         }
 
         protected List<ChartLine> GetSavingsLines(PathModel path)
@@ -92,7 +96,7 @@ namespace Business.Managers.Chart
                 spendingLine.Add(null);
             spendingLine[workingPeriod - 1] = savingsLines[workingPeriod - 1];
             for (int i = workingPeriod; i < workingPeriod + retirementPeriod; ++i)
-                spendingLine.Add(spendingLine[i - 1] + path.Pension.Amount * 12 - path.Spendings.Amount * 12);
+                spendingLine.Add(spendingLine[i-1] + spendingsStrategy.GetSpendingsLineAmount(path, savingsLines[workingPeriod - 1]));
             //additionalSpendingsProcessor.Execute();
             return new ChartLine(Constants.ChartLineType.Spendings, spendingLine);
         }

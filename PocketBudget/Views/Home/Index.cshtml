@@ -28,9 +28,11 @@
                     <input type="radio" name="target-savings-type" id="target-savings-fixed" class="graph-updater" data-value="@Model.Savings.Amount.ToJson()" 
                            value="@Business.Models.SavingsType.Fixed" checked />
                     <label for="target-savings-fixed">Фіксована сума</label>
-                    <input type="radio" name="target-savings-type" id="target-savings-percentage" class="graph-updater" data-value="20" value="@Business.Models.SavingsType.Percentage" />
+                    <input type="radio" name="target-savings-type" id="target-savings-percentage" class="graph-updater" data-value="20" 
+                           value="@Business.Models.SavingsType.Percentage" />
                     <label for="target-savings-percentage">Відсотки від зарплати</label>
-                    <input type="radio" name="target-savings-type" id="target-savings-custom" class="graph-updater" value="@Business.Models.SavingsType.Custom" />
+                    <input type="radio" name="target-savings-type" id="target-savings-custom" class="graph-updater" 
+                           value="@Business.Models.SavingsType.Custom" />
                     <label for="target-savings-custom">Інше</label>
                 </p>
                 <p>
@@ -56,6 +58,16 @@
             <div class="edit-spendings">
                 <p>
                     <label for="target-spendings">Витрати на пенсії / місяць</label>
+                </p>
+                <p>
+                    <input name="spendings-pattern" type="radio" id="spendings-fixed" data-value="@Model.Spendings.Amount.ToJson()"
+                          value="@Business.Models.SpendingsType.Fixed" checked />
+                    <label for="spendings-fixed">Фіксована сума</label>
+                    <input name="spendings-pattern" type="radio" id="spendings-percentage" data-value="0.05"
+                           value="@Business.Models.SpendingsType.Percentage" />
+                    <label for="spendings-percentage">Відсотки від збережень</label>
+                </p>
+                <p>
                     <input id="target-spendings" class="graph-updater" type="number" value="@Model.Spendings.Amount.ToJson()" />
                 </p>
             </div>
@@ -80,6 +92,7 @@
 <div id="tooltip-element"></div>
 
 <script type="text/javascript">
+    //TODO: find better solutions
     var PersonalFinances = PersonalFinances || {};
     PersonalFinances.Path = PersonalFinances.Path || {};
     PersonalFinances.Path.CurrentAge = @Model.CurrentAge.ToJson();
@@ -91,6 +104,7 @@
     PersonalFinances.Path.Salary = PersonalFinances.Path.Salary || [];
     PersonalFinances.Path.Savings.Type = @Model.Savings.Type.ToJson();
     PersonalFinances.Path.Savings.Amount = @Model.Savings.Amount.ToJson();
+    PersonalFinances.Path.Spendings.Type = @Model.Spendings.Type.ToJson();
     PersonalFinances.Path.Spendings.Amount = @Model.Spendings.Amount.ToJson();
     PersonalFinances.Path.Pension.Amount = PersonalFinances.Path.Pension.Amount || [];
     PersonalFinances.Path.Salary.Amount = @Model.Salary.Amount.ToJson();

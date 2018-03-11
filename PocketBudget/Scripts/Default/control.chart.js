@@ -207,6 +207,7 @@ PersonalFinances.Graph = (function () {
         PersonalFinances.Path.LifeExpectancy = +$('#age-life-expectancy').val();
         PersonalFinances.Path.Savings.Amount = +$('#target-savings').val();
         PersonalFinances.Path.Savings.Type = $('input[name=target-savings-type]:checked').val();
+        PersonalFinances.Path.Spendings.Type = $('input[name=spendings-pattern]:checked').val();
         PersonalFinances.Path.Spendings.Amount = +$('#target-spendings').val();
         PersonalFinances.Path.Pension.Amount = +$('#pension').val();
         PersonalFinances.Path.Salary.Amount = +$('#target-salary').val();
@@ -238,6 +239,7 @@ PersonalFinances.Graph = (function () {
             'LifeExpectancy': PersonalFinances.Path.LifeExpectancy,
             'Savings.Type': PersonalFinances.Path.Savings.Type,
             'Savings.Amount': PersonalFinances.Path.Savings.Amount,
+            'Spendings.Type': PersonalFinances.Path.Spendings.Type,
             'Spendings.Amount': PersonalFinances.Path.Spendings.Amount,
             'Pension.Amount': PersonalFinances.Path.Pension.Amount,
             'Salary.Amount': PersonalFinances.Path.Salary.Amount
@@ -290,9 +292,15 @@ PersonalFinances.Graph = (function () {
             $('#pension').val(patternValue);
             onDataChanged();
         });
+        //TODO: one method for all types
         $(document).on('change', 'input[name="target-savings-type"]', function (e) {
             var value = $(this).attr('data-value');
             $('#target-savings').val(value);
+            onDataChanged();
+        });
+        $(document).on('change', 'input[name="spendings-pattern"]', function (e) {
+            var value = $(this).attr('data-value');
+            $('#target-spendings').val(value);
             onDataChanged();
         });
     };
