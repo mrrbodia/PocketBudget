@@ -25,8 +25,12 @@ namespace PocketBudget.Controllers
         [HttpPost]
         public ActionResult GetChartLines(PathModel pathModel)
         {
-            var chartLines = PersonalFinances.Chart.GetChartLines(pathModel);
-            return Json(chartLines);
+            if (pathModel.IsValid())
+            {
+                var chartLines = PersonalFinances.Chart.GetChartLines(pathModel);
+                return Json(chartLines);
+            }
+            return Json(0);
         }
 
         //TODO: Create session (save chosen user data)

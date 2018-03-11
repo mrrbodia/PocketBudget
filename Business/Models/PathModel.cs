@@ -1,4 +1,5 @@
 ﻿
+using System.Linq;
 namespace Business.Models
 {
     public class PathModel
@@ -18,5 +19,17 @@ namespace Business.Models
         public AdditionalPathModel AdditionalPath { get; set; }
 
         public PensionModel Pension { get; set; }
+
+        public bool IsValid()
+        {
+            return Enumerable.Range(50, 90).Contains(this.RetirementAge)
+                && Enumerable.Range(55, 100).Contains(this.LifeExpectancy)
+                && this.RetirementAge < this.LifeExpectancy
+                && this.CurrentAge != null
+                && this.Salary.Amount != null
+                && this.Savings.Amount != null
+                && this.Spendings.Amount != null
+                && this.Pension.Amount != null;
+        }
     }
 }
