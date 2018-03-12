@@ -13,6 +13,7 @@ using PocketBudget.Web.Mvc;
 using AutoMapper;
 using PocketBudget.Models;
 using Business.Models;
+using Business.DomainModel.Active;
 
 namespace PocketBudget.App_Start
 {
@@ -56,6 +57,20 @@ namespace PocketBudget.App_Start
             {
                 x.CreateMap<PathViewModel, PathModel>();
                 x.CreateMap<PathModel, PathViewModel>();
+                x.CreateMap<SalaryModel, SalaryViewModel>();
+                x.CreateMap<SalaryViewModel, SalaryModel>();
+                x.CreateMap<SavingsModel, SavingsViewModel>();
+                x.CreateMap<SavingsViewModel, SavingsModel>();
+                x.CreateMap<PensionViewModel, PensionModel>();
+                x.CreateMap<PensionModel, PensionViewModel>();
+                x.CreateMap<SpendingsViewModel, SpendingsModel>();
+                x.CreateMap<SpendingsModel, SpendingsViewModel>();
+                x.CreateMap<AdditionalIncomeViewModel, AdditionalIncome>();
+                x.CreateMap<AdditionalIncome, AdditionalIncomeViewModel>();
+                x.CreateMap<AdditionalPathViewModel, AdditionalPathModel>();
+                x.CreateMap<AdditionalPathModel, AdditionalPathViewModel>();
+                x.CreateMap<DepositViewModel, Deposit>();
+                x.CreateMap<Deposit, DepositViewModel>();
             }).CreateMapper();
         }
     }

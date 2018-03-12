@@ -1,0 +1,20 @@
+﻿@model PensionViewModel
+@using PocketBudget.Extensions
+
+<p>
+    @Html.LabelFor(m => m.Amount)
+</p>
+<p>
+    @Html.RadioButton("pension-pattern", 1373, htmlAttributes: new { id = "target-pension-min", @class ="graph-updater pattern",
+        data_value = 1373, data_for = Html.GetFullHtmlFieldId(m => m.Amount), @checked ="checked" })
+    <label for="target-pension-min">Мінімальна</label>
+    @Html.RadioButton("pension-pattern", 3000, htmlAttributes: new { id = "target-pension-3000", @class = "graph-updater pattern",
+        data_value = 3000, data_for = Html.GetFullHtmlFieldId(m => m.Amount) })
+    <label for="target-pension-3000">3000</label>
+    @Html.RadioButton("pension-pattern", 8000, htmlAttributes: new { id = "target-pension-8000", @class = "graph-updater pattern",
+        data_value = 8000, data_for = Html.GetFullHtmlFieldId(m => m.Amount) })
+    <label for="target-pension-8000">8000</label>
+</p>
+<p>
+    @Html.TextBoxFor(m => m.Amount, new { @class = "graph-updater", type = "number" })
+</p>

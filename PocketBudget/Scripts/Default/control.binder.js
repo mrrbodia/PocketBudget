@@ -4,12 +4,14 @@ PersonalFinances.Binder = (function () {
 
     $("html").removeClass("no-js");
 
-    binder.bindDeposit = function (data, index) {
-        data['AdditionalPath.AdditionalIncomes[' + index + '].Deposit.Percentage'] = PersonalFinances.Path.AdditionalPath.Deposits[index].Percentage;
-        data['AdditionalPath.AdditionalIncomes[' + index + '].Deposit.Total'] = PersonalFinances.Path.AdditionalPath.Deposits[index].Total;
-        data['AdditionalPath.AdditionalIncomes[' + index + '].Deposit.CurrencyId'] = PersonalFinances.Path.AdditionalPath.Deposits[index].CurrencyId;
-        data['AdditionalPath.AdditionalIncomes[' + index + '].Deposit.Years'] = PersonalFinances.Path.AdditionalPath.Deposits[index].Years;
-        data['AdditionalPath.AdditionalIncomes[' + index + '].Deposit.FromAge'] = PersonalFinances.Path.AdditionalPath.Deposits[index].FromAge;
+    //TODO: bind additional path model via standard MVC
+    binder.bindDeposit = function (index) {
+        var deposit = '&AdditionalPath.AdditionalIncomes[' + index + '].Deposit.Percentage=' + PersonalFinances.Path.AdditionalPath.Deposits[index].Percentage;
+        deposit += '&AdditionalPath.AdditionalIncomes[' + index + '].Deposit.Total=' + PersonalFinances.Path.AdditionalPath.Deposits[index].Total;
+        deposit += '&AdditionalPath.AdditionalIncomes[' + index + '].Deposit.CurrencyId=' + PersonalFinances.Path.AdditionalPath.Deposits[index].CurrencyId;
+        deposit += '&AdditionalPath.AdditionalIncomes[' + index + '].Deposit.Years=' + PersonalFinances.Path.AdditionalPath.Deposits[index].Years;
+        deposit += '&AdditionalPath.AdditionalIncomes[' + index + '].Deposit.FromAge=' + PersonalFinances.Path.AdditionalPath.Deposits[index].FromAge;
+        return deposit;
     };
 
     return binder;

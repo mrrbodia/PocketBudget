@@ -5,7 +5,7 @@ using System.Web;
 
 namespace PocketBudget.Models
 {
-    public class DepositModel
+    public class DepositViewModel
     {
         public float Percentage { get; set; }
 

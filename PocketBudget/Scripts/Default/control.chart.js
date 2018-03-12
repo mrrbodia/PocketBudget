@@ -48,7 +48,6 @@ PersonalFinances.Graph = (function () {
                         //TODO:
                         //if (neededLine)
                         //    return;
-
                         var tooltipElement = document.getElementById('tooltip-element');
 
                         if (!tooltipElement) {
@@ -124,9 +123,11 @@ PersonalFinances.Graph = (function () {
         var labels = [];
         var date = new Date();
         var currentYear = date.getFullYear();
-        for (var i = PersonalFinances.Path.CurrentAge; i < PersonalFinances.Path.LifeExpectancy; i++)
+        var currentAge = +$('.current-age').val();
+        var lifeExpectancy = +$('.life-expectancy-age').val();
+        for (var i = currentAge; i < lifeExpectancy; i++)
         {
-            var index = i - PersonalFinances.Path.CurrentAge;
+            var index = i - currentAge;
             labels[index] = i;
             //if (i % 5) {
             //    labels[index] = "";
@@ -201,23 +202,10 @@ PersonalFinances.Graph = (function () {
         }
     };
 
-    //TODO: check better solution
-    var initInputValues = function () {
-        PersonalFinances.Path.CurrentAge = +$('#age-current').val();
-        PersonalFinances.Path.RetirementAge = +$('#age-retirement').val();
-        PersonalFinances.Path.LifeExpectancy = +$('#age-life-expectancy').val();
-        PersonalFinances.Path.Savings.Amount = +$('#target-savings').val();
-        PersonalFinances.Path.Savings.Type = $('input[name=savings-pattern]:checked').val();
-        PersonalFinances.Path.Spendings.Type = $('input[name=spendings-pattern]:checked').val();
-        PersonalFinances.Path.Spendings.Amount = +$('#target-spendings').val();
-        PersonalFinances.Path.Pension.Amount = +$('#target-pension').val();
-        PersonalFinances.Path.Salary.Amount = +$('#target-salary').val();
-    };
-
     var updateGraphLines = function ()
     {
-        console.log($.toJSON(PersonalFinances.Path))
-        var model = bindPathModel();
+        var form = $('#path-form');
+        var model = bindPathModel(form);
         $.ajax({
             url: 'getchartlines',
             type: 'POST',
@@ -233,22 +221,12 @@ PersonalFinances.Graph = (function () {
         });
     };
 
-    var bindPathModel = function () {
-        var data = {
-            'CurrentAge': PersonalFinances.Path.CurrentAge,
-            'RetirementAge': PersonalFinances.Path.RetirementAge,
-            'LifeExpectancy': PersonalFinances.Path.LifeExpectancy,
-            'Savings.Type': PersonalFinances.Path.Savings.Type,
-            'Savings.Amount': PersonalFinances.Path.Savings.Amount,
-            'Spendings.Type': PersonalFinances.Path.Spendings.Type,
-            'Spendings.Amount': PersonalFinances.Path.Spendings.Amount,
-            'Pension.Amount': PersonalFinances.Path.Pension.Amount,
-            'Salary.Amount': PersonalFinances.Path.Salary.Amount
-        }
+    var bindPathModel = function (form) {
+        var data = form.serialize();
         if (PersonalFinances.Path.AdditionalPath.Deposits) {
             //TODO: each additional income, not deposit
             $.each(PersonalFinances.Path.AdditionalPath.Deposits, function (index) {
-                PersonalFinances.Binder.bindDeposit(data, index);
+                data += PersonalFinances.Binder.bindDeposit(index);
             });
         }
         return data;
@@ -256,7 +234,6 @@ PersonalFinances.Graph = (function () {
 
     var updateGraph = function ()
     {
-        initInputValues();
         updateGraphLines();
     };
 

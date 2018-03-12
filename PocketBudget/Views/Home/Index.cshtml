@@ -1,116 +1,53 @@
 ﻿@model PocketBudget.Models.PathViewModel
-@using PocketBudget.Extensions
 @{
     Layout = "~/Views/Shared/_Base.cshtml";
     var test = Model;
 }
 
-@*TODO: default model binder? (remove names)*@
-
 <div>
-    <div class="budget-block row">
-        <div id="chart-block-new" style="width:900px; height:800px;" class="col s6">
-            <canvas id="chart"></canvas>
-        </div>
-        <div class="col s4">
-            <div class="edit-salary">
-                <p>
-                    <label for="target-salary">Заробітня плата / місяць</label>
-
-                    <input id="target-salary" class="graph-updater" type="number" value="@Model.Salary.Amount.ToJson()" />
-                </p>
+    @using (Html.BeginForm("GetChartLines", "Home", FormMethod.Post, htmlAttributes: new { id="path-form" }))
+    {
+        <div class="budget-block row">
+            <div id="chart-block-new" style="width:900px; height:800px;" class="col s6">
+                <canvas id="chart"></canvas>
             </div>
-            <div class="edit-savings">
-                <p>
-                    <label for="target-savings">Збереження / місяць</label>
-                </p>
-                <p>
-                    <input type="radio" name="savings-pattern" id="target-savings-fixed" class="graph-updater pattern" value="@Business.Models.SavingsType.Fixed"
-                           data-value="@Model.Savings.Amount.ToJson()" data-for="target-savings" checked />
-                    <label for="target-savings-fixed">Фіксована сума</label>
-                    <input type="radio" name="savings-pattern" id="target-savings-percentage" class="graph-updater pattern" value="@Business.Models.SavingsType.Percentage"
-                           data-value="20" data-for="target-savings" />
-                    <label for="target-savings-percentage">Відсотки від зарплати</label>
-                    <input type="radio" name="savings-pattern" id="target-savings-custom" class="graph-updater pattern" value="@Business.Models.SavingsType.Custom"
-                           data-value="" data-for="target-savings"/>
-                    <label for="target-savings-custom">Інше</label>
-                </p>
-                <p>
-                    <input id="target-savings" class="graph-updater" type="number" value="@Model.Savings.Amount.ToJson()" />
-                </p>
-            </div>
-            <div class="pension">
-                <p>
-                    <label for="target-pension">Пенсія</label>
-                </p>
-                <p>
-                    <input name="pension-pattern" type="radio" id="pension-min" @When(Model.Pension.Amount == 1373m, "checked")
-                           data-value="1373" data-for="target-pension" class="pattern"/>
-                    <label for="pension-min">мінімальна</label>
-                    <input name="pension-pattern" type="radio" id="pension-3000" @When(Model.Pension.Amount == 3000m, "checked")
-                           data-value="3000" data-for="target-pension" class="pattern"/>
-                    <label for="pension-3000">3000</label>
-                    <input name="pension-pattern" type="radio" id="pension-8000" @When(Model.Pension.Amount == 8000m, "checked")
-                           data-value="8000" data-for="target-pension" class="pattern"/>
-                    <label for="pension-8000">8000</label>
-                </p>
-                <p>
-                    <input id="target-pension" class="graph-updater" type="number" value="@Model.Pension.Amount.ToJson()" />
-                </p>
-            </div>
-            <div class="edit-spendings">
-                <p>
-                    <label for="target-spendings">Витрати на пенсії / місяць</label>
-                </p>
-                <p>
-                    <input name="spendings-pattern" type="radio" id="spendings-fixed" value="@Business.Models.SpendingsType.Fixed" 
-                           data-value="@Model.Spendings.Amount.ToJson()" data-for="target-spendings" class="pattern" checked />
-                    <label for="spendings-fixed">Фіксована сума</label>
-                    <input name="spendings-pattern" type="radio" id="spendings-percentage" value="@Business.Models.SpendingsType.Percentage"
-                           data-value="0.05" data-for="target-spendings" class="pattern" />
-                    <label for="spendings-percentage">Відсотки від збережень</label>
-                </p>
-                <p>
-                    <input id="target-spendings" class="graph-updater" type="number" value="@Model.Spendings.Amount.ToJson()" />
-                </p>
-            </div>
-            <div class="edit-age">
-                <p>
-                    <label for="age-current">Ваш вік</label>
-                    <input id="age-current" class="graph-updater" type="number" value="@Model.CurrentAge.ToJson()" />
-                </p>
-                <p>
-                    <label for="age-retirement">Вихід на пенсію</label>
-                    <input id="age-retirement" class="graph-updater" type="number" value="@Model.RetirementAge.ToJson()" />
-                </p>
-                <p>
-                    <label for="age-life-expectancy">Тривалість життя</label>
-                    <input id="age-life-expectancy" class="graph-updater" type="number" value="@Model.LifeExpectancy.ToJson()" />
-                </p>
+            <div class="col s4">
+                <div class="edit-salary">
+                    @Html.EditorFor(m => m.Salary)
+                </div>
+                <div class="edit-savings">
+                    @Html.EditorFor(m => m.Savings)
+                </div>
+                <div class="pension">
+                    @Html.EditorFor(m => m.Pension)
+                </div>
+                <div class="edit-spendings">
+                    @Html.EditorFor(m => m.Spendings)
+                </div>
+                <div class="edit-age">
+                    <p>
+                        @Html.LabelFor(m => m.CurrentAge)
+                        @Html.TextBoxFor(m => m.CurrentAge, htmlAttributes: new { @class="graph-updater current-age", type="number" })
+                    </p>
+                    <p>
+                        @Html.LabelFor(m => m.RetirementAge)
+                        @Html.TextBoxFor(m => m.RetirementAge, htmlAttributes: new { @class = "graph-updater retirement-age", type = "number" })
+                    </p>
+                    <p>
+                        @Html.LabelFor(m => m.LifeExpectancy)
+                        @Html.TextBoxFor(m => m.LifeExpectancy, htmlAttributes: new { @class = "graph-updater life-expectancy-age", type = "number" })
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
+    }
 </div>
 <div id="tooltip-element-content">@Html.Partial("_ChartTooltip")</div>
 <div id="tooltip-element"></div>
 
 <script type="text/javascript">
-    //TODO: find better solutions
     var PersonalFinances = PersonalFinances || {};
     PersonalFinances.Path = PersonalFinances.Path || {};
-    PersonalFinances.Path.CurrentAge = @Model.CurrentAge.ToJson();
-    PersonalFinances.Path.RetirementAge = @Model.RetirementAge.ToJson();
-    PersonalFinances.Path.LifeExpectancy = @Model.LifeExpectancy.ToJson();
-    PersonalFinances.Path.Savings = PersonalFinances.Path.Savings || [];
-    PersonalFinances.Path.Pension = PersonalFinances.Path.Pension || [];
-    PersonalFinances.Path.Spendings = PersonalFinances.Path.Spendings || [];
-    PersonalFinances.Path.Salary = PersonalFinances.Path.Salary || [];
-    PersonalFinances.Path.Savings.Type = @Model.Savings.Type.ToJson();
-    PersonalFinances.Path.Savings.Amount = @Model.Savings.Amount.ToJson();
-    PersonalFinances.Path.Spendings.Type = @Model.Spendings.Type.ToJson();
-    PersonalFinances.Path.Spendings.Amount = @Model.Spendings.Amount.ToJson();
-    PersonalFinances.Path.Pension.Amount = PersonalFinances.Path.Pension.Amount || [];
-    PersonalFinances.Path.Salary.Amount = @Model.Salary.Amount.ToJson();
 </script>
 
 @functions

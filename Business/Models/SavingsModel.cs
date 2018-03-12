@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Business.Models
 {
+    //TODO: Percentage will affect on View (remove strategies)
     public enum SavingsType
     {
         Fixed,

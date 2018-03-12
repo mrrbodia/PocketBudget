@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Business.Models
 {
+    //TODO: Check spending type on frontend (remove strategies?)
     public enum SpendingsType
     {
         Fixed,

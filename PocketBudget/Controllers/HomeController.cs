@@ -47,30 +47,19 @@ namespace PocketBudget.Controllers
         [HttpPost]
         public ActionResult EditFinances(int? fromAge)
         {
+            //TODO: var model = new AdditionalPathViewModel
             var model = new AdditionalFinancesViewModel();
             model.Deposits = CreateDepositModel();
             model.FromAge = fromAge;
             return View("_EditFinances", model);
         }
 
-        protected IEnumerable<DepositModel> CreateDepositModel()
+        protected IEnumerable<DepositViewModel> CreateDepositModel()
         {
-            var result = new List<DepositModel>();
-            result.Add(new DepositModel() { CurrencyId = "hrn", Percentage = 14.0f, Total = 100000m, Years = 1, IsActive = true });
-            result.Add(new DepositModel() { CurrencyId = "dollar", Percentage = 3.75f, Total = 4000m, Years = 1 });
-            result.Add(new DepositModel() { CurrencyId = "euro", Percentage = 2.35f, Total = 3000m, Years = 1 });
-            return result;
-        }
-
-        protected SalaryPatternModel CreateSalaryPatternModel()
-        {
-            var result = new SalaryPatternModel();
-            result.IncomePerYear = 60000m;
-            result.IncreaseTillAge = 45;
-            result.IncreasePercentage = 3.0;
-            result.ShowTillAge = 80;
-            result.CurrentAge = 18;
-            result.RetirementAge = 65;
+            var result = new List<DepositViewModel>();
+            result.Add(new DepositViewModel() { CurrencyId = "hrn", Percentage = 14.0f, Total = 100000m, Years = 1, IsActive = true });
+            result.Add(new DepositViewModel() { CurrencyId = "dollar", Percentage = 3.75f, Total = 4000m, Years = 1 });
+            result.Add(new DepositViewModel() { CurrencyId = "euro", Percentage = 2.35f, Total = 3000m, Years = 1 });
             return result;
         }
     }

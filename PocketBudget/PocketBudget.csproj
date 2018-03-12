@@ -132,15 +132,20 @@
     <Compile Include="Controllers\FrontendBaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
+    <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\AdditionalFinancesViewModel.cs" />
+    <Compile Include="Models\AdditionalIncomeViewModel.cs" />
+    <Compile Include="Models\AdditionalPathViewModel.cs" />
     <Compile Include="Models\PathViewModel.cs" />
-    <Compile Include="Models\StrategyViewModel.cs" />
-    <Compile Include="Models\DepositModel.cs" />
-    <Compile Include="Models\SalaryPatternModel.cs" />
+    <Compile Include="Models\DepositViewModel.cs" />
+    <Compile Include="Models\PensionViewModel.cs" />
+    <Compile Include="Models\SalaryViewModel.cs" />
+    <Compile Include="Models\SpendingsViewModel.cs" />
+    <Compile Include="Models\SavingsViewModel.cs" />
     <Compile Include="PersonalFinances.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\Mvc\PathModelBinder.cs" />
@@ -240,6 +245,10 @@
     <Content Include="Views\Home\_EditFinances.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Salary.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Savings.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Spendings.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Pension.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Texts\" />

@@ -1,4 +1,5 @@
 ﻿using Business.Models;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace PocketBudget.Models
@@ -7,25 +8,34 @@ namespace PocketBudget.Models
     {
         public PathViewModel()
         {
-            Salary = new SalaryModel();
-            Savings = new SavingsModel();
-            Spendings = new SpendingsModel();
-            Pension = new PensionModel();
+            Salary = new SalaryViewModel();
+            Savings = new SavingsViewModel();
+            Spendings = new SpendingsViewModel();
+            Pension = new PensionViewModel();
         }
 
+        [Display(Name = "Ваш вік")]
         public short CurrentAge { get; set; }
 
+        [Display(Name = "Вихід на пенсію")]
         public short RetirementAge { get; set; }
 
+        [Display(Name = "Тривалість життя")]
         public short LifeExpectancy { get; set; }
 
-        public SalaryModel Salary { get; set; }
+        [UIHint("Salary")]
+        public SalaryViewModel Salary { get; set; }
 
-        public SavingsModel Savings { get; set; }
+        [UIHint("Savings")]
+        public SavingsViewModel Savings { get; set; }
 
-        public SpendingsModel Spendings { get; set; }
+        [UIHint("Spendings")]
+        public SpendingsViewModel Spendings { get; set; }
 
-        public PensionModel Pension { get; set; }
+        [UIHint("Pension")]
+        public PensionViewModel Pension { get; set; }
+
+        public AdditionalPathViewModel AdditionalPath { get; set; }
 
         public bool IsValid()
         {
