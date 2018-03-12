@@ -201,15 +201,16 @@ PersonalFinances.Graph = (function () {
         }
     };
 
+    //TODO: check better solution
     var initInputValues = function () {
         PersonalFinances.Path.CurrentAge = +$('#age-current').val();
         PersonalFinances.Path.RetirementAge = +$('#age-retirement').val();
         PersonalFinances.Path.LifeExpectancy = +$('#age-life-expectancy').val();
         PersonalFinances.Path.Savings.Amount = +$('#target-savings').val();
-        PersonalFinances.Path.Savings.Type = $('input[name=target-savings-type]:checked').val();
+        PersonalFinances.Path.Savings.Type = $('input[name=savings-pattern]:checked').val();
         PersonalFinances.Path.Spendings.Type = $('input[name=spendings-pattern]:checked').val();
         PersonalFinances.Path.Spendings.Amount = +$('#target-spendings').val();
-        PersonalFinances.Path.Pension.Amount = +$('#pension').val();
+        PersonalFinances.Path.Pension.Amount = +$('#target-pension').val();
         PersonalFinances.Path.Salary.Amount = +$('#target-salary').val();
     };
 
@@ -287,20 +288,10 @@ PersonalFinances.Graph = (function () {
                 }
             });
         });
-        $(document).on('change', 'input[name="pension-pattern"]', function (e) {
-            var patternValue = $(this).val();
-            $('#pension').val(patternValue);
-            onDataChanged();
-        });
-        //TODO: one method for all types
-        $(document).on('change', 'input[name="target-savings-type"]', function (e) {
+        $(document).on('change', '.pattern', function (e) {
             var value = $(this).attr('data-value');
-            $('#target-savings').val(value);
-            onDataChanged();
-        });
-        $(document).on('change', 'input[name="spendings-pattern"]', function (e) {
-            var value = $(this).attr('data-value');
-            $('#target-spendings').val(value);
+            var selector = '#' + $(this).attr('data-for');
+            $(selector).val(value);
             onDataChanged();
         });
     };

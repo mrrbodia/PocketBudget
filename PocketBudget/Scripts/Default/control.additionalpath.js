@@ -1,5 +1,4 @@
-﻿//TODO: move all calculation login to backend (return properly values for Chart)
-var PersonalFinances = PersonalFinances || {};
+﻿var PersonalFinances = PersonalFinances || {};
 PersonalFinances.Path.AdditionalPath = (function () {
     var saveDepositSelection = function (fromAge) {
         PersonalFinances.Path.AdditionalPath.Deposits = PersonalFinances.Path.AdditionalPath.Deposits || [];

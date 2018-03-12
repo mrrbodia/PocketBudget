@@ -25,14 +25,14 @@
                     <label for="target-savings">Збереження / місяць</label>
                 </p>
                 <p>
-                    <input type="radio" name="target-savings-type" id="target-savings-fixed" class="graph-updater" data-value="@Model.Savings.Amount.ToJson()" 
-                           value="@Business.Models.SavingsType.Fixed" checked />
+                    <input type="radio" name="savings-pattern" id="target-savings-fixed" class="graph-updater pattern" value="@Business.Models.SavingsType.Fixed"
+                           data-value="@Model.Savings.Amount.ToJson()" data-for="target-savings" checked />
                     <label for="target-savings-fixed">Фіксована сума</label>
-                    <input type="radio" name="target-savings-type" id="target-savings-percentage" class="graph-updater" data-value="20" 
-                           value="@Business.Models.SavingsType.Percentage" />
+                    <input type="radio" name="savings-pattern" id="target-savings-percentage" class="graph-updater pattern" value="@Business.Models.SavingsType.Percentage"
+                           data-value="20" data-for="target-savings" />
                     <label for="target-savings-percentage">Відсотки від зарплати</label>
-                    <input type="radio" name="target-savings-type" id="target-savings-custom" class="graph-updater" 
-                           value="@Business.Models.SavingsType.Custom" />
+                    <input type="radio" name="savings-pattern" id="target-savings-custom" class="graph-updater pattern" value="@Business.Models.SavingsType.Custom"
+                           data-value="" data-for="target-savings"/>
                     <label for="target-savings-custom">Інше</label>
                 </p>
                 <p>
@@ -41,18 +41,21 @@
             </div>
             <div class="pension">
                 <p>
-                    <label for="target-spendings">Пенсія</label>
+                    <label for="target-pension">Пенсія</label>
                 </p>
                 <p>
-                    <input name="pension-pattern" type="radio" id="pension-min" value="1373" @When(Model.Pension.Amount == 1373m, "checked")/>
+                    <input name="pension-pattern" type="radio" id="pension-min" @When(Model.Pension.Amount == 1373m, "checked")
+                           data-value="1373" data-for="target-pension" class="pattern"/>
                     <label for="pension-min">мінімальна</label>
-                    <input name="pension-pattern" type="radio" id="pension-3000" value="3000" @When(Model.Pension.Amount == 3000m, "checked")/>
+                    <input name="pension-pattern" type="radio" id="pension-3000" @When(Model.Pension.Amount == 3000m, "checked")
+                           data-value="3000" data-for="target-pension" class="pattern"/>
                     <label for="pension-3000">3000</label>
-                    <input name="pension-pattern" type="radio" id="pension-8000" value="8000" @When(Model.Pension.Amount == 8000m, "checked")/>
+                    <input name="pension-pattern" type="radio" id="pension-8000" @When(Model.Pension.Amount == 8000m, "checked")
+                           data-value="8000" data-for="target-pension" class="pattern"/>
                     <label for="pension-8000">8000</label>
                 </p>
                 <p>
-                    <input id="pension" class="graph-updater" type="number" value="@Model.Pension.Amount.ToJson()" />
+                    <input id="target-pension" class="graph-updater" type="number" value="@Model.Pension.Amount.ToJson()" />
                 </p>
             </div>
             <div class="edit-spendings">
@@ -60,11 +63,11 @@
                     <label for="target-spendings">Витрати на пенсії / місяць</label>
                 </p>
                 <p>
-                    <input name="spendings-pattern" type="radio" id="spendings-fixed" data-value="@Model.Spendings.Amount.ToJson()"
-                          value="@Business.Models.SpendingsType.Fixed" checked />
+                    <input name="spendings-pattern" type="radio" id="spendings-fixed" value="@Business.Models.SpendingsType.Fixed" 
+                           data-value="@Model.Spendings.Amount.ToJson()" data-for="target-spendings" class="pattern" checked />
                     <label for="spendings-fixed">Фіксована сума</label>
-                    <input name="spendings-pattern" type="radio" id="spendings-percentage" data-value="0.05"
-                           value="@Business.Models.SpendingsType.Percentage" />
+                    <input name="spendings-pattern" type="radio" id="spendings-percentage" value="@Business.Models.SpendingsType.Percentage"
+                           data-value="0.05" data-for="target-spendings" class="pattern" />
                     <label for="spendings-percentage">Відсотки від збережень</label>
                 </p>
                 <p>
