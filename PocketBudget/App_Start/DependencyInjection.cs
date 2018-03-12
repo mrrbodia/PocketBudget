@@ -10,6 +10,9 @@ using Business.DataProviders;
 using Business.Managers.Chart;
 using Business.Components.AdditionalPath;
 using PocketBudget.Web.Mvc;
+using AutoMapper;
+using PocketBudget.Models;
+using Business.Models;
 
 namespace PocketBudget.App_Start
 {
@@ -32,6 +35,12 @@ namespace PocketBudget.App_Start
             builder.RegisterType<PathModelBinder>().As<PathModelBinder>();
 
             RegisterAdditionalProcessor(builder);
+            RegisterMapper(builder);
+        }
+
+        protected static void RegisterMapper(ContainerBuilder builder)
+        {
+            builder.RegisterInstance(GetMapper());
         }
 
         protected static void RegisterAdditionalProcessor(ContainerBuilder builder)
@@ -39,6 +48,15 @@ namespace PocketBudget.App_Start
             builder.RegisterType<AdditionalSavingsProcessor>().As<AdditionalSavingsProcessor>();
 
             builder.RegisterType<DepositIncomeStep>().As<IAdditionalIncomeStep>();
+        }
+
+        protected static IMapper GetMapper()
+        {
+            return new MapperConfiguration(x =>
+            {
+                x.CreateMap<PathViewModel, PathModel>();
+                x.CreateMap<PathModel, PathViewModel>();
+            }).CreateMapper();
         }
     }
 }

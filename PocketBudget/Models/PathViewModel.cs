@@ -1,12 +1,8 @@
 ﻿using Business.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace PocketBudget.Models
 {
-    //TODO: PathModel - PathViewModel ?
     public class PathViewModel
     {
         public PathViewModel()
@@ -30,5 +26,16 @@ namespace PocketBudget.Models
         public SpendingsModel Spendings { get; set; }
 
         public PensionModel Pension { get; set; }
+
+        public bool IsValid()
+        {
+            return Enumerable.Range(50, 90).Contains(this.RetirementAge)
+                && Enumerable.Range(55, 100).Contains(this.LifeExpectancy)
+                && this.RetirementAge < this.LifeExpectancy
+                && this.Salary != null
+                && this.Savings != null
+                && this.Spendings != null
+                && this.Pension != null;
+        }
     }
 }

@@ -1,5 +1,7 @@
-﻿using Business.Models;
+﻿using AutoMapper;
+using Business.Models;
 using PocketBudget.Models;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -7,6 +9,13 @@ namespace PocketBudget.Controllers
 {
     public class HomeController : FrontendBaseController
     {
+        protected IMapper mapper;
+
+        public HomeController()
+        {
+            mapper = DependencyResolver.Current.GetService<IMapper>();
+        }
+
         public ActionResult Index()
         {
             var model = new PathViewModel();
@@ -23,11 +32,12 @@ namespace PocketBudget.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetChartLines(PathModel pathModel)
+        public ActionResult GetChartLines(PathViewModel pathModel)
         {
             if (pathModel.IsValid())
             {
-                var chartLines = PersonalFinances.Chart.GetChartLines(pathModel);
+                var path = mapper.Map<PathViewModel, PathModel>(pathModel);
+                var chartLines = PersonalFinances.Chart.GetChartLines(path);
                 return Json(chartLines);
             }
             return Json(0);

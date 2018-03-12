@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace PocketBudget.Web.Mvc
 {
+    //TODO: Remove?
     public class PathModelBinder : DefaultModelBinder
     {
         public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
