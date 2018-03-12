@@ -34,9 +34,8 @@ namespace PocketBudget.Controllers
         }
 
         //TODO: Create session (save chosen user data)
-        //TODO: fromAge can be null also
         [HttpPost]
-        public ActionResult EditFinances(int fromAge)
+        public ActionResult EditFinances(int? fromAge)
         {
             var model = new AdditionalFinancesViewModel();
             model.Deposits = CreateDepositModel();

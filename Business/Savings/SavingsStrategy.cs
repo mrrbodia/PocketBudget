@@ -7,23 +7,8 @@ using System.Threading.Tasks;
 
 namespace Business.Savings
 {
-    public abstract class SavingsStrategy
+    public abstract class SavingsStrategy : BasePathStrategy
     {
         public abstract decimal GetSavingsLineAmount(PathModel path);
-
-        public static SavingsStrategy GetSavingsStragery(SavingsType type)
-        {
-            switch (type)
-            {
-                case SavingsType.Fixed:
-                    return new FixedSavingsStrategy();
-                case SavingsType.Percentage:
-                    return new PercentageSavingsStrategy();
-                case SavingsType.Custom:
-                    return new CustomSavingsStrategy();
-                default:
-                    return new FixedSavingsStrategy();
-            }
-        }
     }
 }

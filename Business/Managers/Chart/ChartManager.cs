@@ -34,8 +34,8 @@ namespace Business.Managers.Chart
 
         protected void PrepareCalculationData(PathModel path)
         {
-            this.savingsStrategy = SavingsStrategy.GetSavingsStragery(path.Savings.Type);
-            this.spendingsStrategy = SpendingsStrategy.GetSpendingsStragery(path.Spendings.Type);
+            this.savingsStrategy = BasePathStrategy.GetStragery(path.Savings.Type);
+            this.spendingsStrategy = BasePathStrategy.GetStragery(path.Spendings.Type);
         }
 
         protected List<ChartLine> GetSavingsLines(PathModel path)

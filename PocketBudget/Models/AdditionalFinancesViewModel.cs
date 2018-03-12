@@ -7,7 +7,7 @@ namespace PocketBudget.Models
 {
     public class AdditionalFinancesViewModel
     {
-        public int FromAge { get; set; }
+        public int? FromAge { get; set; }
 
         public IEnumerable<DepositModel> Deposits { get; set; }
     }
