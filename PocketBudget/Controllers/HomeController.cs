@@ -25,6 +25,7 @@ namespace PocketBudget.Controllers
         [HttpPost]
         public ActionResult GetChartLines(PathModel pathModel)
         {
+#error 2.1 is outdated, switch to branch 2.0
             if (pathModel.IsValid())
             {
                 var chartLines = PersonalFinances.Chart.GetChartLines(pathModel);
