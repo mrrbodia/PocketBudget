@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Business.Models
 {
-    public enum Cost
+    public class SalaryModel
     {
-        Economicaly = 0,
-        NonEconomicaly
+        public decimal Amount { get; set; }
     }
 }

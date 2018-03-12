@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.Models
+namespace Business.Managers.Chart
 {
-    public class Goal
+    public class ChartDataPreparer
     {
-        public IList<float> Data { get; set; }
+        public void PrepareChartData()
+        {
+ 
+        }
     }
 }

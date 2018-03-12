@@ -11,7 +11,6 @@ namespace PocketBudget.Controllers
 {
     public class AccountController : FrontendBaseController
     {
-
         public ActionResult Index()
         {
             return View();

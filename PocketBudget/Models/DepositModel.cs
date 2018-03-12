@@ -5,7 +5,7 @@ using System.Web;
 
 namespace PocketBudget.Models
 {
-    public class TestDepositModel
+    public class DepositModel
     {
         public float Percentage { get; set; }
 
@@ -14,6 +14,8 @@ namespace PocketBudget.Models
         public string CurrencyId { get; set; }
 
         public short Years { get; set; }
+
+        public short FromAge { get; set; }
 
         public bool IsActive { get; set; }
     }
