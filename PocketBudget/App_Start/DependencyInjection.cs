@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Autofac;
+﻿using Autofac;
 using Autofac.Integration.Mvc;
 using System.Web.Mvc;
 using Business.Managers;
-using Business.DataProviders;
 using Business.Managers.Chart;
 using Business.Components.AdditionalPath;
-using PocketBudget.Web.Mvc;
 using AutoMapper;
 using PocketBudget.Models;
 using Business.Models;
@@ -33,7 +27,6 @@ namespace PocketBudget.App_Start
             builder.RegisterType<AccountManager>().As<IAccountManager>();
             builder.RegisterType<BankManager>().As<IBankManager>();
             builder.RegisterType<ChartManager>().As<IChartManager>();
-            builder.RegisterType<PathModelBinder>().As<PathModelBinder>();
 
             RegisterAdditionalProcessor(builder);
             RegisterMapper(builder);

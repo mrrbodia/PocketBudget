@@ -1,6 +1,4 @@
-﻿using Business.Models;
-using PocketBudget.App_Start;
-using PocketBudget.Web.Mvc;
+﻿using PocketBudget.App_Start;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -24,7 +22,7 @@ namespace PocketBudget
 
         protected void RegisterMvc()
         {
-            ModelBinders.Binders.Add(typeof(PathModel), DependencyResolver.Current.GetService<PathModelBinder>());
+
         }
     }
 }
