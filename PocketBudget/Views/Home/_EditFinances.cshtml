@@ -24,7 +24,7 @@
                                 <p>
                                     <input id="@deposit.CurrencyId" type="radio" name="deposit" class="deposit-input" value="@deposit.CurrencyId" @selected />
                                     <label class="text-strategy" for="@deposit.CurrencyId">@GetDepositTitle(deposit.CurrencyId) (@string.Format("{0:0.00}% річних", deposit.Percentage))</label>
-                                    <input type="number" name="@percentageId" class="hidden" value="@deposit.Percentage" />
+                                    <input type="hidden" name="@percentageId" class="hidden" value="@deposit.Percentage" />
                                     <input id="@totalId" type="number" name="@totalId" class="deposit-input @visibilityClass" value="@deposit.Total" />
                                     <input id="@yearsId" type="number" name="@yearsId" class="deposit-input @visibilityClass" value="@deposit.Years" />
                                 </p>
