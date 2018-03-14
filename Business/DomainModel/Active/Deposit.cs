@@ -13,18 +13,16 @@ namespace Business.DomainModel.Active
         public virtual decimal Total { get; set; }
 
         public virtual string CurrencyId { get; set; }
-
-        //TODO: check logic
+        
         public virtual short Years { get; set; }
 
         public virtual short From { get; set; }
 
         public virtual short To { get; set; }
-
-        //TODO: Get Income for difficult percents
-        public virtual decimal GetIncomePerYear()
+        
+        public virtual decimal GetIncomePerYear(int currentYear)
         {
-            return Total * (decimal)(Percentage / 100) * GetCurrencyExchangeValue();
+            return (Total * (decimal)Math.Pow((1 + Percentage / 100), currentYear) - Total) * GetCurrencyExchangeValue();
         }
 
         //TODO: Replace with better solution

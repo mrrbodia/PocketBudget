@@ -6,7 +6,7 @@ PersonalFinances.Path.AdditionalPath = (function () {
         var deposit = {
             CurrencyId: currencyId,
             Total: +$('input[name=' + currencyId + 'total]').val(),
-            Percentage: +$('input[name=' + currencyId + 'percentage]').val(),
+            Percentage: $('input[name=' + currencyId + 'percentage]').val(),
             Years: +$('input[name=' + currencyId + 'years]').val(),
             FromAge: fromAge
         };

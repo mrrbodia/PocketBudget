@@ -1,4 +1,5 @@
 ﻿using Business.DomainModel.Active;
+using System;
 using System.Collections.Generic;
 
 namespace Business.Components.AdditionalPath
@@ -9,17 +10,19 @@ namespace Business.Components.AdditionalPath
         {
             if (additionalIncome is Deposit deposit)
             {
-                decimal difference = 0;
-                for (int i = deposit.From; i < deposit.From + deposit.Years; ++i)
+                decimal lastIncome = 0m;
+                for (int i = additionalIncome.From; i < additionalIncome.To; ++i)
                 {
-                    //TODO: for difficult percents
-                    if (i == deposit.From + deposit.Years - 1)
-                        difference = deposit.GetIncomePerYear();
-                    points[i] = points[i] + deposit.GetIncomePerYear();
-                }
-                for (int i = deposit.From + deposit.Years; i < deposit.To; ++i)
-                {
-                    points[i] += difference;
+                    var income = deposit.GetIncomePerYear(i - additionalIncome.From);
+                    if (i - additionalIncome.From < deposit.Years)
+                    {
+                        lastIncome = income;
+                        points[i] = points[i] + income;
+                    }
+                    else
+                    {
+                        points[i] = points[i] + lastIncome;
+                    }
                 }
             }
         }

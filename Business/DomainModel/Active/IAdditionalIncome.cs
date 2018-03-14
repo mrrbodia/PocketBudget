@@ -11,7 +11,7 @@ namespace Business.DomainModel.Active
         short From { get; set; }
 
         short To { get; set; }
-
-        decimal GetIncomePerYear();
+        
+        decimal GetIncomePerYear(int currentYear);
     }
 }
