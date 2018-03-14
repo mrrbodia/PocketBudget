@@ -7,10 +7,11 @@ namespace PocketBudget.Models
 {
     public class AdditionalIncomeViewModel
     {
-        public int From { get; set; }
+        public AdditionalIncomeViewModel()
+        {
+            Deposits = new List<DepositViewModel>();
+        }
 
-        public int To { get; set; }
-
-        public DepositViewModel Deposit { get; set; }
+        public IEnumerable<DepositViewModel> Deposits { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Business.DomainModel.Active
 {
-    public class Deposit : IActive
+    public class Deposit : IAdditionalIncome
     {
         public virtual double Percentage { get; set; }
 
@@ -14,9 +14,12 @@ namespace Business.DomainModel.Active
 
         public virtual string CurrencyId { get; set; }
 
+        //TODO: check logic
         public virtual short Years { get; set; }
 
-        public virtual short FromAge { get; set; }
+        public virtual short From { get; set; }
+
+        public virtual short To { get; set; }
 
         //TODO: Get Income for difficult percents
         public virtual decimal GetIncomePerYear()

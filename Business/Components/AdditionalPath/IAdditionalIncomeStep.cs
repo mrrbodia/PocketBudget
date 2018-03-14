@@ -5,6 +5,6 @@ namespace Business.Components.AdditionalPath
 {
     public interface IAdditionalIncomeStep
     {
-        void Execute(AdditionalIncome additionalIncome, List<decimal?> points);
+        void Execute(IAdditionalIncome additionalIncome, List<decimal?> points);
     }
 }

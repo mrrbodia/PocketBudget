@@ -47,13 +47,7 @@ namespace Business.Managers.Chart
 
             foreach (var additionalIncome in path.AdditionalPath?.AdditionalIncomes)
             {
-                //TODO: put ParentLine into parameter
-                var additionalLine = new List<decimal?>(savingsLines.First().Points);
-                //TODO: will be removed
-                additionalIncome.From = additionalIncome.Deposit.FromAge - path.CurrentAge;
-                additionalIncome.To = path.RetirementAge;
-                additionalSavingsProcessor.Execute(path, additionalLine);
-                savingsLines.Add(new ChartLine(Constants.ChartLineType.Savings, additionalLine));
+                savingsLines.Add(GetAdditionalSavingsLine(path, savingsLines.First().Points));
             }
             return savingsLines;
         }
@@ -75,6 +69,14 @@ namespace Business.Managers.Chart
                 savingsLine.Add(null);
             }
             return new ChartLine(Constants.ChartLineType.Savings, savingsLine);
+        }
+
+        protected ChartLine GetAdditionalSavingsLine(PathModel path, List<decimal?> mainSavingsLine)
+        {
+            //TODO: put ParentLine into parameter
+            var additionalLine = new List<decimal?>(mainSavingsLine);
+            additionalSavingsProcessor.Execute(path, additionalLine);
+            return new ChartLine(Constants.ChartLineType.Savings, additionalLine);
         }
 
         protected List<ChartLine> GetSpendingLines(PathModel path, List<ChartLine> savingsLines)

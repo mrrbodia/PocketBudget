@@ -5,15 +5,22 @@ namespace Business.Components.AdditionalPath
 {
     public class DepositIncomeStep : IAdditionalIncomeStep
     {
-        public void Execute(AdditionalIncome additionalIncome, List<decimal?> points)
+        public void Execute(IAdditionalIncome additionalIncome, List<decimal?> points)
         {
-            if (additionalIncome.Deposit == null)
-                return;
-
-            for (int i = additionalIncome.From; i < additionalIncome.To; ++i)
+            if (additionalIncome is Deposit deposit)
             {
-                //var income = additionalIncome.Deposit.Total * (decimal)Math.Pow((1 + additionalIncome.Deposit.Percentage / 100), i - additionalIncome.From);
-                points[i] = points[i] + additionalIncome.Deposit.GetIncomePerYear();
+                decimal difference = 0;
+                for (int i = deposit.From; i < deposit.From + deposit.Years; ++i)
+                {
+                    //TODO: for difficult percents
+                    if (i == deposit.From + deposit.Years - 1)
+                        difference = deposit.GetIncomePerYear();
+                    points[i] = points[i] + deposit.GetIncomePerYear();
+                }
+                for (int i = deposit.From + deposit.Years; i < deposit.To; ++i)
+                {
+                    points[i] += difference;
+                }
             }
         }
     }

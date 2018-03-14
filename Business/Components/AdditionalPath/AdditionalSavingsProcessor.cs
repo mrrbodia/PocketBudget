@@ -16,10 +16,13 @@ namespace Business.Components.AdditionalPath
         {
             foreach (var additionalIncome in path.AdditionalPath.AdditionalIncomes)
             {
+                additionalIncome.From -= path.CurrentAge;
+                additionalIncome.To = path.RetirementAge;
                 foreach (var step in this.steps)
                 {
                     step.Execute(additionalIncome, points);
                 }
+                additionalIncome.From += path.CurrentAge;
             }
         }
     }

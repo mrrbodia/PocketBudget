@@ -14,7 +14,7 @@ PersonalFinances.Path.AdditionalPath = (function () {
     };
 
     var saveAdditionalValuesSelection = function () {
-        var fromAge = +$('input[name=FromAge]').val();
+        var fromAge = +$('input[name=From]').val();
         saveDepositSelection(fromAge);
     };
     

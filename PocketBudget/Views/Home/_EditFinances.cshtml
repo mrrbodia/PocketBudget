@@ -1,4 +1,4 @@
-﻿@model PocketBudget.Models.AdditionalFinancesViewModel
+﻿@model PocketBudget.Models.AdditionalPathViewModel
 <div class="edit-finances-content">
     <div class="edit-finances-tabs-header">
         <span class="edit-finances-header">Доходи</span>
@@ -8,13 +8,13 @@
         <div class="edit-finances-tab additional-path-income active">
             <div>
                 <span>Додаткові доходи з віку </span>
-                @Html.EditorFor(m => m.FromAge)
+                @Html.EditorFor(m => m.From)
             </div>
             <ul>
                 <li class="additional-path-item">
                     <div>
                         <div>
-                            @foreach (var deposit in Model.Deposits)
+                            @foreach (var deposit in Model.AdditionalIncome.Deposits)
                             {
                                 var totalId = deposit.CurrencyId + "total";
                                 var yearsId = deposit.CurrencyId + "years";

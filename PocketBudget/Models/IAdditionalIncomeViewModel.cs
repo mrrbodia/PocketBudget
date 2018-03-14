@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.DomainModel.Active
+namespace PocketBudget.Models
 {
-    public interface IActive
+    public interface IAdditionalIncomeViewModel
     {
-        decimal GetIncomePerYear();
     }
 }

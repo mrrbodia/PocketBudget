@@ -1,5 +1,4 @@
 ﻿
-using System.Linq;
 namespace Business.Models
 {
     public class PathModel

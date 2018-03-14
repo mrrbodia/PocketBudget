@@ -30,6 +30,7 @@ namespace PocketBudget.Controllers
             return View(model);
         }
 
+        //TODO: Create session (save chosen user data)
         [HttpPost]
         public ActionResult GetChartLines(PathViewModel pathModel)
         {
@@ -42,18 +43,24 @@ namespace PocketBudget.Controllers
             return Json(0);
         }
 
-        //TODO: Create session (save chosen user data)
+        //TODO: group models in Models folder
         [HttpPost]
         public ActionResult EditFinances(int? fromAge)
         {
-            //TODO: var model = new AdditionalPathViewModel
-            var model = new AdditionalFinancesViewModel();
-            model.Deposits = CreateDepositModel();
-            model.FromAge = fromAge;
+            var model = new AdditionalPathViewModel();
+            model.From = fromAge;
+            model.AdditionalIncome = CreateAdditionalIncomeViewModel(fromAge);
             return View("_EditFinances", model);
         }
 
-        protected IEnumerable<DepositViewModel> CreateDepositModel()
+        protected AdditionalIncomeViewModel CreateAdditionalIncomeViewModel(int? from)
+        {
+            var result = new AdditionalIncomeViewModel();
+            result.Deposits = CreateDepositsModel();
+            return result;
+        }
+
+        protected IEnumerable<DepositViewModel> CreateDepositsModel()
         {
             var result = new List<DepositViewModel>();
             result.Add(new DepositViewModel() { CurrencyId = "hrn", Percentage = 14.0f, Total = 100000m, Years = 1, IsActive = true });

@@ -54,10 +54,9 @@
     <Compile Include="DataProviders\SQLDataProvider.cs" />
     <Compile Include="DomainModel\Account\Account.cs" />
     <Compile Include="DomainModel\Account\Role.cs" />
-    <Compile Include="DomainModel\Active\AdditionalIncome.cs" />
     <Compile Include="DomainModel\Active\Bank.cs" />
     <Compile Include="DomainModel\Active\Deposit.cs" />
-    <Compile Include="DomainModel\Active\IActive.cs" />
+    <Compile Include="DomainModel\Active\IAdditionalIncome.cs" />
     <Compile Include="Managers\Account\AccountManager.cs" />
     <Compile Include="Managers\Account\IAccountManager.cs" />
     <Compile Include="Components\AdditionalPath\IAdditionalIncomeStep.cs" />

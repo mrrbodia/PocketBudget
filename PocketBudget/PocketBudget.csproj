@@ -123,6 +123,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AdditionalIncomeResolver.cs" />
     <Compile Include="App_Start\DependencyInjection.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BankController.cs" />
@@ -137,9 +138,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModel.cs" />
-    <Compile Include="Models\AdditionalFinancesViewModel.cs" />
     <Compile Include="Models\AdditionalIncomeViewModel.cs" />
     <Compile Include="Models\AdditionalPathViewModel.cs" />
+    <Compile Include="Models\IAdditionalIncomeViewModel.cs" />
     <Compile Include="Models\PathViewModel.cs" />
     <Compile Include="Models\DepositViewModel.cs" />
     <Compile Include="Models\PensionViewModel.cs" />

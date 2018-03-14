@@ -22,7 +22,6 @@ namespace PocketBudget
 
         protected void RegisterMvc()
         {
-
         }
     }
 }

@@ -8,6 +8,7 @@ using AutoMapper;
 using PocketBudget.Models;
 using Business.Models;
 using Business.DomainModel.Active;
+using System.Collections.Generic;
 
 namespace PocketBudget.App_Start
 {
@@ -23,7 +24,6 @@ namespace PocketBudget.App_Start
 
         protected static void RegisterTypes(ContainerBuilder builder)
         {
-            //Register managers instances
             builder.RegisterType<AccountManager>().As<IAccountManager>();
             builder.RegisterType<BankManager>().As<IBankManager>();
             builder.RegisterType<ChartManager>().As<IChartManager>();
@@ -40,7 +40,6 @@ namespace PocketBudget.App_Start
         protected static void RegisterAdditionalProcessor(ContainerBuilder builder)
         {
             builder.RegisterType<AdditionalSavingsProcessor>().As<AdditionalSavingsProcessor>();
-
             builder.RegisterType<DepositIncomeStep>().As<IAdditionalIncomeStep>();
         }
 
@@ -58,10 +57,13 @@ namespace PocketBudget.App_Start
                 x.CreateMap<PensionModel, PensionViewModel>();
                 x.CreateMap<SpendingsViewModel, SpendingsModel>();
                 x.CreateMap<SpendingsModel, SpendingsViewModel>();
-                x.CreateMap<AdditionalIncomeViewModel, AdditionalIncome>();
-                x.CreateMap<AdditionalIncome, AdditionalIncomeViewModel>();
-                x.CreateMap<AdditionalPathViewModel, AdditionalPathModel>();
-                x.CreateMap<AdditionalPathModel, AdditionalPathViewModel>();
+                x.CreateMap<AdditionalPathViewModel, AdditionalPathModel>()
+                        .ForMember(dest => dest.AdditionalIncomes,
+                                   opts => opts.ResolveUsing(new AdditionalIncomeResolver()));
+                x.CreateMap<AdditionalPathModel, AdditionalPathViewModel>()
+                        .ForMember(dest => dest.AdditionalIncome,
+                                   opts => opts.MapFrom(
+                                       src => new AdditionalIncomeViewModel()));
                 x.CreateMap<DepositViewModel, Deposit>();
                 x.CreateMap<Deposit, DepositViewModel>();
             }).CreateMapper();

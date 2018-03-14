@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Business.DomainModel.Active
 {
-    public class AdditionalIncome
+    public interface IAdditionalIncome
     {
-        public int From { get; set; }
+        short From { get; set; }
 
-        public int To { get; set; }
+        short To { get; set; }
 
-        public Deposit Deposit { get; set; }
+        decimal GetIncomePerYear();
     }
 }
