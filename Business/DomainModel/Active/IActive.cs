@@ -8,6 +8,6 @@ namespace Business.DomainModel.Active
 {
     public interface IActive
     {
-        decimal GetIncomePerYear();
+        decimal GetIncomePerYear(int currentYear);
     }
 }

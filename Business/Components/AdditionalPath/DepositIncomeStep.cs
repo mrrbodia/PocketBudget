@@ -14,7 +14,7 @@ namespace Business.Components.AdditionalPath
             decimal lastIncome = 0m;
             for (int i = additionalIncome.From; i < additionalIncome.To; ++i)
             {
-                var income = additionalIncome.Deposit.GetIncomePerYear() * (decimal)Math.Pow((1 + additionalIncome.Deposit.Percentage / 100), i - additionalIncome.From);
+                var income = additionalIncome.Deposit.GetIncomePerYear(i - additionalIncome.From);
                 if (i - additionalIncome.From < additionalIncome.Deposit.Years)
                 {
                     lastIncome = income;

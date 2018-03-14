@@ -19,9 +19,9 @@ namespace Business.DomainModel.Active
         public virtual short FromAge { get; set; }
 
         //TODO: Get Income for difficult percents
-        public virtual decimal GetIncomePerYear()
+        public virtual decimal GetIncomePerYear(int currentYear)
         {
-            return Total * (decimal)(Percentage / 100) * GetCurrencyExchangeValue();
+            return (Total * (decimal)Math.Pow((1 + Percentage / 100), currentYear) - Total) * GetCurrencyExchangeValue();
         }
 
         //TODO: Replace with better solution
