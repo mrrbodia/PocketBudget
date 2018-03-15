@@ -14,5 +14,14 @@ PersonalFinances.Binder = (function () {
         return deposit;
     };
 
+    binder.bindCredit = function (index) {
+        var credit = '&AdditionalPath.AdditionalCost.Credits[' + index + '].Percentage=' + PersonalFinances.Path.AdditionalPath.Credits[index].Percentage;
+        credit += '&AdditionalPath.AdditionalCost.Credits[' + index + '].Total=' + PersonalFinances.Path.AdditionalPath.Credits[index].Total;
+        credit += '&AdditionalPath.AdditionalCost.Credits[' + index + '].CurrencyId=' + PersonalFinances.Path.AdditionalPath.Credits[index].CurrencyId;
+        credit += '&AdditionalPath.AdditionalCost.Credits[' + index + '].Years=' + PersonalFinances.Path.AdditionalPath.Credits[index].Years;
+        credit += '&AdditionalPath.AdditionalCost.Credits[' + index + '].FromAge=' + PersonalFinances.Path.AdditionalPath.Credits[index].FromAge;
+        return credit;
+    };
+
     return binder;
 }());

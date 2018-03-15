@@ -12,6 +12,8 @@ namespace PocketBudget.Models
             Deposits = new List<DepositViewModel>();
         }
 
+        public int? From { get; set; }
+
         public IEnumerable<DepositViewModel> Deposits { get; set; }
     }
 }

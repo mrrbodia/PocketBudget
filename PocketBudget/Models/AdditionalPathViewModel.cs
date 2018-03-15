@@ -8,12 +8,9 @@ namespace PocketBudget.Models
         {
             AdditionalIncome = new AdditionalIncomeViewModel();
         }
-
-        public int? From { get; set; }
-
+        
         public AdditionalIncomeViewModel AdditionalIncome { get; set; }
 
-        //TODO:
-        //public AdditionalCostViewModel AdditionalCost { get; set; }
+        public AdditionalCostViewModel AdditionalCost { get; set; }
     }
 }

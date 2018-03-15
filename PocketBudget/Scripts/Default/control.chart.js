@@ -229,6 +229,11 @@ PersonalFinances.Graph = (function () {
                 data += PersonalFinances.Binder.bindDeposit(index);
             });
         }
+        if (PersonalFinances.Path.AdditionalPath.Credits) {
+            $.each(PersonalFinances.Path.AdditionalPath.Credits, function (index) {
+                data += PersonalFinances.Binder.bindCredit(index);
+            });
+        }
         return data;
     };
 
@@ -259,6 +264,7 @@ PersonalFinances.Graph = (function () {
                     var newHtml = data.trim();
                     $('#edit-finances-popup').find('.modal-content').html(newHtml);
                     PersonalFinances.Popups.open('#edit-finances-popup');
+                    $('ul.tabs').tabs();
                 },
                 error: function (err) {
                     console.log(err);

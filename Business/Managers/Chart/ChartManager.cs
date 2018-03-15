@@ -42,9 +42,10 @@ namespace Business.Managers.Chart
         {
             var savingsLines = new List<ChartLine>();
             savingsLines.Add(GetSavingsLine(path));
-            if (path.AdditionalPath == null || !path.AdditionalPath.AdditionalIncomes.Any())
+            if (path.AdditionalPath == null)
                 return savingsLines;
 
+            //TODO: foreach additional input??? OR additional cost processor
             foreach (var additionalIncome in path.AdditionalPath?.AdditionalIncomes)
             {
                 savingsLines.Add(GetAdditionalSavingsLine(path, savingsLines.First().Points));

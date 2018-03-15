@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Business;
 using Business.Models;
 using PocketBudget.Models;
 using System.Collections.Generic;
@@ -42,30 +43,48 @@ namespace PocketBudget.Controllers
             }
             return Json(0);
         }
-
-        //TODO: group models in Models folder
+        
+        //TODO: what if user want to select only income, but not costs or vice versa
         [HttpPost]
         public ActionResult EditFinances(int? fromAge)
         {
             var model = new AdditionalPathViewModel();
-            model.From = fromAge;
             model.AdditionalIncome = CreateAdditionalIncomeViewModel(fromAge);
+            model.AdditionalCost = CreateAdditionalCostViewModel(fromAge);
             return View("_EditFinances", model);
         }
 
-        protected AdditionalIncomeViewModel CreateAdditionalIncomeViewModel(int? from)
+        protected AdditionalIncomeViewModel CreateAdditionalIncomeViewModel(int? fromAge)
         {
             var result = new AdditionalIncomeViewModel();
+            result.From = fromAge;
             result.Deposits = CreateDepositsModel();
+            return result;
+        }
+
+        protected AdditionalCostViewModel CreateAdditionalCostViewModel(int? fromAge)
+        {
+            var result = new AdditionalCostViewModel();
+            result.From = fromAge;
+            result.Credits = CreateCreditsModel();
             return result;
         }
 
         protected IEnumerable<DepositViewModel> CreateDepositsModel()
         {
             var result = new List<DepositViewModel>();
-            result.Add(new DepositViewModel() { CurrencyId = "hrn", Percentage = 14.0f, Total = 100000m, Years = 1, IsActive = true });
-            result.Add(new DepositViewModel() { CurrencyId = "dollar", Percentage = 3.75f, Total = 4000m, Years = 1 });
-            result.Add(new DepositViewModel() { CurrencyId = "euro", Percentage = 2.35f, Total = 3000m, Years = 1 });
+            result.Add(new DepositViewModel() { CurrencyId = Constants.Currency.Hrn, Percentage = 14.0f, Total = 100000m, Years = 1, IsActive = true });
+            result.Add(new DepositViewModel() { CurrencyId = Constants.Currency.Dollar, Percentage = 3.75f, Total = 4000m, Years = 1 });
+            result.Add(new DepositViewModel() { CurrencyId = Constants.Currency.Euro, Percentage = 2.35f, Total = 3000m, Years = 1 });
+            return result;
+        }
+
+        protected IEnumerable<CreditViewModel> CreateCreditsModel()
+        {
+            var result = new List<CreditViewModel>();
+            result.Add(new CreditViewModel() { CurrencyId = Constants.Currency.Hrn, Percentage = 25.0f, Total = 100000m, Years = 2, IsActive = true });
+            result.Add(new CreditViewModel() { CurrencyId = Constants.Currency.Dollar, Percentage = 8.0f, Total = 4000m, Years = 2 });
+            result.Add(new CreditViewModel() { CurrencyId = Constants.Currency.Euro, Percentage = 5.0f, Total = 3000m, Years = 2 });
             return result;
         }
     }

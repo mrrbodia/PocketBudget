@@ -123,6 +123,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AdditionalCostResolver.cs" />
     <Compile Include="App_Start\AdditionalIncomeResolver.cs" />
     <Compile Include="App_Start\DependencyInjection.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
@@ -137,12 +138,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModel.cs" />
-    <Compile Include="Models\AdditionalIncomeViewModel.cs" />
+    <Compile Include="Models\Account\AccountViewModel.cs" />
+    <Compile Include="Models\AdditionalCost\AdditionalCostViewModel.cs" />
+    <Compile Include="Models\AdditionalCost\CreditViewModel.cs" />
+    <Compile Include="Models\AdditionalCost\IAdditionalCostViewModel.cs" />
+    <Compile Include="Models\AdditionalIncome\AdditionalIncomeViewModel.cs" />
     <Compile Include="Models\AdditionalPathViewModel.cs" />
-    <Compile Include="Models\IAdditionalIncomeViewModel.cs" />
+    <Compile Include="Models\AdditionalIncome\IAdditionalIncomeViewModel.cs" />
     <Compile Include="Models\PathViewModel.cs" />
-    <Compile Include="Models\DepositViewModel.cs" />
+    <Compile Include="Models\AdditionalIncome\DepositViewModel.cs" />
     <Compile Include="Models\PensionViewModel.cs" />
     <Compile Include="Models\SalaryViewModel.cs" />
     <Compile Include="Models\SpendingsViewModel.cs" />

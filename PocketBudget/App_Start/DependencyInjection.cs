@@ -41,6 +41,8 @@ namespace PocketBudget.App_Start
         {
             builder.RegisterType<AdditionalSavingsProcessor>().As<AdditionalSavingsProcessor>();
             builder.RegisterType<DepositIncomeStep>().As<IAdditionalIncomeStep>();
+
+            builder.RegisterType<CreditCostStep>().As<IAdditionalCostStep>();
         }
 
         protected static IMapper GetMapper()
@@ -59,7 +61,9 @@ namespace PocketBudget.App_Start
                 x.CreateMap<SpendingsModel, SpendingsViewModel>();
                 x.CreateMap<AdditionalPathViewModel, AdditionalPathModel>()
                         .ForMember(dest => dest.AdditionalIncomes,
-                                   opts => opts.ResolveUsing(new AdditionalIncomeResolver()));
+                                   opts => opts.ResolveUsing(new AdditionalIncomeResolver()))
+                        .ForMember(dest => dest.AdditionalCosts,
+                                   opts => opts.ResolveUsing(new AdditionalCostResolver()));
                 x.CreateMap<AdditionalPathModel, AdditionalPathViewModel>()
                         .ForMember(dest => dest.AdditionalIncome,
                                    opts => opts.MapFrom(

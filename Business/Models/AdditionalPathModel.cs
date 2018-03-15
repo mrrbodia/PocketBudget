@@ -1,4 +1,5 @@
 ﻿using Business.DomainModel.Active;
+using Business.DomainModel.Cost;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace Business.Models
     public class AdditionalPathModel
     {
         public IList<IAdditionalIncome> AdditionalIncomes { get; set; }
+
+        public IList<IAdditionalCost> AdditionalCosts { get; set; }
     }
 }

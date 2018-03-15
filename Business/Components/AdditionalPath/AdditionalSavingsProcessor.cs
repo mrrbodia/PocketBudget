@@ -5,11 +5,13 @@ namespace Business.Components.AdditionalPath
 {
     public class AdditionalSavingsProcessor
     {
-        private readonly IEnumerable<IAdditionalIncomeStep> steps;
+        private readonly IEnumerable<IAdditionalIncomeStep> incomeSteps;
+        private readonly IEnumerable<IAdditionalCostStep> costSteps;
 
-        public AdditionalSavingsProcessor(IEnumerable<IAdditionalIncomeStep> steps)
+        public AdditionalSavingsProcessor(IEnumerable<IAdditionalIncomeStep> incomeSteps, IEnumerable<IAdditionalCostStep> costSteps)
         {
-            this.steps = steps;
+            this.incomeSteps = incomeSteps;
+            this.costSteps = costSteps;
         }
 
         public void Execute(PathModel path, List<decimal?> points)
@@ -18,11 +20,21 @@ namespace Business.Components.AdditionalPath
             {
                 additionalIncome.From -= path.CurrentAge;
                 additionalIncome.To = path.RetirementAge;
-                foreach (var step in this.steps)
+                foreach (var step in this.incomeSteps)
                 {
                     step.Execute(additionalIncome, points);
                 }
                 additionalIncome.From += path.CurrentAge;
+            }
+            foreach (var additionalCost in path.AdditionalPath.AdditionalCosts)
+            {
+                additionalCost.From -= path.CurrentAge;
+                additionalCost.To = path.RetirementAge;
+                foreach (var step in this.costSteps)
+                {
+                    step.Execute(additionalCost, points);
+                }
+                additionalCost.From += path.CurrentAge;
             }
         }
     }

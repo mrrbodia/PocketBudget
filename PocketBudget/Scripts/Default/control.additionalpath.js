@@ -13,14 +13,34 @@ PersonalFinances.Path.AdditionalPath = (function () {
         PersonalFinances.Path.AdditionalPath.Deposits.push(deposit);
     };
 
-    var saveAdditionalValuesSelection = function () {
-        var fromAge = +$('input[name=From]').val();
-        saveDepositSelection(fromAge);
+    var saveCreditSelection = function (fromAge) {
+        PersonalFinances.Path.AdditionalPath.Credits = PersonalFinances.Path.AdditionalPath.Credits || [];
+        var currencyId = $('input[name=credit]:checked').val();
+        var credit = {
+            CurrencyId: currencyId,
+            Total: +$('input[name=' + currencyId + 'total-credit]').val(),
+            Percentage: $('input[name=' + currencyId + 'percentage-credit]').val(),
+            Years: +$('input[name=' + currencyId + 'years-credit]').val(),
+            FromAge: fromAge
+        };
+        PersonalFinances.Path.AdditionalPath.Credits.push(credit);
     };
-    
+
+    var saveAdditionalValuesSelection = function () {
+        var incomeFrom = +$('input.income-from').val();
+        var costFrom = +$('input.cost-from').val();
+        saveDepositSelection(incomeFrom);
+        saveCreditSelection(costFrom);
+    };
+
     $(document).on('click', 'input[name=deposit]', function (e) {
         $('.deposit-input.active').removeClass('active').addClass('hidden');
         $(e.target).parent().find('.deposit-input.hidden').removeClass('hidden').addClass('active');
+    });
+
+    $(document).on('click', 'input[name=credit]', function (e) {
+        $('.credit-input.active').removeClass('active').addClass('hidden');
+        $(e.target).parent().find('.credit-input.hidden').removeClass('hidden').addClass('active');
     });
 
     return {
