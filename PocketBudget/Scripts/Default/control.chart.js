@@ -178,10 +178,10 @@ PersonalFinances.Graph = (function () {
             return {
                 label: 'Збереження',
                 backgroundColor: [
-                    'rgba(21, 229, 171, 0.4)'
+                    '#f1f8e9'
                 ],
                 borderColor: [
-                    'rgba(54, 162, 235, 1)'
+                    '#c5e1a5'
                 ],
                 fill: true,
                 data: line.Points
@@ -191,10 +191,10 @@ PersonalFinances.Graph = (function () {
             return {
                 label: 'Витрати на пенсії',
                 backgroundColor: [
-                    'rgba(255, 179, 179, 0.4)'
+                    '#fbe9e7'
                 ],
                 borderColor: [
-                    'rgba(255, 102, 102, 1)'
+                    '#ffab91'
                 ],
                 fill: true,
                 data: line.Points

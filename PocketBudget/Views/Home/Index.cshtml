@@ -34,8 +34,10 @@
 
 @helper MinimalInformationSettingsBlock()
 {
-    <div class="minimal-budget-block" style="width:10%; height:100%; max-width: 150px; float:right;">
-        <a class="waves-effect waves-light btn button-collapse grey lighten-3" data-activates="slide-out"><i class="material-icons left">edit</i>Змінити</a>
+    <div class="minimal-budget-block" style="width:10%; height:100%; max-width: 200px; float:right;">
+        <p>
+            <a class="minimal-budget-block-btn waves-effect waves-light btn button-collapse grey lighten-3" data-activates="slide-out"><i class="material-icons left">edit</i>Змінити</a>
+        </p>
         <div>
             <div class="edit-salary">
                 @Html.DisplayFor(m => m.Salary)

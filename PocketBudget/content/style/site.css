@@ -98,14 +98,9 @@
     background: none !important;
 }
 
-.button-collapse {
+.sidenav-button {
     color: grey;
 }
-
-    .button-collapse i.left {
-        margin-right: 0;
-        color: grey;
-    }
 
 [type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:after {
     background-color: grey;
@@ -119,3 +114,12 @@
 .side-nav{
     padding: 10px;
 }
+
+.minimal-budget-block-btn {
+    width: 90%;
+    color: grey;
+}
+    .minimal-budget-block-btn i.left {
+        margin-right: 0;
+        color: grey;
+    }
