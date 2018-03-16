@@ -253,6 +253,10 @@
     <Content Include="Views\Shared\EditorTemplates\Savings.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Spendings.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Pension.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Pension.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Salary.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Savings.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Spendings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Texts\" />

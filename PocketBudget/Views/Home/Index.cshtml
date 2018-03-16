@@ -8,7 +8,7 @@
     @using (Html.BeginForm("GetChartLines", "Home", FormMethod.Post, htmlAttributes: new { id="path-form" }))
     {
         <div class="budget-block">
-            <div id="chart-block-new" style="width:90%; height:90%; max-width: 1400px; float: left">
+            <div id="chart-block-new" style="width:90%; height:100%; max-width: 1400px; float: left">
                 <canvas id="chart"></canvas>
             </div>
             @MinimalInformationSettingsBlock()
@@ -22,7 +22,6 @@
 <script type="text/javascript">
     var PersonalFinances = PersonalFinances || {};
     PersonalFinances.Path = PersonalFinances.Path || {};
-    $(".button-collapse").sideNav();
 </script>
 
 @functions
@@ -35,27 +34,45 @@
 
 @helper MinimalInformationSettingsBlock()
 {
-    <div class="minimal-budget-block" style="width:10%; height:10%; max-width: 150px; float:right;">
-        <a href="#" data-activates="slide-out" class="button-collapse">edit</a>
+    <div class="minimal-budget-block" style="width:10%; height:100%; max-width: 150px; float:right;">
+        <a class="waves-effect waves-light btn button-collapse grey lighten-3" data-activates="slide-out"><i class="material-icons left">edit</i>Змінити</a>
         <div>
             <div class="edit-salary">
-                @Html.DisplayTextFor(m => m.Salary)
+                @Html.DisplayFor(m => m.Salary)
             </div>
             <div class="edit-savings">
-                @Html.DisplayTextFor(m => m.Savings)
+                @Html.DisplayFor(m => m.Savings)
+            </div>
+            <div class="pension">
+                @Html.DisplayFor(m => m.Pension)
+            </div>
+            <div class="edit-spendings">
+                @Html.DisplayFor(m => m.Spendings)
             </div>
             <div class="edit-age">
                 <p>
-                    @Html.LabelFor(m => m.CurrentAge)
-                    @Html.ValueFor(m => m.CurrentAge)
+                    <div>
+                        @Html.LabelFor(m => m.CurrentAge)
+                    </div>
+                    <div>
+                        @Html.DisplayFor(m => m.CurrentAge)
+                    </div>
                 </p>
                 <p>
-                    @Html.LabelFor(m => m.RetirementAge)
-                    @Html.ValueFor(m => m.RetirementAge)
+                    <div>
+                        @Html.LabelFor(m => m.RetirementAge)
+                    </div>
+                    <div>
+                        @Html.DisplayFor(m => m.RetirementAge)
+                    </div>
                 </p>
                 <p>
-                    @Html.LabelFor(m => m.LifeExpectancy)
-                    @Html.ValueFor(m => m.LifeExpectancy)
+                    <div>
+                        @Html.LabelFor(m => m.LifeExpectancy)
+                    </div>
+                    <div>
+                        @Html.DisplayFor(m => m.LifeExpectancy)
+                    </div>
                 </p>
             </div>
         </div>

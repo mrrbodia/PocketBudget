@@ -97,3 +97,25 @@
 #sidenav-overlay{
     background: none !important;
 }
+
+.button-collapse {
+    color: grey;
+}
+
+    .button-collapse i.left {
+        margin-right: 0;
+        color: grey;
+    }
+
+[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:after {
+    background-color: grey;
+    z-index: 0;
+}
+
+[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
+    border: 2px solid grey;
+}
+
+.side-nav{
+    padding: 10px;
+}
