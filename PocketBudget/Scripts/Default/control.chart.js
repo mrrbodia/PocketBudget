@@ -279,7 +279,7 @@ PersonalFinances.Graph = (function () {
         });
         $(".button-collapse").sideNav({
             edge: 'right',
-            menuWidth: 460
+            menuWidth: 400
         });
     };
 

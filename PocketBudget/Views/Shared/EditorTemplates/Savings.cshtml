@@ -12,9 +12,6 @@
     @Html.RadioButtonFor(m => m.Type, SavingsType.Percentage, htmlAttributes: new { id = "target-savings-percentage", @class = "graph-updater pattern",
         data_value = 20, data_for = Html.GetFullHtmlFieldId(m => m.Amount) })
     <label for="target-savings-percentage">Відсотки від зарплати</label>
-    @Html.RadioButtonFor(m => m.Type, SavingsType.Custom, htmlAttributes: new { id = "target-savings-custom", @class = "graph-updater pattern",
-        data_value = "", data_for = Html.GetFullHtmlFieldId(m => m.Amount) })
-    <label for="target-savings-custom">Інше</label>
 </p>
 <p>
     @Html.TextBoxFor(m => m.Amount, new { @class = "graph-updater", type = "number" })
