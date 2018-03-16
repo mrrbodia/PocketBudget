@@ -93,3 +93,7 @@
 .additional-strategy-info {
     display:none;
 }
+
+#sidenav-overlay{
+    background: none !important;
+}

@@ -7,39 +7,13 @@
 <div>
     @using (Html.BeginForm("GetChartLines", "Home", FormMethod.Post, htmlAttributes: new { id="path-form" }))
     {
-        <div class="budget-block row">
-            <div id="chart-block-new" style="width:900px; height:800px;" class="col s6">
+        <div class="budget-block">
+            <div id="chart-block-new" style="width:90%; height:90%; max-width: 1400px; float: left">
                 <canvas id="chart"></canvas>
             </div>
-            <div class="col s4">
-                <div class="edit-salary">
-                    @Html.EditorFor(m => m.Salary)
-                </div>
-                <div class="edit-savings">
-                    @Html.EditorFor(m => m.Savings)
-                </div>
-                <div class="pension">
-                    @Html.EditorFor(m => m.Pension)
-                </div>
-                <div class="edit-spendings">
-                    @Html.EditorFor(m => m.Spendings)
-                </div>
-                <div class="edit-age">
-                    <p>
-                        @Html.LabelFor(m => m.CurrentAge)
-                        @Html.TextBoxFor(m => m.CurrentAge, htmlAttributes: new { @class="graph-updater current-age", type="number" })
-                    </p>
-                    <p>
-                        @Html.LabelFor(m => m.RetirementAge)
-                        @Html.TextBoxFor(m => m.RetirementAge, htmlAttributes: new { @class = "graph-updater retirement-age", type = "number" })
-                    </p>
-                    <p>
-                        @Html.LabelFor(m => m.LifeExpectancy)
-                        @Html.TextBoxFor(m => m.LifeExpectancy, htmlAttributes: new { @class = "graph-updater life-expectancy-age", type = "number" })
-                    </p>
-                </div>
-            </div>
+            @MinimalInformationSettingsBlock()
         </div>
+        @EditSettingsBlock()
     }
 </div>
 <div id="tooltip-element-content">@Html.Partial("_ChartTooltip")</div>
@@ -48,6 +22,7 @@
 <script type="text/javascript">
     var PersonalFinances = PersonalFinances || {};
     PersonalFinances.Path = PersonalFinances.Path || {};
+    $(".button-collapse").sideNav();
 </script>
 
 @functions
@@ -56,4 +31,65 @@
     {
         return condition ? then : otherwise;
     }
+}
+
+@helper MinimalInformationSettingsBlock()
+{
+    <div class="minimal-budget-block" style="width:10%; height:10%; max-width: 150px; float:right;">
+        <a href="#" data-activates="slide-out" class="button-collapse">edit</a>
+        <div>
+            <div class="edit-salary">
+                @Html.DisplayTextFor(m => m.Salary)
+            </div>
+            <div class="edit-savings">
+                @Html.DisplayTextFor(m => m.Savings)
+            </div>
+            <div class="edit-age">
+                <p>
+                    @Html.LabelFor(m => m.CurrentAge)
+                    @Html.ValueFor(m => m.CurrentAge)
+                </p>
+                <p>
+                    @Html.LabelFor(m => m.RetirementAge)
+                    @Html.ValueFor(m => m.RetirementAge)
+                </p>
+                <p>
+                    @Html.LabelFor(m => m.LifeExpectancy)
+                    @Html.ValueFor(m => m.LifeExpectancy)
+                </p>
+            </div>
+        </div>
+    </div>
+}
+
+@helper EditSettingsBlock()
+{
+    <div id="slide-out" class="col s4 side-nav">
+        <div class="edit-salary">
+            @Html.EditorFor(m => m.Salary)
+        </div>
+        <div class="edit-savings">
+            @Html.EditorFor(m => m.Savings)
+        </div>
+        <div class="pension">
+            @Html.EditorFor(m => m.Pension)
+        </div>
+        <div class="edit-spendings">
+            @Html.EditorFor(m => m.Spendings)
+        </div>
+        <div class="edit-age">
+            <p>
+                @Html.LabelFor(m => m.CurrentAge)
+                @Html.TextBoxFor(m => m.CurrentAge, htmlAttributes: new { @class = "graph-updater current-age", type = "number" })
+            </p>
+            <p>
+                @Html.LabelFor(m => m.RetirementAge)
+                @Html.TextBoxFor(m => m.RetirementAge, htmlAttributes: new { @class = "graph-updater retirement-age", type = "number" })
+            </p>
+            <p>
+                @Html.LabelFor(m => m.LifeExpectancy)
+                @Html.TextBoxFor(m => m.LifeExpectancy, htmlAttributes: new { @class = "graph-updater life-expectancy-age", type = "number" })
+            </p>
+        </div>
+    </div>
 }

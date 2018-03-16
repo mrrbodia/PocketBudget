@@ -277,6 +277,10 @@ PersonalFinances.Graph = (function () {
             $(selector).val(value);
             onDataChanged();
         });
+        $(".button-collapse").sideNav({
+            edge: 'right',
+            menuWidth: 460
+        });
     };
 
     var init = function () {
