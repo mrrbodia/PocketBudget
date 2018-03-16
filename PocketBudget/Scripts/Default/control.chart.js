@@ -178,7 +178,7 @@ PersonalFinances.Graph = (function () {
             return {
                 label: 'Збереження',
                 backgroundColor: [
-                    '#f1f8e9'
+                    'rgba(241, 248, 233, 0.5)'
                 ],
                 borderColor: [
                     '#c5e1a5'
@@ -191,7 +191,7 @@ PersonalFinances.Graph = (function () {
             return {
                 label: 'Витрати на пенсії',
                 backgroundColor: [
-                    '#fbe9e7'
+                    'rgba(251, 233, 231, 0.5)'
                 ],
                 borderColor: [
                     '#ffab91'
