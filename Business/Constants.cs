@@ -12,8 +12,11 @@ namespace Business
 
         public class ChartLineType
         {
-            public const string Savings = "savings";
-            public const string Spendings = "spendings";
+            public const string Deposit = "deposit";
+
+            public const string Credit = "credit";
+
+            public const string Base = "base";
         }
     }
 }

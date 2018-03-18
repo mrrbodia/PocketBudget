@@ -174,9 +174,9 @@ PersonalFinances.Graph = (function () {
     };
 
     var getChartLine = function (line) {
-        if (line.Type === 'savings') {
+        if (line.Type === 'base') {
             return {
-                label: 'Збереження',
+                label: 'Базова',
                 backgroundColor: [
                     'rgba(241, 248, 233, 0.5)'
                 ],
@@ -187,9 +187,22 @@ PersonalFinances.Graph = (function () {
                 data: line.Points
             }
         }
+        if (line.Type === 'deposit') {
+            return {
+                label: 'Депозит',
+                backgroundColor: [
+                    'rgba(167, 255, 235, 0.5)'
+                ],
+                borderColor: [
+                    '#64ffda'
+                ],
+                fill: true,
+                data: line.Points
+            }
+        }
         else {
             return {
-                label: 'Витрати на пенсії',
+                label: 'Кредит',
                 backgroundColor: [
                     'rgba(251, 233, 231, 0.5)'
                 ],

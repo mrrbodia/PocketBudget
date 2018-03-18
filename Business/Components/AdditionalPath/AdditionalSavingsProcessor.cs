@@ -14,8 +14,9 @@ namespace Business.Components.AdditionalPath
             this.costSteps = costSteps;
         }
 
-        public void Execute(PathModel path, List<decimal?> points)
+        public List<ChartLine> Execute(PathModel path, List<decimal?> points)
         {
+            var additionalLines = new List<ChartLine>();
             foreach (var additionalIncome in path.AdditionalPath.AdditionalIncomes)
             {
                 additionalIncome.From -= path.CurrentAge;
@@ -25,17 +26,21 @@ namespace Business.Components.AdditionalPath
                     step.Execute(additionalIncome, points);
                 }
                 additionalIncome.From += path.CurrentAge;
+                additionalLines.Add(new ChartLine(Constants.ChartLineType.Deposit, points));
             }
-            foreach (var additionalCost in path.AdditionalPath.AdditionalCosts)
-            {
-                additionalCost.From -= path.CurrentAge;
-                additionalCost.To = path.RetirementAge;
-                foreach (var step in this.costSteps)
-                {
-                    step.Execute(additionalCost, points);
-                }
-                additionalCost.From += path.CurrentAge;
-            }
+
+            //foreach (var additionalCost in path.AdditionalPath.AdditionalCosts)
+            //{
+            //    additionalCost.From -= path.CurrentAge;
+            //    additionalCost.To = path.RetirementAge;
+            //    foreach (var step in this.costSteps)
+            //    {
+            //        step.Execute(additionalCost, points);
+            //    }
+            //    additionalCost.From += path.CurrentAge;
+            //    additionalLines.Add(new ChartLine(Constants.ChartLineType.Deposit, points));
+            //}
+            return additionalLines;
         }
     }
 }
