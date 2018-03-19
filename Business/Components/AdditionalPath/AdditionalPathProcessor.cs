@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace Business.Components.AdditionalPath
 {
-    public class AdditionalSavingsProcessor
+    public class AdditionalPathProcessor
     {
         private readonly IEnumerable<IAdditionalIncomeStep> incomeSteps;
         private readonly IEnumerable<IAdditionalCostStep> costSteps;
 
-        public AdditionalSavingsProcessor(IEnumerable<IAdditionalIncomeStep> incomeSteps, IEnumerable<IAdditionalCostStep> costSteps)
+        public AdditionalPathProcessor(IEnumerable<IAdditionalIncomeStep> incomeSteps, IEnumerable<IAdditionalCostStep> costSteps)
         {
             this.incomeSteps = incomeSteps;
             this.costSteps = costSteps;
@@ -28,18 +28,17 @@ namespace Business.Components.AdditionalPath
                 additionalIncome.From += path.CurrentAge;
                 additionalLines.Add(new ChartLine(Constants.ChartLineType.Deposit, points));
             }
-
-            //foreach (var additionalCost in path.AdditionalPath.AdditionalCosts)
-            //{
-            //    additionalCost.From -= path.CurrentAge;
-            //    additionalCost.To = path.RetirementAge;
-            //    foreach (var step in this.costSteps)
-            //    {
-            //        step.Execute(additionalCost, points);
-            //    }
-            //    additionalCost.From += path.CurrentAge;
-            //    additionalLines.Add(new ChartLine(Constants.ChartLineType.Deposit, points));
-            //}
+            foreach (var additionalCost in path.AdditionalPath.AdditionalCosts)
+            {
+                additionalCost.From -= path.CurrentAge;
+                additionalCost.To = path.RetirementAge;
+                foreach (var step in this.costSteps)
+                {
+                    step.Execute(additionalCost, points);
+                }
+                additionalCost.From += path.CurrentAge;
+                additionalLines.Add(new ChartLine(Constants.ChartLineType.Credit, points));
+            }
             return additionalLines;
         }
     }

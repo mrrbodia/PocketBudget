@@ -14,8 +14,6 @@ namespace Business
                     return new FixedSavingsStrategy();
                 case SavingsType.Percentage:
                     return new PercentageSavingsStrategy();
-                case SavingsType.Custom:
-                    return new CustomSavingsStrategy();
                 default:
                     return new FixedSavingsStrategy();
             }

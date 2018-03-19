@@ -1,7 +1,6 @@
 ﻿@model PocketBudget.Models.AdditionalPathViewModel
 <div class="edit-finances-content">
     <div class="edit-finances-tabs-header">
-        @*TODO:Preselect Income*@
         <ul class="tabs">
             <li class="tab col s3"><a href="#additional-path-income">Доходи</a></li>
             <li class="tab col s3"><a href="#additional-path-cost">Витрати</a></li>
@@ -13,26 +12,30 @@
                 <span>Додаткові доходи з віку </span>
                 @Html.TextBoxFor(m => m.AdditionalIncome.From, htmlAttributes: new { type="number", @class="income-from" })
             </div>
-            <ul>
-                <li class="additional-path-item">
-                    <div>
-                        <div>
-                            @foreach (var deposit in Model.AdditionalIncome.Deposits)
-                            {
-                                var totalId = deposit.CurrencyId + "total";
-                                var yearsId = deposit.CurrencyId + "years";
-                                var percentageId = deposit.CurrencyId + "percentage";
-                                var visibilityClass = deposit.IsActive ? "active" : "hidden";
-                                var selected = deposit.IsActive ? "checked" : "";
-                                <p>
-                                    <input id="@deposit.CurrencyId" type="radio" name="deposit" class="deposit-input" value="@deposit.CurrencyId" @selected />
-                                    <label class="text-strategy" for="@deposit.CurrencyId">@GetDepositTitle(deposit.CurrencyId) (@string.Format("{0:0.00}% річних", deposit.Percentage))</label>
-                                    <input type="hidden" name="@percentageId" class="hidden" value="@deposit.Percentage" />
-                                    <input id="@totalId" type="number" name="@totalId" class="deposit-input @visibilityClass" value="@deposit.Total" />
-                                    <input id="@yearsId" type="number" name="@yearsId" class="deposit-input @visibilityClass" value="@deposit.Years" />
-                                </p>
-                            }
-                        </div>
+            <ul class="collapsible" data-collapsible="expandable">
+                <li>
+                    <div class="collapsible-header">
+                        <span>Депозит</span>
+                    </div>
+                    <div class="collapsible-body">
+                        <p>
+                            @Html.EditorFor(m => m.AdditionalIncome.IsDepositAdded, new { Label = "Додати депозит", Class = "add-deposit" })
+                        </p>
+                        @foreach (var deposit in Model.AdditionalIncome.Deposits)
+                        {
+                            var totalId = deposit.CurrencyId + "total";
+                            var yearsId = deposit.CurrencyId + "years";
+                            var percentageId = deposit.CurrencyId + "percentage";
+                            var visibilityClass = deposit.IsActive ? "active" : "hidden";
+                            var selected = deposit.IsActive ? "checked" : "";
+                            <p>
+                                <input id="@deposit.CurrencyId" type="radio" name="deposit" class="deposit-input" value="@deposit.CurrencyId" @selected />
+                                <label class="text-strategy" for="@deposit.CurrencyId">@GetDepositTitle(deposit.CurrencyId) (@string.Format("{0:0.00}% річних", deposit.Percentage))</label>
+                                <input type="hidden" name="@percentageId" class="hidden" value="@deposit.Percentage" />
+                                <input id="@totalId" type="number" name="@totalId" class="deposit-input @visibilityClass" value="@deposit.Total" />
+                                <input id="@yearsId" type="number" name="@yearsId" class="deposit-input @visibilityClass" value="@deposit.Years" />
+                            </p>
+                        }
                     </div>
                 </li>
             </ul>
@@ -42,28 +45,32 @@
                 <span>Додаткові витрати з віку </span>
                 @Html.TextBoxFor(m => m.AdditionalCost.From, htmlAttributes: new { type = "number", @class = "cost-from" })
             </div>
-            <ul>
-                <li class="additional-path-item">
-                    <div>
-                        <div>
-                            @foreach (var credit in Model.AdditionalCost.Credits)
-                            {
-                                //TODO: the same html as for deposit (duplication of code)
-                                var creditId = credit.CurrencyId + "-credit";
-                                var totalId = credit.CurrencyId + "total-credit";
-                                var yearsId = credit.CurrencyId + "years-credit";
-                                var percentageId = credit.CurrencyId + "percentage-credit";
-                                var visibilityClass = credit.IsActive ? "active" : "hidden";
-                                var selected = credit.IsActive ? "checked" : "";
-                                <p>
-                                    <input id="@creditId" type="radio" name="credit" class="credit-input" value="@credit.CurrencyId" @selected />
-                                    <label class="text-strategy" for="@creditId">@GetCreditTitle(credit.CurrencyId) (@string.Format("{0:0.00}% річних", credit.Percentage))</label>
-                                    <input type="hidden" name="@percentageId" class="hidden" value="@credit.Percentage" />
-                                    <input id="@totalId" type="number" name="@totalId" class="credit-input @visibilityClass" value="@credit.Total" />
-                                    <input id="@yearsId" type="number" name="@yearsId" class="credit-input @visibilityClass" value="@credit.Years" />
-                                </p>
-                            }
-                        </div>
+            <ul class="collapsible" data-collapsible="expandable">
+                <li>
+                    <div class="collapsible-header">
+                        <span>Кредит</span>
+                    </div>
+                    <div class="collapsible-body">
+                        <p>
+                            @Html.EditorFor(m => m.AdditionalCost.IsCreditAdded, new { Label = "Додати кредит", Class = "add-credit" })
+                        </p>
+                        @foreach (var credit in Model.AdditionalCost.Credits)
+                        {
+                            //TODO: the same html as for deposit (duplication of code)
+                            var creditId = credit.CurrencyId + "-credit";
+                            var totalId = credit.CurrencyId + "total-credit";
+                            var yearsId = credit.CurrencyId + "years-credit";
+                            var percentageId = credit.CurrencyId + "percentage-credit";
+                            var visibilityClass = credit.IsActive ? "active" : "hidden";
+                            var selected = credit.IsActive ? "checked" : "";
+                            <p>
+                                <input id="@creditId" type="radio" name="credit" class="credit-input" value="@credit.CurrencyId" @selected />
+                                <label class="text-strategy" for="@creditId">@GetCreditTitle(credit.CurrencyId) (@string.Format("{0:0.00}% річних", credit.Percentage))</label>
+                                <input type="hidden" name="@percentageId" class="hidden" value="@credit.Percentage" />
+                                <input id="@totalId" type="number" name="@totalId" class="credit-input @visibilityClass" value="@credit.Total" />
+                                <input id="@yearsId" type="number" name="@yearsId" class="credit-input @visibilityClass" value="@credit.Years" />
+                            </p>
+                        }
                     </div>
                 </li>
             </ul>

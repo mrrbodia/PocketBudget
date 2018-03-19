@@ -9,15 +9,15 @@ namespace Business.Managers.Chart
 {
     public class ChartManager : IChartManager
     {
-        private readonly AdditionalSavingsProcessor additionalSavingsProcessor;
+        private readonly AdditionalPathProcessor additionalPathProcessor;
 
         private SavingsStrategy savingsStrategy;
 
         private SpendingsStrategy spendingsStrategy;
 
-        public ChartManager(AdditionalSavingsProcessor additionalSavingsProcessor)
+        public ChartManager(AdditionalPathProcessor additionalPathProcessor)
         {
-            this.additionalSavingsProcessor = additionalSavingsProcessor;
+            this.additionalPathProcessor = additionalPathProcessor;
         }
 
         public List<ChartLine> GetChartLines(PathModel path)
@@ -66,7 +66,7 @@ namespace Business.Managers.Chart
         {
             //TODO: put ParentLine into parameter
             var additionalLine = new List<decimal?>(mainSavingsLine);
-            return additionalSavingsProcessor.Execute(path, additionalLine);
+            return additionalPathProcessor.Execute(path, additionalLine);
         }
     }
 }

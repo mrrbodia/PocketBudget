@@ -12,6 +12,6 @@ namespace Business.DomainModel.Cost
 
         short To { get; set; }
 
-        decimal GetCostPerYear(int currentYear);
+        decimal GetCostPerYear();
     }
 }

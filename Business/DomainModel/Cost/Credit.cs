@@ -21,9 +21,9 @@ namespace Business.DomainModel.Cost
 
         public virtual short To { get; set; }
         
-        public virtual decimal GetCostPerYear(int currentYear)
+        public virtual decimal GetCostPerYear()
         {
-            return (Total * (decimal)Math.Pow((1 + Percentage / 100), currentYear) - Total) * GetCurrencyExchangeValue();
+            return Total * (decimal)(Percentage / 100) * -GetCurrencyExchangeValue();
         }
 
         //TODO: Replace with better solution

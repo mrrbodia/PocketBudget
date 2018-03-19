@@ -29,8 +29,12 @@ PersonalFinances.Path.AdditionalPath = (function () {
     var saveAdditionalValuesSelection = function () {
         var incomeFrom = +$('input.income-from').val();
         var costFrom = +$('input.cost-from').val();
-        saveDepositSelection(incomeFrom);
-        saveCreditSelection(costFrom);
+        if ($('input[type=checkbox].add-deposit:checked').length) {
+            saveDepositSelection(incomeFrom);
+        }
+        if ($('input[type=checkbox].add-credit:checked').length) {
+            saveCreditSelection(costFrom);
+        }
     };
 
     $(document).on('click', 'input[name=deposit]', function (e) {

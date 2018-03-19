@@ -5,6 +5,7 @@ using Business.Models;
 using PocketBudget.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PocketBudget.App_Start
 {
@@ -13,16 +14,19 @@ namespace PocketBudget.App_Start
         public IList<IAdditionalCost> Resolve(AdditionalPathViewModel source, AdditionalPathModel destination, IList<IAdditionalCost> destMember, ResolutionContext context)
         {
             destMember = new List<IAdditionalCost>();
-            foreach (var credit in source.AdditionalCost.Credits)
+            if (source?.AdditionalCost?.Credits?.Any() ?? false)
             {
-                destMember.Add(new Credit()
+                foreach (var credit in source.AdditionalCost.Credits)
                 {
-                    CurrencyId = credit.CurrencyId,
-                    From = credit.FromAge,
-                    Percentage = credit.Percentage,
-                    Total = credit.Total,
-                    Years = credit.Years
-                });
+                    destMember.Add(new Credit()
+                    {
+                        CurrencyId = credit.CurrencyId,
+                        From = credit.FromAge,
+                        Percentage = credit.Percentage,
+                        Total = credit.Total,
+                        Years = credit.Years
+                    });
+                }
             }
             return destMember;
         }
