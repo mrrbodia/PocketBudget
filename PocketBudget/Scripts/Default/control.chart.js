@@ -34,6 +34,22 @@ PersonalFinances.Graph = (function () {
                         }
                     }]
                 },
+                annotation: {
+                    drawTime: 'afterDatasetsDraw',
+                    annotations: [{
+                        drawTime: 'afterDraw',
+                        type: 'line',
+                        mode: 'vertical',
+                        scaleID: 'y-axis-1',
+                        value: 30,
+                        borderColor: 'red',
+                        borderWidth: 2,
+                        label: {
+                            enabled: true,
+                            content: 'Пенсія'
+                        }
+                    }]
+                },
                 elements: {
                     point: {
                         radius: 0,

@@ -220,6 +220,7 @@
     <Content Include="Areas\Admin\Views\Bank\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Bank\Create.cshtml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\chartjs-plugin-annotation.min.js" />
     <Content Include="Scripts\chartjs-plugin-zoom.min.js" />
     <Content Include="Scripts\d3.min.js" />
     <Content Include="Scripts\Default\control.additionalpath.js" />
