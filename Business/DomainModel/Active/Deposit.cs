@@ -22,6 +22,7 @@ namespace Business.DomainModel.Active
         
         public virtual decimal GetIncomePerYear(int currentYear)
         {
+            //TODO: when deposit for 1 year is selected - no income present
             return (Total * (decimal)Math.Pow((1 + Percentage / 100), currentYear) - Total) * GetCurrencyExchangeValue();
         }
 
