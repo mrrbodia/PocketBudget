@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasePathStrategy.cs" />
+    <Compile Include="Components\AdditionalPath\Cost\PurchaseCostStep.cs" />
     <Compile Include="Components\AdditionalPath\Cost\CreditCostStep.cs" />
     <Compile Include="Components\AdditionalPath\Income\DepositIncomeStep.cs" />
     <Compile Include="Components\AdditionalPath\Cost\IAdditionalCostStep.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="DomainModel\Active\IAdditionalIncome.cs" />
     <Compile Include="DomainModel\Cost\Credit.cs" />
     <Compile Include="DomainModel\Cost\IAdditionalCost.cs" />
+    <Compile Include="DomainModel\Cost\Purchase.cs" />
     <Compile Include="Managers\Account\AccountManager.cs" />
     <Compile Include="Managers\Account\IAccountManager.cs" />
     <Compile Include="Components\AdditionalPath\Income\IAdditionalIncomeStep.cs" />

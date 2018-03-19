@@ -23,5 +23,12 @@ PersonalFinances.Binder = (function () {
         return credit;
     };
 
+    binder.bindPurchase = function (index) {
+        var purchase = '&AdditionalPath.AdditionalCost.Purchases[' + index + '].Total=' + PersonalFinances.Path.AdditionalPath.Purchases[index].Total;
+        purchase += '&AdditionalPath.AdditionalCost.Purchases[' + index + '].CurrencyId=' + PersonalFinances.Path.AdditionalPath.Purchases[index].CurrencyId;
+        purchase += '&AdditionalPath.AdditionalCost.Purchases[' + index + '].FromAge=' + PersonalFinances.Path.AdditionalPath.Purchases[index].FromAge;
+        return purchase;
+    };
+
     return binder;
 }());

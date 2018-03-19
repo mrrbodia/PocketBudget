@@ -28,6 +28,18 @@ namespace PocketBudget.App_Start
                     });
                 }
             }
+            if (source?.AdditionalCost?.Purchases?.Any() ?? false)
+            {
+                foreach (var credit in source.AdditionalCost.Purchases)
+                {
+                    destMember.Add(new Purchase()
+                    {
+                        CurrencyId = credit.CurrencyId,
+                        From = credit.FromAge,
+                        Total = credit.Total
+                    });
+                }
+            }
             return destMember;
         }
     }

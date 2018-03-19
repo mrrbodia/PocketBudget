@@ -43,6 +43,7 @@ namespace PocketBudget.App_Start
             builder.RegisterType<DepositIncomeStep>().As<IAdditionalIncomeStep>();
 
             builder.RegisterType<CreditCostStep>().As<IAdditionalCostStep>();
+            builder.RegisterType<PurchaseCostStep>().As<IAdditionalCostStep>();
         }
 
         protected static IMapper GetMapper()

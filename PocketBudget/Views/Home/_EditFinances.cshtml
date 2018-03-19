@@ -73,6 +73,28 @@
                         }
                     </div>
                 </li>
+                <li>
+                    <div class="collapsible-header">
+                        <span>Покупка</span>
+                    </div>
+                    <div class="collapsible-body">
+                        <p>
+                            @Html.EditorFor(m => m.AdditionalCost.IsPurchaseAdded, new { Label = "Зробити покупку", Class = "add-purchase" })
+                        </p>
+                        @foreach (var purchase in Model.AdditionalCost.Purchases)
+                        {
+                            var purchaseId = purchase.CurrencyId + "-purchase";
+                            var totalId = purchase.CurrencyId + "total-purchase";
+                            var visibilityClass = purchase.IsActive ? "active" : "hidden";
+                            var selected = purchase.IsActive ? "checked" : "";
+                            <p>
+                                <input id="@purchaseId" type="radio" name="purchase" class="purchase-input" value="@purchase.CurrencyId" @selected />
+                                <label class="text-strategy" for="@purchaseId">@GetPurchaseTitle(purchase.CurrencyId)</label>
+                                <input id="@totalId" type="number" name="@totalId" class="purchase-input @visibilityClass" value="@purchase.Total" />
+                            </p>
+                        }
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
@@ -97,6 +119,16 @@
             case "euro": return "Кредит в євро";
             case "dollar": return "Кредит в доларах";
             default: return "Кредит в гривнях";
+        }
+    }
+
+    public string GetPurchaseTitle(string currencyId)
+    {
+        switch (currencyId)
+        {
+            case "euro": return "Покупка в євро";
+            case "dollar": return "Покупка в доларах";
+            default: return "Покупка в гривнях";
         }
     }
 }

@@ -2,6 +2,7 @@
 using Business;
 using Business.Models;
 using PocketBudget.Models;
+using PocketBudget.Models.AdditionalCost;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -66,6 +67,16 @@ namespace PocketBudget.Controllers
             var result = new AdditionalCostViewModel();
             result.From = fromAge;
             result.Credits = CreateCreditsModel();
+            result.Purchases = CreatePurchasesModel();
+            return result;
+        }
+
+        protected IEnumerable<PurchaseViewModel> CreatePurchasesModel()
+        {
+            var result = new List<PurchaseViewModel>();
+            result.Add(new PurchaseViewModel() { CurrencyId = Constants.Currency.Hrn, Total = 100000m, IsActive = true });
+            result.Add(new PurchaseViewModel() { CurrencyId = Constants.Currency.Dollar, Total = 4000m });
+            result.Add(new PurchaseViewModel() { CurrencyId = Constants.Currency.Euro, Total = 3000m });
             return result;
         }
 

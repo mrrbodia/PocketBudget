@@ -26,14 +26,29 @@ PersonalFinances.Path.AdditionalPath = (function () {
         PersonalFinances.Path.AdditionalPath.Credits.push(credit);
     };
 
+    var savePurchaseSelection = function (fromAge) {
+        PersonalFinances.Path.AdditionalPath.Purchases = PersonalFinances.Path.AdditionalPath.Purchases || [];
+        var currencyId = $('input[name=purchase]:checked').val();
+        var purchase = {
+            CurrencyId: currencyId,
+            Total: +$('input[name=' + currencyId + 'total-purchase]').val(),
+            FromAge: fromAge
+        };
+        PersonalFinances.Path.AdditionalPath.Purchases.push(purchase);
+    };
+
     var saveAdditionalValuesSelection = function () {
         var incomeFrom = +$('input.income-from').val();
         var costFrom = +$('input.cost-from').val();
+        //TODO: REPLACE WITH DEFAULT MVC BINDING
         if ($('input[type=checkbox].add-deposit:checked').length) {
             saveDepositSelection(incomeFrom);
         }
         if ($('input[type=checkbox].add-credit:checked').length) {
             saveCreditSelection(costFrom);
+        }
+        if ($('input[type=checkbox].add-purchase:checked').length) {
+            savePurchaseSelection(costFrom);
         }
     };
 
@@ -45,6 +60,11 @@ PersonalFinances.Path.AdditionalPath = (function () {
     $(document).on('click', 'input[name=credit]', function (e) {
         $('.credit-input.active').removeClass('active').addClass('hidden');
         $(e.target).parent().find('.credit-input.hidden').removeClass('hidden').addClass('active');
+    });
+
+    $(document).on('click', 'input[name=purchase]', function (e) {
+        $('.purchase-input.active').removeClass('active').addClass('hidden');
+        $(e.target).parent().find('.purchase-input.hidden').removeClass('hidden').addClass('active');
     });
 
     return {
