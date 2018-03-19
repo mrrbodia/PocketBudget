@@ -8,6 +8,7 @@ namespace PocketBudget.Models
         public AdditionalIncomeViewModel()
         {
             Deposits = new List<DepositViewModel>();
+            Sales = new List<SaleViewModel>();
         }
 
         public int? From { get; set; }
@@ -15,6 +16,11 @@ namespace PocketBudget.Models
         [UIHint("Checkbox")]
         public bool IsDepositAdded { get; set; }
 
+        [UIHint("Checkbox")]
+        public bool IsSaleAdded { get; set; }
+
         public IEnumerable<DepositViewModel> Deposits { get; set; }
+
+        public IEnumerable<SaleViewModel> Sales { get; set; }
     }
 }

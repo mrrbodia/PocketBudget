@@ -13,6 +13,17 @@ PersonalFinances.Path.AdditionalPath = (function () {
         PersonalFinances.Path.AdditionalPath.Deposits.push(deposit);
     };
 
+    var saveSaleSelection = function (fromAge) {
+        PersonalFinances.Path.AdditionalPath.Sales = PersonalFinances.Path.AdditionalPath.Sales || [];
+        var currencyId = $('input[name=sale]:checked').val();
+        var sale = {
+            CurrencyId: currencyId,
+            Total: +$('input[name=' + currencyId + 'total-sale]').val(),
+            FromAge: fromAge
+        };
+        PersonalFinances.Path.AdditionalPath.Sales.push(sale);
+    };
+
     var saveCreditSelection = function (fromAge) {
         PersonalFinances.Path.AdditionalPath.Credits = PersonalFinances.Path.AdditionalPath.Credits || [];
         var currencyId = $('input[name=credit]:checked').val();
@@ -44,6 +55,9 @@ PersonalFinances.Path.AdditionalPath = (function () {
         if ($('input[type=checkbox].add-deposit:checked').length) {
             saveDepositSelection(incomeFrom);
         }
+        if ($('input[type=checkbox].add-sale:checked').length) {
+            saveSaleSelection(incomeFrom);
+        }
         if ($('input[type=checkbox].add-credit:checked').length) {
             saveCreditSelection(costFrom);
         }
@@ -55,6 +69,11 @@ PersonalFinances.Path.AdditionalPath = (function () {
     $(document).on('click', 'input[name=deposit]', function (e) {
         $('.deposit-input.active').removeClass('active').addClass('hidden');
         $(e.target).parent().find('.deposit-input.hidden').removeClass('hidden').addClass('active');
+    });
+
+    $(document).on('click', 'input[name=sale]', function (e) {
+        $('.sale-input.active').removeClass('active').addClass('hidden');
+        $(e.target).parent().find('.sale-input.hidden').removeClass('hidden').addClass('active');
     });
 
     $(document).on('click', 'input[name=credit]', function (e) {

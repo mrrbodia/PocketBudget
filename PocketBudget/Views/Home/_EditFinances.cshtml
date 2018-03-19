@@ -38,6 +38,27 @@
                         }
                     </div>
                 </li>
+                <li>
+                    <div class="collapsible-header">
+                        <span>Продаж</span>
+                    </div>
+                    <div class="collapsible-body">
+                        <p>
+                            @Html.EditorFor(m => m.AdditionalIncome.IsSaleAdded, new { Label = "Продати майно", Class = "add-sale" })
+                        </p>
+                        @foreach (var sale in Model.AdditionalIncome.Sales)
+                        {
+                            var totalId = sale.CurrencyId + "total-sale";
+                            var visibilityClass = sale.IsActive ? "active" : "hidden";
+                            var selected = sale.IsActive ? "checked" : "";
+                            <p>
+                                <input id="@sale.CurrencyId" type="radio" name="sale" class="sale-input" value="@sale.CurrencyId" @selected />
+                                <label class="text-strategy" for="@sale.CurrencyId">@GetSaleTitle(sale.CurrencyId)</label>
+                                <input id="@totalId" type="number" name="@totalId" class="sale-input @visibilityClass" value="@sale.Total" />
+                            </p>
+                        }
+                    </div>
+                </li>
             </ul>
         </div>
         <div id="additional-path-cost" class="col s12">
@@ -109,6 +130,16 @@
             case "euro": return "Депозит в євро";
             case "dollar": return "Депозит в доларах";
             default: return "Депозит в гривнях";
+        }
+    }
+
+    public string GetSaleTitle(string currencyId)
+    {
+        switch (currencyId)
+        {
+            case "euro": return "Продаж в євро";
+            case "dollar": return "Продаж в доларах";
+            default: return "Продаж в гривнях";
         }
     }
 

@@ -144,8 +144,9 @@
     <Compile Include="Models\AdditionalCost\AdditionalCostItemViewModel.cs" />
     <Compile Include="Models\AdditionalCost\PurchaseViewModel.cs" />
     <Compile Include="Models\AdditionalIncome\AdditionalIncomeViewModel.cs" />
+    <Compile Include="Models\AdditionalIncome\SaleViewModel.cs" />
     <Compile Include="Models\AdditionalPathViewModel.cs" />
-    <Compile Include="Models\AdditionalIncome\IAdditionalIncomeViewModel.cs" />
+    <Compile Include="Models\AdditionalIncome\AdditionalIncomeItemViewModel.cs" />
     <Compile Include="Models\PathViewModel.cs" />
     <Compile Include="Models\AdditionalIncome\DepositViewModel.cs" />
     <Compile Include="Models\PensionViewModel.cs" />

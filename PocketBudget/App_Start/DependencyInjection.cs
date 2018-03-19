@@ -9,6 +9,8 @@ using PocketBudget.Models;
 using Business.Models;
 using Business.DomainModel.Active;
 using System.Collections.Generic;
+using Business.DomainModel.Cost;
+using PocketBudget.Models.AdditionalCost;
 
 namespace PocketBudget.App_Start
 {
@@ -41,6 +43,7 @@ namespace PocketBudget.App_Start
         {
             builder.RegisterType<AdditionalPathProcessor>().As<AdditionalPathProcessor>();
             builder.RegisterType<DepositIncomeStep>().As<IAdditionalIncomeStep>();
+            builder.RegisterType<SaleIncomeStep>().As<IAdditionalIncomeStep>();
 
             builder.RegisterType<CreditCostStep>().As<IAdditionalCostStep>();
             builder.RegisterType<PurchaseCostStep>().As<IAdditionalCostStep>();
@@ -71,6 +74,12 @@ namespace PocketBudget.App_Start
                                        src => new AdditionalIncomeViewModel()));
                 x.CreateMap<DepositViewModel, Deposit>();
                 x.CreateMap<Deposit, DepositViewModel>();
+                x.CreateMap<SaleViewModel, Sale>();
+                x.CreateMap<Sale, SaleViewModel>();
+                x.CreateMap<Credit, CreditViewModel>();
+                x.CreateMap<CreditViewModel, Credit>();
+                x.CreateMap<Purchase, PurchaseViewModel>();
+                x.CreateMap<PurchaseViewModel, Purchase>();
             }).CreateMapper();
         }
     }

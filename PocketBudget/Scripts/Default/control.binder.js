@@ -14,6 +14,13 @@ PersonalFinances.Binder = (function () {
         return deposit;
     };
 
+    binder.bindSale = function (index) {
+        var sale = '&AdditionalPath.AdditionalIncome.Sales[' + index + '].Total=' + PersonalFinances.Path.AdditionalPath.Sales[index].Total;
+        sale += '&AdditionalPath.AdditionalIncome.Sales[' + index + '].CurrencyId=' + PersonalFinances.Path.AdditionalPath.Sales[index].CurrencyId;
+        sale += '&AdditionalPath.AdditionalIncome.Sales[' + index + '].FromAge=' + PersonalFinances.Path.AdditionalPath.Sales[index].FromAge;
+        return sale;
+    };
+
     binder.bindCredit = function (index) {
         var credit = '&AdditionalPath.AdditionalCost.Credits[' + index + '].Percentage=' + PersonalFinances.Path.AdditionalPath.Credits[index].Percentage;
         credit += '&AdditionalPath.AdditionalCost.Credits[' + index + '].Total=' + PersonalFinances.Path.AdditionalPath.Credits[index].Total;
