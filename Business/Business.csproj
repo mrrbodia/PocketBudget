@@ -66,7 +66,7 @@
     <Compile Include="Components\AdditionalPath\Income\IAdditionalIncomeStep.cs" />
     <Compile Include="Managers\Bank\BankManager.cs" />
     <Compile Include="Managers\Bank\IBankManager.cs" />
-    <Compile Include="Components\AdditionalPath\AdditionalSavingsProcessor.cs" />
+    <Compile Include="Components\AdditionalPath\AdditionalPathProcessor.cs" />
     <Compile Include="Managers\Chart\ChartDataPreparer.cs" />
     <Compile Include="Managers\Chart\ChartManager.cs" />
     <Compile Include="Managers\Chart\IChartManager.cs" />
@@ -86,7 +86,6 @@
     <Compile Include="Salary\DefaultSalaryStrategy.cs" />
     <Compile Include="Salary\ISalaryStrategy.cs" />
     <Compile Include="Salary\SalaryStrategy.cs" />
-    <Compile Include="Savings\CustomSavingsStrategy.cs" />
     <Compile Include="Savings\FixedSavingsStrategy.cs" />
     <Compile Include="Savings\PercentageSavingsStrategy.cs" />
     <Compile Include="Savings\SavingsStrategy.cs" />

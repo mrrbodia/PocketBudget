@@ -10,8 +10,7 @@ namespace Business.Models
     public enum SavingsType
     {
         Fixed,
-        Percentage,
-        Custom
+        Percentage
     }
 
     public class SavingsModel

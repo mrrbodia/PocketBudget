@@ -79,9 +79,6 @@ PersonalFinances.Graph = (function () {
                     enabled: false,
                     //intersect: false,
                     custom: function (tooltipModel) {
-                        //TODO:
-                        //if (neededLine)
-                        //    return;
                         var tooltipElement = document.getElementById('tooltip-element');
 
                         if (!tooltipElement) {
@@ -317,6 +314,9 @@ PersonalFinances.Graph = (function () {
                     $('#edit-finances-popup').find('.modal-content').html(newHtml);
                     PersonalFinances.Popups.open('#edit-finances-popup');
                     $('ul.tabs').tabs();
+                    $('.collapsible').collapsible({
+                        accordion: false
+                    });
                 },
                 error: function (err) {
                     console.log(err);

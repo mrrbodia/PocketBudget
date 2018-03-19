@@ -260,6 +260,7 @@
     <Content Include="Views\Shared\DisplayTemplates\Salary.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Savings.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Spendings.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Checkbox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Texts\" />

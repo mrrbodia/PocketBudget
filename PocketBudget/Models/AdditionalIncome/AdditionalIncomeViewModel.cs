@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PocketBudget.Models
 {
@@ -13,6 +11,9 @@ namespace PocketBudget.Models
         }
 
         public int? From { get; set; }
+        
+        [UIHint("Checkbox")]
+        public bool IsDepositAdded { get; set; }
 
         public IEnumerable<DepositViewModel> Deposits { get; set; }
     }

@@ -1,0 +1,12 @@
+﻿@model bool
+@{ 
+    string checkedValue = Model ? "checked" : "";
+    var prefix = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var label = ViewData.FirstOrDefault(x => x.Key.Equals("Label"));
+    var clazz = ViewData.FirstOrDefault(x => x.Key.Equals("Class"));
+}
+
+<span>
+    <input type="checkbox" class="filled-in @clazz.Value" id="@prefix" @checkedValue />
+    <label for="@prefix">@label.Value</label>
+</span>

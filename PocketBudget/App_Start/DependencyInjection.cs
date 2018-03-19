@@ -39,7 +39,7 @@ namespace PocketBudget.App_Start
 
         protected static void RegisterAdditionalProcessor(ContainerBuilder builder)
         {
-            builder.RegisterType<AdditionalSavingsProcessor>().As<AdditionalSavingsProcessor>();
+            builder.RegisterType<AdditionalPathProcessor>().As<AdditionalPathProcessor>();
             builder.RegisterType<DepositIncomeStep>().As<IAdditionalIncomeStep>();
 
             builder.RegisterType<CreditCostStep>().As<IAdditionalCostStep>();

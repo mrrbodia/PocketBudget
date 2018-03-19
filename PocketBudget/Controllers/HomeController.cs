@@ -44,7 +44,6 @@ namespace PocketBudget.Controllers
             return Json(0);
         }
         
-        //TODO: what if user want to select only income, but not costs or vice versa
         [HttpPost]
         public ActionResult EditFinances(int? fromAge)
         {
