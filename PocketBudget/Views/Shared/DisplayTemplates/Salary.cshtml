@@ -1,10 +1,8 @@
 ﻿@model SalaryViewModel
 
-<p>
-    <div>
-        @Html.LabelFor(m => m.Amount)
-    </div>
-    <div>
-        @Html.DisplayFor(m => m.Amount, new { @class = "graph-updater", type = "number" })
-    </div>
-</p>
+<div>
+    @Html.LabelFor(m => m.Amount)
+</div>
+<div class="@Html.NameFor(m => m.Amount).ToString().Replace(".", "-")">
+    @Html.DisplayFor(m => m.Amount, new { @class = "graph-updater", type = "number" })
+</div>

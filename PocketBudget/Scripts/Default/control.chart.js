@@ -161,8 +161,9 @@ PersonalFinances.Graph = (function () {
         chart.update();
     };
 
-    var onDataChanged = function () {
+    var onDataChanged = function (input) {
         updateGraph();
+        updateMinimalInformation(input);
     };
 
     var getChartLines = function (data) {
@@ -250,14 +251,18 @@ PersonalFinances.Graph = (function () {
         return data;
     };
 
-    var updateGraph = function ()
-    {
+    var updateGraph = function (){
         updateGraphLines();
+    };
+
+    var updateMinimalInformation = function (input) {
+        var name = $(input).attr("name").replace('.', '-');
+        $('.' + name).html($(input).val());
     };
 
     var initEvents = function () {
         $('.graph-updater[type=number]').on('input', function (e) {
-            onDataChanged();
+            onDataChanged(this);
         });
         $(document).on('click', '.save-edit-finances', function (e) {
             PersonalFinances.Path.AdditionalPath.saveAdditionalValuesSelection();
@@ -288,7 +293,8 @@ PersonalFinances.Graph = (function () {
             var value = $(this).attr('data-value');
             var selector = '#' + $(this).attr('data-for');
             $(selector).val(value);
-            onDataChanged();
+
+            onDataChanged(selector);
         });
         $(".button-collapse").sideNav({
             edge: 'right',

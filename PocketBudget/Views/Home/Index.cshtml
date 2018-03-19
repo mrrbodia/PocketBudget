@@ -52,30 +52,24 @@
                 @Html.DisplayFor(m => m.Spendings)
             </div>
             <div class="edit-age">
-                <p>
-                    <div>
-                        @Html.LabelFor(m => m.CurrentAge)
-                    </div>
-                    <div>
-                        @Html.DisplayFor(m => m.CurrentAge)
-                    </div>
-                </p>
-                <p>
-                    <div>
-                        @Html.LabelFor(m => m.RetirementAge)
-                    </div>
-                    <div>
-                        @Html.DisplayFor(m => m.RetirementAge)
-                    </div>
-                </p>
-                <p>
-                    <div>
-                        @Html.LabelFor(m => m.LifeExpectancy)
-                    </div>
-                    <div>
-                        @Html.DisplayFor(m => m.LifeExpectancy)
-                    </div>
-                </p>
+                <div>
+                    @Html.LabelFor(m => m.CurrentAge)
+                </div>
+                <div class="@Html.NameFor(m => m.CurrentAge).ToString().Replace(".", "-")">
+                    @Html.DisplayFor(m => m.CurrentAge)
+                </div>
+                <div>
+                    @Html.LabelFor(m => m.RetirementAge)
+                </div>
+                <div class="@Html.NameFor(m => m.RetirementAge).ToString().Replace(".", "-")">
+                    @Html.DisplayFor(m => m.RetirementAge)
+                </div>
+                <div>
+                    @Html.LabelFor(m => m.LifeExpectancy)
+                </div>
+                <div class="@Html.NameFor(m => m.LifeExpectancy).ToString().Replace(".", "-")">
+                    @Html.DisplayFor(m => m.LifeExpectancy)
+                </div>
             </div>
         </div>
     </div>
