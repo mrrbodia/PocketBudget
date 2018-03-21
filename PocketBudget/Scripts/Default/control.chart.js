@@ -28,7 +28,14 @@ PersonalFinances.Graph = (function () {
                         mode: 'vertical',
                         type: 'line',
                         value: parseInt($('#RetirementAge').val()) - parseInt($('#CurrentAge').val()),
-                        scaleID: 'x-axis-0'
+                        scaleID: 'x-axis-0',
+                        label: {
+                            content: "Пенсія",
+                            enabled: true,
+                            position: "top",
+                            backgroundColor: "rgba(255, 255, 255, 0.7)",
+                            fontColor: "black",
+                        }
                     }]
                 },
                 //onClick: graphClickEvent,
