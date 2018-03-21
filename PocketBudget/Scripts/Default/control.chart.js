@@ -70,7 +70,7 @@ PersonalFinances.Graph = (function () {
 
                     // Panning directions. Remove the appropriate direction to disable 
                     // Eg. 'y' would only allow panning in the y direction
-                    mode: 'y'
+                    mode: 'xy'
                 },
 
                 // Container for zoom options
@@ -80,7 +80,7 @@ PersonalFinances.Graph = (function () {
 
                     // Zooming directions. Remove the appropriate direction to disable 
                     // Eg. 'y' would only allow zooming in the y direction
-                    mode: 'x'
+                    mode: 'xy'
                 },
                 tooltips: {
                     enabled: false,
