@@ -123,3 +123,7 @@
         margin-right: 0;
         color: grey;
     }
+
+.newline{
+    display: block;
+}
