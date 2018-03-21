@@ -19,9 +19,25 @@ PersonalFinances.Graph = (function () {
                 datasets: datasets
             },
             options: {
+                annotation: {
+                    drawTime: 'afterDatasetsDraw',
+                    annotations: [{
+                        borderColor: 'red',
+                        borderDash: [2, 2],
+                        borderWidth: 2,
+                        mode: 'vertical',
+                        type: 'line',
+                        value: parseInt($('#RetirementAge').val()) - parseInt($('#CurrentAge').val()),
+                        scaleID: 'x-axis-0'
+                    }]
+                },
                 //onClick: graphClickEvent,
                 scales: {
                     xAxes: [{
+                        id: 'x-axis-0',
+                        type: 'linear',
+                        display: false
+                    }, {
                         time: {
                             type: 'time',
                             unit: 'year'
@@ -31,22 +47,6 @@ PersonalFinances.Graph = (function () {
                                 var year = currentYear + index;
                                 return index % 5 ? "" : ["Вік " + value + " / " + year + " рік"];
                             }
-                        }
-                    }]
-                },
-                annotation: {
-                    drawTime: 'afterDatasetsDraw',
-                    annotations: [{
-                        drawTime: 'afterDraw',
-                        type: 'line',
-                        mode: 'vertical',
-                        scaleID: 'y-axis-1',
-                        value: 30,
-                        borderColor: 'red',
-                        borderWidth: 2,
-                        label: {
-                            enabled: true,
-                            content: 'Пенсія'
                         }
                     }]
                 },
@@ -205,6 +205,19 @@ PersonalFinances.Graph = (function () {
         return result;
     };
 
+    var toPointsObject = function (points)
+    {
+        var obj = [];
+        for (var i = 0; i < points.length; ++i)
+        {
+            var item = {};
+            item['x'] = i;
+            item['y'] = points[i];
+            obj[i] = item;
+        }
+        return obj;
+    }
+
     var getChartLine = function (line) {
         if (line.Type === 'base') {
             return {
@@ -216,7 +229,7 @@ PersonalFinances.Graph = (function () {
                     '#c5e1a5'
                 ],
                 fill: true,
-                data: line.Points
+                data: toPointsObject(line.Points)
             }
         }
         if (line.Type === 'deposit') {
@@ -229,7 +242,7 @@ PersonalFinances.Graph = (function () {
                     '#64ffda'
                 ],
                 fill: true,
-                data: line.Points
+                data: toPointsObject(line.Points)
             }
         }
         else {
@@ -242,7 +255,7 @@ PersonalFinances.Graph = (function () {
                     '#ffab91'
                 ],
                 fill: true,
-                data: line.Points
+                data: toPointsObject(line.Points)
             }
         }
     };
