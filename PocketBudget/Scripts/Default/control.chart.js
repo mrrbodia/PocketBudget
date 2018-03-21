@@ -235,7 +235,7 @@ PersonalFinances.Graph = (function () {
                 borderColor: [
                     '#c5e1a5'
                 ],
-                fill: true,
+                fill: false,
                 data: toPointsObject(line.Points)
             }
         }
@@ -248,7 +248,7 @@ PersonalFinances.Graph = (function () {
                 borderColor: [
                     '#64ffda'
                 ],
-                fill: true,
+                fill: false,
                 data: toPointsObject(line.Points)
             }
         }
@@ -261,7 +261,7 @@ PersonalFinances.Graph = (function () {
                 borderColor: [
                     '#ffab91'
                 ],
-                fill: true,
+                fill: false,
                 data: toPointsObject(line.Points)
             }
         }
