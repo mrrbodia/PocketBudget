@@ -287,9 +287,19 @@ PersonalFinances.Graph = (function () {
                 data += PersonalFinances.Binder.bindDeposit(index);
             });
         }
+        if (PersonalFinances.Path.AdditionalPath.Sales) {
+            $.each(PersonalFinances.Path.AdditionalPath.Sales, function (index) {
+                data += PersonalFinances.Binder.bindSale(index);
+            });
+        }
         if (PersonalFinances.Path.AdditionalPath.Credits) {
             $.each(PersonalFinances.Path.AdditionalPath.Credits, function (index) {
                 data += PersonalFinances.Binder.bindCredit(index);
+            });
+        }
+        if (PersonalFinances.Path.AdditionalPath.Purchases) {
+            $.each(PersonalFinances.Path.AdditionalPath.Purchases, function (index) {
+                data += PersonalFinances.Binder.bindPurchase(index);
             });
         }
         return data;

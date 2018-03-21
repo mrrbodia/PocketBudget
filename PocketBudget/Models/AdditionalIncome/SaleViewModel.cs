@@ -5,12 +5,8 @@ using System.Web;
 
 namespace PocketBudget.Models
 {
-    public class DepositViewModel : AdditionalIncomeItemViewModel
+    public class SaleViewModel : AdditionalIncomeItemViewModel
     {
-        public float Percentage { get; set; }
-
-        public short Years { get; set; }
-
         public bool IsActive { get; set; }
     }
 }

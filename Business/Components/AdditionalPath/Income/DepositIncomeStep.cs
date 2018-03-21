@@ -8,9 +8,8 @@ namespace Business.Components.AdditionalPath
     {
         public void Execute(IAdditionalIncome additionalIncome, List<decimal?> points)
         {
-            var deposit = (Deposit)additionalIncome;
-            //if (additionalIncome is Deposit deposit)
-            //{
+            if (additionalIncome is Deposit deposit)
+            {
                 decimal lastIncome = 0m;
                 for (int i = additionalIncome.From; i < additionalIncome.To; ++i)
                 {
@@ -25,7 +24,7 @@ namespace Business.Components.AdditionalPath
                         points[i] = points[i] + lastIncome;
                     }
                 }
-            //}
+            }
         }
     }
 }

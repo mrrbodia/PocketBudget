@@ -2,6 +2,7 @@
 using Business;
 using Business.Models;
 using PocketBudget.Models;
+using PocketBudget.Models.AdditionalCost;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -58,6 +59,7 @@ namespace PocketBudget.Controllers
             var result = new AdditionalIncomeViewModel();
             result.From = fromAge;
             result.Deposits = CreateDepositsModel();
+            result.Sales = CreateSalesModel();
             return result;
         }
 
@@ -66,6 +68,16 @@ namespace PocketBudget.Controllers
             var result = new AdditionalCostViewModel();
             result.From = fromAge;
             result.Credits = CreateCreditsModel();
+            result.Purchases = CreatePurchasesModel();
+            return result;
+        }
+
+        protected IEnumerable<PurchaseViewModel> CreatePurchasesModel()
+        {
+            var result = new List<PurchaseViewModel>();
+            result.Add(new PurchaseViewModel() { CurrencyId = Constants.Currency.Hrn, Total = 100000m, IsActive = true });
+            result.Add(new PurchaseViewModel() { CurrencyId = Constants.Currency.Dollar, Total = 4000m });
+            result.Add(new PurchaseViewModel() { CurrencyId = Constants.Currency.Euro, Total = 3000m });
             return result;
         }
 
@@ -75,6 +87,15 @@ namespace PocketBudget.Controllers
             result.Add(new DepositViewModel() { CurrencyId = Constants.Currency.Hrn, Percentage = 14.0f, Total = 100000m, Years = 1, IsActive = true });
             result.Add(new DepositViewModel() { CurrencyId = Constants.Currency.Dollar, Percentage = 3.75f, Total = 4000m, Years = 1 });
             result.Add(new DepositViewModel() { CurrencyId = Constants.Currency.Euro, Percentage = 2.35f, Total = 3000m, Years = 1 });
+            return result;
+        }
+
+        protected IEnumerable<SaleViewModel> CreateSalesModel()
+        {
+            var result = new List<SaleViewModel>();
+            result.Add(new SaleViewModel() { CurrencyId = Constants.Currency.Hrn, Total = 100000m, IsActive = true });
+            result.Add(new SaleViewModel() { CurrencyId = Constants.Currency.Dollar, Total = 4000m });
+            result.Add(new SaleViewModel() { CurrencyId = Constants.Currency.Euro, Total = 3000m });
             return result;
         }
 

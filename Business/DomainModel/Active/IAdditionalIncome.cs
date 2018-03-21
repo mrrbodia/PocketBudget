@@ -11,7 +11,39 @@ namespace Business.DomainModel.Active
         short From { get; set; }
 
         short To { get; set; }
-        
+
+        decimal Total { get; set; }
+
+        string CurrencyId { get; set; }
+
         decimal GetIncomePerYear(int currentYear);
+    }
+
+    public abstract class AdditionalIncome : IAdditionalIncome
+    {
+        public virtual short From { get; set; }
+
+        public virtual short To { get; set; }
+
+        public virtual decimal Total { get; set; }
+
+        public virtual string CurrencyId { get; set; }
+
+        public abstract decimal GetIncomePerYear(int currentYear);
+
+        protected virtual decimal GetCurrencyExchangeValue()
+        {
+            switch (CurrencyId)
+            {
+                case Constants.Currency.Dollar:
+                    return 27.95m;
+                case Constants.Currency.Euro:
+                    return 31.15m;
+                case Constants.Currency.Hrn:
+                    return 1.0m;
+                default:
+                    return 1.0m;
+            }
+        }
     }
 }

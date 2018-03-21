@@ -10,6 +10,7 @@ namespace Business
             public const string Euro = "euro";
         }
 
+        //TODO: Income and costs vs Deposit and Credit
         public class ChartLineType
         {
             public const string Deposit = "deposit";

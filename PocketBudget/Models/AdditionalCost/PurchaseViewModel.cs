@@ -5,12 +5,8 @@ using System.Web;
 
 namespace PocketBudget.Models.AdditionalCost
 {
-    public class CreditViewModel : AdditionalCostItemViewModel
+    public class PurchaseViewModel : AdditionalCostItemViewModel
     {
-        public float Percentage { get; set; }
-
-        public short Years { get; set; }
-
         public bool IsActive { get; set; }
     }
 }
