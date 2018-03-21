@@ -11,6 +11,12 @@ namespace PocketBudget.Models.AdditionalCost
 
         public short Years { get; set; }
 
-        public bool IsActive { get; set; }
+        public override string Title
+        {
+            get
+            {
+                return string.Format("Кредит в {0} {1:0.00}% річних", CurrencySymbol(CurrencyId), Percentage);
+            }
+        }
     }
 }

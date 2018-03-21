@@ -8,6 +8,9 @@ namespace Business
             public const string Dollar = "dollar";
             public const string Hrn = "hrn";
             public const string Euro = "euro";
+            public const string DollarSymbol = "$";
+            public const string HrnSymbol = "₴";
+            public const string EuroSymbol = "€";
         }
 
         //TODO: Income and costs vs Deposit and Credit

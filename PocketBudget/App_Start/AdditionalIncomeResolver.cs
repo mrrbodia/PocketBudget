@@ -13,6 +13,7 @@ namespace PocketBudget.App_Start
         public IList<IAdditionalIncome> Resolve(AdditionalPathViewModel source, AdditionalPathModel destination, IList<IAdditionalIncome> destMember, ResolutionContext context)
         {
             destMember = new List<IAdditionalIncome>();
+            //TODO: IsAdded
             if (source?.AdditionalIncome?.Deposits?.Any() ?? false)
             {
                 foreach (var deposit in source.AdditionalIncome.Deposits)

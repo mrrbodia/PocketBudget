@@ -14,6 +14,7 @@ namespace PocketBudget.App_Start
         public IList<IAdditionalCost> Resolve(AdditionalPathViewModel source, AdditionalPathModel destination, IList<IAdditionalCost> destMember, ResolutionContext context)
         {
             destMember = new List<IAdditionalCost>();
+            //TODO: IsAdded
             if (source?.AdditionalCost?.Credits?.Any() ?? false)
             {
                 foreach (var credit in source.AdditionalCost.Credits)

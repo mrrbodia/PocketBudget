@@ -1,4 +1,5 @@
 ﻿@model PocketBudget.Models.AdditionalPathViewModel
+@using PocketBudget.Extensions
 <div class="edit-finances-content">
     <div class="edit-finances-tabs-header">
         <ul class="tabs">
@@ -7,159 +8,124 @@
         </ul>
     </div>
     <div class="edit-finances-tabs-wrapper">
-        <div id="additional-path-income" class="col s12">
-            <div>
-                <span>Додаткові доходи з віку </span>
-                @Html.TextBoxFor(m => m.AdditionalIncome.From, htmlAttributes: new { type="number", @class="income-from" })
+        @using (Html.BeginForm("GetChartLines", "Home", FormMethod.Post, htmlAttributes: new { id = "additional-path-form" }))
+        {
+            <div id="additional-path-income" class="col s12">
+                <div>
+                    <span>Додаткові доходи з віку </span>
+                    @Html.TextBoxFor(m => m.AdditionalIncome.From, htmlAttributes: new { type = "number", @class = "income-from" })
+                </div>
+                <ul class="collapsible" data-collapsible="expandable">
+                    <li>
+                        <div class="collapsible-header">
+                            <span>Депозит</span>
+                        </div>
+                        <div class="collapsible-body deposits">
+                            <p>
+                                @Html.EditorFor(m => m.AdditionalIncome.IsDepositAdded, new { Label = "Додати депозит", Class = "add-deposit" })
+                            </p>
+                            @for (var i = 0; i < Model.AdditionalIncome.Deposits.Count; ++i)
+                            {
+                                var visibility = Model.AdditionalIncome.Deposits[i].IsActive ? "active" : "hidden";
+                                var selected = Model.AdditionalIncome.Deposits[i].IsActive ? "checked" : "";
+                                <p>
+                                    <input id="@Html.GetFullHtmlFieldId(m => m.AdditionalIncome.Deposits[i].CurrencyId)" name="@Html.GetFullHtmlFieldName(m => m.AdditionalIncome.Deposits[i].CurrencyId)" 
+                                           class="currency option-input @visibility" type="radio" value="@Model.AdditionalIncome.Deposits[i].CurrencyId" @selected />
+                                    <label for="@Html.GetFullHtmlFieldId(m => m.AdditionalIncome.Deposits[i].CurrencyId)"
+                                           class="option-input @visibility">@Model.AdditionalIncome.Deposits[i].Title</label>
+                                    <input name="@Html.GetFullHtmlFieldName(m => m.AdditionalIncome.Deposits[i].Percentage)" 
+                                           class="percentage hidden" type="hidden" value="@Model.AdditionalIncome.Deposits[i].Percentage" />
+                                    <input id="@Html.GetFullHtmlFieldId(m => m.AdditionalIncome.Deposits[i].Total)" name="@Html.GetFullHtmlFieldName(m => m.AdditionalIncome.Deposits[i].Total)"
+                                           class="total option-input @visibility" type="number" value="@Model.AdditionalIncome.Deposits[i].Total" />
+                                    <input id="@Html.GetFullHtmlFieldId(m => m.AdditionalIncome.Deposits[i].Years)" name="@Html.GetFullHtmlFieldName(m => m.AdditionalIncome.Deposits[i].Years)" 
+                                           class="years option-input @visibility" type="number" value="@Model.AdditionalIncome.Deposits[i].Years" />
+                                </p>
+                            }
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">
+                            <span>Продаж</span>
+                        </div>
+                        <div class="collapsible-body sales">
+                            <p>
+                                @Html.EditorFor(m => m.AdditionalIncome.IsSaleAdded, new { Label = "Продати майно", Class = "add-sale" })
+                            </p>
+                            @for (int i = 0; i < Model.AdditionalIncome.Sales.Count; ++i)
+                            {
+                                var visibility = Model.AdditionalIncome.Sales[i].IsActive ? "active" : "hidden";
+                                var selected = Model.AdditionalIncome.Sales[i].IsActive ? "checked" : "";
+                                <p>
+                                    <input id="@Html.GetFullHtmlFieldId(m => Model.AdditionalIncome.Sales[i].CurrencyId)" name="@Html.GetFullHtmlFieldName(m => Model.AdditionalIncome.Sales[i].CurrencyId)"
+                                           class="currency option-input @visibility" type="radio" value="@Model.AdditionalIncome.Sales[i].CurrencyId" @selected/>
+                                    <label for="@Html.GetFullHtmlFieldId(m => Model.AdditionalIncome.Sales[i].CurrencyId)" 
+                                           class="option-input @visibility">@Model.AdditionalIncome.Sales[i].Title</label>
+                                    <input id="@Html.GetFullHtmlFieldId(m => Model.AdditionalIncome.Sales[i].Total)" name="@Html.GetFullHtmlFieldName(m => Model.AdditionalIncome.Sales[i].Total)"
+                                           class="total option-input @visibility" type="number" value="@Model.AdditionalIncome.Sales[i].Total" />
+                                </p>
+                            }
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <ul class="collapsible" data-collapsible="expandable">
-                <li>
-                    <div class="collapsible-header">
-                        <span>Депозит</span>
-                    </div>
-                    <div class="collapsible-body">
-                        <p>
-                            @Html.EditorFor(m => m.AdditionalIncome.IsDepositAdded, new { Label = "Додати депозит", Class = "add-deposit" })
-                        </p>
-                        @foreach (var deposit in Model.AdditionalIncome.Deposits)
-                        {
-                            var totalId = deposit.CurrencyId + "total";
-                            var yearsId = deposit.CurrencyId + "years";
-                            var percentageId = deposit.CurrencyId + "percentage";
-                            var visibilityClass = deposit.IsActive ? "active" : "hidden";
-                            var selected = deposit.IsActive ? "checked" : "";
+            <div id="additional-path-cost" class="col s12">
+                <div>
+                    <span>Додаткові витрати з віку </span>
+                    @Html.TextBoxFor(m => m.AdditionalCost.From, htmlAttributes: new { type = "number", @class = "cost-from" })
+                </div>
+                <ul class="collapsible" data-collapsible="expandable">
+                    <li>
+                        <div class="collapsible-header">
+                            <span>Кредит</span>
+                        </div>
+                        <div class="collapsible-body credits">
                             <p>
-                                <input id="@deposit.CurrencyId" type="radio" name="deposit" class="deposit-input" value="@deposit.CurrencyId" @selected />
-                                <label class="text-strategy" for="@deposit.CurrencyId">@GetDepositTitle(deposit.CurrencyId) (@string.Format("{0:0.00}% річних", deposit.Percentage))</label>
-                                <input type="hidden" name="@percentageId" class="hidden" value="@deposit.Percentage" />
-                                <input id="@totalId" type="number" name="@totalId" class="deposit-input @visibilityClass" value="@deposit.Total" />
-                                <input id="@yearsId" type="number" name="@yearsId" class="deposit-input @visibilityClass" value="@deposit.Years" />
+                                @Html.EditorFor(m => m.AdditionalCost.IsCreditAdded, new { Label = "Додати кредит", Class = "add-credit" })
                             </p>
-                        }
-                    </div>
-                </li>
-                <li>
-                    <div class="collapsible-header">
-                        <span>Продаж</span>
-                    </div>
-                    <div class="collapsible-body">
-                        <p>
-                            @Html.EditorFor(m => m.AdditionalIncome.IsSaleAdded, new { Label = "Продати майно", Class = "add-sale" })
-                        </p>
-                        @foreach (var sale in Model.AdditionalIncome.Sales)
-                        {
-                            var totalId = sale.CurrencyId + "total-sale";
-                            var visibilityClass = sale.IsActive ? "active" : "hidden";
-                            var selected = sale.IsActive ? "checked" : "";
+                            @for (int i = 0; i < Model.AdditionalCost.Credits.Count; ++i)
+                            {
+                                var visibility = Model.AdditionalCost.Credits[i].IsActive ? "active" : "hidden";
+                                var selected = Model.AdditionalCost.Credits[i].IsActive ? "checked" : "";
+                                <p>
+                                    <input id="@Html.GetFullHtmlFieldId(m => Model.AdditionalCost.Credits[i].CurrencyId)" name="@Html.GetFullHtmlFieldName(m => Model.AdditionalCost.Credits[i].CurrencyId)" 
+                                           class="currency option-input @visibility" type="radio" value="@Model.AdditionalCost.Credits[i].CurrencyId" @selected />
+                                    <label for="@Html.GetFullHtmlFieldId(m => Model.AdditionalCost.Credits[i].CurrencyId)"
+                                           class="option-input @visibility">@Model.AdditionalCost.Credits[i].Title</label>
+                                    <input name="@Html.GetFullHtmlFieldName(m => Model.AdditionalCost.Credits[i].Percentage)" 
+                                           class="percentage hidden" type="hidden" value="@Model.AdditionalCost.Credits[i].Percentage" />
+                                    <input id="@Html.GetFullHtmlFieldId(m => Model.AdditionalCost.Credits[i].Total)" name="@Html.GetFullHtmlFieldName(m => Model.AdditionalCost.Credits[i].Total)" 
+                                           class="total option-input @visibility" type="number" value="@Model.AdditionalCost.Credits[i].Total" />
+                                    <input id="@Html.GetFullHtmlFieldId(m => Model.AdditionalCost.Credits[i].Years)" name="@Html.GetFullHtmlFieldName(m => Model.AdditionalCost.Credits[i].Years)" 
+                                           class="years option-input @visibility" type="number" value="@Model.AdditionalCost.Credits[i].Years" />
+                                </p>
+                            }
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">
+                            <span>Покупка</span>
+                        </div>
+                        <div class="collapsible-body purchases">
                             <p>
-                                <input id="@sale.CurrencyId" type="radio" name="sale" class="sale-input" value="@sale.CurrencyId" @selected />
-                                <label class="text-strategy" for="@sale.CurrencyId">@GetSaleTitle(sale.CurrencyId)</label>
-                                <input id="@totalId" type="number" name="@totalId" class="sale-input @visibilityClass" value="@sale.Total" />
+                                @Html.EditorFor(m => m.AdditionalCost.IsPurchaseAdded, new { Label = "Зробити покупку", Class = "add-purchase" })
                             </p>
-                        }
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div id="additional-path-cost" class="col s12">
-            <div>
-                <span>Додаткові витрати з віку </span>
-                @Html.TextBoxFor(m => m.AdditionalCost.From, htmlAttributes: new { type = "number", @class = "cost-from" })
+                            @for (int i = 0; i < Model.AdditionalCost.Purchases.Count; ++i)
+                            {
+                                var visibility = Model.AdditionalCost.Purchases[i].IsActive ? "active" : "hidden";
+                                var selected = Model.AdditionalCost.Purchases[i].IsActive ? "checked" : "";
+                                <p>
+                                    <input id="@Html.GetFullHtmlFieldId(m => Model.AdditionalCost.Purchases[i].CurrencyId)" name="@Html.GetFullHtmlFieldName(m => Model.AdditionalCost.Purchases[i].CurrencyId)"
+                                           class="currency option-input @visibility" type="radio" value="@Model.AdditionalCost.Purchases[i].CurrencyId" @selected />
+                                    <label for="@Html.GetFullHtmlFieldId(m => Model.AdditionalCost.Purchases[i].CurrencyId)"
+                                           class="option-input @visibility">@Model.AdditionalCost.Purchases[i].Title</label>
+                                    <input id="@Html.GetFullHtmlFieldId(m => Model.AdditionalCost.Purchases[i].Total)" name="@Html.GetFullHtmlFieldName(m => Model.AdditionalCost.Purchases[i].Total)"
+                                           class="total option-input @visibility" type="number" value="@Model.AdditionalCost.Purchases[i].Total" />
+                                </p>
+                            }
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <ul class="collapsible" data-collapsible="expandable">
-                <li>
-                    <div class="collapsible-header">
-                        <span>Кредит</span>
-                    </div>
-                    <div class="collapsible-body">
-                        <p>
-                            @Html.EditorFor(m => m.AdditionalCost.IsCreditAdded, new { Label = "Додати кредит", Class = "add-credit" })
-                        </p>
-                        @foreach (var credit in Model.AdditionalCost.Credits)
-                        {
-                            //TODO: the same html as for deposit (duplication of code)
-                            var creditId = credit.CurrencyId + "-credit";
-                            var totalId = credit.CurrencyId + "total-credit";
-                            var yearsId = credit.CurrencyId + "years-credit";
-                            var percentageId = credit.CurrencyId + "percentage-credit";
-                            var visibilityClass = credit.IsActive ? "active" : "hidden";
-                            var selected = credit.IsActive ? "checked" : "";
-                            <p>
-                                <input id="@creditId" type="radio" name="credit" class="credit-input" value="@credit.CurrencyId" @selected />
-                                <label class="text-strategy" for="@creditId">@GetCreditTitle(credit.CurrencyId) (@string.Format("{0:0.00}% річних", credit.Percentage))</label>
-                                <input type="hidden" name="@percentageId" class="hidden" value="@credit.Percentage" />
-                                <input id="@totalId" type="number" name="@totalId" class="credit-input @visibilityClass" value="@credit.Total" />
-                                <input id="@yearsId" type="number" name="@yearsId" class="credit-input @visibilityClass" value="@credit.Years" />
-                            </p>
-                        }
-                    </div>
-                </li>
-                <li>
-                    <div class="collapsible-header">
-                        <span>Покупка</span>
-                    </div>
-                    <div class="collapsible-body">
-                        <p>
-                            @Html.EditorFor(m => m.AdditionalCost.IsPurchaseAdded, new { Label = "Зробити покупку", Class = "add-purchase" })
-                        </p>
-                        @foreach (var purchase in Model.AdditionalCost.Purchases)
-                        {
-                            var purchaseId = purchase.CurrencyId + "-purchase";
-                            var totalId = purchase.CurrencyId + "total-purchase";
-                            var visibilityClass = purchase.IsActive ? "active" : "hidden";
-                            var selected = purchase.IsActive ? "checked" : "";
-                            <p>
-                                <input id="@purchaseId" type="radio" name="purchase" class="purchase-input" value="@purchase.CurrencyId" @selected />
-                                <label class="text-strategy" for="@purchaseId">@GetPurchaseTitle(purchase.CurrencyId)</label>
-                                <input id="@totalId" type="number" name="@totalId" class="purchase-input @visibilityClass" value="@purchase.Total" />
-                            </p>
-                        }
-                    </div>
-                </li>
-            </ul>
-        </div>
+        }
     </div>
 </div>
-
-@functions
-{
-    public string GetDepositTitle(string currencyId)
-    {
-        switch(currencyId)
-        {
-            case "euro": return "Депозит в євро";
-            case "dollar": return "Депозит в доларах";
-            default: return "Депозит в гривнях";
-        }
-    }
-
-    public string GetSaleTitle(string currencyId)
-    {
-        switch (currencyId)
-        {
-            case "euro": return "Продаж в євро";
-            case "dollar": return "Продаж в доларах";
-            default: return "Продаж в гривнях";
-        }
-    }
-
-    public string GetCreditTitle(string currencyId)
-    {
-        switch (currencyId)
-        {
-            case "euro": return "Кредит в євро";
-            case "dollar": return "Кредит в доларах";
-            default: return "Кредит в гривнях";
-        }
-    }
-
-    public string GetPurchaseTitle(string currencyId)
-    {
-        switch (currencyId)
-        {
-            case "euro": return "Покупка в євро";
-            case "dollar": return "Покупка в доларах";
-            default: return "Покупка в гривнях";
-        }
-    }
-}

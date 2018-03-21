@@ -7,6 +7,12 @@ namespace PocketBudget.Models.AdditionalCost
 {
     public class PurchaseViewModel : AdditionalCostItemViewModel
     {
-        public bool IsActive { get; set; }
+        public override string Title
+        {
+            get
+            {
+                return string.Format("Покупка в {0}", CurrencySymbol(CurrencyId));
+            }
+        }
     }
 }

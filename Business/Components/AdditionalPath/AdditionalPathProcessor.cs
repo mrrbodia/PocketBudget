@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Business.Components.AdditionalPath
 {
+    //TODO: Refactor
     public class AdditionalPathProcessor
     {
         private readonly IEnumerable<IAdditionalIncomeStep> incomeSteps;

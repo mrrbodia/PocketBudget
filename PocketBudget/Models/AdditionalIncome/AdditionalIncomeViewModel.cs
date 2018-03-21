@@ -19,8 +19,8 @@ namespace PocketBudget.Models
         [UIHint("Checkbox")]
         public bool IsSaleAdded { get; set; }
 
-        public IEnumerable<DepositViewModel> Deposits { get; set; }
+        public IList<DepositViewModel> Deposits { get; set; }
 
-        public IEnumerable<SaleViewModel> Sales { get; set; }
+        public IList<SaleViewModel> Sales { get; set; }
     }
 }

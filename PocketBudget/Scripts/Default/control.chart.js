@@ -269,8 +269,7 @@ PersonalFinances.Graph = (function () {
 
     var updateGraphLines = function ()
     {
-        var form = $('#path-form');
-        var model = bindPathModel(form);
+        var model = bindPathModel();
         $.ajax({
             url: 'getchartlines',
             type: 'POST',
@@ -286,10 +285,17 @@ PersonalFinances.Graph = (function () {
         });
     };
 
-    var bindPathModel = function (form) {
+    var bindPathModel = function () {
+        var form = $('#path-form');
         var data = form.serialize();
+
+        //TODO:
+        //var additionalForm = $('#additional-path-form');
+        //if (additionalForm.length) {
+        //    data += '&' + additionalForm.serialize();
+        //}
+
         if (PersonalFinances.Path.AdditionalPath.Deposits) {
-            //TODO: each additional income, not deposit
             $.each(PersonalFinances.Path.AdditionalPath.Deposits, function (index) {
                 data += PersonalFinances.Binder.bindDeposit(index);
             });
@@ -337,7 +343,7 @@ PersonalFinances.Graph = (function () {
             };
             $.ajax({
                 url: 'editfinances',
-                type: 'POST',
+                type: 'GET',
                 data: data,
                 success: function (data) {
                     var newHtml = data.trim();

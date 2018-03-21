@@ -1,48 +1,48 @@
 ﻿var PersonalFinances = PersonalFinances || {};
 PersonalFinances.Path.AdditionalPath = (function () {
-    var saveDepositSelection = function (fromAge) {
+    var saveDepositSelection = function (parent, fromAge) {
         PersonalFinances.Path.AdditionalPath.Deposits = PersonalFinances.Path.AdditionalPath.Deposits || [];
-        var currencyId = $('input[name=deposit]:checked').val();
+        var selected = $(parent).find('.currency[type=radio]:checked').parent();
         var deposit = {
-            CurrencyId: currencyId,
-            Total: +$('input[name=' + currencyId + 'total]').val(),
-            Percentage: $('input[name=' + currencyId + 'percentage]').val(),
-            Years: +$('input[name=' + currencyId + 'years]').val(),
+            CurrencyId: selected.find('.currency').val(),
+            Total: +selected.find('.total').val(),
+            Percentage: selected.find('.percentage').val(),
+            Years: +selected.find('.years').val(),
             FromAge: fromAge
         };
         PersonalFinances.Path.AdditionalPath.Deposits.push(deposit);
     };
 
-    var saveSaleSelection = function (fromAge) {
+    var saveSaleSelection = function (parent, fromAge) {
         PersonalFinances.Path.AdditionalPath.Sales = PersonalFinances.Path.AdditionalPath.Sales || [];
-        var currencyId = $('input[name=sale]:checked').val();
+        var selected = $(parent).find('.currency[type=radio]:checked').parent();
         var sale = {
-            CurrencyId: currencyId,
-            Total: +$('input[name=' + currencyId + 'total-sale]').val(),
+            CurrencyId: selected.find('.currency').val(),
+            Total: +selected.find('.total').val(),
             FromAge: fromAge
         };
         PersonalFinances.Path.AdditionalPath.Sales.push(sale);
     };
 
-    var saveCreditSelection = function (fromAge) {
+    var saveCreditSelection = function (parent, fromAge) {
         PersonalFinances.Path.AdditionalPath.Credits = PersonalFinances.Path.AdditionalPath.Credits || [];
-        var currencyId = $('input[name=credit]:checked').val();
+        var selected = $(parent).find('.currency[type=radio]:checked').parent();
         var credit = {
-            CurrencyId: currencyId,
-            Total: +$('input[name=' + currencyId + 'total-credit]').val(),
-            Percentage: $('input[name=' + currencyId + 'percentage-credit]').val(),
-            Years: +$('input[name=' + currencyId + 'years-credit]').val(),
+            CurrencyId: selected.find('.currency').val(),
+            Total: +selected.find('.total').val(),
+            Percentage: selected.find('.percentage').val(),
+            Years: +selected.find('.years').val(),
             FromAge: fromAge
         };
         PersonalFinances.Path.AdditionalPath.Credits.push(credit);
     };
 
-    var savePurchaseSelection = function (fromAge) {
+    var savePurchaseSelection = function (parent, fromAge) {
         PersonalFinances.Path.AdditionalPath.Purchases = PersonalFinances.Path.AdditionalPath.Purchases || [];
-        var currencyId = $('input[name=purchase]:checked').val();
+        var selected = $(parent).find('.currency[type=radio]:checked').parent();
         var purchase = {
-            CurrencyId: currencyId,
-            Total: +$('input[name=' + currencyId + 'total-purchase]').val(),
+            CurrencyId: selected.find('.currency').val(),
+            Total: +selected.find('.total').val(),
             FromAge: fromAge
         };
         PersonalFinances.Path.AdditionalPath.Purchases.push(purchase);
@@ -51,39 +51,31 @@ PersonalFinances.Path.AdditionalPath = (function () {
     var saveAdditionalValuesSelection = function () {
         var incomeFrom = +$('input.income-from').val();
         var costFrom = +$('input.cost-from').val();
-        //TODO: REPLACE WITH DEFAULT MVC BINDING
+        //TODO: REPLACE WITH DEFAULT MVC BINDING / SESSION SHOULD BE CREATED
+        //Refactor
         if ($('input[type=checkbox].add-deposit:checked').length) {
-            saveDepositSelection(incomeFrom);
+            saveDepositSelection('.deposits', incomeFrom);
         }
         if ($('input[type=checkbox].add-sale:checked').length) {
-            saveSaleSelection(incomeFrom);
+            saveSaleSelection('.sales', incomeFrom);
         }
         if ($('input[type=checkbox].add-credit:checked').length) {
-            saveCreditSelection(costFrom);
+            saveCreditSelection('.credits', costFrom);
         }
         if ($('input[type=checkbox].add-purchase:checked').length) {
-            savePurchaseSelection(costFrom);
+            savePurchaseSelection('.purchases', costFrom);
         }
     };
 
-    $(document).on('click', 'input[name=deposit]', function (e) {
-        $('.deposit-input.active').removeClass('active').addClass('hidden');
-        $(e.target).parent().find('.deposit-input.hidden').removeClass('hidden').addClass('active');
-    });
-
-    $(document).on('click', 'input[name=sale]', function (e) {
-        $('.sale-input.active').removeClass('active').addClass('hidden');
-        $(e.target).parent().find('.sale-input.hidden').removeClass('hidden').addClass('active');
-    });
-
-    $(document).on('click', 'input[name=credit]', function (e) {
-        $('.credit-input.active').removeClass('active').addClass('hidden');
-        $(e.target).parent().find('.credit-input.hidden').removeClass('hidden').addClass('active');
-    });
-
-    $(document).on('click', 'input[name=purchase]', function (e) {
-        $('.purchase-input.active').removeClass('active').addClass('hidden');
-        $(e.target).parent().find('.purchase-input.hidden').removeClass('hidden').addClass('active');
+    $(document).on('click', '.option-input', function (e) {
+        e.preventDefault();
+        if ($(e.target).is('.active')) {
+            return;
+        }
+        $(e.target).closest('.collapsible-body').find('.option-input[type=radio]:checked').removeAttr('checked');
+        $(e.target).closest('.collapsible-body').find('.option-input.active').removeClass('active').addClass('hidden');
+        $(e.target).parent().find('.option-input.hidden[type=radio]').prop('checked', true);
+        $(e.target).parent().find('.option-input.hidden').removeClass('hidden').addClass('active');
     });
 
     return {

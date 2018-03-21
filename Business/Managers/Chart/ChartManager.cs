@@ -64,7 +64,6 @@ namespace Business.Managers.Chart
 
         protected List<ChartLine> AddAdditionalLines(PathModel path, List<decimal?> mainSavingsLine)
         {
-            //TODO: put ParentLine into parameter
             var additionalLine = new List<decimal?>(mainSavingsLine);
             return additionalPathProcessor.Execute(path, additionalLine);
         }

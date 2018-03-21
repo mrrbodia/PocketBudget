@@ -21,8 +21,8 @@ namespace PocketBudget.Models.AdditionalCost
         [UIHint("Checkbox")]
         public bool IsPurchaseAdded { get; set; }
 
-        public IEnumerable<CreditViewModel> Credits { get; set; }
+        public IList<CreditViewModel> Credits { get; set; }
 
-        public IEnumerable<PurchaseViewModel> Purchases { get; set; }
+        public IList<PurchaseViewModel> Purchases { get; set; }
     }
 }

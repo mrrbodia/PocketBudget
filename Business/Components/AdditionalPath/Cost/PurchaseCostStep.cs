@@ -1,6 +1,4 @@
-﻿using Business.DomainModel.Active;
-using Business.DomainModel.Cost;
-using System;
+﻿using Business.DomainModel.Cost;
 using System.Collections.Generic;
 
 namespace Business.Components.AdditionalPath

@@ -8,8 +8,7 @@ namespace PocketBudget.Models
         {
             AdditionalIncome = new AdditionalIncomeViewModel();
         }
-
-        //TODO: move checkboxes etc to Form element
+        
         public AdditionalIncomeViewModel AdditionalIncome { get; set; }
 
         public AdditionalCostViewModel AdditionalCost { get; set; }

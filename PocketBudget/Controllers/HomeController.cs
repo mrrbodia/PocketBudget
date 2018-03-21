@@ -45,7 +45,7 @@ namespace PocketBudget.Controllers
             return Json(0);
         }
         
-        [HttpPost]
+        [HttpGet]
         public ActionResult EditFinances(int? fromAge)
         {
             var model = new AdditionalPathViewModel();
@@ -72,7 +72,7 @@ namespace PocketBudget.Controllers
             return result;
         }
 
-        protected IEnumerable<PurchaseViewModel> CreatePurchasesModel()
+        protected IList<PurchaseViewModel> CreatePurchasesModel()
         {
             var result = new List<PurchaseViewModel>();
             result.Add(new PurchaseViewModel() { CurrencyId = Constants.Currency.Hrn, Total = 100000m, IsActive = true });
@@ -81,7 +81,7 @@ namespace PocketBudget.Controllers
             return result;
         }
 
-        protected IEnumerable<DepositViewModel> CreateDepositsModel()
+        protected IList<DepositViewModel> CreateDepositsModel()
         {
             var result = new List<DepositViewModel>();
             result.Add(new DepositViewModel() { CurrencyId = Constants.Currency.Hrn, Percentage = 14.0f, Total = 100000m, Years = 1, IsActive = true });
@@ -90,7 +90,7 @@ namespace PocketBudget.Controllers
             return result;
         }
 
-        protected IEnumerable<SaleViewModel> CreateSalesModel()
+        protected IList<SaleViewModel> CreateSalesModel()
         {
             var result = new List<SaleViewModel>();
             result.Add(new SaleViewModel() { CurrencyId = Constants.Currency.Hrn, Total = 100000m, IsActive = true });
@@ -99,7 +99,7 @@ namespace PocketBudget.Controllers
             return result;
         }
 
-        protected IEnumerable<CreditViewModel> CreateCreditsModel()
+        protected IList<CreditViewModel> CreateCreditsModel()
         {
             var result = new List<CreditViewModel>();
             result.Add(new CreditViewModel() { CurrencyId = Constants.Currency.Hrn, Percentage = 25.0f, Total = 100000m, Years = 2, IsActive = true });

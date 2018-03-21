@@ -7,6 +7,12 @@ namespace PocketBudget.Models
 {
     public class SaleViewModel : AdditionalIncomeItemViewModel
     {
-        public bool IsActive { get; set; }
+        public override string Title
+        {
+            get
+            {
+                return string.Format("Продаж в {0}", CurrencySymbol(CurrencyId));
+            }
+        }
     }
 }
