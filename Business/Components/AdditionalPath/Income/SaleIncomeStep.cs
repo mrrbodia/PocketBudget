@@ -11,7 +11,7 @@ namespace Business.Components.AdditionalPath
             {
                 for (int i = additionalIncome.From; i < additionalIncome.To; ++i)
                 {
-                    var income = sale.GetIncomePerYear(i - additionalIncome.From);
+                    var income = additionalIncome.GetIncomePerYear(i - additionalIncome.From);
                     points[i] = points[i] + income;
                 }
             }

@@ -59,7 +59,7 @@ PersonalFinances.Graph = (function () {
                 },
                 elements: {
                     point: {
-                        radius: 0,
+                        radius: 2,
                         hitRadius: 10,
                         hoverRadius: 5
                     }
