@@ -20,7 +20,7 @@
                         <div class="collapsible-header">
                             <span>Депозит</span>
                         </div>
-                        <div class="collapsible-body deposits">
+                        <div class="row collapsible-body deposits">
                             <p>
                                 @Html.EditorFor(m => m.AdditionalIncome.IsDepositAdded, new { Label = "Додати депозит", Class = "add-deposit" })
                             </p>
@@ -47,7 +47,7 @@
                         <div class="collapsible-header">
                             <span>Продаж</span>
                         </div>
-                        <div class="collapsible-body sales">
+                        <div class="row collapsible-body sales">
                             <p>
                                 @Html.EditorFor(m => m.AdditionalIncome.IsSaleAdded, new { Label = "Продати майно", Class = "add-sale" })
                             </p>
@@ -78,7 +78,7 @@
                         <div class="collapsible-header">
                             <span>Кредит</span>
                         </div>
-                        <div class="collapsible-body credits">
+                        <div class="row collapsible-body credits">
                             <p>
                                 @Html.EditorFor(m => m.AdditionalCost.IsCreditAdded, new { Label = "Додати кредит", Class = "add-credit" })
                             </p>
@@ -105,7 +105,7 @@
                         <div class="collapsible-header">
                             <span>Покупка</span>
                         </div>
-                        <div class="collapsible-body purchases">
+                        <div class="row collapsible-body purchases">
                             <p>
                                 @Html.EditorFor(m => m.AdditionalCost.IsPurchaseAdded, new { Label = "Зробити покупку", Class = "add-purchase" })
                             </p>

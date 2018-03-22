@@ -98,6 +98,18 @@
     background: none !important;
 }
 
+.navbar-fixed {
+    top: -1000px;
+}
+
+.side-nav div:last-child {
+    margin-bottom: 70px;
+}
+
+.nav-wrapper input {
+    color: black;
+}
+
 .sidenav-button {
     color: grey;
 }
@@ -113,6 +125,14 @@
 
 .side-nav{
     padding: 10px;
+}
+
+.minimal-budget-block {
+    width: 10%;
+    height: 100%;
+    max-width: 200px;
+    float: left;
+    margin-left: 5%;
 }
 
 .minimal-budget-block-btn {

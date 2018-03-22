@@ -366,9 +366,14 @@ PersonalFinances.Graph = (function () {
 
             onDataChanged(selector);
         });
-        $(".button-collapse").sideNav({
-            edge: 'right',
-            menuWidth: 400
+        $(".button-collapse").sideNav('show');
+        $(document).ready(function () {
+            $('.button-collapse').sideNav({
+                menuWidth: 400,
+                edge: 'right',
+                closeOnClick: false,
+                draggable: true
+            });
         });
     };
 

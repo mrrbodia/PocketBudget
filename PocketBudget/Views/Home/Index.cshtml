@@ -33,24 +33,24 @@
 
 @helper MinimalInformationSettingsBlock()
 {
-    <div class="minimal-budget-block" style="width:10%; height:100%; max-width: 200px; float:right;">
+    <div class="minimal-budget-block">
         <p>
             <a class="minimal-budget-block-btn waves-effect waves-light btn button-collapse grey lighten-3" data-activates="slide-out"><i class="material-icons left">edit</i>Змінити</a>
         </p>
         <div>
-            <div class="edit-salary">
+            <div>
                 @Html.DisplayFor(m => m.Salary)
             </div>
-            <div class="edit-savings">
+            <div>
                 @Html.DisplayFor(m => m.Savings)
             </div>
-            <div class="pension">
+            <div>
                 @Html.DisplayFor(m => m.Pension)
             </div>
-            <div class="edit-spendings">
+            <div>
                 @Html.DisplayFor(m => m.Spendings)
             </div>
-            <div class="edit-age">
+            <div>
                 <p>
                     @Html.LabelFor(m => m.CurrentAge)
                     <span class="newline @Html.NameFor(m => m.CurrentAge).ToString().Replace(".", "-")">
@@ -76,32 +76,38 @@
 
 @helper EditSettingsBlock()
 {
-    <div id="slide-out" class="col s4 side-nav">
-        <div class="edit-salary">
-            @Html.EditorFor(m => m.Salary)
-        </div>
-        <div class="edit-savings">
-            @Html.EditorFor(m => m.Savings)
-        </div>
-        <div class="pension">
-            @Html.EditorFor(m => m.Pension)
-        </div>
-        <div class="edit-spendings">
-            @Html.EditorFor(m => m.Spendings)
-        </div>
-        <div class="edit-age">
-            <p>
-                @Html.LabelFor(m => m.CurrentAge)
-                @Html.TextBoxFor(m => m.CurrentAge, htmlAttributes: new { @class = "graph-updater current-age", type = "number" })
-            </p>
-            <p>
-                @Html.LabelFor(m => m.RetirementAge)
-                @Html.TextBoxFor(m => m.RetirementAge, htmlAttributes: new { @class = "graph-updater retirement-age", type = "number" })
-            </p>
-            <p>
-                @Html.LabelFor(m => m.LifeExpectancy)
-                @Html.TextBoxFor(m => m.LifeExpectancy, htmlAttributes: new { @class = "graph-updater life-expectancy-age", type = "number" })
-            </p>
-        </div>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper">
+                <div id="slide-out" class="side-nav">
+                    <div>
+                        @Html.EditorFor(m => m.Salary)
+                    </div>
+                    <div>
+                        @Html.EditorFor(m => m.Savings)
+                    </div>
+                    <div>
+                        @Html.EditorFor(m => m.Pension)
+                    </div>
+                    <div>
+                        @Html.EditorFor(m => m.Spendings)
+                    </div>
+                    <div>
+                        <div>
+                            @Html.LabelFor(m => m.CurrentAge)
+                            @Html.TextBoxFor(m => m.CurrentAge, htmlAttributes: new { @class = "graph-updater current-age", type = "number" })
+                        </div>
+                        <div>
+                            @Html.LabelFor(m => m.RetirementAge)
+                            @Html.TextBoxFor(m => m.RetirementAge, htmlAttributes: new { @class = "graph-updater retirement-age", type = "number" })
+                        </div>
+                        <div class="nav-item">
+                            @Html.LabelFor(m => m.LifeExpectancy)
+                            @Html.TextBoxFor(m => m.LifeExpectancy, htmlAttributes: new { @class = "graph-updater life-expectancy-age", type = "number" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
     </div>
 }
