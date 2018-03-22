@@ -1,8 +1,7 @@
 ﻿@model SalaryViewModel
-
 <p>
     @Html.LabelFor(m => m.Amount)
-    <span class="newline @Html.NameFor(m => m.Amount).ToString().Replace(".", "-")">
+    <span class="newline @Html.IdFor(m => m.Amount)">
         @Html.DisplayFor(m => m.Amount, new { @class = "graph-updater", type = "number" })
     </span>
 </p>

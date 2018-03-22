@@ -12,8 +12,9 @@
         {
             <div id="additional-path-income" class="col s12">
                 <div>
-                    <span>Додаткові доходи з віку </span>
+                    @Html.LabelFor(m => m.AdditionalIncome.From)
                     @Html.TextBoxFor(m => m.AdditionalIncome.From, htmlAttributes: new { type = "number", @class = "income-from" })
+                    @Html.ValidationMessageFor(m => m.AdditionalIncome.From)
                 </div>
                 <ul class="collapsible" data-collapsible="expandable">
                     <li>
@@ -70,8 +71,9 @@
             </div>
             <div id="additional-path-cost" class="col s12">
                 <div>
-                    <span>Додаткові витрати з віку </span>
+                    @Html.LabelFor(m => m.AdditionalCost.From)
                     @Html.TextBoxFor(m => m.AdditionalCost.From, htmlAttributes: new { type = "number", @class = "cost-from" })
+                    @Html.ValidationMessageFor(m => m.AdditionalCost.From)
                 </div>
                 <ul class="collapsible" data-collapsible="expandable">
                     <li>

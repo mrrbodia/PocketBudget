@@ -11,6 +11,8 @@ namespace PocketBudget.Models
             Sales = new List<SaleViewModel>();
         }
 
+        [Display(Name = "Додаткові доходи з віку")]
+        [Required(ErrorMessage = "Введіть вік початку доходів")]
         public int? From { get; set; }
         
         [UIHint("Checkbox")]

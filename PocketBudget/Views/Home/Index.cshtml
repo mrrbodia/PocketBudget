@@ -50,19 +50,19 @@
             <div>
                 <p>
                     @Html.LabelFor(m => m.CurrentAge)
-                    <span class="newline @Html.NameFor(m => m.CurrentAge).ToString().Replace(".", "-")">
+                    <span class="newline @Html.IdFor(m => m.CurrentAge)">
                         @Html.DisplayFor(m => m.CurrentAge)
                     </span>
                 </p>
                 <p>
                     @Html.LabelFor(m => m.RetirementAge)
-                    <span class="newline @Html.NameFor(m => m.RetirementAge).ToString().Replace(".", "-")">
+                    <span class="newline @Html.IdFor(m => m.RetirementAge)">
                         @Html.DisplayFor(m => m.RetirementAge)
                     </span>
                 </p>
                 <p>
                     @Html.LabelFor(m => m.LifeExpectancy)
-                    <span class="newline @Html.NameFor(m => m.LifeExpectancy).ToString().Replace(".", "-")">
+                    <span class="newline @Html.IdFor(m => m.LifeExpectancy)">
                         @Html.DisplayFor(m => m.LifeExpectancy)
                     </span>
                 </p>

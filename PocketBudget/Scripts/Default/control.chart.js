@@ -328,8 +328,8 @@ PersonalFinances.Graph = (function () {
     };
 
     var updateMinimalInformation = function (input) {
-        var name = $(input).attr("name").replace('.', '-');
-        $('.' + name).html($(input).val());
+        var id = $(input).attr("id");
+        $('.' + id).html($(input).val());
     };
 
     var initEvents = function () {
