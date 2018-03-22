@@ -56,6 +56,7 @@
     <Compile Include="DataProviders\BankDataProvider.cs" />
     <Compile Include="DataProviders\IRepository.cs" />
     <Compile Include="DataProviders\SQLDataProvider.cs" />
+    <Compile Include="Parsers\XmlDataParser.cs" />
     <Compile Include="DomainModel\Account\Account.cs" />
     <Compile Include="DomainModel\Account\Role.cs" />
     <Compile Include="DomainModel\Active\Bank.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Models\ChartLine.cs" />
     <Compile Include="Models\PathModel.cs" />
     <Compile Include="Models\PensionModel.cs" />
+    <Compile Include="Models\PersonPathModel.cs" />
     <Compile Include="Models\SalaryModel.cs" />
     <Compile Include="Models\SavingsModel.cs" />
     <Compile Include="Models\SpendingsModel.cs" />

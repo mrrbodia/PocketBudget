@@ -32,6 +32,13 @@ namespace PocketBudget.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult GetPathModel(string personId)
+        {
+
+            return Json(1);
+        }
+
         //TODO: Create session (save chosen user data)
         [HttpPost]
         public ActionResult GetChartLines(PathViewModel pathModel)
