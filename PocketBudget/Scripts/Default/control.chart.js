@@ -269,7 +269,13 @@ PersonalFinances.Graph = (function () {
 
     var updateGraphLines = function ()
     {
-        var model = bindPathModel();
+        var $form = $('#path-form');
+        if (!$form.valid()) {
+            var notValidInput = $('.input-validation-error');
+            notValidInput.focus();
+            return;
+        }
+        var model = bindPathModel($form);
         $.ajax({
             url: 'getchartlines',
             type: 'POST',
@@ -285,9 +291,8 @@ PersonalFinances.Graph = (function () {
         });
     };
 
-    var bindPathModel = function () {
-        var form = $('#path-form');
-        var data = form.serialize();
+    var bindPathModel = function ($form) {
+        var data = $form.serialize();
 
         //TODO:
         //var additionalForm = $('#additional-path-form');

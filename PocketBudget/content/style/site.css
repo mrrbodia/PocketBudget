@@ -102,12 +102,17 @@
     top: -1000px;
 }
 
-.side-nav div:last-child {
+.nav-wrapper .last-row {
     margin-bottom: 70px;
 }
 
 .nav-wrapper input {
+    height: 3em;
     color: black;
+}
+
+.nav-wrapper .form-row div {
+    line-height: 35px;
 }
 
 .sidenav-button {
@@ -146,4 +151,10 @@
 
 .newline{
     display: block;
+}
+
+.form-row .field-validation-error {
+    display: block;
+    line-height: 12px;
+    color: red;
 }

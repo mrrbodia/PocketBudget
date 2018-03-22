@@ -17,4 +17,5 @@
 </div>
 <div>
     @Html.TextBoxFor(m => m.Amount, new { @class = "graph-updater", type = "number" })
+    @Html.ValidationMessageFor(m => m.Amount)
 </div>

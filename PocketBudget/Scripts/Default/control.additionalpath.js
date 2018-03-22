@@ -49,6 +49,7 @@ PersonalFinances.Path.AdditionalPath = (function () {
     };
 
     var saveAdditionalValuesSelection = function () {
+        //TODO: validate
         var incomeFrom = +$('input.income-from').val();
         var costFrom = +$('input.cost-from').val();
         //TODO: REPLACE WITH DEFAULT MVC BINDING / SESSION SHOULD BE CREATED

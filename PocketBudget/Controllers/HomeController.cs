@@ -32,6 +32,7 @@ namespace PocketBudget.Controllers
             return View(model);
         }
 
+        //TODO: validate AGE
         //TODO: Create session (save chosen user data)
         [HttpPost]
         public ActionResult GetChartLines(PathViewModel pathModel)
