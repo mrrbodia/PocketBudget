@@ -13,7 +13,7 @@ namespace Business.Components.AdditionalPath
                 for (int i = additionalIncome.From; i < additionalIncome.To; ++i)
                 {
                     var income = additionalIncome.GetIncomePerYear(i - additionalIncome.From);
-                    if (i - additionalIncome.From < deposit.Years)
+                    if (i - additionalIncome.From <= deposit.Years)
                     {
                         lastIncome = income;
                         points[i] = points[i] + income;
