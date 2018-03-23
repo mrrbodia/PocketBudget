@@ -32,7 +32,7 @@ namespace Business.Components.AdditionalPath
             foreach (var additionalCost in path.AdditionalPath.AdditionalCosts)
             {
                 additionalCost.From -= path.CurrentAge;
-                additionalCost.To = path.RetirementAge;
+                additionalCost.To = (short)(path.LifeExpectancy - path.CurrentAge);
                 foreach (var step in this.costSteps)
                 {
                     step.Execute(additionalCost, points);
