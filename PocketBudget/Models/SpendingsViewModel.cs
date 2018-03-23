@@ -7,7 +7,7 @@ namespace PocketBudget.Models
     {
         [Display(Name = "Витрати на пенсії / місяць")]
         [Required(ErrorMessage = "Введіть витрати на пенсії")]
-        [Range(0, int.MaxValue, ErrorMessage = "Витрати повинні бути більші 0")]
+        [Range(0, int.MaxValue, ErrorMessage = "Доступні значення з {1} до {2}")]
         public decimal Amount { get; set; }
         
         public SpendingsType Type { get; set; }

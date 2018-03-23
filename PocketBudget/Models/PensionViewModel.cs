@@ -10,7 +10,7 @@ namespace PocketBudget.Models
     {
         [Display(Name = "Пенсія")]
         [Required(ErrorMessage = "Введіть розмір пенсії")]
-        [Range(0, int.MaxValue, ErrorMessage = "Пенсія повинна бути більша 0")]
+        [Range(0, 20000, ErrorMessage = "Доступні значення з {1} до {2}")]
         public decimal Amount { get; set; }
     }
 }

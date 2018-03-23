@@ -105,19 +105,31 @@
                             @Html.EditorFor(m => m.Spendings)
                         </div>
                         <div class="form-row">
-                            @Html.LabelFor(m => m.CurrentAge)
-                            @Html.TextBoxFor(m => m.CurrentAge, htmlAttributes: new { @class = "graph-updater current-age", type = "number" })
-                            @Html.ValidationMessageFor(m => m.CurrentAge)
+                            <div>
+                                @Html.LabelFor(m => m.CurrentAge)
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(m => m.CurrentAge, htmlAttributes: new { @class = "graph-updater current-age", type = "number" })
+                                @Html.ValidationMessageFor(m => m.CurrentAge)
+                            </div>
                         </div>
                         <div class="form-row">
-                            @Html.LabelFor(m => m.RetirementAge)
-                            @Html.TextBoxFor(m => m.RetirementAge, htmlAttributes: new { @class = "graph-updater retirement-age", type = "number" })
-                            @Html.ValidationMessageFor(m => m.RetirementAge)
+                            <div>
+                                @Html.LabelFor(m => m.RetirementAge)
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(m => m.RetirementAge, htmlAttributes: new { @class = "graph-updater retirement-age", type = "number" })
+                                @Html.ValidationMessageFor(m => m.RetirementAge)
+                            </div>
                         </div>
                         <div class="form-row last-row">
-                            @Html.LabelFor(m => m.LifeExpectancy)
-                            @Html.TextBoxFor(m => m.LifeExpectancy, htmlAttributes: new { @class = "graph-updater life-expectancy-age", type = "number" })
-                            @Html.ValidationMessageFor(m => m.LifeExpectancy)
+                            <div>
+                                @Html.LabelFor(m => m.LifeExpectancy)
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(m => m.LifeExpectancy, htmlAttributes: new { @class = "graph-updater life-expectancy-age", type = "number" })
+                                @Html.ValidationMessageFor(m => m.LifeExpectancy)
+                            </div>
                         </div>
                     }
                 </div>
