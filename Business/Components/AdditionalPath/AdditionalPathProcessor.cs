@@ -18,8 +18,12 @@ namespace Business.Components.AdditionalPath
         public List<ChartLine> Execute(PathModel path, List<decimal?> points)
         {
             var additionalLines = new List<ChartLine>();
+
             foreach (var additionalIncome in path.AdditionalPath.AdditionalIncomes)
             {
+                if (additionalIncome.From < path.CurrentAge)
+                    continue;
+
                 additionalIncome.From -= path.CurrentAge;
                 additionalIncome.To = (short)(path.LifeExpectancy - path.CurrentAge);
                 foreach (var step in this.incomeSteps)
@@ -31,6 +35,9 @@ namespace Business.Components.AdditionalPath
             }
             foreach (var additionalCost in path.AdditionalPath.AdditionalCosts)
             {
+                if (additionalCost.From < path.CurrentAge)
+                    continue;
+
                 additionalCost.From -= path.CurrentAge;
                 additionalCost.To = (short)(path.LifeExpectancy - path.CurrentAge);
                 foreach (var step in this.costSteps)
