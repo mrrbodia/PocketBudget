@@ -3,6 +3,35 @@ PersonalFinances.Graph = (function () {
     var ctx = document.getElementById("chart");
     var chart = null;
 
+    var usersExamplesData = [
+        {
+            Salary_Amount: 7000,
+            Savings_Amount: 3000,
+            Pension_Amount: 3000,
+            Spendings_Amount: 3000,
+            CurrentAge: 20,
+            RetirementAge: 60,
+            LifeExpectancy: 80
+        },
+        {
+            Salary_Amount: 12000,
+            Savings_Amount: 7000,
+            Pension_Amount: 2000,
+            Spendings_Amount: 3500,
+            CurrentAge: 26,
+            RetirementAge: 60,
+            LifeExpectancy: 80
+        },
+        {
+            Salary_Amount: 16000,
+            Savings_Amount: 10000,
+            Pension_Amount: 1600,
+            Spendings_Amount: 5000,
+            CurrentAge: 28,
+            RetirementAge: 65,
+            LifeExpectancy: 80
+        }];
+
     var initTimeout = function (el, timeout) {
         return setTimeout(function () {
             el.style.display = 'none';
@@ -373,12 +402,21 @@ PersonalFinances.Graph = (function () {
         });
         $(".button-collapse").sideNav('show');
         $(document).ready(function () {
+            $('select').material_select();
             $('.button-collapse').sideNav({
                 menuWidth: 400,
                 edge: 'right',
                 closeOnClick: false,
                 draggable: true
             });
+        });
+        $(document).on('change', '.usersExamplesData', function (e) {
+            var value = $(this).val();
+            var userData = usersExamplesData[value - 1];
+            for (var key in userData) {
+                $('#' + key).val(userData[key]);
+            }
+            updateGraph();
         });
     };
 

@@ -80,6 +80,19 @@
                     @using (Html.BeginForm("GetChartLines", "Home", FormMethod.Post, htmlAttributes: new { id = "path-form" }))
                     {
                         <div class="form-row">
+                            <div>
+                                <label>Приклад даних користувача</label>
+                            </div>
+                            <div>
+                                @Html.RadioButton("usersExamplesData", 1, htmlAttributes: new { id = "usersExamplesData_1", @class = "graph-updater usersExamplesData", @checked ="checked" })
+                                <label for="usersExamplesData_1">Олег</label>
+                                @Html.RadioButton("usersExamplesData", 2, htmlAttributes: new { id = "usersExamplesData_2", @class = "graph-updater usersExamplesData" })
+                                <label for="usersExamplesData_2">Олександра</label>
+                                @Html.RadioButton("usersExamplesData", 3, htmlAttributes: new { id = "usersExamplesData_3", @class = "graph-updater usersExamplesData" })
+                                <label for="usersExamplesData_3">Олексій</label>
+                            </div>
+                        </div>
+                        <div class="form-row">
                             @Html.EditorFor(m => m.Salary)
                         </div>
                         <div class="form-row">
