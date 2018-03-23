@@ -15,12 +15,18 @@ namespace PocketBudget.Models
         }
 
         [Display(Name = "Ваш вік")]
+        [Required(ErrorMessage = "Введіть ваш вік")]
+        [Range(0, 80, ErrorMessage = "Доступні значення з {1} до {2}")]
         public short CurrentAge { get; set; }
 
         [Display(Name = "Вихід на пенсію")]
+        [Required(ErrorMessage = "Введіть вік виходу на пенсію")]
+        [Range(0, 80, ErrorMessage = "Доступні значення з {1} до {2}")]
         public short RetirementAge { get; set; }
 
         [Display(Name = "Тривалість життя")]
+        [Required(ErrorMessage = "Введіть тривалість життя")]
+        [Range(0, 100, ErrorMessage = "Доступні значення з {1} до {2}")]
         public short LifeExpectancy { get; set; }
 
         [UIHint("Salary")]

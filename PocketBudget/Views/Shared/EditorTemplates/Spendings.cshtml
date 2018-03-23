@@ -2,17 +2,19 @@
 @using PocketBudget.Extensions
 @using Business.Models
 
-<p>
+<div>
     @Html.LabelFor(m => m.Amount)
-</p>
-<p>
+</div>
+<div>
     @Html.RadioButtonFor(m => m.Type, SpendingsType.Fixed, htmlAttributes: new { id = "target-spendings-fixed", @class ="graph-updater pattern",
         data_value = Model.Amount, data_for = Html.GetFullHtmlFieldId(m => m.Amount), @checked ="checked" })
     <label for="target-spendings-fixed">Фіксована сума</label>
     @Html.RadioButtonFor(m => m.Type, SpendingsType.Percentage, htmlAttributes: new { id = "target-spendings-percentage", @class = "graph-updater pattern",
         data_value = 20, data_for = Html.GetFullHtmlFieldId(m => m.Amount) })
     <label for="target-spendings-percentage">Відсотки від збережень</label>
-</p>
-<p>
+    <span class="field-validation-valid" data-valmsg-for="@Html.GetFullHtmlFieldName(m => m.Type)" data-valmsg-replace="true"></span>
+</div>
+<div>
     @Html.TextBoxFor(m => m.Amount, new { @class = "graph-updater", type = "number" })
-</p>
+    @Html.ValidationMessageFor(m => m.Amount)
+</div>

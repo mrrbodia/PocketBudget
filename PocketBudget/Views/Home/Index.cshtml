@@ -1,20 +1,16 @@
 ﻿@model PocketBudget.Models.PathViewModel
 @{
     Layout = "~/Views/Shared/_Base.cshtml";
-    var test = Model;
 }
 
-<div>
-    @using (Html.BeginForm("GetChartLines", "Home", FormMethod.Post, htmlAttributes: new { id="path-form" }))
-    {
-        <div class="budget-block">
-            <div id="chart-block-new" style="width:90%; height:100%; max-width: 1400px; float: left">
-                <canvas id="chart"></canvas>
-            </div>
-            @MinimalInformationSettingsBlock()
+<div>    
+    <div class="budget-block">
+        <div id="chart-block-new" style="width:90%; height:100%; max-width: 1400px; float: left">
+            <canvas id="chart"></canvas>
         </div>
-        @EditSettingsBlock()
-    }
+        @MinimalInformationSettingsBlock()
+    </div>
+    @EditSettingsBlock()
 </div>
 <div id="tooltip-element-content">@Html.Partial("_ChartTooltip")</div>
 <div id="tooltip-element"></div>
@@ -34,47 +30,41 @@
 
 @helper MinimalInformationSettingsBlock()
 {
-    <div class="minimal-budget-block" style="width:10%; height:100%; max-width: 200px; float:right;">
+    <div class="minimal-budget-block">
         <p>
             <a class="minimal-budget-block-btn waves-effect waves-light btn button-collapse grey lighten-3" data-activates="slide-out"><i class="material-icons left">edit</i>Змінити</a>
         </p>
         <div>
-            <div class="edit-salary">
+            <div>
                 @Html.DisplayFor(m => m.Salary)
             </div>
-            <div class="edit-savings">
+            <div>
                 @Html.DisplayFor(m => m.Savings)
             </div>
-            <div class="pension">
+            <div>
                 @Html.DisplayFor(m => m.Pension)
             </div>
-            <div class="edit-spendings">
+            <div>
                 @Html.DisplayFor(m => m.Spendings)
             </div>
-            <div class="edit-age">
+            <div>
                 <p>
-                    <div>
-                        @Html.LabelFor(m => m.CurrentAge)
-                    </div>
-                    <div>
+                    @Html.LabelFor(m => m.CurrentAge)
+                    <span class="newline @Html.IdFor(m => m.CurrentAge)">
                         @Html.DisplayFor(m => m.CurrentAge)
-                    </div>
+                    </span>
                 </p>
                 <p>
-                    <div>
-                        @Html.LabelFor(m => m.RetirementAge)
-                    </div>
-                    <div>
+                    @Html.LabelFor(m => m.RetirementAge)
+                    <span class="newline @Html.IdFor(m => m.RetirementAge)">
                         @Html.DisplayFor(m => m.RetirementAge)
-                    </div>
+                    </span>
                 </p>
                 <p>
-                    <div>
-                        @Html.LabelFor(m => m.LifeExpectancy)
-                    </div>
-                    <div>
+                    @Html.LabelFor(m => m.LifeExpectancy)
+                    <span class="newline @Html.IdFor(m => m.LifeExpectancy)">
                         @Html.DisplayFor(m => m.LifeExpectancy)
-                    </div>
+                    </span>
                 </p>
             </div>
         </div>
@@ -83,32 +73,67 @@
 
 @helper EditSettingsBlock()
 {
-    <div id="slide-out" class="col s4 side-nav">
-        <div class="edit-salary">
-            @Html.EditorFor(m => m.Salary)
-        </div>
-        <div class="edit-savings">
-            @Html.EditorFor(m => m.Savings)
-        </div>
-        <div class="pension">
-            @Html.EditorFor(m => m.Pension)
-        </div>
-        <div class="edit-spendings">
-            @Html.EditorFor(m => m.Spendings)
-        </div>
-        <div class="edit-age">
-            <p>
-                @Html.LabelFor(m => m.CurrentAge)
-                @Html.TextBoxFor(m => m.CurrentAge, htmlAttributes: new { @class = "graph-updater current-age", type = "number" })
-            </p>
-            <p>
-                @Html.LabelFor(m => m.RetirementAge)
-                @Html.TextBoxFor(m => m.RetirementAge, htmlAttributes: new { @class = "graph-updater retirement-age", type = "number" })
-            </p>
-            <p>
-                @Html.LabelFor(m => m.LifeExpectancy)
-                @Html.TextBoxFor(m => m.LifeExpectancy, htmlAttributes: new { @class = "graph-updater life-expectancy-age", type = "number" })
-            </p>
-        </div>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper">
+                <div id="slide-out" class="side-nav">
+                    @using (Html.BeginForm("GetChartLines", "Home", FormMethod.Post, htmlAttributes: new { id = "path-form" }))
+                    {
+                        <div class="form-row">
+                            <div>
+                                <label>Приклад даних користувача</label>
+                            </div>
+                            <div>
+                                @Html.RadioButton("usersExamplesData", 1, htmlAttributes: new { id = "usersExamplesData_1", @class = "graph-updater usersExamplesData", @checked ="checked" })
+                                <label for="usersExamplesData_1">Олег</label>
+                                @Html.RadioButton("usersExamplesData", 2, htmlAttributes: new { id = "usersExamplesData_2", @class = "graph-updater usersExamplesData" })
+                                <label for="usersExamplesData_2">Олександра</label>
+                                @Html.RadioButton("usersExamplesData", 3, htmlAttributes: new { id = "usersExamplesData_3", @class = "graph-updater usersExamplesData" })
+                                <label for="usersExamplesData_3">Олексій</label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            @Html.EditorFor(m => m.Salary)
+                        </div>
+                        <div class="form-row">
+                            @Html.EditorFor(m => m.Savings)
+                        </div>
+                        <div class="form-row">
+                            @Html.EditorFor(m => m.Pension)
+                        </div>
+                        <div class="form-row">
+                            @Html.EditorFor(m => m.Spendings)
+                        </div>
+                        <div class="form-row">
+                            <div>
+                                @Html.LabelFor(m => m.CurrentAge)
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(m => m.CurrentAge, htmlAttributes: new { @class = "graph-updater current-age", type = "number" })
+                                @Html.ValidationMessageFor(m => m.CurrentAge)
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div>
+                                @Html.LabelFor(m => m.RetirementAge)
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(m => m.RetirementAge, htmlAttributes: new { @class = "graph-updater retirement-age", type = "number" })
+                                @Html.ValidationMessageFor(m => m.RetirementAge)
+                            </div>
+                        </div>
+                        <div class="form-row last-row">
+                            <div>
+                                @Html.LabelFor(m => m.LifeExpectancy)
+                            </div>
+                            <div>
+                                @Html.TextBoxFor(m => m.LifeExpectancy, htmlAttributes: new { @class = "graph-updater life-expectancy-age", type = "number" })
+                                @Html.ValidationMessageFor(m => m.LifeExpectancy)
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </nav>
     </div>
 }

@@ -1,5 +1,4 @@
 ﻿using Business.DomainModel.Active;
-using System;
 using System.Collections.Generic;
 
 namespace Business.Components.AdditionalPath
@@ -13,8 +12,8 @@ namespace Business.Components.AdditionalPath
                 decimal lastIncome = 0m;
                 for (int i = additionalIncome.From; i < additionalIncome.To; ++i)
                 {
-                    var income = deposit.GetIncomePerYear(i - additionalIncome.From);
-                    if (i - additionalIncome.From < deposit.Years)
+                    var income = additionalIncome.GetIncomePerYear(i - additionalIncome.From);
+                    if (i - additionalIncome.From <= deposit.Years)
                     {
                         lastIncome = income;
                         points[i] = points[i] + income;

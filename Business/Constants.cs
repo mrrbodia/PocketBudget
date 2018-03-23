@@ -8,12 +8,19 @@ namespace Business
             public const string Dollar = "dollar";
             public const string Hrn = "hrn";
             public const string Euro = "euro";
+            public const string DollarSymbol = "$";
+            public const string HrnSymbol = "₴";
+            public const string EuroSymbol = "€";
         }
 
+        //TODO: Income and costs vs Deposit and Credit
         public class ChartLineType
         {
-            public const string Savings = "savings";
-            public const string Spendings = "spendings";
+            public const string Deposit = "deposit";
+
+            public const string Credit = "credit";
+
+            public const string Base = "base";
         }
     }
 }

@@ -1,12 +1,7 @@
 ﻿@model SpendingsViewModel
-@using PocketBudget.Extensions
-@using Business.Models
-
 <p>
-    <div>
-        @Html.LabelFor(m => m.Amount)
-    </div>
-    <div>
+    @Html.LabelFor(m => m.Amount)
+    <span class="newline @Html.IdFor(m => m.Amount)">
         @Html.DisplayFor(m => m.Amount, new { @class = "graph-updater", type = "number" })
-    </div>
+    </span>
 </p>
