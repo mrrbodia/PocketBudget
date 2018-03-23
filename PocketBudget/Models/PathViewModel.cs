@@ -1,20 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Business.Models;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
 
 namespace PocketBudget.Models
 {
     public class PathViewModel
     {
+        public PathViewModel()
+        {
+            Salary = new SalaryViewModel();
+            Savings = new SavingsViewModel();
+            Spendings = new SpendingsViewModel();
+            Pension = new PensionViewModel();
+        }
+
+        [Display(Name = "Ваш вік")]
         public short CurrentAge { get; set; }
 
+        [Display(Name = "Вихід на пенсію")]
         public short RetirementAge { get; set; }
 
+        [Display(Name = "Тривалість життя")]
         public short LifeExpectancy { get; set; }
 
-        public decimal Savings { get; set; }
+        [UIHint("Salary")]
+        public SalaryViewModel Salary { get; set; }
 
-        public decimal Spendings { get; set; }
+        [UIHint("Savings")]
+        public SavingsViewModel Savings { get; set; }
+
+        [UIHint("Spendings")]
+        public SpendingsViewModel Spendings { get; set; }
+
+        [UIHint("Pension")]
+        public PensionViewModel Pension { get; set; }
+
+        public AdditionalPathViewModel AdditionalPath { get; set; }
+
+        public bool IsValid()
+        {
+            return Enumerable.Range(50, 90).Contains(this.RetirementAge)
+                && Enumerable.Range(55, 100).Contains(this.LifeExpectancy)
+                && this.RetirementAge < this.LifeExpectancy
+                && this.Salary != null
+                && this.Savings != null
+                && this.Spendings != null
+                && this.Pension != null;
+        }
     }
 }

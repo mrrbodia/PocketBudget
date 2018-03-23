@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace Business.Models
+namespace Business
 {
     public class ChartLine
     {
-        public List<double?> Points { get; set; }
+        public ChartLine(string type, List<decimal?> points)
+        {
+            Type = type;
+            Points = new List<decimal?>(points);
+        }
 
-        public List<Fork> Forks { get; set; }
+        public string Type { get; set; }
+
+        public List<decimal?> Points { get; set; }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Business.Models
 {
     public class PathModel
@@ -14,11 +9,14 @@ namespace Business.Models
 
         public short LifeExpectancy { get; set; }
 
-        //public decimal Savings { get; set; }
+        public SalaryModel Salary { get; set; }
 
-        //public decimal Spendings { get; set; }
+        public SavingsModel Savings { get; set; }
 
-        //TODO: first main fork should be added as default
-        //public List<ChartLine> Lines { get; set; }
+        public SpendingsModel Spendings { get; set; }
+
+        public AdditionalPathModel AdditionalPath { get; set; }
+
+        public PensionModel Pension { get; set; }
     }
 }

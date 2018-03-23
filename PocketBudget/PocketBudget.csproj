@@ -47,6 +47,9 @@
     <Reference Include="Autofac.Integration.Mvc">
       <HintPath>..\packages\Autofac.Mvc4.3.1.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
     </Reference>
@@ -54,6 +57,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -119,6 +123,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AdditionalCostResolver.cs" />
+    <Compile Include="App_Start\AdditionalIncomeResolver.cs" />
     <Compile Include="App_Start\DependencyInjection.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BankController.cs" />
@@ -128,15 +134,23 @@
     <Compile Include="Controllers\FrontendBaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
+    <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModel.cs" />
-    <Compile Include="Models\AdditionalFinancesViewModel.cs" />
+    <Compile Include="Models\Account\AccountViewModel.cs" />
+    <Compile Include="Models\AdditionalCost\AdditionalCostViewModel.cs" />
+    <Compile Include="Models\AdditionalCost\CreditViewModel.cs" />
+    <Compile Include="Models\AdditionalCost\IAdditionalCostViewModel.cs" />
+    <Compile Include="Models\AdditionalIncome\AdditionalIncomeViewModel.cs" />
+    <Compile Include="Models\AdditionalPathViewModel.cs" />
+    <Compile Include="Models\AdditionalIncome\IAdditionalIncomeViewModel.cs" />
     <Compile Include="Models\PathViewModel.cs" />
-    <Compile Include="Models\StrategyViewModel.cs" />
-    <Compile Include="Models\TestDepositModel.cs" />
-    <Compile Include="Models\TestSalaryPatternModel.cs" />
+    <Compile Include="Models\AdditionalIncome\DepositViewModel.cs" />
+    <Compile Include="Models\PensionViewModel.cs" />
+    <Compile Include="Models\SalaryViewModel.cs" />
+    <Compile Include="Models\SpendingsViewModel.cs" />
+    <Compile Include="Models\SavingsViewModel.cs" />
     <Compile Include="PersonalFinances.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -208,14 +222,14 @@
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\d3.min.js" />
     <Content Include="Scripts\Default\control.additionalpath.js" />
+    <Content Include="Scripts\Default\control.binder.js" />
     <Content Include="Scripts\Default\control.popups.js" />
-    <Content Include="Scripts\Default\control.d3.js" />
     <Content Include="Scripts\Default\control.slider.js" />
-    <Content Include="Scripts\Default\control.chart.new.js" />
+    <Content Include="Scripts\Default\control.chart.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
-    <Content Include="Scripts\Default\control.chart.js" />
+    <Content Include="Scripts\jquery.json.js" />
     <Content Include="Scripts\materialize\materialize.js" />
     <Content Include="Scripts\materialize\materialize.min.js" />
     <Content Include="Scripts\nouislider\nouislider.js" />
@@ -231,19 +245,24 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_Popups.cshtml" />
-    <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Shared\_ChartTooltip.cshtml" />
     <Content Include="Views\Home\_EditFinances.cshtml" />
-    <Content Include="Views\Home\v2.cshtml">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Salary.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Savings.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Spendings.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Pension.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Pension.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Salary.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Savings.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Spendings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Texts\" />
     <Folder Include="App_Data\Xml\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Web\Mvc\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -1,35 +1,19 @@
-﻿using Business.Models;
-using PocketBudget;
+﻿using AutoMapper;
+using Business;
+using Business.Models;
 using PocketBudget.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PocketBudget.Controllers
 {
     public class HomeController : FrontendBaseController
     {
-        //public ActionResult Index()
-        //{
-        //    var model = new StrategyViewModel();
-        //    model.SalaryPattern = CreateSalaryPatternModel();
-        //    return View(model);
-        //}
+        protected IMapper mapper;
 
-        //public ActionResult Test()
-        //{
-        //    var model = new StrategyViewModel();
-        //    model.SalaryPattern = CreateSalaryPatternModel();
-        //    return View(model);
-        //}
-
-        public ActionResult GetChartLines()
+        public HomeController()
         {
-            var path = new PathModel();
-            var chartLines = PersonalFinances.Chart.GetChartLines(path);
-            return Json(1);
+            mapper = DependencyResolver.Current.GetService<IMapper>();
         }
 
         public ActionResult Index()
@@ -38,39 +22,69 @@ namespace PocketBudget.Controllers
             model.CurrentAge = 20;
             model.LifeExpectancy = 80;
             model.RetirementAge = 60;
-            model.Savings = 5000;
-            model.Spendings = 15000;
-            return View("v2", model);
+            model.Savings.Amount = 5000;
+            model.Savings.Type = SavingsType.Fixed;
+            model.Spendings.Amount = 10000;
+            model.Spendings.Type = SpendingsType.Fixed;
+            model.Salary.Amount = 7000;
+            model.Pension.Amount = 3000;
+            return View(model);
         }
 
-        //TODO: fromAge can be null also
+        //TODO: Create session (save chosen user data)
         [HttpPost]
-        public ActionResult EditFinances(int fromAge)
+        public ActionResult GetChartLines(PathViewModel pathModel)
         {
-            var model = new AdditionalFinancesViewModel();
-            model.Deposits = CreateDepositModel();
-            model.FromAge = fromAge;
+            if (pathModel.IsValid())
+            {
+                var path = mapper.Map<PathViewModel, PathModel>(pathModel);
+                var chartLines = PersonalFinances.Chart.GetChartLines(path);
+                return Json(chartLines);
+            }
+            return Json(0);
+        }
+        
+        //TODO: what if user want to select only income, but not costs or vice versa
+        [HttpPost]
+        public ActionResult EditFinances(int? fromAge)
+        {
+            var model = new AdditionalPathViewModel();
+            model.AdditionalIncome = CreateAdditionalIncomeViewModel(fromAge);
+            model.AdditionalCost = CreateAdditionalCostViewModel(fromAge);
             return View("_EditFinances", model);
         }
 
-        protected IEnumerable<TestDepositModel> CreateDepositModel()
+        protected AdditionalIncomeViewModel CreateAdditionalIncomeViewModel(int? fromAge)
         {
-            var result = new List<TestDepositModel>();
-            result.Add(new TestDepositModel() { CurrencyId = "hrn", Percentage = 14.0f, Total = 100000m, Years = 1, IsActive = true });
-            result.Add(new TestDepositModel() { CurrencyId = "dollar", Percentage = 3.75f, Total = 4000m, Years = 1 });
-            result.Add(new TestDepositModel() { CurrencyId = "euro", Percentage = 2.35f, Total = 3000m, Years = 1 });
+            var result = new AdditionalIncomeViewModel();
+            result.From = fromAge;
+            result.Deposits = CreateDepositsModel();
             return result;
         }
 
-        protected TestSalaryPatternModel CreateSalaryPatternModel()
+        protected AdditionalCostViewModel CreateAdditionalCostViewModel(int? fromAge)
         {
-            var result = new TestSalaryPatternModel();
-            result.IncomePerYear = 60000m;
-            result.IncreaseTillAge = 45;
-            result.IncreasePercentage = 3.0;
-            result.ShowTillAge = 80;
-            result.CurrentAge = 18;
-            result.RetirementAge = 65;
+            var result = new AdditionalCostViewModel();
+            result.From = fromAge;
+            result.Credits = CreateCreditsModel();
+            return result;
+        }
+
+        protected IEnumerable<DepositViewModel> CreateDepositsModel()
+        {
+            var result = new List<DepositViewModel>();
+            result.Add(new DepositViewModel() { CurrencyId = Constants.Currency.Hrn, Percentage = 14.0f, Total = 100000m, Years = 1, IsActive = true });
+            result.Add(new DepositViewModel() { CurrencyId = Constants.Currency.Dollar, Percentage = 3.75f, Total = 4000m, Years = 1 });
+            result.Add(new DepositViewModel() { CurrencyId = Constants.Currency.Euro, Percentage = 2.35f, Total = 3000m, Years = 1 });
+            return result;
+        }
+
+        protected IEnumerable<CreditViewModel> CreateCreditsModel()
+        {
+            var result = new List<CreditViewModel>();
+            result.Add(new CreditViewModel() { CurrencyId = Constants.Currency.Hrn, Percentage = 25.0f, Total = 100000m, Years = 2, IsActive = true });
+            result.Add(new CreditViewModel() { CurrencyId = Constants.Currency.Dollar, Percentage = 8.0f, Total = 4000m, Years = 2 });
+            result.Add(new CreditViewModel() { CurrencyId = Constants.Currency.Euro, Percentage = 5.0f, Total = 3000m, Years = 2 });
             return result;
         }
     }

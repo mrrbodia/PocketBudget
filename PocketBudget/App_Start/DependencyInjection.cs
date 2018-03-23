@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Autofac;
+﻿using Autofac;
 using Autofac.Integration.Mvc;
 using System.Web.Mvc;
 using Business.Managers;
-using Business.DataProviders;
 using Business.Managers.Chart;
 using Business.Components.AdditionalPath;
+using AutoMapper;
+using PocketBudget.Models;
+using Business.Models;
+using Business.DomainModel.Active;
+using System.Collections.Generic;
 
 namespace PocketBudget.App_Start
 {
@@ -24,17 +24,53 @@ namespace PocketBudget.App_Start
 
         protected static void RegisterTypes(ContainerBuilder builder)
         {
-            //Register managers instances
             builder.RegisterType<AccountManager>().As<IAccountManager>();
             builder.RegisterType<BankManager>().As<IBankManager>();
             builder.RegisterType<ChartManager>().As<IChartManager>();
+
+            RegisterAdditionalProcessor(builder);
+            RegisterMapper(builder);
+        }
+
+        protected static void RegisterMapper(ContainerBuilder builder)
+        {
+            builder.RegisterInstance(GetMapper());
         }
 
         protected static void RegisterAdditionalProcessor(ContainerBuilder builder)
         {
-            builder.RegisterType<AdditionalPathProcessor>().As<AdditionalPathProcessor>();
-
+            builder.RegisterType<AdditionalSavingsProcessor>().As<AdditionalSavingsProcessor>();
             builder.RegisterType<DepositIncomeStep>().As<IAdditionalIncomeStep>();
+
+            builder.RegisterType<CreditCostStep>().As<IAdditionalCostStep>();
+        }
+
+        protected static IMapper GetMapper()
+        {
+            return new MapperConfiguration(x =>
+            {
+                x.CreateMap<PathViewModel, PathModel>();
+                x.CreateMap<PathModel, PathViewModel>();
+                x.CreateMap<SalaryModel, SalaryViewModel>();
+                x.CreateMap<SalaryViewModel, SalaryModel>();
+                x.CreateMap<SavingsModel, SavingsViewModel>();
+                x.CreateMap<SavingsViewModel, SavingsModel>();
+                x.CreateMap<PensionViewModel, PensionModel>();
+                x.CreateMap<PensionModel, PensionViewModel>();
+                x.CreateMap<SpendingsViewModel, SpendingsModel>();
+                x.CreateMap<SpendingsModel, SpendingsViewModel>();
+                x.CreateMap<AdditionalPathViewModel, AdditionalPathModel>()
+                        .ForMember(dest => dest.AdditionalIncomes,
+                                   opts => opts.ResolveUsing(new AdditionalIncomeResolver()))
+                        .ForMember(dest => dest.AdditionalCosts,
+                                   opts => opts.ResolveUsing(new AdditionalCostResolver()));
+                x.CreateMap<AdditionalPathModel, AdditionalPathViewModel>()
+                        .ForMember(dest => dest.AdditionalIncome,
+                                   opts => opts.MapFrom(
+                                       src => new AdditionalIncomeViewModel()));
+                x.CreateMap<DepositViewModel, Deposit>();
+                x.CreateMap<Deposit, DepositViewModel>();
+            }).CreateMapper();
         }
     }
 }

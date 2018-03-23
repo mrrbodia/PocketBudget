@@ -1,53 +1,36 @@
-﻿//TODO: move all calculation login to backend (return properly values for Chart)
-var PersonalFinances = PersonalFinances || {};
-PersonalFinances.AdditionalPath = (function () {
-    var saveDepositSelection = function () {
-        PersonalFinances.AdditionalPath.Deposit = PersonalFinances.AdditionalPath.Deposit || {};
+﻿var PersonalFinances = PersonalFinances || {};
+PersonalFinances.Path.AdditionalPath = (function () {
+    var saveDepositSelection = function (fromAge) {
+        PersonalFinances.Path.AdditionalPath.Deposits = PersonalFinances.Path.AdditionalPath.Deposits || [];
         var currencyId = $('input[name=deposit]:checked').val();
-        PersonalFinances.AdditionalPath.Deposit.CurrencyId = currencyId;
-        PersonalFinances.AdditionalPath.Deposit.Total = +$('input[name='+currencyId+'total]').val();
-        PersonalFinances.AdditionalPath.Deposit.Percentage = +$('input[name='+currencyId+'percentage]').val();
-        PersonalFinances.AdditionalPath.Deposit.Years = +$('input[name=' + currencyId + 'years]').val();
+        var deposit = {
+            CurrencyId: currencyId,
+            Total: +$('input[name=' + currencyId + 'total]').val(),
+            Percentage: $('input[name=' + currencyId + 'percentage]').val(),
+            Years: +$('input[name=' + currencyId + 'years]').val(),
+            FromAge: fromAge
+        };
+        PersonalFinances.Path.AdditionalPath.Deposits.push(deposit);
     };
 
-    var getCurrencyExchangeValue = function (currencyId) {
-        switch (currencyId)
-        {
-            case 'dollar':
-                return 27.95;
-            case 'euro':
-                return 31.15;
-            case 'hrn':
-                return 1.0;
-            default:
-                return 1.0;
-        }
-    };
-
-    var getDepositIncomePerYear = function(deposit) {
-        return PersonalFinances.AdditionalPath.Deposit.Total * (PersonalFinances.AdditionalPath.Deposit.Percentage / 100) * getCurrencyExchangeValue(PersonalFinances.AdditionalPath.Deposit.CurrencyId);
-    };
-
-    var applyDepositSelection = function (values) {
-        //TODO: if any additional income exist
-        if (!PersonalFinances.AdditionalPath.Deposit)
-            return values;
-        var position = PersonalFinances.AdditionalPath.FromAge - PersonalFinances.Path.CurrentAge;
-        for (var i = position; i < position + PersonalFinances.AdditionalPath.Deposit.Years; i++) {
-            values[i] = values[i] + getDepositIncomePerYear();
-        }
-        return values;
-    };
-
-    var applyAdditionalSavingsChanges = function (values) {
-        var result = values;
-        result = applyDepositSelection(result);
-        return result;
+    var saveCreditSelection = function (fromAge) {
+        PersonalFinances.Path.AdditionalPath.Credits = PersonalFinances.Path.AdditionalPath.Credits || [];
+        var currencyId = $('input[name=credit]:checked').val();
+        var credit = {
+            CurrencyId: currencyId,
+            Total: +$('input[name=' + currencyId + 'total-credit]').val(),
+            Percentage: $('input[name=' + currencyId + 'percentage-credit]').val(),
+            Years: +$('input[name=' + currencyId + 'years-credit]').val(),
+            FromAge: fromAge
+        };
+        PersonalFinances.Path.AdditionalPath.Credits.push(credit);
     };
 
     var saveAdditionalValuesSelection = function () {
-        PersonalFinances.AdditionalPath.FromAge = +$('input[name=FromAge]').val();
-        saveDepositSelection();
+        var incomeFrom = +$('input.income-from').val();
+        var costFrom = +$('input.cost-from').val();
+        saveDepositSelection(incomeFrom);
+        saveCreditSelection(costFrom);
     };
 
     $(document).on('click', 'input[name=deposit]', function (e) {
@@ -55,9 +38,17 @@ PersonalFinances.AdditionalPath = (function () {
         $(e.target).parent().find('.deposit-input.hidden').removeClass('hidden').addClass('active');
     });
 
-    return {
-        saveAdditionalValuesSelection: saveAdditionalValuesSelection,
-        applyAdditionalSavingsChanges: applyAdditionalSavingsChanges
-    };
-})();
+    $(document).on('click', 'input[name=credit]', function (e) {
+        $('.credit-input.active').removeClass('active').addClass('hidden');
+        $(e.target).parent().find('.credit-input.hidden').removeClass('hidden').addClass('active');
+    });
 
+    return {
+        saveAdditionalValuesSelection: function () {
+            var editFinancesContent = $('.edit-finances-content');
+            if (editFinancesContent && editFinancesContent.length) {
+                saveAdditionalValuesSelection();
+            }
+        }
+    }
+}());

@@ -1,139 +1,114 @@
-﻿@model PocketBudget.Models.StrategyViewModel
-@using PocketBudget.Extensions
+﻿@model PocketBudget.Models.PathViewModel
 @{
     Layout = "~/Views/Shared/_Base.cshtml";
     var test = Model;
 }
 
 <div>
-    <div class="budget-block row">
-        <div id="chart-block" style="width:900px; height:800px;" class="col s6">
-            <canvas id="chart"></canvas>
+    @using (Html.BeginForm("GetChartLines", "Home", FormMethod.Post, htmlAttributes: new { id="path-form" }))
+    {
+        <div class="budget-block">
+            <div id="chart-block-new" style="width:90%; height:100%; max-width: 1400px; float: left">
+                <canvas id="chart"></canvas>
+            </div>
+            @MinimalInformationSettingsBlock()
         </div>
-        <ul class="strategy-info collapsible col s6" data-collapsible="accordion">
-            <li class="strategy-info-income">
-                <div class="collapsible-header active">
-                    <i class="icon icon-income"></i>
-                    Заробітня плата
-                </div>
-                <div class="collapsible-body">
-                    <div>
-                        <p>
-                            <input id="salary-income" type="number" name="salary-income" class="input-salary graph-updater" value="@Model.SalaryPattern.IncomePerYear" />
-                            <label for="salary-income">Зарплата за рік</label>
-                        </p>
-                        <p>
-                            <input id="salary-percentage" type="number" name="salary-percentage" class="input-salary graph-updater" value="@Model.SalaryPattern.IncreasePercentage" />
-                            <label for="salary-percentage">Річний приріст в %</label>
-                        </p>
-                        <p>
-                            <input id="salary-age" type="number" name="salary-age" class="input-salary graph-updater" value="@Model.SalaryPattern.CurrentAge" />
-                            <label for="salary-age">Ваш вік</label>
-                        </p>
-                    </div>
-                </div>
-            </li>
-            @*<li class="strategy-info-income">
-                <div class="collapsible-header active">
-                    <i class="icon icon-deposit"></i>
-                    Депозити
-                </div>
-                <div class="collapsible-body">
-                    <div>
-                        @foreach (var deposit in Model.Deposits)
-                        {
-                            var inputId = deposit.CurrencyId + "-value";
-                            var visibilityClass = deposit.IsActive ? "active" : "hidden";
-                            <p>
-                                <input id="@deposit.CurrencyId" type="radio" name="income" class="input-strategy graph-updater" value="@deposit.CurrencyId" checked />
-                                <label class="text-strategy" for="@deposit.CurrencyId">Депозит в гривнях</label>
-                                <input id="@inputId" type="number" name="@inputId" class="graph-updater deposit-input @visibilityClass" value="@deposit.Total" />
-                            </p>
-                        }
-                    </div>
-                </div>
-            </li>*@
-            <li class="strategy-info-income bank-rating">
-                <div class="collapsible-header">
-                    <i class="icon icon-bank"></i>
-                    Банк
-                </div>
-                <div class="collapsible-body">
-                    <div>
-                        <div class="bank-rating-selector">
-                            <div id="bank-rating-slider"></div>
-                            <div id="sliderValue"></div>
-                        </div>
-                        <p>
-                            <input type="checkbox" id="ready-to-risk" class="graph-updater" />
-                            <label class="tooltipped" data-position="top" data-delay="50" data-html="true" data-tooltip="Максимальний розмір відшкодування - 200 000 грн" for="ready-to-risk">Готовий ризикувати</label>
-                        </p>
-                    </div>
-                </div>
-            </li>
-            <li class="strategy-info-costs">
-                <div class="collapsible-header">
-                    <i class="icon icon-costs"></i>
-                    Витрати
-                </div>
-                <div class="collapsible-body">
-                    <div>
-                        <p>
-                            <input id="economically" type="radio" name="costs" class="input-strategy graph-updater" value="economically" checked />
-                            <label class="text-strategy" for="economically">Економний спосіб життя</label>
-                        </p>
-                        <p>
-                            <input id="non-economically" type="radio" name="costs" class="input-strategy graph-updater" value="non-economically"  />
-                            <label class="text-strategy" for="non-economically">Звичайний спосіб життя</label>
-                        </p>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        @*<ul class="additional-strategy-info collapsible col s6" data-collapsible="accordion">
-            <li>
-                <div class="collapsible-header active">
-                    <i class="icon icon-deposit"></i>
-                    Покласти гроші на депозит
-                </div>
-                <div class="collapsible-body">
-                    <div>
-                        //TODO:
-                        @for (int i = 0; i < Model.Deposits.Count; ++i)
-                        {
-                                @Html.Partial("_EditDeposit")
-                        }
-
-                        @foreach (var deposit in Model.Deposits)
-                        {
-                            var inputId = deposit.CurrencyId + "-value";
-                            var visibilityClass = deposit.IsActive ? "active" : "hidden";
-                            <p>
-                                <input id="@deposit.CurrencyId" type="radio" name="income" class="input-strategy graph-updater" value="@deposit.CurrencyId" checked />
-                                <label class="text-strategy" for="@deposit.CurrencyId">Депозит в гривнях</label>
-                                <input id="@inputId" type="number" name="@inputId" class="graph-updater deposit-input @visibilityClass" value="@deposit.Total" />
-                            </p>
-                        }
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header">
-                </div>
-                <div class="collapsible-body">
-                </div>
-            </li>
-        </ul>*@
-    </div>
+        @EditSettingsBlock()
+    }
 </div>
 <div id="tooltip-element-content">@Html.Partial("_ChartTooltip")</div>
 <div id="tooltip-element"></div>
 
 <script type="text/javascript">
-    var Strategy = Strategy || {};
-    Strategy.Model = Strategy.Model || {};
-    Strategy.Model.salaryPattern = {};
-    Strategy.Model.salaryPattern.increaseTillAge = @Model.SalaryPattern.IncreaseTillAge.ToJson()
-    Strategy.Model.salaryPattern.showTillAge = @Model.SalaryPattern.ShowTillAge.ToJson()
-    Strategy.Model.salaryPattern.retirementAge = @Model.SalaryPattern.RetirementAge.ToJson()
+    var PersonalFinances = PersonalFinances || {};
+    PersonalFinances.Path = PersonalFinances.Path || {};
 </script>
+
+@functions
+{
+    protected string When(bool condition, string then, string otherwise = null)
+    {
+        return condition ? then : otherwise;
+    }
+}
+
+@helper MinimalInformationSettingsBlock()
+{
+    <div class="minimal-budget-block" style="width:10%; height:100%; max-width: 200px; float:right;">
+        <p>
+            <a class="minimal-budget-block-btn waves-effect waves-light btn button-collapse grey lighten-3" data-activates="slide-out"><i class="material-icons left">edit</i>Змінити</a>
+        </p>
+        <div>
+            <div class="edit-salary">
+                @Html.DisplayFor(m => m.Salary)
+            </div>
+            <div class="edit-savings">
+                @Html.DisplayFor(m => m.Savings)
+            </div>
+            <div class="pension">
+                @Html.DisplayFor(m => m.Pension)
+            </div>
+            <div class="edit-spendings">
+                @Html.DisplayFor(m => m.Spendings)
+            </div>
+            <div class="edit-age">
+                <p>
+                    <div>
+                        @Html.LabelFor(m => m.CurrentAge)
+                    </div>
+                    <div>
+                        @Html.DisplayFor(m => m.CurrentAge)
+                    </div>
+                </p>
+                <p>
+                    <div>
+                        @Html.LabelFor(m => m.RetirementAge)
+                    </div>
+                    <div>
+                        @Html.DisplayFor(m => m.RetirementAge)
+                    </div>
+                </p>
+                <p>
+                    <div>
+                        @Html.LabelFor(m => m.LifeExpectancy)
+                    </div>
+                    <div>
+                        @Html.DisplayFor(m => m.LifeExpectancy)
+                    </div>
+                </p>
+            </div>
+        </div>
+    </div>
+}
+
+@helper EditSettingsBlock()
+{
+    <div id="slide-out" class="col s4 side-nav">
+        <div class="edit-salary">
+            @Html.EditorFor(m => m.Salary)
+        </div>
+        <div class="edit-savings">
+            @Html.EditorFor(m => m.Savings)
+        </div>
+        <div class="pension">
+            @Html.EditorFor(m => m.Pension)
+        </div>
+        <div class="edit-spendings">
+            @Html.EditorFor(m => m.Spendings)
+        </div>
+        <div class="edit-age">
+            <p>
+                @Html.LabelFor(m => m.CurrentAge)
+                @Html.TextBoxFor(m => m.CurrentAge, htmlAttributes: new { @class = "graph-updater current-age", type = "number" })
+            </p>
+            <p>
+                @Html.LabelFor(m => m.RetirementAge)
+                @Html.TextBoxFor(m => m.RetirementAge, htmlAttributes: new { @class = "graph-updater retirement-age", type = "number" })
+            </p>
+            <p>
+                @Html.LabelFor(m => m.LifeExpectancy)
+                @Html.TextBoxFor(m => m.LifeExpectancy, htmlAttributes: new { @class = "graph-updater life-expectancy-age", type = "number" })
+            </p>
+        </div>
+    </div>
+}

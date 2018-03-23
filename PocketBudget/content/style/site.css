@@ -93,3 +93,33 @@
 .additional-strategy-info {
     display:none;
 }
+
+#sidenav-overlay{
+    background: none !important;
+}
+
+.sidenav-button {
+    color: grey;
+}
+
+[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:after {
+    background-color: grey;
+    z-index: 0;
+}
+
+[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
+    border: 2px solid grey;
+}
+
+.side-nav{
+    padding: 10px;
+}
+
+.minimal-budget-block-btn {
+    width: 90%;
+    color: grey;
+}
+    .minimal-budget-block-btn i.left {
+        margin-right: 0;
+        color: grey;
+    }

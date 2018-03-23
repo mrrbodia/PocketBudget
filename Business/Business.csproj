@@ -45,9 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actives\ActiveAggregate.cs" />
-    <Compile Include="Actives\ActiveIterator.cs" />
-    <Compile Include="Components\AdditionalPath\DepositIncomeStep.cs" />
+    <Compile Include="BasePathStrategy.cs" />
+    <Compile Include="Components\AdditionalPath\Cost\CreditCostStep.cs" />
+    <Compile Include="Components\AdditionalPath\Income\DepositIncomeStep.cs" />
+    <Compile Include="Components\AdditionalPath\Cost\IAdditionalCostStep.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="DataProviders\AccountDataProvider.cs" />
     <Compile Include="DataProviders\BankDataProvider.cs" />
     <Compile Include="DataProviders\IRepository.cs" />
@@ -56,27 +58,27 @@
     <Compile Include="DomainModel\Account\Role.cs" />
     <Compile Include="DomainModel\Active\Bank.cs" />
     <Compile Include="DomainModel\Active\Deposit.cs" />
-    <Compile Include="DomainModel\Active\IActive.cs" />
+    <Compile Include="DomainModel\Active\IAdditionalIncome.cs" />
+    <Compile Include="DomainModel\Cost\Credit.cs" />
+    <Compile Include="DomainModel\Cost\IAdditionalCost.cs" />
     <Compile Include="Managers\Account\AccountManager.cs" />
     <Compile Include="Managers\Account\IAccountManager.cs" />
-    <Compile Include="Components\AdditionalPath\IAdditionalIncomeStep.cs" />
+    <Compile Include="Components\AdditionalPath\Income\IAdditionalIncomeStep.cs" />
     <Compile Include="Managers\Bank\BankManager.cs" />
     <Compile Include="Managers\Bank\IBankManager.cs" />
-    <Compile Include="Components\AdditionalPath\AdditionalPathProcessor.cs" />
+    <Compile Include="Components\AdditionalPath\AdditionalSavingsProcessor.cs" />
     <Compile Include="Managers\Chart\ChartDataPreparer.cs" />
     <Compile Include="Managers\Chart\ChartManager.cs" />
     <Compile Include="Managers\Chart\IChartManager.cs" />
     <Compile Include="Managers\IManager.cs" />
     <Compile Include="Managers\StrategyManager.cs" />
+    <Compile Include="Models\AdditionalPathModel.cs" />
     <Compile Include="Models\ChartLine.cs" />
-    <Compile Include="Models\Costs.cs" />
-    <Compile Include="Models\DepositCurrency.cs" />
-    <Compile Include="Models\DepositData.cs" />
-    <Compile Include="Models\Fork.cs" />
-    <Compile Include="Models\Goal.cs" />
-    <Compile Include="Models\Income.cs" />
     <Compile Include="Models\PathModel.cs" />
-    <Compile Include="Models\StrategyModel.cs" />
+    <Compile Include="Models\PensionModel.cs" />
+    <Compile Include="Models\SalaryModel.cs" />
+    <Compile Include="Models\SavingsModel.cs" />
+    <Compile Include="Models\SpendingsModel.cs" />
     <Compile Include="NHIbernate\NHibernateHelper.cs" />
     <Compile Include="NHIbernate\SessionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,6 +86,13 @@
     <Compile Include="Salary\DefaultSalaryStrategy.cs" />
     <Compile Include="Salary\ISalaryStrategy.cs" />
     <Compile Include="Salary\SalaryStrategy.cs" />
+    <Compile Include="Savings\CustomSavingsStrategy.cs" />
+    <Compile Include="Savings\FixedSavingsStrategy.cs" />
+    <Compile Include="Savings\PercentageSavingsStrategy.cs" />
+    <Compile Include="Savings\SavingsStrategy.cs" />
+    <Compile Include="Spendings\FixedSpendingsStrategy.cs" />
+    <Compile Include="Spendings\PercentageSpendingsStrategy.cs" />
+    <Compile Include="Spendings\SpendingsStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -94,6 +103,7 @@
   <ItemGroup>
     <EmbeddedResource Include="DomainModel\Active\Active.hbm.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
