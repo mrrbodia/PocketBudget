@@ -134,7 +134,7 @@ PersonalFinances.Graph = (function () {
                         if (tooltipModel.body) {
                             var bodyLines = tooltipModel.body.map(getBody);
                             var currentIndex = tooltipModel.dataPoints[0].index;
-                            var age = currentIndex + 20;
+                            var age = currentIndex + parseInt($('#CurrentAge').val());
                             var year = currentYear + parseInt(currentIndex)
                             var mapObj = {
                                 "AGE": age,
@@ -187,6 +187,7 @@ PersonalFinances.Graph = (function () {
     };
 
     var updateGraphWithData = function (datasets) {
+        debugger;
         var labels = [];
         var date = new Date();
         var currentYear = date.getFullYear();
@@ -204,12 +205,12 @@ PersonalFinances.Graph = (function () {
             //    labels[index] = "Вік " + i + " / " + year + " рік";
             //}
         }
-        if (!chart) {
-            chart = createChart(labels, datasets);
-            return;
+        if (chart)
+        {
+            chart.destroy();
         }
-        removeChartData(chart);
-        addChartData(chart, labels, datasets);
+
+        chart = createChart(labels, datasets);
     };
 
     var removeChartData = function (chart) {

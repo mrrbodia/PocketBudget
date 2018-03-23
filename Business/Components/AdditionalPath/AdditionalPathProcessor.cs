@@ -21,7 +21,7 @@ namespace Business.Components.AdditionalPath
             foreach (var additionalIncome in path.AdditionalPath.AdditionalIncomes)
             {
                 additionalIncome.From -= path.CurrentAge;
-                additionalIncome.To = path.RetirementAge;
+                additionalIncome.To = (short)(path.LifeExpectancy - path.CurrentAge);
                 foreach (var step in this.incomeSteps)
                 {
                     step.Execute(additionalIncome, points);
