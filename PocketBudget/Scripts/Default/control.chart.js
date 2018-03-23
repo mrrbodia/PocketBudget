@@ -8,7 +8,7 @@ PersonalFinances.Graph = (function () {
             Salary_Amount: 7000,
             Savings_Amount: 3000,
             Pension_Amount: 3000,
-            Spendings_Amount: 3000,
+            Spendings_Amount: 2500,
             CurrentAge: 20,
             RetirementAge: 60,
             LifeExpectancy: 80
@@ -187,7 +187,6 @@ PersonalFinances.Graph = (function () {
     };
 
     var updateGraphWithData = function (datasets) {
-        debugger;
         var labels = [];
         var date = new Date();
         var currentYear = date.getFullYear();
