@@ -1,7 +1,8 @@
 ﻿@model PensionViewModel
+@using PocketBudget.Extensions
 <p>
     @Html.LabelFor(m => m.Amount)
     <span class="newline @Html.IdFor(m => m.Amount)">
-        @Html.DisplayFor(m => m.Amount, new { @class = "graph-updater", type = "number" })
+        @Model.Amount.FormatAsCurrency()
     </span>
 </p>

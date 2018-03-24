@@ -84,6 +84,13 @@ PersonalFinances.Graph = (function () {
                                 return index % 5 ? "" : ["Вік " + value + " / " + year + " рік"];
                             }
                         }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            callback: function (value, index, array) {
+                                return formatAsCurrency(value);
+                            }
+                        }
                     }]
                 },
                 elements: {
@@ -170,13 +177,17 @@ PersonalFinances.Graph = (function () {
                     },
                     callbacks: {
                         label: function (item, chart) {
-                            return item.yLabel.toFixed(2);
+                            return formatAsCurrency(item.yLabel);
                         }
                     }
                 }
             }
         });
     };
+
+    var formatAsCurrency = function (value) {
+        return '₴' + value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    }
 
     var replaceTooltipTags = function (str, mapObj) {
         var result = str;
@@ -194,15 +205,7 @@ PersonalFinances.Graph = (function () {
         var lifeExpectancy = +$('.life-expectancy-age').val();
         for (var i = currentAge; i < lifeExpectancy; i++)
         {
-            var index = i - currentAge;
-            labels[index] = i;
-            //if (i % 5) {
-            //    labels[index] = "";
-            //}
-            //else {
-            //    var year = currentYear + index;
-            //    labels[index] = "Вік " + i + " / " + year + " рік";
-            //}
+            labels[i - currentAge] = i;
         }
         if (chart)
         {
@@ -352,13 +355,13 @@ PersonalFinances.Graph = (function () {
         return data;
     };
 
-    var updateGraph = function (){
+    var updateGraph = function () {
         updateGraphLines();
     };
 
     var updateMinimalInformation = function (input) {
         var id = $(input).attr("id");
-        $('.' + id).html($(input).val());
+        $('.' + id).html(formatAsCurrency($(input).val()));
     };
 
     var initEvents = function () {
