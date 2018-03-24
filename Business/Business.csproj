@@ -93,9 +93,6 @@
     <Compile Include="Savings\FixedSavingsStrategy.cs" />
     <Compile Include="Savings\PercentageSavingsStrategy.cs" />
     <Compile Include="Savings\SavingsStrategy.cs" />
-    <Compile Include="Spendings\FixedSpendingsStrategy.cs" />
-    <Compile Include="Spendings\PercentageSpendingsStrategy.cs" />
-    <Compile Include="Spendings\SpendingsStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
