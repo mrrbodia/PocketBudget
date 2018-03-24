@@ -261,24 +261,19 @@ PersonalFinances.Graph = (function () {
         if (line.Type === 'base') {
             return {
                 label: 'Базова',
-                backgroundColor: [
-                    'rgba(241, 248, 233, 0.5)'
-                ],
                 borderColor: [
-                    '#c5e1a5'
+                    'rgba(20, 40, 110, 0.5)'
                 ],
                 fill: false,
+                borderWidth: 4,
                 data: toPointsObject(line.Points)
             }
         }
         if (line.Type === 'deposit') {
             return {
                 label: 'Депозит',
-                backgroundColor: [
-                    'rgba(167, 255, 235, 0.5)'
-                ],
                 borderColor: [
-                    '#64ffda'
+                    'rgba(0, ' + getShade() + ', 0, 0.5)'
                 ],
                 fill: false,
                 data: toPointsObject(line.Points)
@@ -287,16 +282,20 @@ PersonalFinances.Graph = (function () {
         else {
             return {
                 label: 'Кредит',
-                backgroundColor: [
-                    'rgba(251, 233, 231, 0.5)'
-                ],
                 borderColor: [
-                    '#ffab91'
+                    'rgba(' + getShade() + ', 0, 0, 0.5)'
                 ],
                 fill: false,
                 data: toPointsObject(line.Points)
             }
         }
+    };
+
+    var getShade = function () {
+        var max = 255;
+        var min = 150;
+        var r = Math.floor(Math.random() * (max - min + 1)) + min;
+        return r;
     };
 
     var updateGraphLines = function ()
