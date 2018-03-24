@@ -56,7 +56,7 @@ PersonalFinances.Graph = (function () {
                         borderWidth: 2,
                         mode: 'vertical',
                         type: 'line',
-                        value: parseInt($('#RetirementAge').val()) - parseInt($('#CurrentAge').val()),
+                        value: parseInt($('#RetirementAge').val()) - parseInt($('#CurrentAge').val()) - 1,
                         scaleID: 'x-axis-0',
                         label: {
                             content: "Пенсія",
