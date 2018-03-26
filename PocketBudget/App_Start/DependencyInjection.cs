@@ -44,7 +44,6 @@ namespace PocketBudget.App_Start
             builder.RegisterType<AdditionalPathProcessor>().As<AdditionalPathProcessor>();
             builder.RegisterType<DepositIncomeStep>().As<IAdditionalIncomeStep>();
             builder.RegisterType<SaleIncomeStep>().As<IAdditionalIncomeStep>();
-            builder.RegisterType<ChangedSalaryIncomeStep>().As<IAdditionalIncomeStep>();
 
             builder.RegisterType<CreditCostStep>().As<IAdditionalCostStep>();
             builder.RegisterType<PurchaseCostStep>().As<IAdditionalCostStep>();
@@ -75,8 +74,6 @@ namespace PocketBudget.App_Start
                                        src => new AdditionalIncomeViewModel()));
                 x.CreateMap<DepositViewModel, Deposit>();
                 x.CreateMap<Deposit, DepositViewModel>();
-                x.CreateMap<ChangedSalaryViewModel, ChangedSalary>();
-                x.CreateMap<ChangedSalary, ChangedSalaryViewModel>();
                 x.CreateMap<SaleViewModel, Sale>();
                 x.CreateMap<Sale, SaleViewModel>();
                 x.CreateMap<Credit, CreditViewModel>();

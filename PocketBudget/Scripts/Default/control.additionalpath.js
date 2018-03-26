@@ -24,17 +24,6 @@ PersonalFinances.Path.AdditionalPath = (function () {
         PersonalFinances.Path.AdditionalPath.Sales.push(sale);
     };
 
-    var saveSalarySelection = function (parent, fromAge) {
-        PersonalFinances.Path.AdditionalPath.Salaries = PersonalFinances.Path.AdditionalPath.Salaries || [];
-        var selected = $(parent).find('.currency[type=radio]:checked').parent();
-        var salary = {
-            CurrencyId: selected.find('.currency').val(),
-            Total: +selected.find('.total').val(),
-            FromAge: fromAge
-        };
-        PersonalFinances.Path.AdditionalPath.Salaries.push(salary);
-    };
-
     var saveCreditSelection = function (parent, fromAge) {
         PersonalFinances.Path.AdditionalPath.Credits = PersonalFinances.Path.AdditionalPath.Credits || [];
         var selected = $(parent).find('.currency[type=radio]:checked').parent();
@@ -70,9 +59,6 @@ PersonalFinances.Path.AdditionalPath = (function () {
         }
         if ($('input[type=checkbox].add-sale:checked').length) {
             saveSaleSelection('.sales', incomeFrom);
-        }
-        if ($('input[type=checkbox].add-salary:checked').length) {
-            saveSalarySelection('.salaries', incomeFrom);
         }
         if ($('input[type=checkbox].add-credit:checked').length) {
             saveCreditSelection('.credits', costFrom);

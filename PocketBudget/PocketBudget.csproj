@@ -144,13 +144,13 @@
     <Compile Include="Models\AdditionalCost\AdditionalCostItemViewModel.cs" />
     <Compile Include="Models\AdditionalCost\PurchaseViewModel.cs" />
     <Compile Include="Models\AdditionalIncome\AdditionalIncomeViewModel.cs" />
-    <Compile Include="Models\AdditionalIncome\ChangedSalaryViewModel.cs" />
     <Compile Include="Models\AdditionalIncome\SaleViewModel.cs" />
     <Compile Include="Models\AdditionalPathViewModel.cs" />
     <Compile Include="Models\AdditionalIncome\AdditionalIncomeItemViewModel.cs" />
     <Compile Include="Models\PathViewModel.cs" />
     <Compile Include="Models\AdditionalIncome\DepositViewModel.cs" />
     <Compile Include="Models\PensionViewModel.cs" />
+    <Compile Include="Models\SalaryPeriodViewModel.cs" />
     <Compile Include="Models\SalaryViewModel.cs" />
     <Compile Include="Models\SpendingsViewModel.cs" />
     <Compile Include="Models\SavingsViewModel.cs" />
@@ -270,6 +270,7 @@
     <Content Include="Views\Shared\DisplayTemplates\Savings.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Spendings.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Checkbox.cshtml" />
+    <Content Include="Views\Home\_EditSalary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Texts\" />

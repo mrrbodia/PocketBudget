@@ -27,7 +27,7 @@ namespace PocketBudget.Controllers
             model.Savings.Amount = 3000;
             model.Savings.Type = SavingsType.Fixed;
             model.Spendings.Amount = 2500;
-            model.Salary.Amount = 7000;
+            model.Salary.SalaryPeriods.Add(new SalaryPeriodViewModel() { Amount = 7000, From = 20 });
             model.Pension.Amount = 3000;
             return View(model);
         }
@@ -39,7 +39,6 @@ namespace PocketBudget.Controllers
         {
             if (pathModel.IsValid())
             {
-                InitPathViewModelData(pathModel);
                 var path = mapper.Map<PathViewModel, PathModel>(pathModel);
                 var chartLines = PersonalFinances.Chart.GetChartLines(path);
                 return Json(chartLines);
@@ -56,24 +55,12 @@ namespace PocketBudget.Controllers
             return View("_EditFinances", model);
         }
 
-        protected void InitPathViewModelData(PathViewModel path)
-        {
-            if (!path?.AdditionalPath?.AdditionalIncome?.ChangedSalary?.Any() ?? true)
-                return;
-
-            foreach (var salary in path.AdditionalPath.AdditionalIncome.ChangedSalary)
-            {
-                salary.Total -= path.Salary.Amount;
-            }
-        }
-
         protected AdditionalIncomeViewModel CreateAdditionalIncomeViewModel(int? fromAge)
         {
             var result = new AdditionalIncomeViewModel();
             result.From = fromAge;
             result.Deposits = CreateDepositsModel();
             result.Sales = CreateSalesModel();
-            result.ChangedSalary = CreateChangesSalaryViewModel();
             return result;
         }
 
@@ -101,13 +88,6 @@ namespace PocketBudget.Controllers
             result.Add(new DepositViewModel() { CurrencyId = Constants.Currency.Hrn, Percentage = 14.0f, Total = 100000m, Years = 1, IsActive = true });
             result.Add(new DepositViewModel() { CurrencyId = Constants.Currency.Dollar, Percentage = 3.75f, Total = 4000m, Years = 1 });
             result.Add(new DepositViewModel() { CurrencyId = Constants.Currency.Euro, Percentage = 2.35f, Total = 3000m, Years = 1 });
-            return result;
-        }
-
-        protected IList<ChangedSalaryViewModel> CreateChangesSalaryViewModel()
-        {
-            var result = new List<ChangedSalaryViewModel>();
-            result.Add(new ChangedSalaryViewModel() { CurrencyId = Constants.Currency.Hrn, IsActive = true });
             return result;
         }
 

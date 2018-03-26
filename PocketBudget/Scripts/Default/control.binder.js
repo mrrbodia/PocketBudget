@@ -22,13 +22,6 @@ PersonalFinances.Binder = (function () {
         return sale;
     };
 
-    binder.bindSalary = function (index) {
-        var salary = '&AdditionalPath.AdditionalIncome.ChangedSalary[' + index + '].Total=' + PersonalFinances.Path.AdditionalPath.Salaries[index].Total;
-        salary += '&AdditionalPath.AdditionalIncome.ChangedSalary[' + index + '].CurrencyId=' + PersonalFinances.Path.AdditionalPath.Salaries[index].CurrencyId;
-        salary += '&AdditionalPath.AdditionalIncome.ChangedSalary[' + index + '].FromAge=' + PersonalFinances.Path.AdditionalPath.Salaries[index].FromAge;
-        return salary;
-    };
-
     binder.bindCredit = function (index) {
         var credit = '&AdditionalPath.AdditionalCost.Credits[' + index + '].Percentage=' + PersonalFinances.Path.AdditionalPath.Credits[index].Percentage;
         credit += '&AdditionalPath.AdditionalCost.Credits[' + index + '].Total=' + PersonalFinances.Path.AdditionalPath.Credits[index].Total;

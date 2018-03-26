@@ -377,11 +377,6 @@ PersonalFinances.Graph = (function () {
                 data += PersonalFinances.Binder.bindSale(index);
             });
         }
-        if (PersonalFinances.Path.AdditionalPath.Salaries) {
-            $.each(PersonalFinances.Path.AdditionalPath.Salaries, function (index) {
-                data += PersonalFinances.Binder.bindSalary(index);
-            });
-        }
         if (PersonalFinances.Path.AdditionalPath.Credits) {
             $.each(PersonalFinances.Path.AdditionalPath.Credits, function (index) {
                 data += PersonalFinances.Binder.bindCredit(index);
@@ -411,6 +406,14 @@ PersonalFinances.Graph = (function () {
         $(document).on('click', '.save-edit-finances', function (e) {
             PersonalFinances.Path.AdditionalPath.saveAdditionalValuesSelection();
             updateGraph();
+        });
+        $(document).on('click', '.save-edit-salary', function (e) {
+            //getchartlines
+        });
+        $(document).on('focus', '.edit-salary', function (e) {
+            var newHtml = $('.salary-periods').html().trim();
+            $('#edit-salary-popup').find('.edit-salary-content').html(newHtml);
+            PersonalFinances.Popups.open('#edit-salary-popup');
         });
         $(document).on('click', '.tooltip-moreoptions', function (e) {
             var btn = $(e.target);

@@ -1,7 +1,10 @@
 ﻿@model SalaryViewModel
 
 <div>
-    @Html.LabelFor(m => m.Amount)
-    @Html.TextBoxFor(m => m.Amount, new { @class = "graph-updater", type = "number" })
-    @Html.ValidationMessageFor(m => m.Amount)
+    @Html.LabelFor(m => m.SalaryPeriods[0].Amount)
+    @Html.TextBoxFor(m => m.SalaryPeriods[0].Amount, new { @class = "edit-salary graph-updater", type = "number"})
+    @Html.ValidationMessageFor(m => m.SalaryPeriods[0].Amount)
+</div>
+<div class="salary-periods">
+    @Html.Partial("_EditSalary", Model.SalaryPeriods)
 </div>

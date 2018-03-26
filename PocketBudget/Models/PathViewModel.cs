@@ -1,4 +1,5 @@
 ﻿using Business.Models;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -9,6 +10,7 @@ namespace PocketBudget.Models
         public PathViewModel()
         {
             Salary = new SalaryViewModel();
+            Salary.SalaryPeriods = new List<SalaryPeriodViewModel>();
             Savings = new SavingsViewModel();
             Spendings = new SpendingsViewModel();
             Pension = new PensionViewModel();

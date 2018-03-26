@@ -54,13 +54,8 @@
     display: none;
 }
 
-.bank-rating{
+.bank-rating {
     display: block;
-}
-
-.bank-rating-selector{
-    margin: 0;
-    padding: 2rem;
 }
 
 #tooltip-element {
@@ -90,11 +85,7 @@
     display: none;
 }
 
-.additional-strategy-info {
-    display:none;
-}
-
-#sidenav-overlay{
+#sidenav-overlay {
     background: none !important;
 }
 
@@ -128,7 +119,7 @@
     border: 2px solid grey;
 }
 
-.side-nav{
+.side-nav {
     padding: 10px;
 }
 

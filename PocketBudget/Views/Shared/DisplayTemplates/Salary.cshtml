@@ -1,8 +1,8 @@
 ﻿@model SalaryViewModel
 @using PocketBudget.Extensions
 <p>
-    @Html.LabelFor(m => m.Amount)
-    <span class="newline @Html.IdFor(m => m.Amount)">
-        @Model.Amount.FormatAsCurrency()
+    @Html.LabelFor(m => m.SalaryPeriods)
+    <span class="newline @Html.IdFor(m => m.SalaryPeriods[0].Amount)">
+        @Model.SalaryPeriods[0].Amount.FormatAsCurrency()
     </span>
 </p>

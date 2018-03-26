@@ -1,0 +1,11 @@
+﻿@model IList<SalaryPeriodViewModel>
+
+@for (int i = 0; i < Model.Count; ++i)
+{
+    @Html.LabelFor(m => Model[i].Amount)
+    @Html.TextBoxFor(m => Model[i].Amount, new { type = "number" })
+    @Html.ValidationMessageFor(m => Model[0].Amount)
+    @Html.LabelFor(m => Model[i].From)
+    @Html.TextBoxFor(m => Model[i].From, new { type = "number" })
+    @Html.ValidationMessageFor(m => Model[0].From)
+}

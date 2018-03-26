@@ -9,7 +9,6 @@ namespace PocketBudget.Models
         {
             Deposits = new List<DepositViewModel>();
             Sales = new List<SaleViewModel>();
-            ChangedSalary = new List<ChangedSalaryViewModel>();
         }
 
         [Display(Name = "Додаткові доходи з віку")]
@@ -22,13 +21,8 @@ namespace PocketBudget.Models
         [UIHint("Checkbox")]
         public bool IsSaleAdded { get; set; }
 
-        [UIHint("Checkbox")]
-        public bool IsSalaryChanged { get; set; }
-
         public IList<DepositViewModel> Deposits { get; set; }
 
         public IList<SaleViewModel> Sales { get; set; }
-
-        public IList<ChangedSalaryViewModel> ChangedSalary { get; set; }
     }
 }
