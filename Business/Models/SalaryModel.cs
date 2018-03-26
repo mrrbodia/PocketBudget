@@ -8,6 +8,8 @@ namespace Business.Models
 {
     public class SalaryModel
     {
+        //TODO: IList<SalaryPeriod> Amount, From, To?
+
         public decimal Amount { get; set; }
     }
 }
