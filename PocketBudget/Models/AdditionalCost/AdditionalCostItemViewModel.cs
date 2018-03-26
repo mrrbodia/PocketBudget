@@ -19,6 +19,8 @@ namespace PocketBudget.Models
 
         public abstract string Title { get; }
 
+        public virtual bool IsHidden { get; set; }
+
         public virtual string CurrencySymbol(string currencyId)
         {
             switch (currencyId)

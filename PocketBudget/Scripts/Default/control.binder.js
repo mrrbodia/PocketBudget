@@ -35,6 +35,7 @@ PersonalFinances.Binder = (function () {
         credit += '&AdditionalPath.AdditionalCost.Credits[' + index + '].CurrencyId=' + PersonalFinances.Path.AdditionalPath.Credits[index].CurrencyId;
         credit += '&AdditionalPath.AdditionalCost.Credits[' + index + '].Years=' + PersonalFinances.Path.AdditionalPath.Credits[index].Years;
         credit += '&AdditionalPath.AdditionalCost.Credits[' + index + '].FromAge=' + PersonalFinances.Path.AdditionalPath.Credits[index].FromAge;
+        credit += '&AdditionalPath.AdditionalCost.Credits[' + index + '].IsHidden=' + PersonalFinances.Path.AdditionalPath.Credits[index].IsHidden;
         return credit;
     };
 

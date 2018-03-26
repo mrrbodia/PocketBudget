@@ -44,12 +44,17 @@ namespace Business.Components.AdditionalPath
 
                 additionalCost.From -= path.CurrentAge;
                 additionalCost.To = (short)(path.LifeExpectancy - path.CurrentAge);
-                foreach (var step in this.costSteps)
+
+                if (!additionalCost.IsHidden)
                 {
-                    step.Execute(additionalCost, points);
+                    foreach (var step in this.costSteps)
+                    {
+                        step.Execute(additionalCost, points);
+                    }
                 }
+
                 additionalCost.From += path.CurrentAge;
-                additionalLines.Add(new ChartLine(Constants.ChartLineType.Credit, points));
+                additionalLines.Add(new ChartLine(Constants.ChartLineType.Credit, points, additionalCost.IsHidden));
             }
             return additionalLines;
         }

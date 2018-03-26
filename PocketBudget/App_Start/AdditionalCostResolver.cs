@@ -25,7 +25,8 @@ namespace PocketBudget.App_Start
                         From = credit.FromAge,
                         Percentage = credit.Percentage,
                         Total = credit.Total,
-                        Years = credit.Years
+                        Years = credit.Years,
+                        IsHidden = credit.IsHidden
                     });
                 }
             }

@@ -16,6 +16,8 @@ namespace Business.DomainModel.Cost
 
         string CurrencyId { get; set; }
 
+        bool IsHidden { get; set; }
+
         decimal GetCostPerYear();
     }
 
@@ -28,6 +30,8 @@ namespace Business.DomainModel.Cost
         public virtual string CurrencyId { get; set; }
 
         public virtual decimal Total { get; set; }
+
+        public bool IsHidden { get; set; }
 
         public abstract decimal GetCostPerYear();
 

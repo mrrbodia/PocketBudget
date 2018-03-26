@@ -58,16 +58,22 @@ PersonalFinances.Graph = (function () {
                         var meta = ci.getDatasetMeta(index);
                         var dataset = ci.data.datasets[index];
 
-                        if (dataset.lineType === 'deposit')
-                        {
-                            var depositLines = ci.data.datasets.filter(function (obj) { return obj.lineType === 'deposit'; });
-                            var depositIndex = depositLines.indexOf(dataset);
+                        var typeLines = ci.data.datasets.filter(function (obj) { return obj.lineType === dataset.lineType; });
+                        var lineIndexInLineTypes = typeLines.indexOf(dataset);
 
-                            var deposits = PersonalFinances.Path.AdditionalPath.Deposits;
-                            if (deposits != undefined) {
-                                deposits[depositIndex].IsHidden = deposits[depositIndex].IsHidden == undefined ? true : !deposits[depositIndex].IsHidden;
-                            }
+                        var items;
+                        if (dataset.lineType === 'deposit') {
+
+                            items = PersonalFinances.Path.AdditionalPath.Deposits;
                         }
+                        if (dataset.lineType === 'credit') {
+                            items = PersonalFinances.Path.AdditionalPath.Credits;
+                        }
+
+                        if (items != undefined) {
+                            items[lineIndexInLineTypes].IsHidden = items[lineIndexInLineTypes].IsHidden == undefined ? true : !items[lineIndexInLineTypes].IsHidden;
+                        }
+
                         updateGraph();
 
                         var temp = ci.data.datasets.find(function (obj) { return obj.id === 3; });
@@ -310,6 +316,8 @@ PersonalFinances.Graph = (function () {
         else {
             return {
                 label: 'Кредит',
+                lineType: line.Type,
+                hidden: line.IsHidden,
                 borderColor: [
                     'rgba(' + getShade() + ', 0, 0, 0.5)'
                 ],
