@@ -298,7 +298,6 @@ PersonalFinances.Graph = (function () {
         if (line.Type === 'deposit') {
             return {
                 label: 'Депозит',
-                id: line.Id,
                 lineType: line.Type,
                 hidden: line.IsHidden,
                 borderColor: [
