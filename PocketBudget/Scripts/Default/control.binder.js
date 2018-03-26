@@ -11,7 +11,7 @@ PersonalFinances.Binder = (function () {
         deposit += '&AdditionalPath.AdditionalIncome.Deposits[' + index + '].CurrencyId=' + PersonalFinances.Path.AdditionalPath.Deposits[index].CurrencyId;
         deposit += '&AdditionalPath.AdditionalIncome.Deposits[' + index + '].Years=' + PersonalFinances.Path.AdditionalPath.Deposits[index].Years;
         deposit += '&AdditionalPath.AdditionalIncome.Deposits[' + index + '].FromAge=' + PersonalFinances.Path.AdditionalPath.Deposits[index].FromAge;
-        deposit += '&AdditionalPath.AdditionalIncome.Deposits[' + index + '].IsActive=' + PersonalFinances.Path.AdditionalPath.Deposits[index].IsActive;
+        deposit += '&AdditionalPath.AdditionalIncome.Deposits[' + index + '].IsHidden=' + PersonalFinances.Path.AdditionalPath.Deposits[index].IsHidden;
         return deposit;
     };
 

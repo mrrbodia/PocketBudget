@@ -15,7 +15,9 @@ namespace PocketBudget.Models
 
         public virtual short FromAge { get; set; }
 
-        public virtual bool IsActive { get; set; } = true;
+        public virtual bool IsActive { get; set; }
+
+        public virtual bool IsHidden { get; set; } = true;
 
         public abstract string Title { get; }
 

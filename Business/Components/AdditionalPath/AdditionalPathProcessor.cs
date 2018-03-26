@@ -31,7 +31,7 @@ namespace Business.Components.AdditionalPath
                     step.Execute(additionalIncome, points);
                 }
                 additionalIncome.From += path.CurrentAge;
-                additionalLines.Add(new ChartLine(Constants.ChartLineType.Deposit, points, additionalIncome.IsActive));
+                additionalLines.Add(new ChartLine(Constants.ChartLineType.Deposit, points, additionalIncome.IsHidden));
             }
             foreach (var additionalCost in path.AdditionalPath.AdditionalCosts)
             {

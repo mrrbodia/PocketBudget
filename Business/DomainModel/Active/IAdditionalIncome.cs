@@ -18,6 +18,8 @@ namespace Business.DomainModel.Active
 
         bool IsActive { get; set; }
 
+        bool IsHidden { get; set; }
+
         decimal GetIncomePerYear(int currentYear);
     }
 
@@ -32,6 +34,8 @@ namespace Business.DomainModel.Active
         public virtual string CurrencyId { get; set; }
 
         public bool IsActive { get; set; }
+
+        public bool IsHidden { get; set; }
 
         public abstract decimal GetIncomePerYear(int currentYear);
 

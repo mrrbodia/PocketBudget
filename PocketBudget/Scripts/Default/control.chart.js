@@ -56,7 +56,7 @@ PersonalFinances.Graph = (function () {
                         var deposits = PersonalFinances.Path.AdditionalPath.Deposits;
                         if (deposits != undefined)
                         {
-                            deposits[0].IsActive = deposits[0].IsActive == undefined ? false : !deposits[0].IsActive;
+                            deposits[0].IsHidden = deposits[0].IsHidden == undefined ? false : !deposits[0].IsHidden;
                             updateGraph();
                         }
                     }
