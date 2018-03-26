@@ -41,6 +41,18 @@ namespace PocketBudget.App_Start
                     });
                 }
             }
+            if (source?.AdditionalIncome?.ChangedSalary?.Any() ?? false)
+            {
+                foreach (var changedSalary in source.AdditionalIncome.ChangedSalary)
+                {
+                    destMember.Add(new ChangedSalary()
+                    {
+                        CurrencyId = changedSalary.CurrencyId,
+                        From = changedSalary.FromAge,
+                        Total = changedSalary.Total
+                    });
+                }
+            }
             return destMember;
         }
     }
