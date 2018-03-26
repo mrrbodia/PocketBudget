@@ -53,12 +53,25 @@ PersonalFinances.Graph = (function () {
                         lineWidth: 1
                     },
                     onClick: function (e, legendItem) {
-                        var deposits = PersonalFinances.Path.AdditionalPath.Deposits;
-                        if (deposits != undefined)
+                        var index = legendItem.datasetIndex;
+                        var ci = this.chart;
+                        var meta = ci.getDatasetMeta(index);
+                        var dataset = ci.data.datasets[index];
+
+                        if (dataset.lineType === 'deposit')
                         {
-                            deposits[0].IsHidden = deposits[0].IsHidden == undefined ? true : !deposits[0].IsHidden;
-                            updateGraph();
+                            var depositLines = ci.data.datasets.filter(function (obj) { return obj.lineType === 'deposit'; });
+                            var depositIndex = depositLines.indexOf(dataset);
+
+                            var deposits = PersonalFinances.Path.AdditionalPath.Deposits;
+                            if (deposits != undefined) {
+                                deposits[depositIndex].IsHidden = deposits[depositIndex].IsHidden == undefined ? true : !deposits[depositIndex].IsHidden;
+                            }
                         }
+                        updateGraph();
+
+                        var temp = ci.data.datasets.find(function (obj) { return obj.id === 3; });
+
                     }
                 },
                 annotation: {
@@ -285,7 +298,8 @@ PersonalFinances.Graph = (function () {
         if (line.Type === 'deposit') {
             return {
                 label: 'Депозит',
-                id: 'test',
+                id: line.Id,
+                lineType: line.Type,
                 hidden: line.IsHidden,
                 borderColor: [
                     'rgba(0, ' + getShade() + ', 0, 0.5)'
