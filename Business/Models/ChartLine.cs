@@ -4,14 +4,14 @@ namespace Business
 {
     public class ChartLine
     {
-        public ChartLine(string type, List<decimal?> points, bool isActive = true)
+        public ChartLine(string type, List<decimal?> points, bool isHidden = true)
         {
             Type = type;
             Points = new List<decimal?>(points);
-            IsActive = isActive;
+            IsHidden = isHidden;
         }
 
-        public bool IsActive { get; set; }
+        public bool IsHidden { get; set; }
 
         public string Type { get; set; }
 

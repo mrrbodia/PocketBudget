@@ -56,7 +56,7 @@ PersonalFinances.Graph = (function () {
                         var deposits = PersonalFinances.Path.AdditionalPath.Deposits;
                         if (deposits != undefined)
                         {
-                            deposits[0].IsHidden = deposits[0].IsHidden == undefined ? false : !deposits[0].IsHidden;
+                            deposits[0].IsHidden = deposits[0].IsHidden == undefined ? true : !deposits[0].IsHidden;
                             updateGraph();
                         }
                     }
@@ -286,7 +286,7 @@ PersonalFinances.Graph = (function () {
             return {
                 label: 'Депозит',
                 id: 'test',
-                hidden: !line.IsActive,
+                hidden: line.IsHidden,
                 borderColor: [
                     'rgba(0, ' + getShade() + ', 0, 0.5)'
                 ],

@@ -26,9 +26,13 @@ namespace Business.Components.AdditionalPath
 
                 additionalIncome.From -= path.CurrentAge;
                 additionalIncome.To = (short)(path.LifeExpectancy - path.CurrentAge);
-                foreach (var step in this.incomeSteps)
+
+                if(!additionalIncome.IsHidden)
                 {
-                    step.Execute(additionalIncome, points);
+                    foreach (var step in this.incomeSteps)
+                    {
+                        step.Execute(additionalIncome, points);
+                    }
                 }
                 additionalIncome.From += path.CurrentAge;
                 additionalLines.Add(new ChartLine(Constants.ChartLineType.Deposit, points, additionalIncome.IsHidden));

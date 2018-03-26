@@ -17,7 +17,7 @@ namespace PocketBudget.Models
 
         public virtual bool IsActive { get; set; }
 
-        public virtual bool IsHidden { get; set; } = true;
+        public virtual bool IsHidden { get; set; } = false;
 
         public abstract string Title { get; }
 
