@@ -16,6 +16,8 @@ namespace Business.DomainModel.Active
 
         string CurrencyId { get; set; }
 
+        bool IsActive { get; set; }
+
         decimal GetIncomePerYear(int currentYear);
     }
 
@@ -28,6 +30,8 @@ namespace Business.DomainModel.Active
         public virtual decimal Total { get; set; }
 
         public virtual string CurrencyId { get; set; }
+
+        public bool IsActive { get; set; }
 
         public abstract decimal GetIncomePerYear(int currentYear);
 

@@ -48,6 +48,19 @@ PersonalFinances.Graph = (function () {
                 datasets: datasets
             },
             options: {
+                legend: {
+                    labels: {
+                        lineWidth: 1
+                    },
+                    onClick: function (e, legendItem) {
+                        var deposits = PersonalFinances.Path.AdditionalPath.Deposits;
+                        if (deposits != undefined)
+                        {
+                            deposits[0].IsActive = deposits[0].IsActive == undefined ? false : !deposits[0].IsActive;
+                            updateGraph();
+                        }
+                    }
+                },
                 annotation: {
                     drawTime: 'afterDatasetsDraw',
                     annotations: [{
@@ -272,6 +285,8 @@ PersonalFinances.Graph = (function () {
         if (line.Type === 'deposit') {
             return {
                 label: 'Депозит',
+                id: 'test',
+                hidden: !line.IsActive,
                 borderColor: [
                     'rgba(0, ' + getShade() + ', 0, 0.5)'
                 ],

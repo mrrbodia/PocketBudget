@@ -24,7 +24,8 @@ namespace PocketBudget.App_Start
                         From = deposit.FromAge,
                         Percentage = deposit.Percentage,
                         Total = deposit.Total,
-                        Years = deposit.Years
+                        Years = deposit.Years,
+                        IsActive = deposit.IsActive
                     });
                 }
             }
