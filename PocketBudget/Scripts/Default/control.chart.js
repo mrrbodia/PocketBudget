@@ -356,6 +356,11 @@ PersonalFinances.Graph = (function () {
                 data += PersonalFinances.Binder.bindSale(index);
             });
         }
+        if (PersonalFinances.Path.AdditionalPath.Salaries) {
+            $.each(PersonalFinances.Path.AdditionalPath.Salaries, function (index) {
+                data += PersonalFinances.Binder.bindSalary(index);
+            });
+        }
         if (PersonalFinances.Path.AdditionalPath.Credits) {
             $.each(PersonalFinances.Path.AdditionalPath.Credits, function (index) {
                 data += PersonalFinances.Binder.bindCredit(index);
