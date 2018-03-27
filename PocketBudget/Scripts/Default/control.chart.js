@@ -285,7 +285,7 @@ PersonalFinances.Graph = (function () {
             }
         }
         else
-            if (line.Type === 'deposit') {
+            if (line.Type === 'Deposit') {
             return {
                 label: 'Депозит',
                 lineType: line.Type,
@@ -298,7 +298,7 @@ PersonalFinances.Graph = (function () {
             }
         }
         else
-            if (line.Type === 'sale') {
+            if (line.Type === 'Sale') {
             return {
                 label: 'Продаж',
                 lineType: line.Type,
@@ -311,7 +311,7 @@ PersonalFinances.Graph = (function () {
             }
         }
         else
-            if (line.Type === 'purchase') {
+            if (line.Type === 'Purchase') {
             return {
                 label: 'Купівля',
                 lineType: line.Type,
@@ -377,23 +377,23 @@ PersonalFinances.Graph = (function () {
         //    data += '&' + additionalForm.serialize();
         //}
 
-        if (PersonalFinances.Path.AdditionalPath.Deposits) {
-            $.each(PersonalFinances.Path.AdditionalPath.Deposits, function (index) {
+        if (PersonalFinances.Path.AdditionalPath['Deposit']) {
+            $.each(PersonalFinances.Path.AdditionalPath['Deposit'], function (index) {
                 data += PersonalFinances.Binder.bindDeposit(index);
             });
         }
-        if (PersonalFinances.Path.AdditionalPath.Sales) {
-            $.each(PersonalFinances.Path.AdditionalPath.Sales, function (index) {
+        if (PersonalFinances.Path.AdditionalPath['Sale']) {
+            $.each(PersonalFinances.Path.AdditionalPath['Sale'], function (index) {
                 data += PersonalFinances.Binder.bindSale(index);
             });
         }
-        if (PersonalFinances.Path.AdditionalPath.Credits) {
-            $.each(PersonalFinances.Path.AdditionalPath.Credits, function (index) {
+        if (PersonalFinances.Path.AdditionalPath['Credit']) {
+            $.each(PersonalFinances.Path.AdditionalPath['Credit'], function (index) {
                 data += PersonalFinances.Binder.bindCredit(index);
             });
         }
-        if (PersonalFinances.Path.AdditionalPath.Purchases) {
-            $.each(PersonalFinances.Path.AdditionalPath.Purchases, function (index) {
+        if (PersonalFinances.Path.AdditionalPath['Purchase']) {
+            $.each(PersonalFinances.Path.AdditionalPath['Purchase'], function (index) {
                 data += PersonalFinances.Binder.bindPurchase(index);
             });
         }
@@ -410,28 +410,15 @@ PersonalFinances.Graph = (function () {
 
         var typeLines = chart.data.datasets.filter(function (obj) { return obj.lineType === dataset.lineType; });
         var lineIndexInLineTypes = typeLines.indexOf(dataset);
-
-        var items;
-        if (dataset.lineType === 'deposit') {
-            items = PersonalFinances.Path.AdditionalPath.Deposits;
-        }
-        else
-            if (dataset.lineType === 'purchase') {
-                items = PersonalFinances.Path.AdditionalPath.Purchases;
-            }
-            else
-                if (dataset.lineType === 'sale') {
-                    items = PersonalFinances.Path.AdditionalPath.Sales;
-                }
-                else
-                    if (dataset.lineType === 'credit') {
-                        items = PersonalFinances.Path.AdditionalPath.Credits;
-                    }
-
+        var items = PersonalFinances.Path.AdditionalPath[dataset.lineType];
         if (items != undefined)
             return items[lineIndexInLineTypes];
         return items;
-    }
+    };
+
+    var getAdditionalPathItems = function (lineType) {
+        return PersonalFinances.Path.AdditionalPath['Deposit'];
+    };
 
     var updateMinimalInformation = function (input) {
         var id = $(input).attr("id");

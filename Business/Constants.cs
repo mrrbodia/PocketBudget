@@ -16,15 +16,15 @@ namespace Business
         //TODO: Income and costs vs Deposit and Credit
         public class ChartLineType
         {
-            public const string Deposit = "deposit";
+            public const string Deposit = "Deposit";
 
-            public const string Credit = "credit";
+            public const string Credit = "Credit";
 
             public const string Base = "base";
 
-            public const string Sale = "sale";
+            public const string Sale = "Sale";
 
-            public const string Purchase = "purchase";
+            public const string Purchase = "Purchase";
         }
     }
 }

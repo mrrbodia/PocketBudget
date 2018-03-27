@@ -1,7 +1,7 @@
 ﻿var PersonalFinances = PersonalFinances || {};
 PersonalFinances.Path.AdditionalPath = (function () {
     var saveDepositSelection = function (parent, fromAge) {
-        PersonalFinances.Path.AdditionalPath.Deposits = PersonalFinances.Path.AdditionalPath.Deposits || [];
+        PersonalFinances.Path.AdditionalPath['Deposit'] = PersonalFinances.Path.AdditionalPath['Deposit'] || [];
         var selected = $(parent).find('.currency[type=radio]:checked').parent();
         var deposit = {
             CurrencyId: selected.find('.currency').val(),
@@ -10,22 +10,22 @@ PersonalFinances.Path.AdditionalPath = (function () {
             Years: +selected.find('.years').val(),
             FromAge: fromAge
         };
-        PersonalFinances.Path.AdditionalPath.Deposits.push(deposit);
+        PersonalFinances.Path.AdditionalPath['Deposit'].push(deposit);
     };
 
     var saveSaleSelection = function (parent, fromAge) {
-        PersonalFinances.Path.AdditionalPath.Sales = PersonalFinances.Path.AdditionalPath.Sales || [];
+        PersonalFinances.Path.AdditionalPath['Sale'] = PersonalFinances.Path.AdditionalPath['Sale'] || [];
         var selected = $(parent).find('.currency[type=radio]:checked').parent();
         var sale = {
             CurrencyId: selected.find('.currency').val(),
             Total: +selected.find('.total').val(),
             FromAge: fromAge
         };
-        PersonalFinances.Path.AdditionalPath.Sales.push(sale);
+        PersonalFinances.Path.AdditionalPath['Sale'].push(sale);
     };
 
     var saveCreditSelection = function (parent, fromAge) {
-        PersonalFinances.Path.AdditionalPath.Credits = PersonalFinances.Path.AdditionalPath.Credits || [];
+        PersonalFinances.Path.AdditionalPath['Credit'] = PersonalFinances.Path.AdditionalPath['Credit'] || [];
         var selected = $(parent).find('.currency[type=radio]:checked').parent();
         var credit = {
             CurrencyId: selected.find('.currency').val(),
@@ -34,18 +34,18 @@ PersonalFinances.Path.AdditionalPath = (function () {
             Years: +selected.find('.years').val(),
             FromAge: fromAge
         };
-        PersonalFinances.Path.AdditionalPath.Credits.push(credit);
+        PersonalFinances.Path.AdditionalPath['Credit'].push(credit);
     };
 
     var savePurchaseSelection = function (parent, fromAge) {
-        PersonalFinances.Path.AdditionalPath.Purchases = PersonalFinances.Path.AdditionalPath.Purchases || [];
+        PersonalFinances.Path.AdditionalPath['Purchase'] = PersonalFinances.Path.AdditionalPath['Purchase'] || [];
         var selected = $(parent).find('.currency[type=radio]:checked').parent();
         var purchase = {
             CurrencyId: selected.find('.currency').val(),
             Total: +selected.find('.total').val(),
             FromAge: fromAge
         };
-        PersonalFinances.Path.AdditionalPath.Purchases.push(purchase);
+        PersonalFinances.Path.AdditionalPath['Purchase'].push(purchase);
     };
 
     var saveAdditionalValuesSelection = function () {
