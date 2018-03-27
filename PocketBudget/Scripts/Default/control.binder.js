@@ -19,6 +19,7 @@ PersonalFinances.Binder = (function () {
         var sale = '&AdditionalPath.AdditionalIncome.Sales[' + index + '].Total=' + PersonalFinances.Path.AdditionalPath.Sales[index].Total;
         sale += '&AdditionalPath.AdditionalIncome.Sales[' + index + '].CurrencyId=' + PersonalFinances.Path.AdditionalPath.Sales[index].CurrencyId;
         sale += '&AdditionalPath.AdditionalIncome.Sales[' + index + '].FromAge=' + PersonalFinances.Path.AdditionalPath.Sales[index].FromAge;
+        sale += '&AdditionalPath.AdditionalIncome.Sales[' + index + '].IsHidden=' + PersonalFinances.Path.AdditionalPath.Sales[index].IsHidden;
         return sale;
     };
 
@@ -36,6 +37,7 @@ PersonalFinances.Binder = (function () {
         var purchase = '&AdditionalPath.AdditionalCost.Purchases[' + index + '].Total=' + PersonalFinances.Path.AdditionalPath.Purchases[index].Total;
         purchase += '&AdditionalPath.AdditionalCost.Purchases[' + index + '].CurrencyId=' + PersonalFinances.Path.AdditionalPath.Purchases[index].CurrencyId;
         purchase += '&AdditionalPath.AdditionalCost.Purchases[' + index + '].FromAge=' + PersonalFinances.Path.AdditionalPath.Purchases[index].FromAge;
+        purchase += '&AdditionalPath.AdditionalCost.Purchases[' + index + '].IsHidden=' + PersonalFinances.Path.AdditionalPath.Purchases[index].IsHidden;
         return purchase;
     };
 

@@ -1,4 +1,6 @@
-﻿using Business.Models;
+﻿using Business.DomainModel.Active;
+using Business.DomainModel.Cost;
+using Business.Models;
 using System.Collections.Generic;
 
 namespace Business.Components.AdditionalPath
@@ -35,7 +37,11 @@ namespace Business.Components.AdditionalPath
                     }
                 }
                 additionalIncome.From += path.CurrentAge;
-                additionalLines.Add(new ChartLine(Constants.ChartLineType.Deposit, points, additionalIncome.IsHidden));
+
+                if(additionalIncome is Deposit)
+                    additionalLines.Add(new ChartLine(Constants.ChartLineType.Deposit, points, additionalIncome.IsHidden));
+                else
+                    additionalLines.Add(new ChartLine(Constants.ChartLineType.Sale, points, additionalIncome.IsHidden));
             }
             foreach (var additionalCost in path.AdditionalPath.AdditionalCosts)
             {
@@ -54,7 +60,11 @@ namespace Business.Components.AdditionalPath
                 }
 
                 additionalCost.From += path.CurrentAge;
-                additionalLines.Add(new ChartLine(Constants.ChartLineType.Credit, points, additionalCost.IsHidden));
+
+                if (additionalCost is Credit)
+                    additionalLines.Add(new ChartLine(Constants.ChartLineType.Credit, points, additionalCost.IsHidden));
+                else
+                    additionalLines.Add(new ChartLine(Constants.ChartLineType.Purchase, points, additionalCost.IsHidden));
             }
             return additionalLines;
         }

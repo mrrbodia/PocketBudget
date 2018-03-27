@@ -55,7 +55,6 @@ PersonalFinances.Graph = (function () {
                     onClick: function (e, legendItem) {
                         var index = legendItem.datasetIndex;
                         var ci = this.chart;
-                        var meta = ci.getDatasetMeta(index);
                         var dataset = ci.data.datasets[index];
 
                         var typeLines = ci.data.datasets.filter(function (obj) { return obj.lineType === dataset.lineType; });
@@ -63,9 +62,17 @@ PersonalFinances.Graph = (function () {
 
                         var items;
                         if (dataset.lineType === 'deposit') {
-
                             items = PersonalFinances.Path.AdditionalPath.Deposits;
                         }
+                        else
+                        if (dataset.lineType === 'purchase') {
+                            items = PersonalFinances.Path.AdditionalPath.Purchases;
+                        }
+                        else
+                        if (dataset.lineType === 'sale') {
+                            items = PersonalFinances.Path.AdditionalPath.Sales;
+                        }
+                        else
                         if (dataset.lineType === 'credit') {
                             items = PersonalFinances.Path.AdditionalPath.Credits;
                         }
@@ -75,9 +82,6 @@ PersonalFinances.Graph = (function () {
                         }
 
                         updateGraph();
-
-                        var temp = ci.data.datasets.find(function (obj) { return obj.id === 3; });
-
                     }
                 },
                 annotation: {
@@ -301,13 +305,40 @@ PersonalFinances.Graph = (function () {
                 data: toPointsObject(line.Points)
             }
         }
-        if (line.Type === 'deposit') {
+        else
+            if (line.Type === 'deposit') {
             return {
                 label: 'Депозит',
                 lineType: line.Type,
                 hidden: line.IsHidden,
                 borderColor: [
                     'rgba(0, ' + getShade() + ', 0, 0.5)'
+                ],
+                fill: false,
+                data: toPointsObject(line.Points)
+            }
+        }
+        else
+            if (line.Type === 'sale') {
+            return {
+                label: 'Продаж',
+                lineType: line.Type,
+                hidden: line.IsHidden,
+                borderColor: [
+                    'rgba(0, ' + getShade() + ', 0, 0.5)'
+                ],
+                fill: false,
+                data: toPointsObject(line.Points)
+            }
+        }
+        else
+            if (line.Type === 'purchase') {
+            return {
+                label: 'Купівля',
+                lineType: line.Type,
+                hidden: line.IsHidden,
+                borderColor: [
+                    'rgba(' + getShade() + ', 0, 0, 0.5)'
                 ],
                 fill: false,
                 data: toPointsObject(line.Points)

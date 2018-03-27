@@ -37,7 +37,8 @@ namespace PocketBudget.App_Start
                     {
                         CurrencyId = sale.CurrencyId,
                         From = sale.FromAge,
-                        Total = sale.Total
+                        Total = sale.Total,
+                        IsHidden = sale.IsHidden
                     });
                 }
             }
