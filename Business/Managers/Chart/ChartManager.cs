@@ -2,6 +2,7 @@
 using Business.Models;
 using Business.Savings;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Business.Managers.Chart
 {
@@ -39,7 +40,7 @@ namespace Business.Managers.Chart
 
             for (int i = 0; i < workingPeriod; ++i)
             {
-                baseLine.Add(savingsStrategy.GetSavingsLineAmount(path));
+                baseLine.Add(savingsStrategy.GetSavingsLineAmount(path, i));
             }
             for (int i = 1; i < workingPeriod; ++i)
             {
@@ -55,6 +56,11 @@ namespace Business.Managers.Chart
         protected void PrepareCalculationData(PathModel path)
         {
             this.savingsStrategy = BasePathStrategy.GetStragery(path.Savings.Type);
+            if (path?.Salary?.SalaryPeriods?.Any() ?? false)
+            {
+                path.Salary.SalaryPeriods.Aggregate((f, s) => { f.To = s.From; return s; });
+                path.Salary.SalaryPeriods.Last().To = path.RetirementAge;
+            }
         }
 
         protected List<ChartLine> AddAdditionalLines(PathModel path, List<decimal?> mainSavingsLine)

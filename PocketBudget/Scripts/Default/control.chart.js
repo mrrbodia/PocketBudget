@@ -447,7 +447,12 @@ PersonalFinances.Graph = (function () {
             updateGraph();
         });
         $(document).on('click', '.save-edit-salary', function (e) {
-            //getchartlines
+            $('#edit-salary-popup').find('input').each(function (index, input) {
+                $(input).attr('value', $(input).val());
+            });
+            var salaryPeriods = $('#edit-salary-popup').find('.edit-salary-content').html().trim();
+            $('.salary-periods').html(salaryPeriods);
+            updateGraph();
         });
         $(document).on('focus', '.edit-salary', function (e) {
             var newHtml = $('.salary-periods').html().trim();

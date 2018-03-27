@@ -9,7 +9,7 @@ namespace Business.Savings
 {
     public class FixedSavingsStrategy : SavingsStrategy
     {
-        public override decimal GetSavingsLineAmount(PathModel path)
+        public override decimal GetSavingsLineAmount(PathModel path, int year)
         {
             return path.Savings.Amount * 12;
         }

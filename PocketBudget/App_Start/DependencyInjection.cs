@@ -57,6 +57,8 @@ namespace PocketBudget.App_Start
                 x.CreateMap<PathModel, PathViewModel>();
                 x.CreateMap<SalaryModel, SalaryViewModel>();
                 x.CreateMap<SalaryViewModel, SalaryModel>();
+                x.CreateMap<SalaryPeriod, SalaryPeriodViewModel>();
+                x.CreateMap<SalaryPeriodViewModel, SalaryPeriod>();
                 x.CreateMap<SavingsModel, SavingsViewModel>();
                 x.CreateMap<SavingsViewModel, SavingsModel>();
                 x.CreateMap<PensionViewModel, PensionModel>();
