@@ -52,36 +52,15 @@ PersonalFinances.Graph = (function () {
                     labels: {
                         lineWidth: 1
                     },
+                    onHover: function (e, legendItem) {
+                        var item = getAdditionalPathDataForLegendItem(this.chart, legendItem);
+                    },
                     onClick: function (e, legendItem) {
-                        var index = legendItem.datasetIndex;
-                        var ci = this.chart;
-                        var dataset = ci.data.datasets[index];
-
-                        var typeLines = ci.data.datasets.filter(function (obj) { return obj.lineType === dataset.lineType; });
-                        var lineIndexInLineTypes = typeLines.indexOf(dataset);
-
-                        var items;
-                        if (dataset.lineType === 'deposit') {
-                            items = PersonalFinances.Path.AdditionalPath.Deposits;
+                        var item = getAdditionalPathDataForLegendItem(this.chart, legendItem);
+                        if (item != undefined) {
+                            item.IsHidden = item.IsHidden == undefined ? true : !item.IsHidden;
+                            updateGraph();
                         }
-                        else
-                        if (dataset.lineType === 'purchase') {
-                            items = PersonalFinances.Path.AdditionalPath.Purchases;
-                        }
-                        else
-                        if (dataset.lineType === 'sale') {
-                            items = PersonalFinances.Path.AdditionalPath.Sales;
-                        }
-                        else
-                        if (dataset.lineType === 'credit') {
-                            items = PersonalFinances.Path.AdditionalPath.Credits;
-                        }
-
-                        if (items != undefined) {
-                            items[lineIndexInLineTypes].IsHidden = items[lineIndexInLineTypes].IsHidden == undefined ? true : !items[lineIndexInLineTypes].IsHidden;
-                        }
-
-                        updateGraph();
                     }
                 },
                 annotation: {
@@ -424,6 +403,35 @@ PersonalFinances.Graph = (function () {
     var updateGraph = function () {
         updateGraphLines();
     };
+
+    var getAdditionalPathDataForLegendItem = function (chart, legendItem) {
+        var index = legendItem.datasetIndex;
+        var dataset = chart.data.datasets[index];
+
+        var typeLines = chart.data.datasets.filter(function (obj) { return obj.lineType === dataset.lineType; });
+        var lineIndexInLineTypes = typeLines.indexOf(dataset);
+
+        var items;
+        if (dataset.lineType === 'deposit') {
+            items = PersonalFinances.Path.AdditionalPath.Deposits;
+        }
+        else
+            if (dataset.lineType === 'purchase') {
+                items = PersonalFinances.Path.AdditionalPath.Purchases;
+            }
+            else
+                if (dataset.lineType === 'sale') {
+                    items = PersonalFinances.Path.AdditionalPath.Sales;
+                }
+                else
+                    if (dataset.lineType === 'credit') {
+                        items = PersonalFinances.Path.AdditionalPath.Credits;
+                    }
+
+        if (items != undefined)
+            return items[lineIndexInLineTypes];
+        return items;
+    }
 
     var updateMinimalInformation = function (input) {
         var id = $(input).attr("id");
