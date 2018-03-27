@@ -11,7 +11,9 @@ namespace Business.DomainModel.Active
         public virtual double Percentage { get; set; }
         
         public virtual short Years { get; set; }
-        
+
+        public override string LineType => Constants.ChartLineType.Deposit;
+
         public override decimal GetIncomePerYear(int currentYear)
         {
             //TODO: when deposit for 1 year is selected - no income present

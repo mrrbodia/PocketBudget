@@ -28,7 +28,6 @@ namespace Business.Components.AdditionalPath
 
                 additionalIncome.From -= path.CurrentAge;
                 additionalIncome.To = (short)(path.LifeExpectancy - path.CurrentAge);
-
                 if(!additionalIncome.IsHidden)
                 {
                     foreach (var step in this.incomeSteps)
@@ -37,11 +36,7 @@ namespace Business.Components.AdditionalPath
                     }
                 }
                 additionalIncome.From += path.CurrentAge;
-
-                if(additionalIncome is Deposit)
-                    additionalLines.Add(new ChartLine(Constants.ChartLineType.Deposit, points, additionalIncome.IsHidden));
-                else
-                    additionalLines.Add(new ChartLine(Constants.ChartLineType.Sale, points, additionalIncome.IsHidden));
+                additionalLines.Add(new ChartLine(additionalIncome.LineType, points, additionalIncome.IsHidden));
             }
             foreach (var additionalCost in path.AdditionalPath.AdditionalCosts)
             {
@@ -50,7 +45,6 @@ namespace Business.Components.AdditionalPath
 
                 additionalCost.From -= path.CurrentAge;
                 additionalCost.To = (short)(path.LifeExpectancy - path.CurrentAge);
-
                 if (!additionalCost.IsHidden)
                 {
                     foreach (var step in this.costSteps)
@@ -58,13 +52,8 @@ namespace Business.Components.AdditionalPath
                         step.Execute(additionalCost, points);
                     }
                 }
-
                 additionalCost.From += path.CurrentAge;
-
-                if (additionalCost is Credit)
-                    additionalLines.Add(new ChartLine(Constants.ChartLineType.Credit, points, additionalCost.IsHidden));
-                else
-                    additionalLines.Add(new ChartLine(Constants.ChartLineType.Purchase, points, additionalCost.IsHidden));
+                additionalLines.Add(new ChartLine(additionalCost.LineType, points, additionalCost.IsHidden));
             }
             return additionalLines;
         }

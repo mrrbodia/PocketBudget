@@ -18,6 +18,8 @@ namespace Business.DomainModel.Cost
 
         bool IsHidden { get; set; }
 
+        string LineType { get; }
+
         decimal GetCostPerYear();
     }
 
@@ -32,6 +34,8 @@ namespace Business.DomainModel.Cost
         public virtual decimal Total { get; set; }
 
         public bool IsHidden { get; set; }
+
+        public abstract string LineType { get; }
 
         public abstract decimal GetCostPerYear();
 

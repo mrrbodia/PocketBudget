@@ -8,6 +8,8 @@ namespace Business.DomainModel.Cost
 {
     public class Purchase : AdditionalCost
     {
+        public override string LineType => Constants.ChartLineType.Purchase;
+
         public override decimal GetCostPerYear()
         {
             return Total * -GetCurrencyExchangeValue(); ;

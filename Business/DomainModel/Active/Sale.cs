@@ -8,6 +8,8 @@ namespace Business.DomainModel.Active
 {
     public class Sale : AdditionalIncome
     {
+        public override string LineType => Constants.ChartLineType.Sale;
+
         public override decimal GetIncomePerYear(int currentYear)
         {
             return Total * GetCurrencyExchangeValue();
