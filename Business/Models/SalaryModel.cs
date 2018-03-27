@@ -8,8 +8,11 @@ namespace Business.Models
 {
     public class SalaryModel
     {
-        //TODO: IList<SalaryPeriod> Amount, From, To?
+        public IList<SalaryPeriod> SalaryPeriods { get; set; }
 
-        public decimal Amount { get; set; }
+        public decimal GetCurrentSalary(int year)
+        {
+            return SalaryPeriods?.FirstOrDefault(x => x.From <= year && x.To >= year)?.Amount ?? 0;
+        }
     }
 }

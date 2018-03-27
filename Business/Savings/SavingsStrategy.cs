@@ -9,6 +9,6 @@ namespace Business.Savings
 {
     public abstract class SavingsStrategy : BasePathStrategy
     {
-        public abstract decimal GetSavingsLineAmount(PathModel path);
+        public abstract decimal GetSavingsLineAmount(PathModel path, int year);
     }
 }

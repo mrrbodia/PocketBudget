@@ -148,3 +148,7 @@
     line-height: 12px;
     color: red;
 }
+
+.salary-periods {
+    display: none;
+}

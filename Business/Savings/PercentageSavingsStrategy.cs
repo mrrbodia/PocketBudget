@@ -9,9 +9,9 @@ namespace Business.Savings
 {
     public class PercentageSavingsStrategy : SavingsStrategy
     {
-        public override decimal GetSavingsLineAmount(PathModel path)
+        public override decimal GetSavingsLineAmount(PathModel path, int year)
         {
-            return (path.Savings.Amount / 100) * path.Salary.Amount * 12;
+            return (path.Savings.Amount / 100) * path.Salary.GetCurrentSalary(year + path.CurrentAge) * 12;
         }
     }
 }
