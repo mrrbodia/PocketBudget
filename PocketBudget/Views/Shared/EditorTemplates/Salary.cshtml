@@ -13,7 +13,7 @@
             @Html.ValidationMessageFor(m => Model.SalaryPeriods[0].Amount)
             @Html.LabelFor(m => Model.SalaryPeriods[i].From)
             @Html.TextBoxFor(m => Model.SalaryPeriods[i].From, new { type = "number" })
-            @Html.ValidationMessageFor(m => Model.SalaryPeriods[0].From)
-        </div>   
+            @Html.ValidationMessageFor(m => Model.SalaryPeriods[i].From)
+        </div>
     }
 </div>
