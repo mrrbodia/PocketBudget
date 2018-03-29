@@ -228,6 +228,9 @@
     <None Include="Scripts\libs\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\chartjs-plugin-annotation.min.js" />
     <Content Include="Scripts\chartjs-plugin-zoom.min.js" />
+    <Content Include="Scripts\Default\finances.ui.js" />
+    <Content Include="Scripts\Default\finances.validate.unobtrusive.js" />
+    <Content Include="Scripts\Default\finances.validate.js" />
     <Content Include="Scripts\Default\control.additionalpath.js" />
     <Content Include="Scripts\Default\control.binder.js" />
     <Content Include="Scripts\Default\control.popups.js" />

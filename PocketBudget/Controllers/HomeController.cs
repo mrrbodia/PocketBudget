@@ -3,6 +3,7 @@ using Business;
 using Business.Models;
 using PocketBudget.Models;
 using PocketBudget.Models.AdditionalCost;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -55,6 +56,29 @@ namespace PocketBudget.Controllers
             model.AdditionalIncome = CreateAdditionalIncomeViewModel(fromAge);
             model.AdditionalCost = CreateAdditionalCostViewModel(fromAge);
             return View("_EditFinances", model);
+        }
+
+        [HttpPost]
+        public ActionResult GetSalaryPeriod(PathViewModel path)
+        {
+            if (ModelState.IsValid)
+            {
+                var lastPeriod = path.Salary.SalaryPeriods.Last();
+                var salaryPeriod = new SalaryPeriodViewModel(lastPeriod.Amount, lastPeriod.From);
+                salaryPeriod.From++;
+                path.Salary.SalaryPeriods.Add(salaryPeriod);
+            }
+            return View("Index", path);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteSalaryPeriod(PathViewModel path)
+        {
+            if (ModelState.IsValid && path.Salary.SalaryPeriods.Count > 1)
+            {
+                path.Salary.SalaryPeriods.RemoveAt(path.Salary.SalaryPeriods.Count - 1);
+            }
+            return View("Index", path);
         }
 
         protected AdditionalIncomeViewModel CreateAdditionalIncomeViewModel(int? fromAge)

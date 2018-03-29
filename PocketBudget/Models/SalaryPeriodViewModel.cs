@@ -17,5 +17,14 @@ namespace PocketBudget.Models
         [Required(ErrorMessage = "Введіть вік")]
         [Range(0, 100, ErrorMessage = "Доступні значення з {1} до {2}")]
         public short From { get; set; }
+
+        public SalaryPeriodViewModel()
+        { }
+
+        public SalaryPeriodViewModel(decimal amount, short from)
+        {
+            Amount = amount;
+            From = from;
+        }
     }
 }

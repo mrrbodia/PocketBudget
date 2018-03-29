@@ -401,7 +401,9 @@ PersonalFinances.Graph = (function () {
     };
 
     var updateGraph = function () {
-        updateGraphLines();
+        if ($('#path-form').valid()) {
+            updateGraphLines();
+        }
     };
 
     var getAdditionalPathDataForLegendItem = function (chart, legendItem) {
@@ -425,6 +427,44 @@ PersonalFinances.Graph = (function () {
         $('.' + id).html(formatAsCurrency($(input).val()));
     };
 
+    var addSalaryPeriodToPath = function () {
+        $('#edit-salary-popup').find('input').each(function (index, input) {
+            $(input).attr('value', $(input).val());
+        });
+        var salaryPeriods = $('#edit-salary-popup').find('.edit-salary-content').html().trim();
+        $('.salary-periods').html(salaryPeriods);
+    };
+
+    var sendSalaryPeriodRequestTo = function (to) {
+        var form = $('#path-form');
+        if (form.valid()) {
+            $.ajax({
+                type: 'POST',
+                url: to,
+                data: form.serialize(),
+                success: function (response) {
+                    onSalaryPeriodSuccess(response);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+    };
+
+    var onSalaryPeriodSuccess = function (response) {
+        var _source = '.salary-periods';
+        var $target = $('.edit-salary-content');
+        var $newHtml = $(response.trim());
+        var $container = $newHtml.find(_source);
+        if ($container.length) {
+            $newHtml = $container.children();
+        }
+        $target.html($newHtml);
+        PersonalFinances.UI.resetValidationFor('.form-edit-salary-content');
+        addSalaryPeriodToPath();
+    };
+
     var initEvents = function () {
         $('.graph-updater[type=number]').on('input', function (e) {
             onDataChanged(this);
@@ -434,31 +474,27 @@ PersonalFinances.Graph = (function () {
             updateGraph();
         });
         $(document).on('click', '.save-edit-salary', function (e) {
-            $('#edit-salary-popup').find('input').each(function (index, input) {
-                $(input).attr('value', $(input).val());
-            });
-            var salaryPeriods = $('#edit-salary-popup').find('.edit-salary-content').html().trim();
-            $('.salary-periods').html(salaryPeriods);
+            var $form = $('.form-edit-salary-content');
+            if (!$form.valid()) {
+                return;
+            }
+            PersonalFinances.Popups.close('#edit-salary-popup');
+            addSalaryPeriodToPath();
             updateGraph();
         });
-        $(document).on('focus', '.edit-salary', function (e) {
+        $(document).on('click', '.edit-salary', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
             var newHtml = $('.salary-periods').html().trim();
             $('#edit-salary-popup').find('.edit-salary-content').html(newHtml);
             PersonalFinances.Popups.open('#edit-salary-popup');
+            PersonalFinances.UI.resetValidationFor('.form-edit-salary-content');
         });
         $(document).on('click', '.add-salary-period', function (e) {
-            //TODO: tmp solution
-            //TODO: should be taken from server
-            var salaryRows = $('.edit-salary-content .form-row');
-            var count = salaryRows.length;
-            var lastRowHtml = salaryRows.last().html();
-            var newRowHtml = '<div class="row form-row">';
-            newRowHtml += lastRowHtml.split('[' + (count - 1) + ']').join('[' + count + ']').split('_' + (count - 1) + '_').join('_' + count + '_');
-            newRowHtml += '</div>';
-            $('.edit-salary-content').append(newRowHtml);
+            sendSalaryPeriodRequestTo('getsalaryperiod');
         });
         $(document).on('click', '.delete-salary-period', function (e) {
-
+            sendSalaryPeriodRequestTo('deletesalaryperiod');
         });
         $(document).on('click', '.tooltip-moreoptions', function (e) {
             var btn = $(e.target);
