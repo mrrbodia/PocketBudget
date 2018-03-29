@@ -11,6 +11,7 @@ using Business.DomainModel.Active;
 using System.Collections.Generic;
 using Business.DomainModel.Cost;
 using PocketBudget.Models.AdditionalCost;
+using Business;
 
 namespace PocketBudget.App_Start
 {
@@ -82,6 +83,8 @@ namespace PocketBudget.App_Start
                 x.CreateMap<CreditViewModel, Credit>();
                 x.CreateMap<Purchase, PurchaseViewModel>();
                 x.CreateMap<PurchaseViewModel, Purchase>();
+                x.CreateMap<ChartLine, ChartLineViewModel>();
+                x.CreateMap<ChartLineViewModel, ChartLine>();
             }).CreateMapper();
         }
     }

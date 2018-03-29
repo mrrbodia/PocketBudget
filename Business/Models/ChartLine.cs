@@ -5,11 +5,13 @@ namespace Business
 {
     public class ChartLine
     {
-        public ChartLine(string type, List<decimal?> points, bool isHidden = true)
+        public ChartLine(string type, List<decimal?> points, decimal total, string currencyId, bool isHidden = true)
         {
             Type = type;
             Points = new List<decimal?>(points);
             IsHidden = isHidden;
+            CurrencyId = currencyId;
+            Total = total;
         }
 
         public bool IsHidden { get; set; }
@@ -17,5 +19,9 @@ namespace Business
         public string Type { get; set; }
 
         public List<decimal?> Points { get; set; }
+
+        public string CurrencyId { get; set; }
+
+        public decimal Total { get; set; }
     }
 }

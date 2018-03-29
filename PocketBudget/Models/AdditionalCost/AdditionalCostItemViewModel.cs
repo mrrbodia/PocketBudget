@@ -1,4 +1,5 @@
 ﻿using Business;
+using PocketBudget.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,15 +24,7 @@ namespace PocketBudget.Models
 
         public virtual string CurrencySymbol(string currencyId)
         {
-            switch (currencyId)
-            {
-                case Constants.Currency.Euro:
-                    return Constants.Currency.EuroSymbol;
-                case Constants.Currency.Dollar:
-                    return Constants.Currency.DollarSymbol;
-                default:
-                    return Constants.Currency.HrnSymbol;
-            }
+            return ViewHelper.GetCurrencySymbol(currencyId);
         }
     }
 }

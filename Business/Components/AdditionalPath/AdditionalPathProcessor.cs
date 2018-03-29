@@ -36,7 +36,7 @@ namespace Business.Components.AdditionalPath
                     }
                 }
                 additionalIncome.From += path.CurrentAge;
-                additionalLines.Add(new ChartLine(additionalIncome.LineType, points, additionalIncome.IsHidden));
+                additionalLines.Add(new ChartLine(additionalIncome.LineType, points, additionalIncome.Total, additionalIncome.CurrencyId, additionalIncome.IsHidden));
             }
             foreach (var additionalCost in path.AdditionalPath.AdditionalCosts)
             {
@@ -53,7 +53,7 @@ namespace Business.Components.AdditionalPath
                     }
                 }
                 additionalCost.From += path.CurrentAge;
-                additionalLines.Add(new ChartLine(additionalCost.LineType, points, additionalCost.IsHidden));
+                additionalLines.Add(new ChartLine(additionalCost.LineType, points, additionalCost.Total, additionalCost.CurrencyId, additionalCost.IsHidden));
             }
             return additionalLines;
         }

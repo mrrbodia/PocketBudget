@@ -273,9 +273,9 @@ PersonalFinances.Graph = (function () {
     }
 
     var getChartLine = function (line) {
-        if (line.Type === 'base') {
+        if (line.Type === 'Base') {
             return {
-                label: 'Базова',
+                label: line.Title,
                 borderColor: [
                     'rgba(20, 40, 110, 0.5)'
                 ],
@@ -287,7 +287,7 @@ PersonalFinances.Graph = (function () {
         else
             if (line.Type === 'Deposit') {
             return {
-                label: 'Депозит',
+                label: line.Title,
                 lineType: line.Type,
                 hidden: line.IsHidden,
                 borderColor: [
@@ -300,7 +300,7 @@ PersonalFinances.Graph = (function () {
         else
             if (line.Type === 'Sale') {
             return {
-                label: 'Продаж',
+                label: line.Title,
                 lineType: line.Type,
                 hidden: line.IsHidden,
                 borderColor: [
@@ -313,7 +313,7 @@ PersonalFinances.Graph = (function () {
         else
             if (line.Type === 'Purchase') {
             return {
-                label: 'Купівля',
+                label: line.Title,
                 lineType: line.Type,
                 hidden: line.IsHidden,
                 borderColor: [
@@ -325,7 +325,7 @@ PersonalFinances.Graph = (function () {
         }
         else {
             return {
-                label: 'Кредит',
+                label: line.Title,
                 lineType: line.Type,
                 hidden: line.IsHidden,
                 borderColor: [

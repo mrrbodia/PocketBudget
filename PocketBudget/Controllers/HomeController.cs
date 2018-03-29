@@ -41,7 +41,9 @@ namespace PocketBudget.Controllers
             {
                 var path = mapper.Map<PathViewModel, PathModel>(pathModel);
                 var chartLines = PersonalFinances.Chart.GetChartLines(path);
-                return Json(chartLines);
+                var chartLinesModel = mapper.Map<List<ChartLine>, List<ChartLineViewModel>>(chartLines);
+
+                return Json(chartLinesModel);
             }
             return Json(0);
         }

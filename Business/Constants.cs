@@ -20,7 +20,7 @@ namespace Business
 
             public const string Credit = "Credit";
 
-            public const string Base = "base";
+            public const string Base = "Base";
 
             public const string Sale = "Sale";
 

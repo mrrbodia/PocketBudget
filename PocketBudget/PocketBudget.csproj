@@ -147,6 +147,8 @@
     <Compile Include="Models\AdditionalIncome\SaleViewModel.cs" />
     <Compile Include="Models\AdditionalPathViewModel.cs" />
     <Compile Include="Models\AdditionalIncome\AdditionalIncomeItemViewModel.cs" />
+    <Compile Include="Models\ChartLinesViewModel.cs" />
+    <Compile Include="Models\ChartLineViewModel.cs" />
     <Compile Include="Models\PathViewModel.cs" />
     <Compile Include="Models\AdditionalIncome\DepositViewModel.cs" />
     <Compile Include="Models\PensionViewModel.cs" />
@@ -156,6 +158,7 @@
     <Compile Include="Models\SavingsViewModel.cs" />
     <Compile Include="PersonalFinances.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web\ViewHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
