@@ -11,7 +11,7 @@
             @Html.TextBoxFor(m => Model.SalaryPeriods[i].Amount, new { type = "number" })
             @Html.ValidationMessageFor(m => Model.SalaryPeriods[i].Amount)
             @Html.LabelFor(m => Model.SalaryPeriods[i].From)
-            @Html.TextBoxFor(m => Model.SalaryPeriods[i].From, new { type = "number" })
+            @Html.TextBoxFor(m => Model.SalaryPeriods[i].From, new { type = "number", data_min = Model.SalaryPeriods[i].From })
             @Html.ValidationMessageFor(m => Model.SalaryPeriods[i].From)
         </div>
     }
