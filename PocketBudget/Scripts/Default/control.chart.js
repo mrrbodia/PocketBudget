@@ -446,6 +446,20 @@ PersonalFinances.Graph = (function () {
             $('#edit-salary-popup').find('.edit-salary-content').html(newHtml);
             PersonalFinances.Popups.open('#edit-salary-popup');
         });
+        $(document).on('click', '.add-salary-period', function (e) {
+            //TODO: tmp solution
+            //TODO: should be taken from server
+            var salaryRows = $('.edit-salary-content .form-row');
+            var count = salaryRows.length;
+            var lastRowHtml = salaryRows.last().html();
+            var newRowHtml = '<div class="row form-row">';
+            newRowHtml += lastRowHtml.split('[' + (count - 1) + ']').join('[' + count + ']').split('_' + (count - 1) + '_').join('_' + count + '_');
+            newRowHtml += '</div>';
+            $('.edit-salary-content').append(newRowHtml);
+        });
+        $(document).on('click', '.delete-salary-period', function (e) {
+
+        });
         $(document).on('click', '.tooltip-moreoptions', function (e) {
             var btn = $(e.target);
             var age = +btn.attr('data-age');
