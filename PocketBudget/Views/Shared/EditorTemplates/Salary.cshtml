@@ -1,6 +1,18 @@
 ﻿@model SalaryViewModel
-
-<p>
-    @Html.LabelFor(m => m.Amount)
-    @Html.TextBoxFor(m => m.Amount, new { @class = "graph-updater", type = "number" })
-</p>
+<div>
+    @Html.LabelFor(m => m.SalaryPeriods)
+    <button class="btn grey btn-flat edit-salary">Редагувати зарплатню</button>
+</div>
+<div class="salary-periods">
+    @for (int i = 0; i < Model.SalaryPeriods.Count; ++i)
+    {
+        <div class="row form-row">
+            @Html.LabelFor(m => Model.SalaryPeriods[i].Amount)
+            @Html.TextBoxFor(m => Model.SalaryPeriods[i].Amount, new { type = "number" })
+            @Html.ValidationMessageFor(m => Model.SalaryPeriods[i].Amount)
+            @Html.LabelFor(m => Model.SalaryPeriods[i].From)
+            @Html.TextBoxFor(m => Model.SalaryPeriods[i].From, new { type = "number", data_min = Model.SalaryPeriods[i].From })
+            @Html.ValidationMessageFor(m => Model.SalaryPeriods[i].From)
+        </div>
+    }
+</div>

@@ -44,6 +44,18 @@ namespace PocketBudget
             );
 
             routes.MapRoute(
+                name: "GetSalaryPeriod",
+                url: "getsalaryperiod",
+                defaults: new { controller = "Home", action = "GetSalaryPeriod" }
+            );
+
+            routes.MapRoute(
+                name: "DeleteSalaryPeriod",
+                url: "deletesalaryperiod",
+                defaults: new { controller = "Home", action = "DeleteSalaryPeriod" }
+            );
+
+            routes.MapRoute(
                 name: "Home",
                 url: "",
                 defaults: new { controller = "Home", action = "Index" }

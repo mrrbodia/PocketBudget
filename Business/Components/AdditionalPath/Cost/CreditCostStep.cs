@@ -11,6 +11,11 @@ namespace Business.Components.AdditionalPath
         {
             if (additionalCost is Credit credit)
             {
+                for (int i = additionalCost.From; i < additionalCost.To; ++i)
+                {
+                    var cost = credit.GetCostPerYear();
+                    points[i] = points[i] + cost;
+                }
             }
         }
     }

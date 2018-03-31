@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using PocketBudget.Models.AdditionalCost;
 
 namespace PocketBudget.Models
 {

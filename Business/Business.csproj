@@ -46,7 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasePathStrategy.cs" />
+    <Compile Include="Components\AdditionalPath\Cost\PurchaseCostStep.cs" />
     <Compile Include="Components\AdditionalPath\Cost\CreditCostStep.cs" />
+    <Compile Include="Components\AdditionalPath\Income\SaleIncomeStep.cs" />
     <Compile Include="Components\AdditionalPath\Income\DepositIncomeStep.cs" />
     <Compile Include="Components\AdditionalPath\Cost\IAdditionalCostStep.cs" />
     <Compile Include="Constants.cs" />
@@ -57,16 +59,18 @@
     <Compile Include="DomainModel\Account\Account.cs" />
     <Compile Include="DomainModel\Account\Role.cs" />
     <Compile Include="DomainModel\Active\Bank.cs" />
+    <Compile Include="DomainModel\Active\Sale.cs" />
     <Compile Include="DomainModel\Active\Deposit.cs" />
     <Compile Include="DomainModel\Active\IAdditionalIncome.cs" />
     <Compile Include="DomainModel\Cost\Credit.cs" />
     <Compile Include="DomainModel\Cost\IAdditionalCost.cs" />
+    <Compile Include="DomainModel\Cost\Purchase.cs" />
     <Compile Include="Managers\Account\AccountManager.cs" />
     <Compile Include="Managers\Account\IAccountManager.cs" />
     <Compile Include="Components\AdditionalPath\Income\IAdditionalIncomeStep.cs" />
     <Compile Include="Managers\Bank\BankManager.cs" />
     <Compile Include="Managers\Bank\IBankManager.cs" />
-    <Compile Include="Components\AdditionalPath\AdditionalSavingsProcessor.cs" />
+    <Compile Include="Components\AdditionalPath\AdditionalPathProcessor.cs" />
     <Compile Include="Managers\Chart\ChartDataPreparer.cs" />
     <Compile Include="Managers\Chart\ChartManager.cs" />
     <Compile Include="Managers\Chart\IChartManager.cs" />
@@ -77,6 +81,7 @@
     <Compile Include="Models\PathModel.cs" />
     <Compile Include="Models\PensionModel.cs" />
     <Compile Include="Models\SalaryModel.cs" />
+    <Compile Include="Models\SalaryPeriod.cs" />
     <Compile Include="Models\SavingsModel.cs" />
     <Compile Include="Models\SpendingsModel.cs" />
     <Compile Include="NHIbernate\NHibernateHelper.cs" />
@@ -86,13 +91,9 @@
     <Compile Include="Salary\DefaultSalaryStrategy.cs" />
     <Compile Include="Salary\ISalaryStrategy.cs" />
     <Compile Include="Salary\SalaryStrategy.cs" />
-    <Compile Include="Savings\CustomSavingsStrategy.cs" />
     <Compile Include="Savings\FixedSavingsStrategy.cs" />
     <Compile Include="Savings\PercentageSavingsStrategy.cs" />
     <Compile Include="Savings\SavingsStrategy.cs" />
-    <Compile Include="Spendings\FixedSpendingsStrategy.cs" />
-    <Compile Include="Spendings\PercentageSpendingsStrategy.cs" />
-    <Compile Include="Spendings\SpendingsStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

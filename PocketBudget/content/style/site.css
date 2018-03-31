@@ -54,13 +54,8 @@
     display: none;
 }
 
-.bank-rating{
+.bank-rating {
     display: block;
-}
-
-.bank-rating-selector{
-    margin: 0;
-    padding: 2rem;
 }
 
 #tooltip-element {
@@ -90,12 +85,25 @@
     display: none;
 }
 
-.additional-strategy-info {
-    display:none;
+#sidenav-overlay {
+    background: none !important;
 }
 
-#sidenav-overlay{
-    background: none !important;
+.navbar-fixed {
+    top: -1000px;
+}
+
+.nav-wrapper .last-row {
+    margin-bottom: 70px;
+}
+
+.nav-wrapper input {
+    height: 3em;
+    color: black;
+}
+
+.nav-wrapper .form-row div {
+    line-height: 35px;
 }
 
 .sidenav-button {
@@ -111,8 +119,15 @@
     border: 2px solid grey;
 }
 
-.side-nav{
+.side-nav {
     padding: 10px;
+}
+
+.minimal-budget-block {
+    width: 10%;
+    height: 100%;
+    max-width: 200px;
+    float: right;
 }
 
 .minimal-budget-block-btn {
@@ -123,3 +138,17 @@
         margin-right: 0;
         color: grey;
     }
+
+.newline{
+    display: block;
+}
+
+.form-row .field-validation-error {
+    display: block;
+    line-height: 12px;
+    color: red;
+}
+
+.salary-periods {
+    display: none;
+}

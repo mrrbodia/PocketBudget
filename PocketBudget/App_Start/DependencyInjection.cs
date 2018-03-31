@@ -9,6 +9,9 @@ using PocketBudget.Models;
 using Business.Models;
 using Business.DomainModel.Active;
 using System.Collections.Generic;
+using Business.DomainModel.Cost;
+using PocketBudget.Models.AdditionalCost;
+using Business;
 
 namespace PocketBudget.App_Start
 {
@@ -39,10 +42,12 @@ namespace PocketBudget.App_Start
 
         protected static void RegisterAdditionalProcessor(ContainerBuilder builder)
         {
-            builder.RegisterType<AdditionalSavingsProcessor>().As<AdditionalSavingsProcessor>();
+            builder.RegisterType<AdditionalPathProcessor>().As<AdditionalPathProcessor>();
             builder.RegisterType<DepositIncomeStep>().As<IAdditionalIncomeStep>();
+            builder.RegisterType<SaleIncomeStep>().As<IAdditionalIncomeStep>();
 
             builder.RegisterType<CreditCostStep>().As<IAdditionalCostStep>();
+            builder.RegisterType<PurchaseCostStep>().As<IAdditionalCostStep>();
         }
 
         protected static IMapper GetMapper()
@@ -53,6 +58,8 @@ namespace PocketBudget.App_Start
                 x.CreateMap<PathModel, PathViewModel>();
                 x.CreateMap<SalaryModel, SalaryViewModel>();
                 x.CreateMap<SalaryViewModel, SalaryModel>();
+                x.CreateMap<SalaryPeriod, SalaryPeriodViewModel>();
+                x.CreateMap<SalaryPeriodViewModel, SalaryPeriod>();
                 x.CreateMap<SavingsModel, SavingsViewModel>();
                 x.CreateMap<SavingsViewModel, SavingsModel>();
                 x.CreateMap<PensionViewModel, PensionModel>();
@@ -70,6 +77,14 @@ namespace PocketBudget.App_Start
                                        src => new AdditionalIncomeViewModel()));
                 x.CreateMap<DepositViewModel, Deposit>();
                 x.CreateMap<Deposit, DepositViewModel>();
+                x.CreateMap<SaleViewModel, Sale>();
+                x.CreateMap<Sale, SaleViewModel>();
+                x.CreateMap<Credit, CreditViewModel>();
+                x.CreateMap<CreditViewModel, Credit>();
+                x.CreateMap<Purchase, PurchaseViewModel>();
+                x.CreateMap<PurchaseViewModel, Purchase>();
+                x.CreateMap<ChartLine, ChartLineViewModel>();
+                x.CreateMap<ChartLineViewModel, ChartLine>();
             }).CreateMapper();
         }
     }

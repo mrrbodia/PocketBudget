@@ -4,6 +4,7 @@ using Business.Models;
 using PocketBudget.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PocketBudget.App_Start
 {
@@ -12,16 +13,34 @@ namespace PocketBudget.App_Start
         public IList<IAdditionalIncome> Resolve(AdditionalPathViewModel source, AdditionalPathModel destination, IList<IAdditionalIncome> destMember, ResolutionContext context)
         {
             destMember = new List<IAdditionalIncome>();
-            foreach (var deposit in source.AdditionalIncome.Deposits)
+            //TODO: IsAdded
+            if (source?.AdditionalIncome?.Deposits?.Any() ?? false)
             {
-                destMember.Add(new Deposit()
+                foreach (var deposit in source.AdditionalIncome.Deposits)
                 {
-                    CurrencyId = deposit.CurrencyId,
-                    From = deposit.FromAge,
-                    Percentage = deposit.Percentage,
-                    Total = deposit.Total,
-                    Years = deposit.Years
-                });
+                    destMember.Add(new Deposit()
+                    {
+                        CurrencyId = deposit.CurrencyId,
+                        From = deposit.FromAge,
+                        Percentage = deposit.Percentage,
+                        Total = deposit.Total,
+                        Years = deposit.Years,
+                        IsHidden = deposit.IsHidden
+                    });
+                }
+            }
+            if (source?.AdditionalIncome?.Sales?.Any() ?? false)
+            {
+                foreach (var sale in source.AdditionalIncome.Sales)
+                {
+                    destMember.Add(new Sale()
+                    {
+                        CurrencyId = sale.CurrencyId,
+                        From = sale.FromAge,
+                        Total = sale.Total,
+                        IsHidden = sale.IsHidden
+                    });
+                }
             }
             return destMember;
         }
