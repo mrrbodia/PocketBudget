@@ -21,6 +21,7 @@ namespace PocketBudget.Controllers
 
         public ActionResult Index()
         {
+            var t = PersonalFinances.Path.GetPathModels();
             var model = new PathViewModel();
             model.CurrentAge = 20;
             model.LifeExpectancy = 80;

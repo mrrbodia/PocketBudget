@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Business.DomainModel.Cost;
 using PocketBudget.Models.AdditionalCost;
 using Business;
+using Business.Managers.Path;
 
 namespace PocketBudget.App_Start
 {
@@ -30,6 +31,7 @@ namespace PocketBudget.App_Start
             builder.RegisterType<AccountManager>().As<IAccountManager>();
             builder.RegisterType<BankManager>().As<IBankManager>();
             builder.RegisterType<ChartManager>().As<IChartManager>();
+            builder.RegisterType<PathManager>().As<IPathManager>();
 
             RegisterAdditionalProcessor(builder);
             RegisterMapper(builder);

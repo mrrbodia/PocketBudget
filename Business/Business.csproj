@@ -38,6 +38,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,6 +57,7 @@
     <Compile Include="DataProviders\BankDataProvider.cs" />
     <Compile Include="DataProviders\IRepository.cs" />
     <Compile Include="DataProviders\SQLDataProvider.cs" />
+    <Compile Include="DataProviders\XMLDataProvider.cs" />
     <Compile Include="DomainModel\Account\Account.cs" />
     <Compile Include="DomainModel\Account\Role.cs" />
     <Compile Include="DomainModel\Active\Bank.cs" />
@@ -75,6 +77,8 @@
     <Compile Include="Managers\Chart\ChartManager.cs" />
     <Compile Include="Managers\Chart\IChartManager.cs" />
     <Compile Include="Managers\IManager.cs" />
+    <Compile Include="Managers\Path\IPathManager.cs" />
+    <Compile Include="Managers\Path\PathManager.cs" />
     <Compile Include="Managers\StrategyManager.cs" />
     <Compile Include="Models\AdditionalPathModel.cs" />
     <Compile Include="Models\ChartLine.cs" />

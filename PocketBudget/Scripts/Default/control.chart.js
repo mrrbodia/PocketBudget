@@ -465,6 +465,39 @@ PersonalFinances.Graph = (function () {
         addSalaryPeriodToPath();
     };
 
+    $.validator.unobtrusive.parseDynamicContent = function (selector) {
+        //use the normal unobstrusive.parse method
+        $.validator.unobtrusive.parse(selector);
+
+        //get the relevant form
+        var form = $(selector).first().closest('form');
+
+        //get the collections of unobstrusive validators, and jquery validators
+        //and compare the two
+        var unobtrusiveValidation = form.data('unobtrusiveValidation');
+        var validator = form.validate();
+
+        $.each(unobtrusiveValidation.options.rules, function (elname, elrules) {
+            if (validator.settings.rules[elname] == undefined) {
+                var args = {};
+                $.extend(args, elrules);
+                args.messages = unobtrusiveValidation.options.messages[elname];
+                //edit:use quoted strings for the name selector
+                $("[name='" + elname + "']").rules("add", args);
+            } else {
+                $.each(elrules, function (rulename, data) {
+                    if (validator.settings.rules[elname][rulename] == undefined) {
+                        var args = {};
+                        args[rulename] = data;
+                        args.messages = unobtrusiveValidation.options.messages[elname][rulename];
+                        //edit:use quoted strings for the name selector
+                        $("[name='" + elname + "']").rules("add", args);
+                    }
+                });
+            }
+        });
+    }
+
     var initEvents = function () {
         $('.graph-updater[type=number]').on('input', function (e) {
             onDataChanged(this);
@@ -515,6 +548,12 @@ PersonalFinances.Graph = (function () {
                         accordion: false
                     });
                 },
+                complete: function () {
+                    $('#additional-path-form').off(".validate")
+                        .removeData("validator")
+                        .removeData("unobtrusiveValidation");
+                    $.validator.unobtrusive.parse('#additional-path-form');
+                },
                 error: function (err) {
                     console.log(err);
                 }
@@ -536,6 +575,12 @@ PersonalFinances.Graph = (function () {
                 closeOnClick: false,
                 draggable: true
             });
+        });
+        $(document).on('change', '#additional-path-form', function () {
+            var formId = '#additional-path-form';
+            $(formId).removeData('validator');
+            $(formId).removeData('unobtrusiveValidation');
+            $.validator.unobtrusive.parse(formId);
         });
         $(document).on('change', '.usersExamplesData', function (e) {
             var value = $(this).val();
