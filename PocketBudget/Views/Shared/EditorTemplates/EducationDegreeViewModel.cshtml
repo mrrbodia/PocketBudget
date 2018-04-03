@@ -1,0 +1,10 @@
+﻿@model EducationDegreeViewModel
+<p>
+    @Model.Title
+</p>
+<p>
+    @Html.EditorFor(m => Model.IsReached, new { Label = "Досягти у віці", Clazz = "add-education" })
+</p>
+@Html.LabelFor(m => Model.ReachedIn)
+@Html.TextBoxFor(m => Model.ReachedIn, new { type = "number", data_min = Model.MinReachAge })
+@Html.ValidationMessageFor(m => Model.ReachedIn)

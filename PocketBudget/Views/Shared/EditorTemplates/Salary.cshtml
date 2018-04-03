@@ -1,7 +1,7 @@
 ﻿@model SalaryViewModel
 <div>
     @Html.LabelFor(m => m.SalaryPeriods)
-    <button class="btn grey btn-flat edit-salary">Редагувати зарплатню</button>
+    <button class="btn grey btn-flat edit-salary">Редагувати</button>
 </div>
 <div class="salary-periods">
     @for (int i = 0; i < Model.SalaryPeriods.Count; ++i)

@@ -10,6 +10,7 @@ namespace PocketBudget.Models
         public PathViewModel()
         {
             Salary = new SalaryViewModel();
+            ProfessionSelection = new ProfessionSelectionViewModel();
             Salary.SalaryPeriods = new List<SalaryPeriodViewModel>();
             Savings = new SavingsViewModel();
             Spendings = new SpendingsViewModel();
@@ -33,6 +34,9 @@ namespace PocketBudget.Models
 
         [UIHint("Salary")]
         public SalaryViewModel Salary { get; set; }
+
+        [UIHint("ProfessionSelection")]
+        public ProfessionSelectionViewModel ProfessionSelection { get; set; }
 
         [UIHint("Savings")]
         public SavingsViewModel Savings { get; set; }

@@ -1,0 +1,10 @@
+﻿@model ProfessionSelectionViewModel
+<p>
+    @Html.LabelFor(m => m.Professions)
+    <span class="newline @Html.IdFor(m => m.Professions)">
+        @if (Model.Professions != null && Model.Professions.Any())
+        {
+            @Model.Professions.FirstOrDefault(x => x.IsSelected).Title
+        }
+    </span>
+</p>

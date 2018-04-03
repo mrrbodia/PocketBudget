@@ -149,9 +149,12 @@
     <Compile Include="Models\AdditionalIncome\AdditionalIncomeItemViewModel.cs" />
     <Compile Include="Models\ChartLinesViewModel.cs" />
     <Compile Include="Models\ChartLineViewModel.cs" />
+    <Compile Include="Models\Profession\EducationDegreeViewModel.cs" />
     <Compile Include="Models\PathViewModel.cs" />
     <Compile Include="Models\AdditionalIncome\DepositViewModel.cs" />
     <Compile Include="Models\PensionViewModel.cs" />
+    <Compile Include="Models\Profession\ProfessionSelectionViewModel.cs" />
+    <Compile Include="Models\Profession\ProfessionViewModel.cs" />
     <Compile Include="Models\SalaryPeriodViewModel.cs" />
     <Compile Include="Models\SalaryViewModel.cs" />
     <Compile Include="Models\SpendingsViewModel.cs" />
@@ -276,6 +279,12 @@
     <Content Include="Views\Shared\DisplayTemplates\Savings.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Spendings.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Checkbox.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ProfessionSelection.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ProfessionSelection.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SelectProfession.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ProfessionViewModel.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EducationDegreeViewModel.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EducationDegrees.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Texts\" />
