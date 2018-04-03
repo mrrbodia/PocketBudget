@@ -21,16 +21,8 @@ namespace PocketBudget.Controllers
 
         public ActionResult Index()
         {
-            var t = PersonalFinances.Path.GetPathModels();
-            var model = new PathViewModel();
-            model.CurrentAge = 20;
-            model.LifeExpectancy = 80;
-            model.RetirementAge = 60;
-            model.Savings.Amount = 3000;
-            model.Savings.Type = SavingsType.Fixed;
-            model.Spendings.Amount = 2500;
-            model.Salary.SalaryPeriods.Add(new SalaryPeriodViewModel() { Amount = 7000, From = 20 });
-            model.Pension.Amount = 3000;
+            var defaultModel = PersonalFinances.Path.GetDefaultPathModel();
+            var model = mapper.Map<PathModel, PathViewModel>(defaultModel);
             return View(model);
         }
 

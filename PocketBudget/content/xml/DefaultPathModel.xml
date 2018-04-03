@@ -21,23 +21,4 @@
     <PensionModel>
       <Amount>3000</Amount>
     </PensionModel>
-    <AdditionalPathModel>
-      <AdditionalIncomes>
-        <From></From>
-        <To></To>
-        <Total></Total>
-        <CurrencyId></CurrencyId>
-        <IsActive></IsActive>
-        <IsHidden></IsHidden>
-        <LineType></LineType>
-      </AdditionalIncomes>
-      <AdditionalCosts>
-        <From></From>
-        <To></To>
-        <Total></Total>
-        <CurrencyId></CurrencyId>
-        <IsHidden></IsHidden>
-        <LineType></LineType>
-      </AdditionalCosts>
-    </AdditionalPathModel>
   </PathModel>

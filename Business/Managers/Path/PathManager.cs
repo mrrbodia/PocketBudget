@@ -16,5 +16,10 @@ namespace Business.Managers.Path
         {
             return Provider.GetPathModels();
         }
+
+        public PathModel GetDefaultPathModel()
+        {
+            return Provider.GetDefaultPathModel();
+        }
     }
 }
