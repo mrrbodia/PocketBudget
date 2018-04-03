@@ -1,4 +1,40 @@
 <?xml version="1.0"?>
-<PathModel>
-  
-</PathModel>
+<PathModels>
+  <PathModel>
+    <CurrentAge>20</CurrentAge>
+    <RetirementAge></RetirementAge>
+    <LifeExpectancy></LifeExpectancy>
+    <Salary>
+
+    </Salary>
+    <SavingsModel>
+      <Amount></Amount>
+      <Type></Type>
+    </SavingsModel>
+    <SpendingsModel>
+      <Amount></Amount>
+    </SpendingsModel>
+    <PensionModel>
+      <Amount></Amount>
+    </PensionModel>
+    <AdditionalPathModel>
+      <AdditionalIncomes>
+        <From></From>
+        <To></To>
+        <Total></Total>
+        <CurrencyId></CurrencyId>
+        <IsActive></IsActive>
+        <IsHidden></IsHidden>
+        <LineType></LineType>
+      </AdditionalIncomes>
+      <AdditionalCosts>
+        <From></From>
+        <To></To>
+        <Total></Total>
+        <CurrencyId></CurrencyId>
+        <IsHidden></IsHidden>
+        <LineType></LineType>
+      </AdditionalCosts>
+    </AdditionalPathModel>
+  </PathModel>
+</PathModels>
