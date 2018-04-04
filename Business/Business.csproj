@@ -98,6 +98,7 @@
     <Compile Include="Savings\FixedSavingsStrategy.cs" />
     <Compile Include="Savings\PercentageSavingsStrategy.cs" />
     <Compile Include="Savings\SavingsStrategy.cs" />
+    <Compile Include="Xml\Parsers\PathXmlParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
