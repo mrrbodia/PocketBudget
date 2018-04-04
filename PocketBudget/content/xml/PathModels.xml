@@ -23,21 +23,25 @@
     </PensionModel>
     <AdditionalPathModel>
       <AdditionalIncomes>
-        <From></From>
-        <To></To>
-        <Total></Total>
-        <CurrencyId></CurrencyId>
-        <IsActive></IsActive>
-        <IsHidden></IsHidden>
-        <LineType></LineType>
+      	<AdditionalIncome>
+          <From></From>
+          <To></To>
+          <Total></Total>
+          <CurrencyId></CurrencyId>
+          <IsActive></IsActive>
+          <IsHidden></IsHidden>
+          <LineType></LineType>
+      	</AdditionalIncomes>
       </AdditionalIncomes>
       <AdditionalCosts>
-        <From></From>
-        <To></To>
-        <Total></Total>
-        <CurrencyId></CurrencyId>
-        <IsHidden></IsHidden>
-        <LineType></LineType>
+        <AdditionalCost>
+          <From></From>
+          <To></To>
+          <Total></Total>
+          <CurrencyId></CurrencyId>
+          <IsHidden></IsHidden>
+          <LineType></LineType>
+        <AdditionalCost>
       </AdditionalCosts>
     </AdditionalPathModel>
   </PathModel>

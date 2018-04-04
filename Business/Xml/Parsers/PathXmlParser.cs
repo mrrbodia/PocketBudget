@@ -1,4 +1,5 @@
-﻿using Business.Models;
+﻿using Business.DomainModel.Active;
+using Business.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace Business.Xml.Parsers
             model.Savings = ParseSavings(element.Element("SavingsModel"));
             model.Spendings = ParseSpendings(element.Element("SpendingsModel"));
             model.Pension = ParsePension(element.Element("PensionModel"));
+            model.AdditionalPath = ParseAdditionalPath(element.Element("AdditionalPath"));
             return model;
         }
 
@@ -58,6 +60,21 @@ namespace Business.Xml.Parsers
             period.From = short.Parse(element.Element("From").Value);
             period.Amount = short.Parse(element.Element("Amount").Value);
             return period;
+        }
+
+        private AdditionalPathModel ParseAdditionalPath(XElement element)
+        {
+            var additionalPath = new AdditionalPathModel();
+            if(element != null)
+            {
+                additionalPath.AdditionalIncomes = ParseAdditionalIncomes(element.Element("AdditionalIncomes"));
+            }
+            return new AdditionalPathModel();
+        }
+
+        private IList<IAdditionalIncome> ParseAdditionalIncomes(XElement element)
+        {
+            return new List<IAdditionalIncome>();
         }
     }
 }
