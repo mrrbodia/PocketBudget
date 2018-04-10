@@ -83,12 +83,12 @@
                             <div>
                                 <label>Приклад даних користувача</label>
                             </div>
-                            <div>
-                                @Html.RadioButton("usersExamplesData", 1, htmlAttributes: new { id = "usersExamplesData_1", @class = "graph-updater usersExamplesData", @checked ="checked" })
+                            <div data-url="@Url.Action("GetPathModel")">
+                                @Html.RadioButton("usersExamplesData", "example1", htmlAttributes: new { id = "usersExamplesData_1", @class = "graph-updater usersExamplesData", @checked ="checked" })
                                 <label for="usersExamplesData_1">Олег</label>
-                                @Html.RadioButton("usersExamplesData", 2, htmlAttributes: new { id = "usersExamplesData_2", @class = "graph-updater usersExamplesData" })
+                                @Html.RadioButton("usersExamplesData", "example2", htmlAttributes: new { id = "usersExamplesData_2", @class = "graph-updater usersExamplesData" })
                                 <label for="usersExamplesData_2">Олександра</label>
-                                @Html.RadioButton("usersExamplesData", 3, htmlAttributes: new { id = "usersExamplesData_3", @class = "graph-updater usersExamplesData" })
+                                @Html.RadioButton("usersExamplesData", "example3", htmlAttributes: new { id = "usersExamplesData_3", @class = "graph-updater usersExamplesData" })
                                 <label for="usersExamplesData_3">Олексій</label>
                             </div>
                         </div>

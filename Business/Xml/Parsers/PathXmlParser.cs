@@ -15,6 +15,7 @@ namespace Business.Xml.Parsers
         public PathModel ParsePath(XElement element)
         {
             var model = new PathModel();
+            model.Id = element.Element("Id")?.Value;
             model.CurrentAge = short.Parse(element.Element("CurrentAge").Value);
             model.RetirementAge = short.Parse(element.Element("RetirementAge").Value);
             model.LifeExpectancy = short.Parse(element.Element("LifeExpectancy").Value);

@@ -9,6 +9,8 @@ namespace Business.Managers.Path
 {
     public interface IPathManager
     {
+        PathModel GetPathModel(string id);
+
         IList<PathModel> GetPathModels();
 
         PathModel GetDefaultPathModel();

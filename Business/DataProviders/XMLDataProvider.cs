@@ -19,22 +19,27 @@ namespace Business.DataProviders
         private const string examplesPath = "/content/xml/PathModels.xml";
         private const string defaultModelPath = "/content/xml/DefaultPathModel.xml";
 
-        public IList<PathModel> GetPathModels(string filePath = examplesPath)
+        private XDocument LoadDocument(string filePath)
         {
             if (!File.Exists(HttpContext.Current.Server.MapPath(filePath)))
-                return new List<PathModel>();
+                return null;
 
-            var xml = XDocument.Load(@HttpContext.Current.Server.MapPath(filePath));
-            var elements = xml.Elements("PathModel")
+           return XDocument.Load(@HttpContext.Current.Server.MapPath(filePath));
+        }
+
+        public IList<PathModel> GetPathModels()
+        {
+            var xml = LoadDocument(examplesPath);
+                
+            return xml.Elements("PathModels").Elements("PathModel")
                 .Select(element => Parser.ParsePath(element))
                 .ToList();
-
-            return elements;
         }
 
         public PathModel GetDefaultPathModel()
         {
-            return GetPathModels(defaultModelPath).FirstOrDefault();
+            var xml = LoadDocument(defaultModelPath);
+            return Parser.ParsePath(xml.Element("PathModel"));
         }
     }
 }

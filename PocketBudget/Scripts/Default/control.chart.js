@@ -583,6 +583,17 @@ PersonalFinances.Graph = (function () {
             $.validator.unobtrusive.parse(formId);
         });
         $(document).on('change', '.usersExamplesData', function (e) {
+            var url = $(this).parent().attr('data-url');
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: { modelId: $(this).val() },
+                success: function (data) {
+
+                }
+            });
+
             var value = $(this).val();
             var userData = usersExamplesData[value - 1];
             for (var key in userData) {

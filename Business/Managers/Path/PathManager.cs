@@ -12,6 +12,11 @@ namespace Business.Managers.Path
     {
         public XMLDataProvider Provider = new XMLDataProvider();
 
+        public PathModel GetPathModel(string id)
+        {
+            return Provider.GetPathModels().Single(m => m.Id.Equals(id));
+        }
+
         public IList<PathModel> GetPathModels()
         {
             return Provider.GetPathModels();

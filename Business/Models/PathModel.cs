@@ -3,6 +3,8 @@ namespace Business.Models
 {
     public class PathModel
     {
+        public string Id {get;set;}
+
         public short CurrentAge { get; set; }
 
         public short RetirementAge { get; set; }

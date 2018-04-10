@@ -21,9 +21,17 @@ namespace PocketBudget.Controllers
 
         public ActionResult Index()
         {
-            var defaultModel = PersonalFinances.Path.GetDefaultPathModel();
-            var model = mapper.Map<PathModel, PathViewModel>(defaultModel);
-            return View(model);
+            var model = PersonalFinances.Path.GetDefaultPathModel();
+            var viewModel = mapper.Map<PathModel, PathViewModel>(model);
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult GetPathModel(string modelId)
+        {
+            var model = PersonalFinances.Path.GetPathModel(modelId);
+            var viewModel = mapper.Map<PathModel, PathViewModel>(model);
+            return Json(viewModel);
         }
 
         //TODO: validate AGE
