@@ -31,7 +31,7 @@
           <IsActive></IsActive>
           <IsHidden></IsHidden>
           <LineType></LineType>
-      	</AdditionalIncomes>
+      	</AdditionalIncome>
       </AdditionalIncomes>
       <AdditionalCosts>
         <AdditionalCost>
@@ -41,7 +41,7 @@
           <CurrencyId></CurrencyId>
           <IsHidden></IsHidden>
           <LineType></LineType>
-        <AdditionalCost>
+        </AdditionalCost>
       </AdditionalCosts>
     </AdditionalPathModel>
   </PathModel>

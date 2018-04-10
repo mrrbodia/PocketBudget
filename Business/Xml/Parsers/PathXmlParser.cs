@@ -67,14 +67,39 @@ namespace Business.Xml.Parsers
             var additionalPath = new AdditionalPathModel();
             if(element != null)
             {
-                additionalPath.AdditionalIncomes = ParseAdditionalIncomes(element.Element("AdditionalIncomes"));
+                additionalPath.AdditionalIncomes = element
+                    .Element("AdditionalIncomes")
+                    .Elements("AdditionalIncome")
+                    .Select(i => ParseAdditionalIncomes(i))
+                    .ToList();
+
+                additionalPath.AdditionalCosts = element
+                    .Element("AdditionalCosts")
+                    .Elements("AdditionalCost")
+                    .Select(c => c)
+                    .ToList();
             }
             return new AdditionalPathModel();
         }
 
-        private IList<IAdditionalIncome> ParseAdditionalIncomes(XElement element)
+        private IAdditionalIncome ParseAdditionalIncomes(XElement element)
         {
-            return new List<IAdditionalIncome>();
+            var type = element.Element("LineType").Value;
+            if (string.IsNullOrEmpty(type))
+                return null;
+
+            if(type.Equals(Constants.ChartLineType.Deposit))
+            {
+                var deposit = new Deposit();
+                deposit.From = short.Parse(element.Element("From").Value);
+                deposit.IsActive = bool.Parse(element.Element("IsActive").Value);
+                deposit.IsHidden = bool.Parse(element.Element("IsHidden").Value);
+                deposit.Percentage = double.Parse(element.Element("Percentage").Value);
+                deposit.Total = decimal.Parse(element.Element("Total").Value);
+                deposit.Years = short.Parse(element.Element("Years").Value);
+            }
+
+            return additionalIncome;
         }
     }
 }
