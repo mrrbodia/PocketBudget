@@ -1,4 +1,5 @@
 ﻿using Business.DomainModel.Active;
+using Business.DomainModel.Cost;
 using Business.Models;
 using System;
 using System.Collections.Generic;
@@ -70,19 +71,19 @@ namespace Business.Xml.Parsers
                 additionalPath.AdditionalIncomes = element
                     .Element("AdditionalIncomes")
                     .Elements("AdditionalIncome")
-                    .Select(i => ParseAdditionalIncomes(i))
+                    .Select(i => ParseAdditionalIncome(i))
                     .ToList();
 
                 additionalPath.AdditionalCosts = element
                     .Element("AdditionalCosts")
                     .Elements("AdditionalCost")
-                    .Select(c => c)
+                    .Select(c => ParseAdditionalCost(c))
                     .ToList();
             }
-            return new AdditionalPathModel();
+            return additionalPath;
         }
 
-        private IAdditionalIncome ParseAdditionalIncomes(XElement element)
+        private IAdditionalIncome ParseAdditionalIncome(XElement element)
         {
             var type = element.Element("LineType").Value;
             if (string.IsNullOrEmpty(type))
@@ -97,9 +98,57 @@ namespace Business.Xml.Parsers
                 deposit.Percentage = double.Parse(element.Element("Percentage").Value);
                 deposit.Total = decimal.Parse(element.Element("Total").Value);
                 deposit.Years = short.Parse(element.Element("Years").Value);
+                deposit.CurrencyId = element.Element("CurrencyId").Value;
+
+                return deposit;
             }
 
-            return additionalIncome;
+            if (type.Equals(Constants.ChartLineType.Credit))
+            {
+                var sale = new Sale();
+                sale.From = short.Parse(element.Element("From").Value);
+                sale.IsActive = bool.Parse(element.Element("IsActive").Value);
+                sale.IsHidden = bool.Parse(element.Element("IsHidden").Value);
+                sale.Total = decimal.Parse(element.Element("Total").Value);
+                sale.CurrencyId = element.Element("CurrencyId").Value;
+
+                return sale;
+            }
+
+            return null;
+        }
+
+        private IAdditionalCost ParseAdditionalCost(XElement element)
+        {
+            var type = element.Element("LineType").Value;
+            if (string.IsNullOrEmpty(type))
+                return null;
+
+            if (type.Equals(Constants.ChartLineType.Credit))
+            {
+                var credit = new Credit();
+                credit.From = short.Parse(element.Element("From").Value);
+                credit.IsHidden = bool.Parse(element.Element("IsHidden").Value);
+                credit.Percentage = double.Parse(element.Element("Percentage").Value);
+                credit.Total = decimal.Parse(element.Element("Total").Value);
+                credit.Years = short.Parse(element.Element("Years").Value);
+                credit.CurrencyId = element.Element("CurrencyId").Value;
+
+                return credit;
+            }
+
+            if (type.Equals(Constants.ChartLineType.Purchase))
+            {
+                var purchase = new Purchase();
+                purchase.From = short.Parse(element.Element("From").Value);
+                purchase.IsHidden = bool.Parse(element.Element("IsHidden").Value);
+                purchase.Total = decimal.Parse(element.Element("Total").Value);
+                purchase.CurrencyId = element.Element("CurrencyId").Value;
+
+                return purchase;
+            }
+
+            return null;
         }
     }
 }
