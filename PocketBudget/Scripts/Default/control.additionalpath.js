@@ -1,6 +1,13 @@
 ﻿var PersonalFinances = PersonalFinances || {};
 PersonalFinances.Path.AdditionalPath = (function () {
 
+    var clearAdditionalData = function () {
+        PersonalFinances.Path.AdditionalPath['Deposit'] = [];
+        PersonalFinances.Path.AdditionalPath['Sale'] = [];
+        PersonalFinances.Path.AdditionalPath['Credit'] = [];
+        PersonalFinances.Path.AdditionalPath['Purchase'] = [];
+    }
+
     var bindDeposit = function (currencyId, total, percentage, years, fromAge) {
         PersonalFinances.Path.AdditionalPath['Deposit'] = PersonalFinances.Path.AdditionalPath['Deposit'] || [];
 
@@ -168,6 +175,7 @@ PersonalFinances.Path.AdditionalPath = (function () {
         },
         bindModel: function (pathModel) {
             if (pathModel.AdditionalPath != undefined) {
+                clearAdditionalData();
                 bindModel(pathModel.AdditionalPath);
             }
         }

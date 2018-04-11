@@ -57,8 +57,19 @@
           <IsActive>false</IsActive>
           <IsHidden>false</IsHidden>
           <LineType>Deposit</LineType>
-	  <Percentage>14.0</Percentage>
-	  <Years>3</Years>
+	        <Percentage>14.0</Percentage>
+	        <Years>3</Years>
+        </AdditionalIncome>
+        <AdditionalIncome>
+          <From>40</From>
+          <To></To>
+          <Total>150000</Total>
+          <CurrencyId>hrn</CurrencyId>
+          <IsActive>false</IsActive>
+          <IsHidden>false</IsHidden>
+          <LineType>Deposit</LineType>
+          <Percentage>14.0</Percentage>
+          <Years>2</Years>
         </AdditionalIncome>
       </AdditionalIncomes>
       <AdditionalCosts>
@@ -79,12 +90,12 @@
     <RetirementAge>65</RetirementAge>
     <LifeExpectancy>80</LifeExpectancy>
     <Salary>
-	<SalaryPeriods>
-	  <SalaryPeriod>
-	    <From>20</From>
-	    <Amount>16000</Amount>
-	  </SalaryPeriod>
-	</SalaryPeriods>
+	    <SalaryPeriods>
+	      <SalaryPeriod>
+	        <From>20</From>
+	        <Amount>16000</Amount>
+	      </SalaryPeriod>
+	    </SalaryPeriods>
     </Salary>
     <SavingsModel>
       <Amount>10000</Amount>
@@ -96,5 +107,30 @@
     <PensionModel>
       <Amount>1600</Amount>
     </PensionModel>
+    <AdditionalPathModel>
+      <AdditionalIncomes>
+        <AdditionalIncome>
+          <From>40</From>
+          <To></To>
+          <Total>150000</Total>
+          <CurrencyId>hrn</CurrencyId>
+          <IsActive>false</IsActive>
+          <IsHidden>false</IsHidden>
+          <LineType>Deposit</LineType>
+          <Percentage>14.0</Percentage>
+          <Years>2</Years>
+        </AdditionalIncome>
+      </AdditionalIncomes>
+      <AdditionalCosts>
+        <AdditionalCost>
+          <From>36</From>
+          <To></To>
+          <Total>120000</Total>
+          <CurrencyId>hrn</CurrencyId>
+          <IsHidden>false</IsHidden>
+          <LineType>Purchase</LineType>
+        </AdditionalCost>
+      </AdditionalCosts>
+    </AdditionalPathModel>
   </PathModel>
 </PathModels>
