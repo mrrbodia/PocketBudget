@@ -590,17 +590,10 @@ PersonalFinances.Graph = (function () {
                 type: 'POST',
                 data: { modelId: $(this).val() },
                 success: function (data) {
-
+                    var chartLines = getChartLines(data);
+                    updateGraphWithData(chartLines);
                 }
             });
-
-            var value = $(this).val();
-            var userData = usersExamplesData[value - 1];
-            for (var key in userData) {
-                $('#' + key).val(userData[key]);
-                $('.' + key).text(userData[key]);
-            }
-            updateGraph();
         });
     };
 

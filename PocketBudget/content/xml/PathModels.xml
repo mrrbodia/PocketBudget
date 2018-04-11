@@ -47,6 +47,31 @@
     <PensionModel>
       <Amount>2000</Amount>
     </PensionModel>
+    <AdditionalPathModel>
+      <AdditionalIncomes>
+        <AdditionalIncome>
+          <From>35</From>
+          <To></To>
+          <Total>100000</Total>
+          <CurrencyId>hrn</CurrencyId>
+          <IsActive>false</IsActive>
+          <IsHidden>false</IsHidden>
+          <LineType>Deposit</LineType>
+	  <Percentage>14.0</Percentage>
+	  <Years>3</Years>
+        </AdditionalIncome>
+      </AdditionalIncomes>
+      <AdditionalCosts>
+        <AdditionalCost>
+          <From>40</From>
+          <To></To>
+          <Total>300000</Total>
+          <CurrencyId>hrn</CurrencyId>
+          <IsHidden>false</IsHidden>
+          <LineType>Purchase</LineType>
+        </AdditionalCost>
+      </AdditionalCosts>
+    </AdditionalPathModel>
   </PathModel>
   <PathModel>
     <Id>example3</Id>

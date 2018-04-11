@@ -30,8 +30,13 @@ namespace PocketBudget.Controllers
         public ActionResult GetPathModel(string modelId)
         {
             var model = PersonalFinances.Path.GetPathModel(modelId);
-            var viewModel = mapper.Map<PathModel, PathViewModel>(model);
-            return Json(viewModel);
+            if(model != null)
+            {
+                var chartLines = GenerateChartLines(model);
+                return Json(chartLines);
+            }
+
+            return Json(0);
         }
 
         //TODO: validate AGE
@@ -42,12 +47,19 @@ namespace PocketBudget.Controllers
             if (pathModel.IsValid())
             {
                 var path = mapper.Map<PathViewModel, PathModel>(pathModel);
-                var chartLines = PersonalFinances.Chart.GetChartLines(path);
-                var chartLinesModel = mapper.Map<List<ChartLine>, List<ChartLineViewModel>>(chartLines);
+                var chartLines = GenerateChartLines(path);
 
-                return Json(chartLinesModel);
+                return Json(chartLines);
             }
             return Json(0);
+        }
+
+        protected virtual List<ChartLineViewModel> GenerateChartLines(PathModel path)
+        {
+            var chartLines = PersonalFinances.Chart.GetChartLines(path);
+            var chartLinesModel = mapper.Map<List<ChartLine>, List<ChartLineViewModel>>(chartLines);
+
+            return chartLinesModel;
         }
 
         [HttpGet]

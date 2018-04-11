@@ -21,39 +21,46 @@ namespace Business.Components.AdditionalPath
         {
             var additionalLines = new List<ChartLine>();
 
-            foreach (var additionalIncome in path.AdditionalPath.AdditionalIncomes)
+            if (path.AdditionalPath?.AdditionalIncomes != null)
             {
-                if (additionalIncome.From < path.CurrentAge)
-                    continue;
-
-                additionalIncome.From -= path.CurrentAge;
-                additionalIncome.To = (short)(path.LifeExpectancy - path.CurrentAge);
-                if(!additionalIncome.IsHidden)
+                foreach (var additionalIncome in path.AdditionalPath.AdditionalIncomes)
                 {
-                    foreach (var step in this.incomeSteps)
+                    if (additionalIncome.From < path.CurrentAge)
+                        continue;
+
+                    additionalIncome.From -= path.CurrentAge;
+                    additionalIncome.To = (short)(path.LifeExpectancy - path.CurrentAge);
+                    if (!additionalIncome.IsHidden)
                     {
-                        step.Execute(additionalIncome, points);
+                        foreach (var step in this.incomeSteps)
+                        {
+                            step.Execute(additionalIncome, points);
+                        }
                     }
+                    additionalIncome.From += path.CurrentAge;
+                    additionalLines.Add(new ChartLine(additionalIncome.LineType, points, additionalIncome.Total, additionalIncome.CurrencyId, additionalIncome.IsHidden));
                 }
-                additionalIncome.From += path.CurrentAge;
-                additionalLines.Add(new ChartLine(additionalIncome.LineType, points, additionalIncome.Total, additionalIncome.CurrencyId, additionalIncome.IsHidden));
             }
-            foreach (var additionalCost in path.AdditionalPath.AdditionalCosts)
-            {
-                if (additionalCost.From < path.CurrentAge)
-                    continue;
 
-                additionalCost.From -= path.CurrentAge;
-                additionalCost.To = (short)(path.LifeExpectancy - path.CurrentAge);
-                if (!additionalCost.IsHidden)
+            if (path.AdditionalPath?.AdditionalCosts != null)
+            {
+                foreach (var additionalCost in path.AdditionalPath.AdditionalCosts)
                 {
-                    foreach (var step in this.costSteps)
+                    if (additionalCost.From < path.CurrentAge)
+                        continue;
+
+                    additionalCost.From -= path.CurrentAge;
+                    additionalCost.To = (short)(path.LifeExpectancy - path.CurrentAge);
+                    if (!additionalCost.IsHidden)
                     {
-                        step.Execute(additionalCost, points);
+                        foreach (var step in this.costSteps)
+                        {
+                            step.Execute(additionalCost, points);
+                        }
                     }
+                    additionalCost.From += path.CurrentAge;
+                    additionalLines.Add(new ChartLine(additionalCost.LineType, points, additionalCost.Total, additionalCost.CurrencyId, additionalCost.IsHidden));
                 }
-                additionalCost.From += path.CurrentAge;
-                additionalLines.Add(new ChartLine(additionalCost.LineType, points, additionalCost.Total, additionalCost.CurrencyId, additionalCost.IsHidden));
             }
             return additionalLines;
         }

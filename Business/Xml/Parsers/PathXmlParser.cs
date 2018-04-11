@@ -23,7 +23,7 @@ namespace Business.Xml.Parsers
             model.Savings = ParseSavings(element.Element("SavingsModel"));
             model.Spendings = ParseSpendings(element.Element("SpendingsModel"));
             model.Pension = ParsePension(element.Element("PensionModel"));
-            model.AdditionalPath = ParseAdditionalPath(element.Element("AdditionalPath"));
+            model.AdditionalPath = ParseAdditionalPath(element.Element("AdditionalPathModel"));
             return model;
         }
 
