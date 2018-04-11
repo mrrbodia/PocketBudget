@@ -39,6 +39,9 @@
                 @Html.DisplayFor(m => m.Salary)
             </div>
             <div>
+                @Html.DisplayFor(m => m.ProfessionSelection)
+            </div>
+            <div>
                 @Html.DisplayFor(m => m.Savings)
             </div>
             <div>
@@ -79,6 +82,7 @@
                 <div id="slide-out" class="side-nav">
                     @using (Html.BeginForm("GetChartLines", "Home", FormMethod.Post, htmlAttributes: new { id = "path-form" }))
                     {
+                        @Html.ValidationSummary(false)
                         <div class="form-row">
                             <div>
                                 <label>Приклад даних користувача</label>
@@ -94,6 +98,9 @@
                         </div>
                         <div class="form-row">
                             @Html.EditorFor(m => m.Salary)
+                        </div>
+                        <div class="form-row">
+                            @Html.EditorFor(m => m.ProfessionSelection)
                         </div>
                         <div class="form-row">
                             @Html.EditorFor(m => m.Savings)

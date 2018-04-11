@@ -272,6 +272,7 @@ PersonalFinances.Graph = (function () {
         return obj;
     }
 
+    //TODO: refactor
     var getChartLine = function (line) {
         if (line.Type === 'Base') {
             return {
@@ -499,6 +500,8 @@ PersonalFinances.Graph = (function () {
     }
 
     var initEvents = function () {
+        //TODO: graph-updater select
+        //education selection will be losed (till session will be implemented)
         $('.graph-updater[type=number]').on('input', function (e) {
             onDataChanged(this);
         });
@@ -506,6 +509,7 @@ PersonalFinances.Graph = (function () {
             PersonalFinances.Path.AdditionalPath.saveAdditionalValuesSelection();
             updateGraph();
         });
+        //TODO: refactor the same event behavior
         $(document).on('click', '.save-edit-salary', function (e) {
             var $form = $('.form-edit-salary-content');
             if (!$form.valid()) {
@@ -514,6 +518,24 @@ PersonalFinances.Graph = (function () {
             PersonalFinances.Popups.close('#edit-salary-popup');
             addSalaryPeriodToPath();
             updateGraph();
+        });
+        $(document).on('click', '.save-edit-profession', function (e) {
+            var $form = $('.form-edit-profession-content');
+            if (!$form.valid()) {
+                return;
+            }
+            PersonalFinances.Popups.close('#edit-profession-popup');
+            //addEducationToPath();
+            updateGraph();
+        });
+        $(document).on('click', '.edit-profession', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var option = $('.profession-selection option:selected');
+            var newHtml = $('.' + option.attr('value')).html().trim();
+            $('#edit-profession-popup').find('.edit-profession-content').html(newHtml);
+            PersonalFinances.Popups.open('#edit-profession-popup');
+            PersonalFinances.UI.resetValidationFor('.form-edit-profession-content');
         });
         $(document).on('click', '.edit-salary', function (e) {
             e.preventDefault();
@@ -563,7 +585,6 @@ PersonalFinances.Graph = (function () {
             var value = $(this).attr('data-value');
             var selector = '#' + $(this).attr('data-for');
             $(selector).val(value);
-
             onDataChanged(selector);
         });
         $(".button-collapse").sideNav('show');
@@ -597,6 +618,7 @@ PersonalFinances.Graph = (function () {
                 }
             });
         });
+        $('select').material_select();
     };
 
     var init = function () {

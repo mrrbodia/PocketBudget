@@ -149,6 +149,7 @@
     color: red;
 }
 
-.salary-periods {
+.salary-periods,
+.education-degrees {
     display: none;
 }

@@ -23,6 +23,7 @@ namespace PocketBudget.Controllers
         {
             var model = PersonalFinances.Path.GetDefaultPathModel();
             var viewModel = mapper.Map<PathModel, PathViewModel>(model);
+            viewModel.ProfessionSelection.Professions = CreateProfessionsModel();
             return View(viewModel);
         }
 
@@ -92,6 +93,23 @@ namespace PocketBudget.Controllers
                 path.Salary.SalaryPeriods.RemoveAt(path.Salary.SalaryPeriods.Count - 1);
             }
             return View("Index", path);
+        }
+
+        protected IList<ProfessionViewModel> CreateProfessionsModel()
+        {
+            //TODO: tmp solution, should be taken per profession
+            var result = new List<ProfessionViewModel>();
+            var bachelorDegree = new EducationDegreeViewModel() { IsReached = false, MinReachAge = 18, ReachedIn = 18, Title = "Бакалавр" };
+            var masterDegree = new EducationDegreeViewModel() { IsReached = false, MinReachAge = 20, ReachedIn = 20, Title = "Магістр" };
+            var degrees = new List<EducationDegreeViewModel>();
+            degrees.Add(bachelorDegree);
+            degrees.Add(masterDegree);
+            result.Add(new ProfessionViewModel() { Title = "Не обрано", IsSelected = true, Degrees = degrees });
+            var teacherDegrees = new List<EducationDegreeViewModel>(degrees);
+            var thesisDegree = new EducationDegreeViewModel() { IsReached = false, MinReachAge = 20, ReachedIn = 20, Title = "Дисертація" };
+            teacherDegrees.Add(thesisDegree);
+            result.Add(new ProfessionViewModel() { Title = "Викладач", IsSelected = false, Degrees = teacherDegrees });
+            return result;
         }
 
         protected AdditionalIncomeViewModel CreateAdditionalIncomeViewModel(int? fromAge)

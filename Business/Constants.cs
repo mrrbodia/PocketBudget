@@ -12,8 +12,7 @@ namespace Business
             public const string HrnSymbol = "₴";
             public const string EuroSymbol = "€";
         }
-
-        //TODO: Income and costs vs Deposit and Credit
+        
         public class ChartLineType
         {
             public const string Deposit = "Deposit";
