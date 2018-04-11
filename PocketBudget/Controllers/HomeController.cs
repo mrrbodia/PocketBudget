@@ -33,7 +33,7 @@ namespace PocketBudget.Controllers
             if(model != null)
             {
                 var chartLines = GenerateChartLines(model);
-                return Json(chartLines);
+                return Json(new { lines = chartLines, model = model });
             }
 
             return Json(0);

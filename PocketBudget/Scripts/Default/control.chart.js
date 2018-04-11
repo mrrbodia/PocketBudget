@@ -590,7 +590,9 @@ PersonalFinances.Graph = (function () {
                 type: 'POST',
                 data: { modelId: $(this).val() },
                 success: function (data) {
-                    var chartLines = getChartLines(data);
+                    PersonalFinances.Path.AdditionalPath.bindModel(data.model);
+
+                    var chartLines = getChartLines(data.lines);
                     updateGraphWithData(chartLines);
                 }
             });
