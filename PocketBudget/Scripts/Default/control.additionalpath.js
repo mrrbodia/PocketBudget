@@ -45,7 +45,7 @@ PersonalFinances.Path.AdditionalPath = (function () {
         PersonalFinances.Path.AdditionalPath['Credit'].push(credit);
     }
 
-    bindPurchase = function (currencyId, total, fromAge) {
+    var bindPurchase = function (currencyId, total, fromAge) {
         PersonalFinances.Path.AdditionalPath['Purchase'] = PersonalFinances.Path.AdditionalPath['Purchase'] || [];
 
         var purchase = {
