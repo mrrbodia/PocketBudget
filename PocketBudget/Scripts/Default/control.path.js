@@ -1,4 +1,27 @@
 ﻿var PersonalFinances = PersonalFinances || {};
+PersonalFinances.Path = (function () {
+
+    var updatePathFormValues = function (path) {
+        updateInput('CurrentAge', path.CurrentAge);
+        updateInput('LifeExpectancy', path.LifeExpectancy);
+        updateInput('RetirementAge', path.RetirementAge);
+        updateInput('Pension_Amount', path.Pension.Amount);
+        updateInput('Savings_Amount', path.Savings.Amount);
+        updateInput('Spendings_Amount', path.Spendings.Amount);
+    };
+
+    var updateInput = function (selector, value) {
+        $('.' + selector).text(value);
+        $('#' + selector).val(value);
+    }
+
+    return {
+        updatePathForm: function (path) {
+            updatePathFormValues(path);
+        }
+    }
+}());
+
 PersonalFinances.Path.AdditionalPath = (function () {
 
     var clearAdditionalData = function () {

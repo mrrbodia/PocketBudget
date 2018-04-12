@@ -234,7 +234,7 @@
     <Content Include="Scripts\Default\finances.ui.js" />
     <Content Include="Scripts\Default\finances.validate.unobtrusive.js" />
     <Content Include="Scripts\Default\finances.validate.js" />
-    <Content Include="Scripts\Default\control.additionalpath.js" />
+    <Content Include="Scripts\Default\control.path.js" />
     <Content Include="Scripts\Default\control.binder.js" />
     <Content Include="Scripts\Default\control.popups.js" />
     <Content Include="Scripts\Default\control.slider.js" />

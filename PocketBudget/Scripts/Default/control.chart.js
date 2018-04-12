@@ -611,6 +611,7 @@ PersonalFinances.Graph = (function () {
                 type: 'POST',
                 data: { modelId: $(this).val() },
                 success: function (data) {
+                    PersonalFinances.Path.updatePathForm(data.model);
                     PersonalFinances.Path.AdditionalPath.bindModel(data.model);
 
                     var chartLines = getChartLines(data.lines);
