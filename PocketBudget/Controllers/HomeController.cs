@@ -95,21 +95,31 @@ namespace PocketBudget.Controllers
             return View("Index", path);
         }
 
+        [HttpPost]
+        public ActionResult GetDegrees(string professionId)
+        {
+            return View("EducationDegrees", CreateDegreesModel(professionId));
+        }
+
         protected IList<ProfessionViewModel> CreateProfessionsModel()
         {
             //TODO: tmp solution, should be taken per profession
             var result = new List<ProfessionViewModel>();
+            result.Add(new ProfessionViewModel() { Title = "Не обрано", IsSelected = true, Id = "0" });
+            result.Add(new ProfessionViewModel() { Title = "Викладач", IsSelected = false, Id = "1" });
+            return result;
+        }
+
+        protected IList<EducationDegreeViewModel> CreateDegreesModel(string profesionId)
+        {
+            var degrees = new List<EducationDegreeViewModel>();
+
             var bachelorDegree = new EducationDegreeViewModel() { IsReached = false, MinReachAge = 18, ReachedIn = 18, Title = "Бакалавр" };
             var masterDegree = new EducationDegreeViewModel() { IsReached = false, MinReachAge = 20, ReachedIn = 20, Title = "Магістр" };
-            var degrees = new List<EducationDegreeViewModel>();
             degrees.Add(bachelorDegree);
             degrees.Add(masterDegree);
-            result.Add(new ProfessionViewModel() { Title = "Не обрано", IsSelected = true, Degrees = degrees });
-            var teacherDegrees = new List<EducationDegreeViewModel>(degrees);
-            var thesisDegree = new EducationDegreeViewModel() { IsReached = false, MinReachAge = 20, ReachedIn = 20, Title = "Дисертація" };
-            teacherDegrees.Add(thesisDegree);
-            result.Add(new ProfessionViewModel() { Title = "Викладач", IsSelected = false, Degrees = teacherDegrees });
-            return result;
+
+            return degrees;
         }
 
         protected AdditionalIncomeViewModel CreateAdditionalIncomeViewModel(int? fromAge)

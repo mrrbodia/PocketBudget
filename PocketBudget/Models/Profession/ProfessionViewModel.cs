@@ -13,6 +13,8 @@ namespace PocketBudget.Models
             Degrees = new List<EducationDegreeViewModel>();
         }
 
+        public string Id { get; set; }
+
         [Display(Name = "Професія")]
         public string Title { get; set; }
 

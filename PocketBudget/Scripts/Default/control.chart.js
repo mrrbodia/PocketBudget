@@ -3,35 +3,6 @@ PersonalFinances.Graph = (function () {
     var ctx = document.getElementById("chart");
     var chart = null;
 
-    var usersExamplesData = [
-        {
-            Salary_Amount: 7000,
-            Savings_Amount: 3000,
-            Pension_Amount: 3000,
-            Spendings_Amount: 2500,
-            CurrentAge: 20,
-            RetirementAge: 60,
-            LifeExpectancy: 80
-        },
-        {
-            Salary_Amount: 12000,
-            Savings_Amount: 7000,
-            Pension_Amount: 2000,
-            Spendings_Amount: 3500,
-            CurrentAge: 26,
-            RetirementAge: 60,
-            LifeExpectancy: 80
-        },
-        {
-            Salary_Amount: 16000,
-            Savings_Amount: 10000,
-            Pension_Amount: 1600,
-            Spendings_Amount: 5000,
-            CurrentAge: 28,
-            RetirementAge: 65,
-            LifeExpectancy: 80
-        }];
-
     var initTimeout = function (el, timeout) {
         return setTimeout(function () {
             el.style.display = 'none';
