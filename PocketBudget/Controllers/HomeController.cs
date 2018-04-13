@@ -95,7 +95,7 @@ namespace PocketBudget.Controllers
             return View("Index", path);
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult GetDegrees(string professionId)
         {
             return View("EducationDegrees", CreateDegreesModel(professionId));

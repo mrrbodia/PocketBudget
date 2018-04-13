@@ -284,7 +284,7 @@
     <Content Include="Views\Shared\EditorTemplates\SelectProfession.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ProfessionViewModel.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\EducationDegreeViewModel.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\EducationDegrees.cshtml" />
+    <Content Include="Views\Home\EducationDegrees.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Texts\" />

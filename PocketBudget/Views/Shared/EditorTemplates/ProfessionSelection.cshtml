@@ -2,5 +2,5 @@
 <div>
     @Html.LabelFor(m => m.Professions)
     @Html.EditorFor(m => m.Professions)
-    <button class="btn grey btn-flat edit-profession">Більше</button>
+    <button class="btn grey btn-flat edit-profession" data-url="@Url.Action("GetDegrees", "Home")">Більше</button>
 </div>

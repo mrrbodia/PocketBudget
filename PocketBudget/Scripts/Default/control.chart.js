@@ -502,11 +502,20 @@ PersonalFinances.Graph = (function () {
         $(document).on('click', '.edit-profession', function (e) {
             e.preventDefault();
             e.stopPropagation();
+            var url = $(this).attr('data-url');
             var option = $('.profession-selection option:selected');
-            var newHtml = $('.' + option.attr('value')).html().trim();
-            $('#edit-profession-popup').find('.edit-profession-content').html(newHtml);
-            PersonalFinances.Popups.open('#edit-profession-popup');
-            PersonalFinances.UI.resetValidationFor('.form-edit-profession-content');
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: { professionId: option.attr('value') },
+                success: function (data) {
+                    var newHtml = data.trim();
+                    $('#edit-profession-popup').find('.edit-profession-content').html(newHtml);
+                    PersonalFinances.Popups.open('#edit-profession-popup');
+                    PersonalFinances.UI.resetValidationFor('.form-edit-profession-content');
+                    Materialize.updateTextFields();
+                }
+            });
         });
         $(document).on('click', '.edit-salary', function (e) {
             e.preventDefault();
