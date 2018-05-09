@@ -5,7 +5,7 @@
 }
 @if (Model != null && Model.Any())
 {
-    <div class="input-field">
+    <div>
         <select class="graph-updater profession-selection">
             @for (int i = 0; i < Model.Count; ++i)
             {
@@ -13,11 +13,11 @@
                 <option value="@Model[i].Id" @selected>@Model[i].Title</option>
             }
         </select>
-        @for (int i = 0; i < Model.Count; ++i)
+        @*@for (int i = 0; i < Model.Count; ++i)
         {
             <div class="education-degrees @string.Format("{0}{1}", prefix.Replace('.', '-'), i)">
                 @Html.EditorFor(m => Model[i], null, String.Format("{0}[{1}]", prefix, i))
             </div>
-        }
+        }*@
     </div>
 }

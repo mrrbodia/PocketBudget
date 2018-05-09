@@ -437,39 +437,6 @@ PersonalFinances.Graph = (function () {
         addSalaryPeriodToPath();
     };
 
-    $.validator.unobtrusive.parseDynamicContent = function (selector) {
-        //use the normal unobstrusive.parse method
-        $.validator.unobtrusive.parse(selector);
-
-        //get the relevant form
-        var form = $(selector).first().closest('form');
-
-        //get the collections of unobstrusive validators, and jquery validators
-        //and compare the two
-        var unobtrusiveValidation = form.data('unobtrusiveValidation');
-        var validator = form.validate();
-
-        $.each(unobtrusiveValidation.options.rules, function (elname, elrules) {
-            if (validator.settings.rules[elname] == undefined) {
-                var args = {};
-                $.extend(args, elrules);
-                args.messages = unobtrusiveValidation.options.messages[elname];
-                //edit:use quoted strings for the name selector
-                $("[name='" + elname + "']").rules("add", args);
-            } else {
-                $.each(elrules, function (rulename, data) {
-                    if (validator.settings.rules[elname][rulename] == undefined) {
-                        var args = {};
-                        args[rulename] = data;
-                        args.messages = unobtrusiveValidation.options.messages[elname][rulename];
-                        //edit:use quoted strings for the name selector
-                        $("[name='" + elname + "']").rules("add", args);
-                    }
-                });
-            }
-        });
-    }
-
     var initEvents = function () {
         //TODO: graph-updater select
         //education selection will be losed (till session will be implemented)
@@ -585,7 +552,6 @@ PersonalFinances.Graph = (function () {
         });
         $(document).on('change', '.usersExamplesData', function (e) {
             var url = $(this).parent().attr('data-url');
-
             $.ajax({
                 url: url,
                 type: 'POST',
@@ -599,7 +565,6 @@ PersonalFinances.Graph = (function () {
                 }
             });
         });
-        $('select').material_select();
     };
 
     var init = function () {
@@ -618,6 +583,7 @@ PersonalFinances.Graph = (function () {
 })();
 
 $(document).ready(function () {
+    $('select').material_select();
     if (document.getElementById('chart-block-new'))
         PersonalFinances.Graph.init();
 });

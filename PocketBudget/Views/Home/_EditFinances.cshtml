@@ -37,11 +37,9 @@
 
                                     @Html.HiddenFor(m => m.AdditionalIncome.Deposits[i].Percentage, htmlAttributes: new { @class= "percentage hidden" })
 
-                                    @Html.LabelFor(m => m.AdditionalIncome.Deposits[i].Total)
                                     @Html.TextBoxFor(m => m.AdditionalIncome.Deposits[i].Total, htmlAttributes: new { type = "number", @class = "total option-input " + visibility })
                                     @Html.ValidationMessageFor(m => m.AdditionalIncome.Deposits[i].Total)
 
-                                    @Html.LabelFor(m => m.AdditionalIncome.Deposits[i].Years)
                                     @Html.TextBoxFor(m => m.AdditionalIncome.Deposits[i].Years, htmlAttributes: new { type = "number", @class = "years option-input " + visibility })
                                     @Html.ValidationMessageFor(m => m.AdditionalIncome.Deposits[i].Years)
                                 </p>

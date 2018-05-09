@@ -110,14 +110,16 @@ namespace PocketBudget.Controllers
             return result;
         }
 
-        protected IList<EducationDegreeViewModel> CreateDegreesModel(string profesionId)
+        protected IList<EducationDegreeViewModel> CreateDegreesModel(string professionId)
         {
+            //TODO: degrees should be taken for profession
             var degrees = new List<EducationDegreeViewModel>();
 
             var bachelorDegree = new EducationDegreeViewModel() { IsReached = false, MinReachAge = 18, ReachedIn = 18, Title = "Бакалавр" };
             var masterDegree = new EducationDegreeViewModel() { IsReached = false, MinReachAge = 20, ReachedIn = 20, Title = "Магістр" };
             degrees.Add(bachelorDegree);
-            degrees.Add(masterDegree);
+            if (professionId == "1")
+                degrees.Add(masterDegree);
 
             return degrees;
         }

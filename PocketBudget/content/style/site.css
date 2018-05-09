@@ -30,7 +30,6 @@
     background-image: url('../../content/files/income_bank.ico');
 }
 
-
 .icon-deposit::after {
         background-image: url('../../content/files/deposit_icon.png');
 }
@@ -46,9 +45,9 @@
     background-image: url('../../content/files/more-icon.png');
 }
 
-.active {
+/*.active {
     display: inline-block;
-}
+}*/
 
 .hidden {
     display: none;
