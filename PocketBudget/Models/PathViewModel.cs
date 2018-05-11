@@ -15,6 +15,7 @@ namespace PocketBudget.Models
             Savings = new SavingsViewModel();
             Spendings = new SpendingsViewModel();
             Pension = new PensionViewModel();
+            EducationDegrees = new List<EducationDegreeViewModel>();
         }
 
         [Display(Name = "Ваш вік")]
@@ -35,8 +36,12 @@ namespace PocketBudget.Models
         [UIHint("Salary")]
         public SalaryViewModel Salary { get; set; }
 
-        [UIHint("ProfessionSelection")]
+        [UIHint("Profession")]
         public ProfessionSelectionViewModel ProfessionSelection { get; set; }
+
+        [UIHint("EducationDegrees")]
+        [Display(Name = "Освіта")]
+        public IList<EducationDegreeViewModel> EducationDegrees { get; set; }
 
         [UIHint("Savings")]
         public SavingsViewModel Savings { get; set; }

@@ -1,0 +1,10 @@
+﻿@model List<EducationDegreeViewModel>
+<p>
+    @Html.LabelFor(m => m)
+    <span class="newline @Html.IdFor(m => m)">
+        @if (Model != null && Model.Any(x => x.IsReached))
+        {
+            @Model.LastOrDefault(x => x.IsReached).Title
+        }
+    </span>
+</p>

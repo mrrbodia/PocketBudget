@@ -24,7 +24,28 @@ namespace PocketBudget.Controllers
             var model = PersonalFinances.Path.GetDefaultPathModel();
             var viewModel = mapper.Map<PathModel, PathViewModel>(model);
             viewModel.ProfessionSelection.Professions = CreateProfessionsModel();
+            viewModel.EducationDegrees = CreateEducationDegreesModel();
             return View(viewModel);
+        }
+
+        protected IList<EducationDegreeViewModel> CreateEducationDegreesModel()
+        {
+            //TODO: Move to XML
+            var result = new List<EducationDegreeViewModel>();
+            result.Add(new EducationDegreeViewModel() { Title = "Школа", IsReached = true, ReachedIn = 14, MinReachAge = 14 });
+            result.Add(new EducationDegreeViewModel() { Title = "Молодший спеціаліст", IsReached = false, ReachedIn = 16, MinReachAge = 16 });
+            result.Add(new EducationDegreeViewModel() { Title = "Бакалавр", IsReached = false, ReachedIn = 18, MinReachAge = 18 });
+            result.Add(new EducationDegreeViewModel() { Title = "Магістр", IsReached = false, ReachedIn = 19, MinReachAge = 19 });
+            return result;
+        }
+
+        protected IList<ProfessionViewModel> CreateProfessionsModel()
+        {
+            //TODO: Move to XML
+            var result = new List<ProfessionViewModel>();
+            result.Add(new ProfessionViewModel() { Title = "Не обрано", IsSelected = true, Id = "0" });
+            result.Add(new ProfessionViewModel() { Title = "Викладач", IsSelected = false, Id = "1" });
+            return result;
         }
 
         [HttpPost]
@@ -70,58 +91,6 @@ namespace PocketBudget.Controllers
             model.AdditionalIncome = CreateAdditionalIncomeViewModel(fromAge);
             model.AdditionalCost = CreateAdditionalCostViewModel(fromAge);
             return View("_EditFinances", model);
-        }
-
-        [HttpPost]
-        public ActionResult GetSalaryPeriod(PathViewModel path)
-        {
-            if (ModelState.IsValid)
-            {
-                var lastPeriod = path.Salary.SalaryPeriods.Last();
-                var salaryPeriod = new SalaryPeriodViewModel(lastPeriod.Amount, lastPeriod.From);
-                salaryPeriod.From++;
-                path.Salary.SalaryPeriods.Add(salaryPeriod);
-            }
-            return View("Index", path);
-        }
-
-        [HttpPost]
-        public ActionResult DeleteSalaryPeriod(PathViewModel path)
-        {
-            if (ModelState.IsValid && path.Salary.SalaryPeriods.Count > 1)
-            {
-                path.Salary.SalaryPeriods.RemoveAt(path.Salary.SalaryPeriods.Count - 1);
-            }
-            return View("Index", path);
-        }
-
-        [HttpGet]
-        public ActionResult GetDegrees(string professionId)
-        {
-            return View("EducationDegrees", CreateDegreesModel(professionId));
-        }
-
-        protected IList<ProfessionViewModel> CreateProfessionsModel()
-        {
-            //TODO: tmp solution, should be taken per profession
-            var result = new List<ProfessionViewModel>();
-            result.Add(new ProfessionViewModel() { Title = "Не обрано", IsSelected = true, Id = "0" });
-            result.Add(new ProfessionViewModel() { Title = "Викладач", IsSelected = false, Id = "1" });
-            return result;
-        }
-
-        protected IList<EducationDegreeViewModel> CreateDegreesModel(string professionId)
-        {
-            //TODO: degrees should be taken for profession
-            var degrees = new List<EducationDegreeViewModel>();
-
-            var bachelorDegree = new EducationDegreeViewModel() { IsReached = false, MinReachAge = 18, ReachedIn = 18, Title = "Бакалавр" };
-            var masterDegree = new EducationDegreeViewModel() { IsReached = false, MinReachAge = 20, ReachedIn = 20, Title = "Магістр" };
-            degrees.Add(bachelorDegree);
-            if (professionId == "1")
-                degrees.Add(masterDegree);
-
-            return degrees;
         }
 
         protected AdditionalIncomeViewModel CreateAdditionalIncomeViewModel(int? fromAge)

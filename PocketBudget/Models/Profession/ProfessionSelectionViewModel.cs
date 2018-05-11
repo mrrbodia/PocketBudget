@@ -13,7 +13,7 @@ namespace PocketBudget.Models
             Professions = new List<ProfessionViewModel>();
         }
 
-        [UIHint("SelectProfession")]
+        [UIHint("Professions")]
         [Display(Name = "Професія")]
         public IList<ProfessionViewModel> Professions { get; set; }
     }

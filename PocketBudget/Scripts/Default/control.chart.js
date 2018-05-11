@@ -407,6 +407,14 @@ PersonalFinances.Graph = (function () {
         $('.salary-periods').html(salaryPeriods);
     };
 
+    var addEducationToPath = function () {
+        $('#edit-education-popup').find('input').each(function (index, input) {
+            $(input).attr('value', $(input).val());
+        });
+        var educationDegrees = $('#edit-education-popup').find('.edit-education-content').html().trim();
+        $('.education-degrees').html(educationDegrees);
+    };
+
     var sendSalaryPeriodRequestTo = function (to) {
         var form = $('#path-form');
         if (form.valid()) {
@@ -457,16 +465,16 @@ PersonalFinances.Graph = (function () {
             addSalaryPeriodToPath();
             updateGraph();
         });
-        $(document).on('click', '.save-edit-profession', function (e) {
-            var $form = $('.form-edit-profession-content');
+        $(document).on('click', '.save-edit-education', function (e) {
+            var $form = $('.form-edit-education-content');
             if (!$form.valid()) {
                 return;
             }
-            PersonalFinances.Popups.close('#edit-profession-popup');
-            //addEducationToPath();
+            PersonalFinances.Popups.close('#edit-education-popup');
+            addEducationToPath();
             updateGraph();
         });
-        $(document).on('click', '.edit-profession', function (e) {
+        $(document).on('click', '.edit-education', function (e) {
             e.preventDefault();
             e.stopPropagation();
             var url = $(this).attr('data-url');
@@ -477,9 +485,9 @@ PersonalFinances.Graph = (function () {
                 data: { professionId: option.attr('value') },
                 success: function (data) {
                     var newHtml = data.trim();
-                    $('#edit-profession-popup').find('.edit-profession-content').html(newHtml);
-                    PersonalFinances.Popups.open('#edit-profession-popup');
-                    PersonalFinances.UI.resetValidationFor('.form-edit-profession-content');
+                    $('#edit-education-popup').find('.edit-education-content').html(newHtml);
+                    PersonalFinances.Popups.open('#edit-education-popup');
+                    PersonalFinances.UI.resetValidationFor('.form-edit-education-content');
                     Materialize.updateTextFields();
                 }
             });

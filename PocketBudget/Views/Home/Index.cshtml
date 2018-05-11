@@ -42,6 +42,9 @@
                 @Html.DisplayFor(m => m.ProfessionSelection)
             </div>
             <div>
+                @Html.DisplayFor(m => m.EducationDegrees)
+            </div>
+            <div>
                 @Html.DisplayFor(m => m.Savings)
             </div>
             <div>
@@ -101,6 +104,9 @@
                         </div>
                         <div class="form-row">
                             @Html.EditorFor(m => m.ProfessionSelection)
+                        </div>
+                        <div>
+                            @Html.EditorFor(m => m.EducationDegrees)
                         </div>
                         <div class="form-row">
                             @Html.EditorFor(m => m.Savings)

@@ -131,8 +131,10 @@
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Models\BankViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\FrontendBaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SalaryController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -279,17 +281,20 @@
     <Content Include="Views\Shared\DisplayTemplates\Savings.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Spendings.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Checkbox.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\ProfessionSelection.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\ProfessionSelection.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\SelectProfession.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\ProfessionViewModel.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Profession.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Profession.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Professions.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\EducationDegreeViewModel.cshtml" />
-    <Content Include="Views\Home\EducationDegrees.cshtml" />
+    <Content Include="Views\Education\_EducationDegrees.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\EducationDegrees.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EducationDegrees.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Texts\" />
     <Folder Include="App_Data\Xml\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Views\Education\DisplayTemplates\" />
+    <Folder Include="Views\Education\EditorTemplates\" />
     <Folder Include="Web\Mvc\" />
   </ItemGroup>
   <ItemGroup>
