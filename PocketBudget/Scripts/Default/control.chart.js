@@ -283,6 +283,19 @@ PersonalFinances.Graph = (function () {
             }
         }
         else
+            if (line.Type === 'Education') {
+                return {
+                    label: line.Title,
+                    lineType: line.Type,
+                    hidden: line.IsHidden,
+                    borderColor: [
+                        'rgba(0, ' + getShade() + ', 0, 0.5)'
+                    ],
+                    fill: false,
+                    data: toPointsObject(line.Points)
+                }
+            }
+        else
             if (line.Type === 'Purchase') {
             return {
                 label: line.Title,
@@ -375,7 +388,21 @@ PersonalFinances.Graph = (function () {
     var updateGraph = function () {
         if ($('#path-form').valid()) {
             updateGraphLines();
+            updateMaterialize();
         }
+    };
+
+    var updateMaterialize = function () {
+        $.each($('input[type=checkbox]'), function (index, elem, value) {
+            var formId = $(elem).closest('form').attr('id');
+            var label = $(elem).next('label');
+
+            var inputValue = $(elem).val();
+            var inputId = $(elem).attr('id');
+            var newName = '#' + formId + '_#' + inputId + '_#' + inputValue;
+            $(elem).attr('id', newName);
+            $(label).attr('for', newName);
+        });
     };
 
     var getAdditionalPathDataForLegendItem = function (chart, legendItem) {
@@ -397,7 +424,13 @@ PersonalFinances.Graph = (function () {
 
     var addPopupInfoToPath = function ($popup) {
         $popup.find('input').each(function (index, input) {
-            $(input).attr('value', $(input).val());
+            if (input.type == "checkbox" && input.checked) {
+                $(input).attr('value', true);
+                $(input).attr('checked', 'checked');
+            }
+            else {
+                $(input).attr('value', $(input).val());
+            }
         });
         var info = $popup.find('.popup-content').html().trim();
         $('.' + $popup.attr('data-target')).html(info);
@@ -472,6 +505,7 @@ PersonalFinances.Graph = (function () {
                 }
             });
         });
+        //TODO: refactor methods below
         $(document).on('click', '.edit-education', function (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -479,6 +513,7 @@ PersonalFinances.Graph = (function () {
             $('#edit-education-popup').find('.edit-education-content').html(newHtml);
             PersonalFinances.Popups.open('#edit-education-popup');
             PersonalFinances.UI.resetValidationFor('.form-edit-education-content');
+            updateMaterialize();
         });
         $(document).on('click', '.edit-salary', function (e) {
             e.preventDefault();
@@ -514,10 +549,7 @@ PersonalFinances.Graph = (function () {
                     });
                 },
                 complete: function () {
-                    $('#additional-path-form').off(".validate")
-                        .removeData("validator")
-                        .removeData("unobtrusiveValidation");
-                    $.validator.unobtrusive.parse('#additional-path-form');
+                    PersonalFinances.UI.resetValidationFor("#additional-path-form");
                 },
                 error: function (err) {
                     console.log(err);
@@ -541,10 +573,7 @@ PersonalFinances.Graph = (function () {
             });
         });
         $(document).on('change', '#additional-path-form', function () {
-            var formId = '#additional-path-form';
-            $(formId).removeData('validator');
-            $(formId).removeData('unobtrusiveValidation');
-            $.validator.unobtrusive.parse(formId);
+            PersonalFinances.UI.resetValidationFor('#additional-path-form');
         });
         $(document).on('change', '.usersExamplesData', function (e) {
             var url = $(this).parent().attr('data-url');
@@ -555,7 +584,6 @@ PersonalFinances.Graph = (function () {
                 success: function (data) {
                     PersonalFinances.Path.updatePathForm(data.model);
                     PersonalFinances.Path.AdditionalPath.bindModel(data.model);
-
                     var chartLines = getChartLines(data.lines);
                     updateGraphWithData(chartLines);
                 }

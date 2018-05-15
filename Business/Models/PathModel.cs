@@ -11,6 +11,8 @@ namespace Business.Models
 
         public short LifeExpectancy { get; set; }
 
+        public EducationModel Education { get; set; }
+
         public SalaryModel Salary { get; set; }
 
         public SavingsModel Savings { get; set; }

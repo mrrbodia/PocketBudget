@@ -33,10 +33,7 @@ namespace PocketBudget.Controllers
             //TODO: Move to XML
             var result = new EducationDegreesViewModel();
             result.Degrees =  new List<EducationDegreeViewModel>();
-            result.Degrees.Add(new EducationDegreeViewModel() { Title = "Школа", IsReached = true, ReachedIn = 14, MinReachAge = 14 });
-            result.Degrees.Add(new EducationDegreeViewModel() { Title = "Молодший спеціаліст", IsReached = false, ReachedIn = 16, MinReachAge = 16 });
-            result.Degrees.Add(new EducationDegreeViewModel() { Title = "Бакалавр", IsReached = false, ReachedIn = 18, MinReachAge = 18 });
-            result.Degrees.Add(new EducationDegreeViewModel() { Title = "Магістр", IsReached = false, ReachedIn = 19, MinReachAge = 19 });
+            result.Degrees.Add(new EducationDegreeViewModel() { Title = "Школа", IsReached = true, ReachedIn = 14, MinReachAge = 14, IncomePercent = 0 });
             return result;
         }
 
@@ -46,6 +43,7 @@ namespace PocketBudget.Controllers
             var result = new List<ProfessionViewModel>();
             result.Add(new ProfessionViewModel() { Title = "Не обрано", IsSelected = true, Id = "0" });
             result.Add(new ProfessionViewModel() { Title = "Викладач", IsSelected = false, Id = "1" });
+            result.Add(new ProfessionViewModel() { Title = "Програміст", IsSelected = false, Id = "2" });
             return result;
         }
 
@@ -55,7 +53,7 @@ namespace PocketBudget.Controllers
             var model = PersonalFinances.Path.GetPathModel(modelId);
             if(model != null)
             {
-                var chartLines = GenerateChartLines(model);
+                var chartLines = GetChartLines(model);
                 return Json(new { lines = chartLines, model = model });
             }
             return Json(0);
@@ -67,14 +65,25 @@ namespace PocketBudget.Controllers
         {
             if (pathModel.IsValid())
             {
-                var path = mapper.Map<PathViewModel, PathModel>(pathModel);
-                var chartLines = GenerateChartLines(path);
+                var path = GetPathModel(pathModel);
+                var chartLines = GetChartLines(path);
                 return Json(chartLines);
             }
             return Json(0);
         }
 
-        protected virtual List<ChartLineViewModel> GenerateChartLines(PathModel path)
+        protected PathModel GetPathModel(PathViewModel pathModel)
+        {
+            var result = mapper.Map<PathViewModel, PathModel>(pathModel);
+            if (pathModel.EducationDegrees?.Degrees.Any(x => x.IsReached) ?? false)
+            {
+                var highestDegree = pathModel.EducationDegrees.Degrees.LastOrDefault(x => x.IsReached);
+                result.Education = new EducationModel(highestDegree.Title, highestDegree.ReachedIn, highestDegree.IncomePercent);
+            }
+            return result;
+        }
+
+        protected virtual List<ChartLineViewModel> GetChartLines(PathModel path)
         {
             var chartLines = PersonalFinances.Chart.GetChartLines(path);
             var chartLinesModel = mapper.Map<List<ChartLine>, List<ChartLineViewModel>>(chartLines);

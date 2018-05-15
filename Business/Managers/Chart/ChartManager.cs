@@ -28,7 +28,10 @@ namespace Business.Managers.Chart
             {
                 chartLines.AddRange(AddAdditionalLines(path, baseLine.Points));
             }
-
+            if (path.Education != null)
+            {
+                chartLines.Add(AddEducationLine(path, baseLine.Points));
+            }
             return chartLines;
         }
 
@@ -61,6 +64,20 @@ namespace Business.Managers.Chart
                 path.Salary.SalaryPeriods.Aggregate((f, s) => { f.To = s.From; return s; });
                 path.Salary.SalaryPeriods.Last().To = path.RetirementAge;
             }
+            if (path?.Education != null)
+            {
+                path.Education.From = path.Education.From > path.CurrentAge ? path.Education.From - path.CurrentAge : 0;
+            }
+        }
+
+        protected ChartLine AddEducationLine(PathModel path, List<decimal?> mainSavingsLine)
+        {
+            var educationLine = new List<decimal?>(mainSavingsLine);
+            for (int i = path.Education.From; i < educationLine.Count; ++i)
+            {
+                educationLine[i] += educationLine[i] * path.Education.IncomePercent;
+            }
+            return new ChartLine(Constants.ChartLineType.Education, educationLine, path.Savings.Amount, Constants.Currency.Hrn, false);
         }
 
         protected List<ChartLine> AddAdditionalLines(PathModel path, List<decimal?> mainSavingsLine)

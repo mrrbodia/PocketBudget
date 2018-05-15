@@ -15,6 +15,8 @@ namespace Business
         
         public class ChartLineType
         {
+            public const string Education = "Education";
+
             public const string Deposit = "Deposit";
 
             public const string Credit = "Credit";

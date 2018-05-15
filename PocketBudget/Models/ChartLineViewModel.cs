@@ -19,6 +19,7 @@ namespace PocketBudget.Models
 
         public decimal Total { get; set; }
 
+        //TODO: ????
         public string Title
         {
             get

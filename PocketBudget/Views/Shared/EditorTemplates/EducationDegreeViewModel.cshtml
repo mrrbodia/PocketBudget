@@ -3,10 +3,13 @@
     @Model.Title
 </p>
 <p>
-    @Html.EditorFor(m => Model.IsReached, new { Label = "Досягти у віці" })
+    @Html.EditorFor(m => m.IsReached, new { Label = "Досягти у віці" })
 </p>
 @Html.HiddenFor(m => Model.Title)
 @Html.HiddenFor(m => Model.MinReachAge)
+@Html.HiddenFor(m => Model.IncomePercent)
+@*//TODO: Unexpected token u in JSON at position 0*@
+@Html.ValidationMessageFor(m => Model.IncomePercent)
 @Html.ValidationMessageFor(m => Model.MinReachAge)
 @Html.LabelFor(m => Model.ReachedIn)
 @Html.TextBoxFor(m => Model.ReachedIn, new { type = "number", data_min = Model.MinReachAge })

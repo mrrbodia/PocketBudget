@@ -17,5 +17,7 @@ namespace PocketBudget.Models
         public bool IsReached { get; set; }
 
         public int MinReachAge { get; set; }
+
+        public decimal IncomePercent { get; set; }
     }
 }
