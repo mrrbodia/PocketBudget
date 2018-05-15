@@ -39,7 +39,7 @@ namespace Business.DomainModel.Cost
 
         public abstract decimal GetCostPerYear();
 
-        //TODO: Replace with better solution
+        //TODO: Replace with better solution (get from XML)
         protected virtual decimal GetCurrencyExchangeValue()
         {
             switch (CurrencyId)

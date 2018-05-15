@@ -151,6 +151,7 @@
     <Compile Include="Models\AdditionalIncome\AdditionalIncomeItemViewModel.cs" />
     <Compile Include="Models\ChartLinesViewModel.cs" />
     <Compile Include="Models\ChartLineViewModel.cs" />
+    <Compile Include="Models\Profession\EducationDegreesViewModel.cs" />
     <Compile Include="Models\Profession\EducationDegreeViewModel.cs" />
     <Compile Include="Models\PathViewModel.cs" />
     <Compile Include="Models\AdditionalIncome\DepositViewModel.cs" />

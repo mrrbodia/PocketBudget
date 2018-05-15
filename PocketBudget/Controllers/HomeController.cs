@@ -28,14 +28,15 @@ namespace PocketBudget.Controllers
             return View(viewModel);
         }
 
-        protected IList<EducationDegreeViewModel> CreateEducationDegreesModel()
+        protected EducationDegreesViewModel CreateEducationDegreesModel()
         {
             //TODO: Move to XML
-            var result = new List<EducationDegreeViewModel>();
-            result.Add(new EducationDegreeViewModel() { Title = "Школа", IsReached = true, ReachedIn = 14, MinReachAge = 14 });
-            result.Add(new EducationDegreeViewModel() { Title = "Молодший спеціаліст", IsReached = false, ReachedIn = 16, MinReachAge = 16 });
-            result.Add(new EducationDegreeViewModel() { Title = "Бакалавр", IsReached = false, ReachedIn = 18, MinReachAge = 18 });
-            result.Add(new EducationDegreeViewModel() { Title = "Магістр", IsReached = false, ReachedIn = 19, MinReachAge = 19 });
+            var result = new EducationDegreesViewModel();
+            result.Degrees =  new List<EducationDegreeViewModel>();
+            result.Degrees.Add(new EducationDegreeViewModel() { Title = "Школа", IsReached = true, ReachedIn = 14, MinReachAge = 14 });
+            result.Degrees.Add(new EducationDegreeViewModel() { Title = "Молодший спеціаліст", IsReached = false, ReachedIn = 16, MinReachAge = 16 });
+            result.Degrees.Add(new EducationDegreeViewModel() { Title = "Бакалавр", IsReached = false, ReachedIn = 18, MinReachAge = 18 });
+            result.Degrees.Add(new EducationDegreeViewModel() { Title = "Магістр", IsReached = false, ReachedIn = 19, MinReachAge = 19 });
             return result;
         }
 
@@ -57,11 +58,9 @@ namespace PocketBudget.Controllers
                 var chartLines = GenerateChartLines(model);
                 return Json(new { lines = chartLines, model = model });
             }
-
             return Json(0);
         }
-
-        //TODO: validate AGE
+        
         //TODO: Create session (save chosen user data)
         [HttpPost]
         public ActionResult GetChartLines(PathViewModel pathModel)
@@ -70,7 +69,6 @@ namespace PocketBudget.Controllers
             {
                 var path = mapper.Map<PathViewModel, PathModel>(pathModel);
                 var chartLines = GenerateChartLines(path);
-
                 return Json(chartLines);
             }
             return Json(0);
@@ -80,7 +78,6 @@ namespace PocketBudget.Controllers
         {
             var chartLines = PersonalFinances.Chart.GetChartLines(path);
             var chartLinesModel = mapper.Map<List<ChartLine>, List<ChartLineViewModel>>(chartLines);
-
             return chartLinesModel;
         }
 

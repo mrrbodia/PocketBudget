@@ -399,20 +399,12 @@ PersonalFinances.Graph = (function () {
         $('.' + id).html(formatAsCurrency($(input).val()));
     };
 
-    var addSalaryPeriodToPath = function () {
-        $('#edit-salary-popup').find('input').each(function (index, input) {
+    var addPopupInfoToPath = function ($popup) {
+        $popup.find('input').each(function (index, input) {
             $(input).attr('value', $(input).val());
         });
-        var salaryPeriods = $('#edit-salary-popup').find('.edit-salary-content').html().trim();
-        $('.salary-periods').html(salaryPeriods);
-    };
-
-    var addEducationToPath = function () {
-        $('#edit-education-popup').find('input').each(function (index, input) {
-            $(input).attr('value', $(input).val());
-        });
-        var educationDegrees = $('#edit-education-popup').find('.edit-education-content').html().trim();
-        $('.education-degrees').html(educationDegrees);
+        var info = $popup.find('.popup-content').html().trim();
+        $('.' + $popup.attr('data-target')).html(info);
     };
 
     var sendSalaryPeriodRequestTo = function (to) {
@@ -442,7 +434,7 @@ PersonalFinances.Graph = (function () {
         }
         $target.html($newHtml);
         PersonalFinances.UI.resetValidationFor('.form-edit-salary-content');
-        addSalaryPeriodToPath();
+        addPopupInfoToPath($('#edit-salary-popup'));
     };
 
     var initEvents = function () {
@@ -455,23 +447,14 @@ PersonalFinances.Graph = (function () {
             PersonalFinances.Path.AdditionalPath.saveAdditionalValuesSelection();
             updateGraph();
         });
-        //TODO: refactor the same event behavior
-        $(document).on('click', '.save-edit-salary', function (e) {
-            var $form = $('.form-edit-salary-content');
+        $(document).on('click', '.save-edit-popup', function (e) {
+            var $modal = $(this).parents('.modal');
+            var $form = $modal.find('form');
             if (!$form.valid()) {
                 return;
             }
-            PersonalFinances.Popups.close('#edit-salary-popup');
-            addSalaryPeriodToPath();
-            updateGraph();
-        });
-        $(document).on('click', '.save-edit-education', function (e) {
-            var $form = $('.form-edit-education-content');
-            if (!$form.valid()) {
-                return;
-            }
-            PersonalFinances.Popups.close('#edit-education-popup');
-            addEducationToPath();
+            PersonalFinances.Popups.close('#' + $modal.attr('id'));
+            addPopupInfoToPath($modal);
             updateGraph();
         });
         $(document).on('click', '.edit-education', function (e) {

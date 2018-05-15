@@ -19,7 +19,7 @@ namespace PocketBudget.Controllers
                 salaryPeriod.From++;
                 path.Salary.SalaryPeriods.Add(salaryPeriod);
             }
-            return View("Index", path);
+            return View("~/Views/Home/Index.cshtml", path);
         }
 
         [HttpPost]
@@ -29,7 +29,7 @@ namespace PocketBudget.Controllers
             {
                 path.Salary.SalaryPeriods.RemoveAt(path.Salary.SalaryPeriods.Count - 1);
             }
-            return View("Index", path);
+            return View("~/Views/Home/Index.cshtml", path);
         }
     }
 }
