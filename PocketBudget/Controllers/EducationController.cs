@@ -9,18 +9,24 @@ namespace PocketBudget.Controllers
 {
     public class EducationController : Controller
     {
-        [HttpGet]
-        public ActionResult GetDegrees(string professionId)
+        [HttpPost]
+        public ActionResult GetDegrees(PathViewModel path)
         {
-            return View("_EducationDegrees", CreateDegreesModel(professionId));
+            if (ModelState.IsValid)
+            {
+                ModelState.Clear();
+                if (path.EducationDegrees == null)
+                    path.EducationDegrees = new EducationDegreesViewModel();
+                path.EducationDegrees.Degrees = CreateDegreesModel(path.ProfessionSelection.SelectedProfession);
+            }
+            return View("~/Views/Home/Index.cshtml", path);
         }
 
-        protected IList<EducationDegreeViewModel> CreateDegreesModel(string professionId)
+        protected List<EducationDegreeViewModel> CreateDegreesModel(string professionId)
         {
             //TODO: degrees should be taken for profession
             var degrees = new List<EducationDegreeViewModel>();
-
-            var bachelorDegree = new EducationDegreeViewModel() { IsReached = false, MinReachAge = 18, ReachedIn = 18, Title = "Бакалавр" };
+            var bachelorDegree = new EducationDegreeViewModel() { IsReached = true, MinReachAge = 18, ReachedIn = 18, Title = "Бакалавр" };
             var masterDegree = new EducationDegreeViewModel() { IsReached = false, MinReachAge = 20, ReachedIn = 20, Title = "Магістр" };
             degrees.Add(bachelorDegree);
             if (professionId == "1")

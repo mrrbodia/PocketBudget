@@ -1,5 +1,6 @@
 ﻿@model ProfessionSelectionViewModel
 <div>
+    @Html.HiddenFor(m => m.SelectedProfession, htmlAttributes: new { @class="selected-profession" })
     @Html.LabelFor(m => m.Professions)
     @Html.EditorFor(m => m.Professions)
 </div>

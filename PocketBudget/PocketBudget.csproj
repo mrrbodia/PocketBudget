@@ -286,7 +286,6 @@
     <Content Include="Views\Shared\DisplayTemplates\Profession.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Professions.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\EducationDegreeViewModel.cshtml" />
-    <Content Include="Views\Education\_EducationDegrees.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\EducationDegrees.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\EducationDegrees.cshtml" />
   </ItemGroup>
@@ -294,8 +293,6 @@
     <Folder Include="App_Data\Texts\" />
     <Folder Include="App_Data\Xml\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Views\Education\DisplayTemplates\" />
-    <Folder Include="Views\Education\EditorTemplates\" />
     <Folder Include="Web\Mvc\" />
   </ItemGroup>
   <ItemGroup>

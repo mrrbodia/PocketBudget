@@ -28,8 +28,8 @@ PersonalFinances.Graph = (function () {
                     },
                     onClick: function (e, legendItem) {
                         var item = getAdditionalPathDataForLegendItem(this.chart, legendItem);
-                        if (item != undefined) {
-                            item.IsHidden = item.IsHidden == undefined ? true : !item.IsHidden;
+                        if (item !== undefined) {
+                            item.IsHidden = item.IsHidden === undefined ? true : !item.IsHidden;
                             updateGraph();
                         }
                     }
@@ -385,13 +385,9 @@ PersonalFinances.Graph = (function () {
         var typeLines = chart.data.datasets.filter(function (obj) { return obj.lineType === dataset.lineType; });
         var lineIndexInLineTypes = typeLines.indexOf(dataset);
         var items = PersonalFinances.Path.AdditionalPath[dataset.lineType];
-        if (items != undefined)
+        if (items !== undefined)
             return items[lineIndexInLineTypes];
         return items;
-    };
-
-    var getAdditionalPathItems = function (lineType) {
-        return PersonalFinances.Path.AdditionalPath['Deposit'];
     };
 
     var updateMinimalInformation = function (input) {
@@ -407,7 +403,7 @@ PersonalFinances.Graph = (function () {
         $('.' + $popup.attr('data-target')).html(info);
     };
 
-    var sendSalaryPeriodRequestTo = function (to) {
+    var loadPopupContent = function (to, source, popup) {
         var form = $('#path-form');
         if (form.valid()) {
             $.ajax({
@@ -415,7 +411,7 @@ PersonalFinances.Graph = (function () {
                 url: to,
                 data: form.serialize(),
                 success: function (response) {
-                    onSalaryPeriodSuccess(response);
+                    onLoadPopupSuccess(response, source, popup);
                 },
                 error: function (err) {
                     console.log(err);
@@ -424,22 +420,24 @@ PersonalFinances.Graph = (function () {
         }
     };
 
-    var onSalaryPeriodSuccess = function (response) {
-        var _source = '.salary-periods';
-        var $target = $('.edit-salary-content');
-        var $newHtml = $(response.trim());
-        var $container = $newHtml.find(_source);
+    var onLoadPopupSuccess = function (response, source, popup) {
+        modifyTargetWithData(response, source, popup + ' .popup-content');
+        PersonalFinances.UI.resetValidationFor(popup + ' form');
+        addPopupInfoToPath($(popup));
+    };
+
+    var modifyTargetWithData = function (data, source, target)
+    {
+        var $target = $(target);
+        var $newHtml = $(data.trim());
+        var $container = $newHtml.find(source);
         if ($container.length) {
             $newHtml = $container.children();
         }
         $target.html($newHtml);
-        PersonalFinances.UI.resetValidationFor('.form-edit-salary-content');
-        addPopupInfoToPath($('#edit-salary-popup'));
     };
 
     var initEvents = function () {
-        //TODO: graph-updater select
-        //education selection will be losed (till session will be implemented)
         $('.graph-updater[type=number]').on('input', function (e) {
             onDataChanged(this);
         });
@@ -457,23 +455,30 @@ PersonalFinances.Graph = (function () {
             addPopupInfoToPath($modal);
             updateGraph();
         });
-        $(document).on('click', '.edit-education', function (e) {
+        $(document).on('change', '.profession-selection', function (e) {
             e.preventDefault();
             e.stopPropagation();
             var url = $(this).attr('data-url');
-            var option = $('.profession-selection option:selected');
+            var option = $(this).find('option:selected');
+            $('.selected-profession').val(option.attr('value'));
+            var form = $('#path-form');
             $.ajax({
                 url: url,
-                type: 'GET',
-                data: { professionId: option.attr('value') },
+                type: 'POST',
+                data: form.serialize(),
                 success: function (data) {
-                    var newHtml = data.trim();
-                    $('#edit-education-popup').find('.edit-education-content').html(newHtml);
-                    PersonalFinances.Popups.open('#edit-education-popup');
-                    PersonalFinances.UI.resetValidationFor('.form-edit-education-content');
-                    Materialize.updateTextFields();
+                    modifyTargetWithData(data, '.education-degrees', '.education-degrees');
+                    PersonalFinances.UI.resetValidationFor('#path-form');
                 }
             });
+        });
+        $(document).on('click', '.edit-education', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var newHtml = $('.education-degrees').html().trim();
+            $('#edit-education-popup').find('.edit-education-content').html(newHtml);
+            PersonalFinances.Popups.open('#edit-education-popup');
+            PersonalFinances.UI.resetValidationFor('.form-edit-education-content');
         });
         $(document).on('click', '.edit-salary', function (e) {
             e.preventDefault();
@@ -484,10 +489,10 @@ PersonalFinances.Graph = (function () {
             PersonalFinances.UI.resetValidationFor('.form-edit-salary-content');
         });
         $(document).on('click', '.add-salary-period', function (e) {
-            sendSalaryPeriodRequestTo('getsalaryperiod');
+            loadPopupContent('getsalaryperiod', '.salary-periods', '#edit-salary-popup');
         });
         $(document).on('click', '.delete-salary-period', function (e) {
-            sendSalaryPeriodRequestTo('deletesalaryperiod');
+            loadPopupContent('deletesalaryperiod', '.salary-periods', '#edit-salary-popup');
         });
         $(document).on('click', '.tooltip-moreoptions', function (e) {
             var btn = $(e.target);

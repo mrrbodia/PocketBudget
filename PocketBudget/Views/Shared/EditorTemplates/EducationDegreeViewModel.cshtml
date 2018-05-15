@@ -3,8 +3,11 @@
     @Model.Title
 </p>
 <p>
-    @Html.EditorFor(m => Model.IsReached, new { Label = "Досягти у віці", Clazz = "add-education" })
+    @Html.EditorFor(m => Model.IsReached, new { Label = "Досягти у віці" })
 </p>
+@Html.HiddenFor(m => Model.Title)
+@Html.HiddenFor(m => Model.MinReachAge)
+@Html.ValidationMessageFor(m => Model.MinReachAge)
 @Html.LabelFor(m => Model.ReachedIn)
 @Html.TextBoxFor(m => Model.ReachedIn, new { type = "number", data_min = Model.MinReachAge })
 @Html.ValidationMessageFor(m => Model.ReachedIn)

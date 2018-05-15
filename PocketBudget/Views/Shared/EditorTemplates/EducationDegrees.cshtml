@@ -1,7 +1,7 @@
 ﻿@model EducationDegreesViewModel
 <div>
     @Html.LabelFor(m => m)
-    <button class="btn grey btn-flat edit-education" data-url="@Url.Action("GetDegrees", "Education")">Редагувати</button>
+    <button class="btn grey btn-flat edit-education">Редагувати</button>
 </div>
 <div class="education-degrees">
     @if (Model != null && Model.Degrees.Any())
