@@ -75,8 +75,9 @@ namespace PocketBudget.App_Start
                                    opts => opts.ResolveUsing(new AdditionalCostResolver()));
                 x.CreateMap<AdditionalPathModel, AdditionalPathViewModel>()
                         .ForMember(dest => dest.AdditionalIncome,
-                                   opts => opts.MapFrom(
-                                       src => new AdditionalIncomeViewModel()));
+                                   opts => opts.ResolveUsing(new AdditionalIncomeViewResolver()))
+                        .ForMember(dest => dest.AdditionalCost,
+                                   opts => opts.ResolveUsing(new AdditionalCostViewResolver()));
                 x.CreateMap<DepositViewModel, Deposit>();
                 x.CreateMap<Deposit, DepositViewModel>();
                 x.CreateMap<SaleViewModel, Sale>();

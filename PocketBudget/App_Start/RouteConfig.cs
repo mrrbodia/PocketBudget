@@ -20,6 +20,12 @@ namespace PocketBudget
             );
 
             routes.MapRoute(
+                name: "ClearSession",
+                url: "clear",
+                defaults: new { controller = "Home", action = "ClearPath" }
+            );
+
+            routes.MapRoute(
                 name: "EditFinances",
                 url: "editfinances",
                 defaults: new { controller = "Home", action = "EditFinances" }

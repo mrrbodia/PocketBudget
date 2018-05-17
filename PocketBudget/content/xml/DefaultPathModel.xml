@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
   <PathModel>
+	<Id>example1</Id>
     <CurrentAge>20</CurrentAge>
     <RetirementAge>60</RetirementAge>
     <LifeExpectancy>80</LifeExpectancy>

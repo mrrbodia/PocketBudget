@@ -18,6 +18,9 @@ namespace PocketBudget.Models
             EducationDegrees = new EducationDegreesViewModel();
         }
 
+        [ScaffoldColumn(false)]
+        public string Id { get; set; }
+
         [Display(Name = "Ваш вік")]
         [Required(ErrorMessage = "Введіть ваш вік")]
         [Range(18, 80, ErrorMessage = "Доступні значення з {1} до {2}")]

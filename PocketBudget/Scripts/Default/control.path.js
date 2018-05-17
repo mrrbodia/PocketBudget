@@ -8,10 +8,15 @@ PersonalFinances.Path = (function () {
         updateInput('Pension_Amount', path.Pension.Amount);
         updateInput('Savings_Amount', path.Savings.Amount);
         updateInput('Spendings_Amount', path.Spendings.Amount);
+        updateValue('data-path-id', path.Id);
     };
 
     var updateInput = function (selector, value) {
         $('.' + selector).text(value);
+        updateValue(selector, value);
+    }
+
+    var updateValue = function (selector, value) {
         $('#' + selector).val(value);
     }
 

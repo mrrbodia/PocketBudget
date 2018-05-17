@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Business;
 using Business.Models;
+using PocketBudget.App_Start;
 using PocketBudget.Models;
 using PocketBudget.Models.AdditionalCost;
 using System;
@@ -21,7 +22,8 @@ namespace PocketBudget.Controllers
 
         public ActionResult Index()
         {
-            var model = PersonalFinances.Path.GetDefaultPathModel();
+            var pathModel = Session[Constants.SessionKeys.UserKey] as PathModel;
+            var model = pathModel == null ? PersonalFinances.Path.GetDefaultPathModel() : pathModel;
             var viewModel = mapper.Map<PathModel, PathViewModel>(model);
             viewModel.ProfessionSelection.Professions = CreateProfessionsModel();
             viewModel.EducationDegrees = CreateEducationDegreesModel();
@@ -33,7 +35,7 @@ namespace PocketBudget.Controllers
             //TODO: Move to XML
             var result = new EducationDegreesViewModel();
             result.Degrees =  new List<EducationDegreeViewModel>();
-            //result.Degrees.Add(new EducationDegreeViewModel() { Title = "Школа", IsReached = true, ReachedIn = 14, MinReachAge = 14, IncomePercent = 0 });
+            result.Degrees.Add(new EducationDegreeViewModel() { Title = "Школа", IsReached = true, ReachedIn = 14, MinReachAge = 14, IncomePercent = 0 });
             return result;
         }
 
@@ -50,8 +52,9 @@ namespace PocketBudget.Controllers
         [HttpPost]
         public ActionResult GetPathModel(string modelId)
         {
-            var model = PersonalFinances.Path.GetPathModel(modelId);
-            if(model != null)
+            var pathModel = Session[modelId] as PathModel;
+            var model = pathModel == null ? PersonalFinances.Path.GetPathModel(modelId) : pathModel;
+            if (model != null)
             {
                 var chartLines = GetChartLines(model);
                 return Json(new { lines = chartLines, model = model });
@@ -59,7 +62,6 @@ namespace PocketBudget.Controllers
             return Json(0);
         }
         
-        //TODO: Create session (save chosen user data)
         [HttpPost]
         public ActionResult GetChartLines(PathViewModel pathModel)
         {
@@ -72,6 +74,13 @@ namespace PocketBudget.Controllers
             return Json(0);
         }
 
+        [HttpGet]
+        public ActionResult ClearPath()
+        {
+            Session.Remove(Constants.SessionKeys.UserKey);
+            return RedirectToRoute("Home");
+        }
+
         protected PathModel GetPathModel(PathViewModel pathModel)
         {
             var result = mapper.Map<PathViewModel, PathModel>(pathModel);
@@ -80,6 +89,8 @@ namespace PocketBudget.Controllers
                 var highestDegree = pathModel.EducationDegrees.Degrees.LastOrDefault(x => x.IsReached);
                 result.Education = new EducationModel(highestDegree.Title, highestDegree.ReachedIn, highestDegree.IncomePercent);
             }
+            if (result?.Id?.Equals(Constants.SessionKeys.UserKey) ?? false)
+                Session[result.Id] = result;
             return result;
         }
 

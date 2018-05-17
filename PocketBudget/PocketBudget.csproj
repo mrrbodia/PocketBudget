@@ -123,7 +123,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AdditionalCostViewResolver.cs" />
     <Compile Include="App_Start\AdditionalCostResolver.cs" />
+    <Compile Include="App_Start\AdditionalIncomeViewResolver.cs" />
     <Compile Include="App_Start\AdditionalIncomeResolver.cs" />
     <Compile Include="App_Start\DependencyInjection.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
@@ -293,7 +295,6 @@
     <Folder Include="App_Data\Texts\" />
     <Folder Include="App_Data\Xml\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Web\Mvc\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

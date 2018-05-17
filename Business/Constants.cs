@@ -3,6 +3,11 @@ namespace Business
 {
     public class Constants
     {
+        public class SessionKeys
+        {
+            public const string UserKey = "example1";
+        }
+
         public class Currency
         {
             public const string Dollar = "dollar";
