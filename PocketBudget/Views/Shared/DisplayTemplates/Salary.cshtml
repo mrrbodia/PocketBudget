@@ -2,7 +2,10 @@
 @using PocketBudget.Extensions
 <p>
     @Html.LabelFor(m => m.SalaryPeriods)
-    <span class="newline @Html.IdFor(m => m.SalaryPeriods[0].Amount)">
-        @Model.SalaryPeriods[0].Amount.FormatAsCurrency()
-    </span>
+    @if (Model.SalaryPeriods != null && Model.SalaryPeriods.Any())
+    {
+        <span class="newline @Html.IdFor(m => m.SalaryPeriods[0].Amount)">
+            @Model.SalaryPeriods[0].Amount.FormatAsCurrency()
+        </span>
+    }
 </p>
