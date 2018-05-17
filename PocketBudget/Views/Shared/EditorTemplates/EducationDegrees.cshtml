@@ -1,6 +1,8 @@
 ﻿@model EducationDegreesViewModel
 <div>
     @Html.LabelFor(m => m)
+    @Html.HiddenFor(m => m.IsHidden)
+    @Html.ValidationMessageFor(m => m.IsHidden)
     <button class="btn grey btn-flat edit-education pf-btn-edit">Редагувати</button>
 </div>
 <div class="education-degrees">

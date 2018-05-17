@@ -62,6 +62,22 @@ namespace Business.Components.AdditionalPath
                     additionalLines.Add(new ChartLine(additionalCost.LineType, points, additionalCost.Total, additionalCost.CurrencyId, additionalCost.IsHidden));
                 }
             }
+
+            if(path.Education != null)
+            {
+                var educationLine = new List<decimal?>(points);
+                for (int i = path.Education.From; i < educationLine.Count; ++i)
+                {
+                    educationLine[i] += educationLine[i] * path.Education.IncomePercent;
+                }
+                additionalLines.Add(new ChartLine(
+                    Constants.ChartLineType.Education, 
+                    educationLine, 
+                    path.Savings.Amount, 
+                    Constants.Currency.Hrn, 
+                    path.Education.IsHidden, 
+                    path.Education.Id));
+            }
             return additionalLines;
         }
     }

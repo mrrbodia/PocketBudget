@@ -87,7 +87,7 @@ namespace PocketBudget.Controllers
             if (pathModel.EducationDegrees?.Degrees?.Any(x => x.IsReached) ?? false)
             {
                 var highestDegree = pathModel.EducationDegrees.Degrees.LastOrDefault(x => x.IsReached);
-                result.Education = new EducationModel(highestDegree.Title, highestDegree.ReachedIn, highestDegree.IncomePercent);
+                result.Education = new EducationModel(highestDegree.Title, highestDegree.ReachedIn, highestDegree.IncomePercent, pathModel.EducationDegrees.IsHidden);
             }
             if (result?.Id?.Equals(Constants.SessionKeys.UserKey) ?? false)
                 Session[result.Id] = result;

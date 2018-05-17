@@ -24,13 +24,9 @@ namespace Business.Managers.Chart
             var baseLine = GetPathBaseLine(path);
             chartLines.Add(baseLine);
 
-            if (path.AdditionalPath != null)
+            if (path.AdditionalPath != null || path.Education != null)
             {
                 chartLines.AddRange(AddAdditionalLines(path, baseLine.Points));
-            }
-            if (path.Education != null)
-            {
-                chartLines.Add(AddEducationLine(path, baseLine.Points));
             }
             return chartLines;
         }

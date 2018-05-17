@@ -32,6 +32,13 @@ PersonalFinances.Graph = (function () {
                             item.IsHidden = item.IsHidden === undefined ? true : !item.IsHidden;
                             updateGraph();
                         }
+                        else
+                            if (legendItem.datasetIndex !== 0) {
+                                //education line.
+                                currentValue = $("#EducationDegrees_IsHidden").val().toLowerCase() == "true";
+                                $("#EducationDegrees_IsHidden").val(!currentValue);
+                                updateGraph();
+                            }
                     }
                 },
                 annotation: {

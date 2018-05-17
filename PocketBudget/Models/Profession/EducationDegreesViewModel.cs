@@ -8,6 +8,8 @@ namespace PocketBudget.Models
 {
     public class EducationDegreesViewModel
     {
+        public bool IsHidden { get; set; }
+
         [Display(Name = "Освіта")]
         public List<EducationDegreeViewModel> Degrees { get; set; }
     }
