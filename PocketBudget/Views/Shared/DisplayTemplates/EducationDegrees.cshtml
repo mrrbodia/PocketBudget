@@ -2,7 +2,7 @@
 <p>
     @Html.LabelFor(m => m)
     <span class="newline @Html.IdFor(m => m)">
-        @if (Model != null && Model.Degrees.Any(x => x.IsReached))
+        @if (Model != null && Model.Degrees != null && Model.Degrees.Any(x => x.IsReached))
         {
             @Model.Degrees.LastOrDefault(x => x.IsReached).Title
         }

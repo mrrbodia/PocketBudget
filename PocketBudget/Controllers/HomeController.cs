@@ -33,7 +33,7 @@ namespace PocketBudget.Controllers
             //TODO: Move to XML
             var result = new EducationDegreesViewModel();
             result.Degrees =  new List<EducationDegreeViewModel>();
-            result.Degrees.Add(new EducationDegreeViewModel() { Title = "Школа", IsReached = true, ReachedIn = 14, MinReachAge = 14, IncomePercent = 0 });
+            //result.Degrees.Add(new EducationDegreeViewModel() { Title = "Школа", IsReached = true, ReachedIn = 14, MinReachAge = 14, IncomePercent = 0 });
             return result;
         }
 
@@ -75,7 +75,7 @@ namespace PocketBudget.Controllers
         protected PathModel GetPathModel(PathViewModel pathModel)
         {
             var result = mapper.Map<PathViewModel, PathModel>(pathModel);
-            if (pathModel.EducationDegrees?.Degrees.Any(x => x.IsReached) ?? false)
+            if (pathModel.EducationDegrees?.Degrees?.Any(x => x.IsReached) ?? false)
             {
                 var highestDegree = pathModel.EducationDegrees.Degrees.LastOrDefault(x => x.IsReached);
                 result.Education = new EducationModel(highestDegree.Title, highestDegree.ReachedIn, highestDegree.IncomePercent);

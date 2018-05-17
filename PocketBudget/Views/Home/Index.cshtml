@@ -85,7 +85,6 @@
                 <div id="slide-out" class="side-nav">
                     @using (Html.BeginForm("GetChartLines", "Home", FormMethod.Post, htmlAttributes: new { id = "path-form" }))
                     {
-                        @Html.ValidationSummary(false)
                         <div class="form-row">
                             <div>
                                 <label>Приклад даних користувача</label>
@@ -122,7 +121,7 @@
                                 @Html.LabelFor(m => m.CurrentAge)
                             </div>
                             <div>
-                                @Html.TextBoxFor(m => m.CurrentAge, htmlAttributes: new { @class = "graph-updater current-age", type = "number" })
+                                @Html.TextBoxFor(m => m.CurrentAge, htmlAttributes: new { @class = "graph-updater current-age", type = "number", data_less_than = ".retirement-age" })
                                 @Html.ValidationMessageFor(m => m.CurrentAge)
                             </div>
                         </div>
@@ -131,7 +130,7 @@
                                 @Html.LabelFor(m => m.RetirementAge)
                             </div>
                             <div>
-                                @Html.TextBoxFor(m => m.RetirementAge, htmlAttributes: new { @class = "graph-updater retirement-age", type = "number" })
+                                @Html.TextBoxFor(m => m.RetirementAge, htmlAttributes: new { @class = "graph-updater retirement-age", type = "number", data_less_than = ".life-expectancy-age" })
                                 @Html.ValidationMessageFor(m => m.RetirementAge)
                             </div>
                         </div>

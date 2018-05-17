@@ -45,9 +45,9 @@ namespace Business.DomainModel.Cost
             switch (CurrencyId)
             {
                 case Constants.Currency.Dollar:
-                    return 27.95m;
+                    return 26.00m;
                 case Constants.Currency.Euro:
-                    return 31.15m;
+                    return 31.00m;
                 case Constants.Currency.Hrn:
                     return 1.0m;
                 default:

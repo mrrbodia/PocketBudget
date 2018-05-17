@@ -30,7 +30,7 @@ namespace PocketBudget.Models
 
         [Display(Name = "Тривалість життя")]
         [Required(ErrorMessage = "Введіть тривалість життя")]
-        [Range(60, 120, ErrorMessage = "Доступні значення з {1} до {2}")]
+        [Range(50, 120, ErrorMessage = "Доступні значення з {1} до {2}")]
         public short LifeExpectancy { get; set; }
 
         [UIHint("Salary")]
@@ -56,8 +56,10 @@ namespace PocketBudget.Models
 
         public bool IsValid()
         {
-            return Enumerable.Range(50, 90).Contains(this.RetirementAge)
-                && Enumerable.Range(55, 100).Contains(this.LifeExpectancy)
+            return Enumerable.Range(40, 90).Contains(this.RetirementAge)
+                && Enumerable.Range(50, 100).Contains(this.LifeExpectancy)
+                && CurrentAge < RetirementAge
+                && RetirementAge < LifeExpectancy
                 && this.RetirementAge < this.LifeExpectancy
                 && this.Salary != null
                 && this.Savings != null

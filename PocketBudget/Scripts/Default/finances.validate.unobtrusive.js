@@ -1,6 +1,10 @@
 ﻿(function () {
     $.validator.unobtrusive.adapters.addSingleVal('min', null, 'data-min');
 
+    $.validator.unobtrusive.adapters.addSingleVal('max', null, 'data-max');
+
+    $.validator.unobtrusive.adapters.addSingleVal('less-than', null, 'less-than');
+
     $('form').off(".validate")
         .removeData("validator")
         .removeData("unobtrusiveValidation");
