@@ -5,6 +5,8 @@
 
     $.validator.unobtrusive.adapters.addSingleVal('less-than', null, 'less-than');
 
+    $.validator.unobtrusive.adapters.addSingleVal('greater-than', null, 'greater-than');
+
     $('form').off(".validate")
         .removeData("validator")
         .removeData("unobtrusiveValidation");
