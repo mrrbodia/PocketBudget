@@ -462,8 +462,8 @@ PersonalFinances.Graph = (function () {
 
     var onLoadPopupSuccess = function (response, source, popup) {
         modifyTargetWithData(response, source, popup + ' .popup-content');
-        PersonalFinances.UI.resetValidationFor(popup + ' form');
         addPopupInfoToPath($(popup));
+        PersonalFinances.UI.resetValidationFor(popup + ' form');
     };
 
     var modifyTargetWithData = function (data, source, target)
