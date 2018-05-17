@@ -6,10 +6,26 @@
 <div class="education-degrees">
     @if (Model != null && Model.Degrees != null && Model.Degrees.Any())
     {
+        <input type="hidden" value="80" class="degree-max-age" />
         for (int i = 0; i < Model.Degrees.Count; ++i)
         {
+            //var lessThan = i < Model.Degrees.Count - 1 ? "#" + Html.GetFullHtmlFieldId(m => Model.Degrees[i + 1].ReachedIn) : ".degree-max-age";
             <div class="row form-row">
-                @Html.EditorFor(m => m.Degrees[i])
+                <p>
+                    @Model.Degrees[i].Title
+                </p>
+                <p>
+                    @Html.EditorFor(m => m.Degrees[i].IsReached, new { Label = "Досягти у віці" })
+                </p>
+                @Html.HiddenFor(m => Model.Degrees[i].Title)
+                @Html.HiddenFor(m => Model.Degrees[i].MinReachAge)
+                @Html.HiddenFor(m => Model.Degrees[i].IncomePercent)
+                @*//TODO: Unexpected token u in JSON at position 0*@
+                @Html.ValidationMessageFor(m => Model.Degrees[i].IncomePercent)
+                @Html.ValidationMessageFor(m => Model.Degrees[i].MinReachAge)
+                @Html.LabelFor(m => Model.Degrees[i].ReachedIn)
+                @Html.TextBoxFor(m => Model.Degrees[i].ReachedIn, new { type = "number", data_min = Model.Degrees[i].MinReachAge })
+                @Html.ValidationMessageFor(m => Model.Degrees[i].ReachedIn)
             </div>
         }
     }
