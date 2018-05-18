@@ -23,6 +23,9 @@ namespace PocketBudget.Controllers
         public ActionResult Index()
         {
             var pathModel = Session[Constants.SessionKeys.UserKey] as PathModel;
+            if (pathModel != null)
+                Session[Constants.SessionKeys.IsCustomizedModel] = true;
+
             var model = pathModel == null ? PersonalFinances.Path.GetDefaultPathModel() : pathModel;
             var viewModel = mapper.Map<PathModel, PathViewModel>(model);
             viewModel.ProfessionSelection.Professions = CreateProfessionsModel();
@@ -36,8 +39,8 @@ namespace PocketBudget.Controllers
             var result = new EducationDegreesViewModel();
             result.Degrees =  new List<EducationDegreeViewModel>();
             result.Degrees.Add(new EducationDegreeViewModel() { Title = "Школа", IsReached = false, ReachedIn = 14, MinReachAge = 14, IncomePercent = 0 });
-            result.Degrees.Add(new EducationDegreeViewModel() { IsReached = false, MinReachAge = 18, ReachedIn = 18, Title = "Бакалавр", IncomePercent = 0.10m });
-            result.Degrees.Add(new EducationDegreeViewModel() { IsReached = false, MinReachAge = 20, ReachedIn = 20, Title = "Магістр", IncomePercent = 0.15m });
+            result.Degrees.Add(new EducationDegreeViewModel() { IsReached = false, MinReachAge = 18, ReachedIn = 18, Title = "Бакалавр", IncomePercent = 2m });
+            result.Degrees.Add(new EducationDegreeViewModel() { IsReached = false, MinReachAge = 20, ReachedIn = 20, Title = "Магістр", IncomePercent = 1m });
             return result;
         }
 
@@ -86,6 +89,12 @@ namespace PocketBudget.Controllers
         protected PathModel GetPathModel(PathViewModel pathModel)
         {
             var result = mapper.Map<PathViewModel, PathModel>(pathModel);
+
+            if(Session[Constants.SessionKeys.IsCustomizedModel] != null && bool.Parse(Session[Constants.SessionKeys.IsCustomizedModel].ToString()))
+            {
+                result = Session[Constants.SessionKeys.UserKey] as PathModel;
+                Session[Constants.SessionKeys.IsCustomizedModel] = false;
+            }
             if (pathModel.EducationDegrees?.Degrees?.Any(x => x.IsReached) ?? false)
             {
                 result.Education = new EducationModel(pathModel.EducationDegrees.IsHidden);
