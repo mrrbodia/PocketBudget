@@ -20,7 +20,22 @@ namespace Business.Components.AdditionalPath
         public List<ChartLine> Execute(PathModel path, List<decimal?> points)
         {
             var additionalLines = new List<ChartLine>();
-
+            if (path.Education != null && path.Savings.Type == SavingsType.Percentage)
+            {
+                if (!path.Education.IsHidden)
+                {
+                    for (int i = path.Education.From; i < points.Count; ++i)
+                    {
+                        points[i] += points[i] * path.Education.GetIncomePercent(i);
+                    }
+                }
+                additionalLines.Add(new ChartLine(
+                    Constants.ChartLineType.Education,
+                    points,
+                    path.Savings.Amount,
+                    Constants.Currency.Hrn,
+                    path.Education.IsHidden));
+            }
             if (path.AdditionalPath?.AdditionalIncomes != null)
             {
                 foreach (var additionalIncome in path.AdditionalPath.AdditionalIncomes)
@@ -41,7 +56,6 @@ namespace Business.Components.AdditionalPath
                     additionalLines.Add(new ChartLine(additionalIncome.LineType, points, additionalIncome.Total, additionalIncome.CurrencyId, additionalIncome.IsHidden));
                 }
             }
-
             if (path.AdditionalPath?.AdditionalCosts != null)
             {
                 foreach (var additionalCost in path.AdditionalPath.AdditionalCosts)
@@ -61,22 +75,6 @@ namespace Business.Components.AdditionalPath
                     additionalCost.From += path.CurrentAge;
                     additionalLines.Add(new ChartLine(additionalCost.LineType, points, additionalCost.Total, additionalCost.CurrencyId, additionalCost.IsHidden));
                 }
-            }
-
-            if(path.Education != null)
-            {
-                var educationLine = new List<decimal?>(points);
-                for (int i = path.Education.From; i < educationLine.Count; ++i)
-                {
-                    educationLine[i] += educationLine[i] * path.Education.IncomePercent;
-                }
-                additionalLines.Add(new ChartLine(
-                    Constants.ChartLineType.Education, 
-                    educationLine, 
-                    path.Savings.Amount, 
-                    Constants.Currency.Hrn, 
-                    path.Education.IsHidden, 
-                    path.Education.Id));
             }
             return additionalLines;
         }

@@ -60,9 +60,11 @@ namespace Business.Managers.Chart
                 path.Salary.SalaryPeriods.Aggregate((f, s) => { f.To = s.From; return s; });
                 path.Salary.SalaryPeriods.Last().To = path.RetirementAge;
             }
-            if (path?.Education != null)
+            if (path?.Education?.EducationDegrees?.Any() ?? false)
             {
-                path.Education.From = path.Education.From > path.CurrentAge ? path.Education.From - path.CurrentAge : 0;
+                path.Education.EducationDegrees.Aggregate((f, s) => { f.To = s.From; return s; });
+                path.Education.EducationDegrees.Last().To = path.RetirementAge;
+                path.Education.From = path.Education.EducationDegrees.First().From;
             }
         }
 
@@ -71,7 +73,7 @@ namespace Business.Managers.Chart
             var educationLine = new List<decimal?>(mainSavingsLine);
             for (int i = path.Education.From; i < educationLine.Count; ++i)
             {
-                educationLine[i] += educationLine[i] * path.Education.IncomePercent;
+                educationLine[i] += educationLine[i] * path.Education.GetIncomePercent(i);
             }
             return new ChartLine(Constants.ChartLineType.Education, educationLine, path.Savings.Amount, Constants.Currency.Hrn, false);
         }

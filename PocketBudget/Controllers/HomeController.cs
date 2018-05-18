@@ -35,7 +35,9 @@ namespace PocketBudget.Controllers
             //TODO: Move to XML
             var result = new EducationDegreesViewModel();
             result.Degrees =  new List<EducationDegreeViewModel>();
-            result.Degrees.Add(new EducationDegreeViewModel() { Title = "Школа", IsReached = true, ReachedIn = 14, MinReachAge = 14, IncomePercent = 0 });
+            result.Degrees.Add(new EducationDegreeViewModel() { Title = "Школа", IsReached = false, ReachedIn = 14, MinReachAge = 14, IncomePercent = 0 });
+            result.Degrees.Add(new EducationDegreeViewModel() { IsReached = false, MinReachAge = 18, ReachedIn = 18, Title = "Бакалавр", IncomePercent = 0.10m });
+            result.Degrees.Add(new EducationDegreeViewModel() { IsReached = false, MinReachAge = 20, ReachedIn = 20, Title = "Магістр", IncomePercent = 0.15m });
             return result;
         }
 
@@ -86,8 +88,12 @@ namespace PocketBudget.Controllers
             var result = mapper.Map<PathViewModel, PathModel>(pathModel);
             if (pathModel.EducationDegrees?.Degrees?.Any(x => x.IsReached) ?? false)
             {
-                var highestDegree = pathModel.EducationDegrees.Degrees.LastOrDefault(x => x.IsReached);
-                result.Education = new EducationModel(highestDegree.Title, highestDegree.ReachedIn, highestDegree.IncomePercent, pathModel.EducationDegrees.IsHidden);
+                result.Education = new EducationModel(pathModel.EducationDegrees.IsHidden);
+                result.Education.EducationDegrees = new List<EducationDegreeModel>();
+                foreach (var degree in pathModel.EducationDegrees.Degrees.Where(x => x.IsReached))
+                {
+                    result.Education.EducationDegrees.Add(new EducationDegreeModel(degree.Title, degree.ReachedIn, degree.IncomePercent));
+                }
             }
             if (result?.Id?.Equals(Constants.SessionKeys.UserKey) ?? false)
                 Session[result.Id] = result;

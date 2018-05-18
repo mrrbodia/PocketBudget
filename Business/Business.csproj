@@ -85,6 +85,7 @@
     <Compile Include="Managers\StrategyManager.cs" />
     <Compile Include="Models\AdditionalPathModel.cs" />
     <Compile Include="Models\ChartLine.cs" />
+    <Compile Include="Models\EducationDegreeModel.cs" />
     <Compile Include="Models\EducationModel.cs" />
     <Compile Include="Models\PathModel.cs" />
     <Compile Include="Models\PensionModel.cs" />
