@@ -6,7 +6,6 @@ namespace Business
         public class SessionKeys
         {
             public const string UserKey = "example1";
-            public const string IsCustomizedModel = "iscustomizedmodel";
         }
 
         public class Currency
