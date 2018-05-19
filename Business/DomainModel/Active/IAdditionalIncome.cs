@@ -16,7 +16,13 @@ namespace Business.DomainModel.Active
 
         string CurrencyId { get; set; }
 
+        bool IsActive { get; set; }
+
+        bool IsHidden { get; set; }
+
         decimal GetIncomePerYear(int currentYear);
+
+        string LineType { get; }
     }
 
     public abstract class AdditionalIncome : IAdditionalIncome
@@ -29,6 +35,12 @@ namespace Business.DomainModel.Active
 
         public virtual string CurrencyId { get; set; }
 
+        public bool IsActive { get; set; }
+
+        public bool IsHidden { get; set; }
+
+        public abstract string LineType { get; }
+
         public abstract decimal GetIncomePerYear(int currentYear);
 
         protected virtual decimal GetCurrencyExchangeValue()
@@ -36,9 +48,9 @@ namespace Business.DomainModel.Active
             switch (CurrencyId)
             {
                 case Constants.Currency.Dollar:
-                    return 27.95m;
+                    return 26.00m;
                 case Constants.Currency.Euro:
-                    return 31.15m;
+                    return 31.00m;
                 case Constants.Currency.Hrn:
                     return 1.0m;
                 default:

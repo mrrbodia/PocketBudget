@@ -1,5 +1,6 @@
 ﻿using Business.Managers;
 using Business.Managers.Chart;
+using Business.Managers.Path;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,14 @@ namespace PocketBudget
             get
             {
                 return DependencyResolver.Current.GetService<IChartManager>();
+            }
+        }
+
+        public static IPathManager Path
+        {
+            get
+            {
+                return DependencyResolver.Current.GetService<IPathManager>();
             }
         }
     }

@@ -3,11 +3,16 @@ namespace Business.Models
 {
     public class PathModel
     {
+        public string Id {get;set;}
+
         public short CurrentAge { get; set; }
 
         public short RetirementAge { get; set; }
 
         public short LifeExpectancy { get; set; }
+
+        //TODO: make a list of education degrees
+        public EducationModel Education { get; set; }
 
         public SalaryModel Salary { get; set; }
 

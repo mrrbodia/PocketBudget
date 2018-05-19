@@ -1,0 +1,5 @@
+git remote -v
+git remote set-url origin --add https://gitlab.com/Arsendiabolikkys/PocketBudget.git
+
+
+then use git push

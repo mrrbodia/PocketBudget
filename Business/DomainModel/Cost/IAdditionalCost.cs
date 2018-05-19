@@ -16,6 +16,10 @@ namespace Business.DomainModel.Cost
 
         string CurrencyId { get; set; }
 
+        bool IsHidden { get; set; }
+
+        string LineType { get; }
+
         decimal GetCostPerYear();
     }
 
@@ -29,17 +33,21 @@ namespace Business.DomainModel.Cost
 
         public virtual decimal Total { get; set; }
 
+        public bool IsHidden { get; set; }
+
+        public abstract string LineType { get; }
+
         public abstract decimal GetCostPerYear();
 
-        //TODO: Replace with better solution
+        //TODO: Replace with better solution (get from XML)
         protected virtual decimal GetCurrencyExchangeValue()
         {
             switch (CurrencyId)
             {
                 case Constants.Currency.Dollar:
-                    return 27.95m;
+                    return 26.00m;
                 case Constants.Currency.Euro:
-                    return 31.15m;
+                    return 31.00m;
                 case Constants.Currency.Hrn:
                     return 1.0m;
                 default:

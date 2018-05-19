@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Base.cshtml";
 }
 
-<div>    
+<div>
     <div class="budget-block">
         <div id="chart-block-new" style="width:90%; height:100%; max-width: 1400px; float: left">
             <canvas id="chart"></canvas>
@@ -11,6 +11,7 @@
         @MinimalInformationSettingsBlock()
     </div>
     @EditSettingsBlock()
+    @Html.ActionLink("Очистити", "ClearPath", "Home")
 </div>
 <div id="tooltip-element-content">@Html.Partial("_ChartTooltip")</div>
 <div id="tooltip-element"></div>
@@ -37,6 +38,12 @@
         <div>
             <div>
                 @Html.DisplayFor(m => m.Salary)
+            </div>
+            <div>
+                @Html.DisplayFor(m => m.ProfessionSelection)
+            </div>
+            <div>
+                @Html.DisplayFor(m => m.EducationDegrees)
             </div>
             <div>
                 @Html.DisplayFor(m => m.Savings)
@@ -79,21 +86,28 @@
                 <div id="slide-out" class="side-nav">
                     @using (Html.BeginForm("GetChartLines", "Home", FormMethod.Post, htmlAttributes: new { id = "path-form" }))
                     {
+                        @Html.HiddenFor(m => m.Id, htmlAttributes: new { id = "data-path-id" })
                         <div class="form-row">
                             <div>
                                 <label>Приклад даних користувача</label>
                             </div>
-                            <div>
-                                @Html.RadioButton("usersExamplesData", 1, htmlAttributes: new { id = "usersExamplesData_1", @class = "graph-updater usersExamplesData", @checked ="checked" })
-                                <label for="usersExamplesData_1">Олег</label>
-                                @Html.RadioButton("usersExamplesData", 2, htmlAttributes: new { id = "usersExamplesData_2", @class = "graph-updater usersExamplesData" })
+                            <div data-url="@Url.Action("GetPathModel")">
+                                @Html.RadioButton("usersExamplesData", "example1", htmlAttributes: new { id = "usersExamplesData_1", @class = "graph-updater usersExamplesData", @checked ="checked" })
+                                <label for="usersExamplesData_1">Користувач</label>
+                                @Html.RadioButton("usersExamplesData", "example2", htmlAttributes: new { id = "usersExamplesData_2", @class = "graph-updater usersExamplesData" })
                                 <label for="usersExamplesData_2">Олександра</label>
-                                @Html.RadioButton("usersExamplesData", 3, htmlAttributes: new { id = "usersExamplesData_3", @class = "graph-updater usersExamplesData" })
+                                @Html.RadioButton("usersExamplesData", "example3", htmlAttributes: new { id = "usersExamplesData_3", @class = "graph-updater usersExamplesData" })
                                 <label for="usersExamplesData_3">Олексій</label>
                             </div>
                         </div>
                         <div class="form-row">
                             @Html.EditorFor(m => m.Salary)
+                        </div>
+                        <div class="form-row">
+                            @Html.EditorFor(m => m.ProfessionSelection)
+                        </div>
+                        <div>
+                            @Html.EditorFor(m => m.EducationDegrees)
                         </div>
                         <div class="form-row">
                             @Html.EditorFor(m => m.Savings)
@@ -109,7 +123,7 @@
                                 @Html.LabelFor(m => m.CurrentAge)
                             </div>
                             <div>
-                                @Html.TextBoxFor(m => m.CurrentAge, htmlAttributes: new { @class = "graph-updater current-age", type = "number" })
+                                @Html.TextBoxFor(m => m.CurrentAge, htmlAttributes: new { @class = "graph-updater current-age", type = "number", data_less_than = ".retirement-age" })
                                 @Html.ValidationMessageFor(m => m.CurrentAge)
                             </div>
                         </div>
@@ -118,7 +132,7 @@
                                 @Html.LabelFor(m => m.RetirementAge)
                             </div>
                             <div>
-                                @Html.TextBoxFor(m => m.RetirementAge, htmlAttributes: new { @class = "graph-updater retirement-age", type = "number" })
+                                @Html.TextBoxFor(m => m.RetirementAge, htmlAttributes: new { @class = "graph-updater retirement-age", type = "number", data_less_than = ".life-expectancy-age" })
                                 @Html.ValidationMessageFor(m => m.RetirementAge)
                             </div>
                         </div>

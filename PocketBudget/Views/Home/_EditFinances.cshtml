@@ -34,12 +34,14 @@
                                            class="currency option-input @visibility" type="radio" value="@Model.AdditionalIncome.Deposits[i].CurrencyId" @selected />
                                     <label for="@Html.GetFullHtmlFieldId(m => m.AdditionalIncome.Deposits[i].CurrencyId)"
                                            class="option-input @visibility">@Model.AdditionalIncome.Deposits[i].Title</label>
-                                    <input name="@Html.GetFullHtmlFieldName(m => m.AdditionalIncome.Deposits[i].Percentage)" 
-                                           class="percentage hidden" type="hidden" value="@Model.AdditionalIncome.Deposits[i].Percentage" />
-                                    <input id="@Html.GetFullHtmlFieldId(m => m.AdditionalIncome.Deposits[i].Total)" name="@Html.GetFullHtmlFieldName(m => m.AdditionalIncome.Deposits[i].Total)"
-                                           class="total option-input @visibility" type="number" value="@Model.AdditionalIncome.Deposits[i].Total" />
-                                    <input id="@Html.GetFullHtmlFieldId(m => m.AdditionalIncome.Deposits[i].Years)" name="@Html.GetFullHtmlFieldName(m => m.AdditionalIncome.Deposits[i].Years)" 
-                                           class="years option-input @visibility" type="number" value="@Model.AdditionalIncome.Deposits[i].Years" />
+
+                                    @Html.HiddenFor(m => m.AdditionalIncome.Deposits[i].Percentage, htmlAttributes: new { @class= "percentage hidden" })
+
+                                    @Html.TextBoxFor(m => m.AdditionalIncome.Deposits[i].Total, htmlAttributes: new { type = "number", @class = "total option-input " + visibility })
+                                    @Html.ValidationMessageFor(m => m.AdditionalIncome.Deposits[i].Total)
+
+                                    @Html.TextBoxFor(m => m.AdditionalIncome.Deposits[i].Years, htmlAttributes: new { type = "number", @class = "years option-input " + visibility })
+                                    @Html.ValidationMessageFor(m => m.AdditionalIncome.Deposits[i].Years)
                                 </p>
                             }
                         </div>
@@ -131,3 +133,12 @@
         }
     </div>
 </div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $.validator.unobtrusive.parse($('#additional-path-form'));
+        });
+    </script>
+}

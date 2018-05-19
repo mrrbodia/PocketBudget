@@ -3,35 +3,6 @@ PersonalFinances.Graph = (function () {
     var ctx = document.getElementById("chart");
     var chart = null;
 
-    var usersExamplesData = [
-        {
-            Salary_Amount: 7000,
-            Savings_Amount: 3000,
-            Pension_Amount: 3000,
-            Spendings_Amount: 2500,
-            CurrentAge: 20,
-            RetirementAge: 60,
-            LifeExpectancy: 80
-        },
-        {
-            Salary_Amount: 12000,
-            Savings_Amount: 7000,
-            Pension_Amount: 2000,
-            Spendings_Amount: 3500,
-            CurrentAge: 26,
-            RetirementAge: 60,
-            LifeExpectancy: 80
-        },
-        {
-            Salary_Amount: 16000,
-            Savings_Amount: 10000,
-            Pension_Amount: 1600,
-            Spendings_Amount: 5000,
-            CurrentAge: 28,
-            RetirementAge: 65,
-            LifeExpectancy: 80
-        }];
-
     var initTimeout = function (el, timeout) {
         return setTimeout(function () {
             el.style.display = 'none';
@@ -48,6 +19,28 @@ PersonalFinances.Graph = (function () {
                 datasets: datasets
             },
             options: {
+                legend: {
+                    labels: {
+                        lineWidth: 1
+                    },
+                    onHover: function (e, legendItem) {
+                        var item = getAdditionalPathDataForLegendItem(this.chart, legendItem);
+                    },
+                    onClick: function (e, legendItem) {
+                        var item = getAdditionalPathDataForLegendItem(this.chart, legendItem);
+                        if (item !== undefined) {
+                            item.IsHidden = item.IsHidden === undefined ? true : !item.IsHidden;
+                            updateGraph();
+                        }
+                        else
+                            if (legendItem.datasetIndex !== 0) {
+                                //education line.
+                                currentValue = $("#EducationDegrees_IsHidden").val().toLowerCase() == "true";
+                                $("#EducationDegrees_IsHidden").val(!currentValue);
+                                updateGraph();
+                            }
+                    }
+                },
                 annotation: {
                     drawTime: 'afterDatasetsDraw',
                     annotations: [{
@@ -56,7 +49,7 @@ PersonalFinances.Graph = (function () {
                         borderWidth: 2,
                         mode: 'vertical',
                         type: 'line',
-                        value: parseInt($('#RetirementAge').val()) - parseInt($('#CurrentAge').val()),
+                        value: parseInt($('#RetirementAge').val()) - parseInt($('#CurrentAge').val()) - 1,
                         scaleID: 'x-axis-0',
                         label: {
                             content: "Пенсія",
@@ -82,6 +75,13 @@ PersonalFinances.Graph = (function () {
                             callback: function (value, index, array) {
                                 var year = currentYear + index;
                                 return index % 5 ? "" : ["Вік " + value + " / " + year + " рік"];
+                            }
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            callback: function (value, index, array) {
+                                return formatAsCurrency(value);
                             }
                         }
                     }]
@@ -170,13 +170,17 @@ PersonalFinances.Graph = (function () {
                     },
                     callbacks: {
                         label: function (item, chart) {
-                            return item.yLabel.toFixed(2);
+                            return formatAsCurrency(item.yLabel);
                         }
                     }
                 }
             }
         });
     };
+
+    var formatAsCurrency = function (value) {
+        return '₴' + value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    }
 
     var replaceTooltipTags = function (str, mapObj) {
         var result = str;
@@ -194,15 +198,7 @@ PersonalFinances.Graph = (function () {
         var lifeExpectancy = +$('.life-expectancy-age').val();
         for (var i = currentAge; i < lifeExpectancy; i++)
         {
-            var index = i - currentAge;
-            labels[index] = i;
-            //if (i % 5) {
-            //    labels[index] = "";
-            //}
-            //else {
-            //    var year = currentYear + index;
-            //    labels[index] = "Вік " + i + " / " + year + " рік";
-            //}
+            labels[i - currentAge] = i;
         }
         if (chart)
         {
@@ -254,28 +250,66 @@ PersonalFinances.Graph = (function () {
         return obj;
     }
 
+    //TODO: refactor
     var getChartLine = function (line) {
-        if (line.Type === 'base') {
+        if (line.Type === 'Base') {
             return {
-                label: 'Базова',
-                backgroundColor: [
-                    'rgba(241, 248, 233, 0.5)'
-                ],
+                label: line.Title,
                 borderColor: [
-                    '#c5e1a5'
+                    'rgba(20, 40, 110, 0.5)'
+                ],
+                fill: false,
+                borderWidth: 4,
+                data: toPointsObject(line.Points)
+            }
+        }
+        else
+            if (line.Type === 'Deposit') {
+            return {
+                label: line.Title,
+                lineType: line.Type,
+                hidden: line.IsHidden,
+                borderColor: [
+                    'rgba(0, ' + getShade() + ', 0, 0.5)'
                 ],
                 fill: false,
                 data: toPointsObject(line.Points)
             }
         }
-        if (line.Type === 'deposit') {
+        else
+            if (line.Type === 'Sale') {
             return {
-                label: 'Депозит',
-                backgroundColor: [
-                    'rgba(167, 255, 235, 0.5)'
-                ],
+                label: line.Title,
+                lineType: line.Type,
+                hidden: line.IsHidden,
                 borderColor: [
-                    '#64ffda'
+                    'rgba(0, ' + getShade() + ', 0, 0.5)'
+                ],
+                fill: false,
+                data: toPointsObject(line.Points)
+            }
+        }
+        else
+            if (line.Type === 'Education') {
+                return {
+                    label: line.Title,
+                    lineType: line.Type,
+                    hidden: line.IsHidden,
+                    borderColor: [
+                        'rgba(0, ' + getShade() + ', 0, 0.5)'
+                    ],
+                    fill: false,
+                    data: toPointsObject(line.Points)
+                }
+            }
+        else
+            if (line.Type === 'Purchase') {
+            return {
+                label: line.Title,
+                lineType: line.Type,
+                hidden: line.IsHidden,
+                borderColor: [
+                    'rgba(' + getShade() + ', 0, 0, 0.5)'
                 ],
                 fill: false,
                 data: toPointsObject(line.Points)
@@ -283,17 +317,23 @@ PersonalFinances.Graph = (function () {
         }
         else {
             return {
-                label: 'Кредит',
-                backgroundColor: [
-                    'rgba(251, 233, 231, 0.5)'
-                ],
+                label: line.Title,
+                lineType: line.Type,
+                hidden: line.IsHidden,
                 borderColor: [
-                    '#ffab91'
+                    'rgba(' + getShade() + ', 0, 0, 0.5)'
                 ],
                 fill: false,
                 data: toPointsObject(line.Points)
             }
         }
+    };
+
+    var getShade = function () {
+        var max = 255;
+        var min = 150;
+        var r = Math.floor(Math.random() * (max - min + 1)) + min;
+        return r;
     };
 
     var updateGraphLines = function ()
@@ -329,36 +369,112 @@ PersonalFinances.Graph = (function () {
         //    data += '&' + additionalForm.serialize();
         //}
 
-        if (PersonalFinances.Path.AdditionalPath.Deposits) {
-            $.each(PersonalFinances.Path.AdditionalPath.Deposits, function (index) {
+        if (PersonalFinances.Path.AdditionalPath['Deposit']) {
+            $.each(PersonalFinances.Path.AdditionalPath['Deposit'], function (index) {
                 data += PersonalFinances.Binder.bindDeposit(index);
             });
         }
-        if (PersonalFinances.Path.AdditionalPath.Sales) {
-            $.each(PersonalFinances.Path.AdditionalPath.Sales, function (index) {
+        if (PersonalFinances.Path.AdditionalPath['Sale']) {
+            $.each(PersonalFinances.Path.AdditionalPath['Sale'], function (index) {
                 data += PersonalFinances.Binder.bindSale(index);
             });
         }
-        if (PersonalFinances.Path.AdditionalPath.Credits) {
-            $.each(PersonalFinances.Path.AdditionalPath.Credits, function (index) {
+        if (PersonalFinances.Path.AdditionalPath['Credit']) {
+            $.each(PersonalFinances.Path.AdditionalPath['Credit'], function (index) {
                 data += PersonalFinances.Binder.bindCredit(index);
             });
         }
-        if (PersonalFinances.Path.AdditionalPath.Purchases) {
-            $.each(PersonalFinances.Path.AdditionalPath.Purchases, function (index) {
+        if (PersonalFinances.Path.AdditionalPath['Purchase']) {
+            $.each(PersonalFinances.Path.AdditionalPath['Purchase'], function (index) {
                 data += PersonalFinances.Binder.bindPurchase(index);
             });
         }
         return data;
     };
 
-    var updateGraph = function (){
-        updateGraphLines();
+    var updateGraph = function () {
+        if ($('#path-form').valid()) {
+            updateGraphLines();
+            updateMaterialize();
+        }
+    };
+
+    var updateMaterialize = function () {
+        $.each($('input[type=checkbox]'), function (index, elem, value) {
+            var formId = $(elem).closest('form').attr('id');
+            var label = $(elem).next('label');
+
+            var inputValue = $(elem).val();
+            var inputId = $(elem).attr('id');
+            var newName = '#' + formId + '_#' + inputId + '_#' + inputValue;
+            $(elem).attr('id', newName);
+            $(label).attr('for', newName);
+        });
+    };
+
+    var getAdditionalPathDataForLegendItem = function (chart, legendItem) {
+        var index = legendItem.datasetIndex;
+        var dataset = chart.data.datasets[index];
+
+        var typeLines = chart.data.datasets.filter(function (obj) { return obj.lineType === dataset.lineType; });
+        var lineIndexInLineTypes = typeLines.indexOf(dataset);
+        var items = PersonalFinances.Path.AdditionalPath[dataset.lineType];
+        if (items !== undefined)
+            return items[lineIndexInLineTypes];
+        return items;
     };
 
     var updateMinimalInformation = function (input) {
         var id = $(input).attr("id");
-        $('.' + id).html($(input).val());
+        $('.' + id).html(formatAsCurrency($(input).val()));
+    };
+
+    var addPopupInfoToPath = function ($popup) {
+        $popup.find('input').each(function (index, input) {
+            if (input.type == "checkbox" && input.checked) {
+                $(input).attr('value', true);
+                $(input).attr('checked', 'checked');
+            }
+            else {
+                $(input).attr('value', $(input).val());
+            }
+        });
+        var info = $popup.find('.popup-content').html().trim();
+        $('.' + $popup.attr('data-target')).html(info);
+    };
+
+    var loadPopupContent = function (to, source, popup) {
+        var form = $('#path-form');
+        if (form.valid()) {
+            $.ajax({
+                type: 'POST',
+                url: to,
+                data: form.serialize(),
+                success: function (response) {
+                    onLoadPopupSuccess(response, source, popup);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+    };
+
+    var onLoadPopupSuccess = function (response, source, popup) {
+        modifyTargetWithData(response, source, popup + ' .popup-content');
+        addPopupInfoToPath($(popup));
+        PersonalFinances.UI.resetValidationFor(popup + ' form');
+    };
+
+    var modifyTargetWithData = function (data, source, target)
+    {
+        var $target = $(target);
+        var $newHtml = $(data.trim());
+        var $container = $newHtml.find(source);
+        if ($container.length) {
+            $newHtml = $container.children();
+        }
+        $target.html($newHtml);
     };
 
     var initEvents = function () {
@@ -368,6 +484,57 @@ PersonalFinances.Graph = (function () {
         $(document).on('click', '.save-edit-finances', function (e) {
             PersonalFinances.Path.AdditionalPath.saveAdditionalValuesSelection();
             updateGraph();
+        });
+        $(document).on('click', '.save-edit-popup', function (e) {
+            var $modal = $(this).parents('.modal');
+            var $form = $modal.find('form');
+            if (!$form.valid()) {
+                return;
+            }
+            PersonalFinances.Popups.close('#' + $modal.attr('id'));
+            addPopupInfoToPath($modal);
+            updateGraph();
+        });
+        $(document).on('change', '.profession-selection', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var url = $(this).attr('data-url');
+            var option = $(this).find('option:selected');
+            $('.selected-profession').val(option.attr('value'));
+            var form = $('#path-form');
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: form.serialize(),
+                success: function (data) {
+                    modifyTargetWithData(data, '.education-degrees', '.education-degrees');
+                    PersonalFinances.UI.resetValidationFor('#path-form');
+                }
+            });
+        });
+        //TODO: refactor methods below
+        $(document).on('click', '.edit-education', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var newHtml = $('.education-degrees').html().trim();
+            $('#edit-education-popup').find('.edit-education-content').html(newHtml);
+            PersonalFinances.Popups.open('#edit-education-popup');
+            PersonalFinances.UI.resetValidationFor('.form-edit-education-content');
+            updateMaterialize();
+        });
+        $(document).on('click', '.edit-salary', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var newHtml = $('.salary-periods').html().trim();
+            $('#edit-salary-popup').find('.edit-salary-content').html(newHtml);
+            PersonalFinances.Popups.open('#edit-salary-popup');
+            PersonalFinances.UI.resetValidationFor('.form-edit-salary-content');
+        });
+        $(document).on('click', '.add-salary-period', function (e) {
+            loadPopupContent('getsalaryperiod', '.salary-periods', '#edit-salary-popup');
+        });
+        $(document).on('click', '.delete-salary-period', function (e) {
+            loadPopupContent('deletesalaryperiod', '.salary-periods', '#edit-salary-popup');
         });
         $(document).on('click', '.tooltip-moreoptions', function (e) {
             var btn = $(e.target);
@@ -388,6 +555,9 @@ PersonalFinances.Graph = (function () {
                         accordion: false
                     });
                 },
+                complete: function () {
+                    PersonalFinances.UI.resetValidationFor("#additional-path-form");
+                },
                 error: function (err) {
                     console.log(err);
                 }
@@ -397,7 +567,6 @@ PersonalFinances.Graph = (function () {
             var value = $(this).attr('data-value');
             var selector = '#' + $(this).attr('data-for');
             $(selector).val(value);
-
             onDataChanged(selector);
         });
         $(".button-collapse").sideNav('show');
@@ -410,14 +579,22 @@ PersonalFinances.Graph = (function () {
                 draggable: true
             });
         });
+        $(document).on('change', '#additional-path-form', function () {
+            PersonalFinances.UI.resetValidationFor('#additional-path-form');
+        });
         $(document).on('change', '.usersExamplesData', function (e) {
-            var value = $(this).val();
-            var userData = usersExamplesData[value - 1];
-            for (var key in userData) {
-                $('#' + key).val(userData[key]);
-                $('.' + key).text(userData[key]);
-            }
-            updateGraph();
+            var url = $(this).parent().attr('data-url');
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: { modelId: $(this).val() },
+                success: function (data) {
+                    PersonalFinances.Path.updatePathForm(data.model);
+                    PersonalFinances.Path.AdditionalPath.bindModel(data.model);
+                    var chartLines = getChartLines(data.lines);
+                    updateGraphWithData(chartLines);
+                }
+            });
         });
     };
 
@@ -437,6 +614,7 @@ PersonalFinances.Graph = (function () {
 })();
 
 $(document).ready(function () {
+    $('select').material_select();
     if (document.getElementById('chart-block-new'))
         PersonalFinances.Graph.init();
 });

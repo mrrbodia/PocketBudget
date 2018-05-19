@@ -3,6 +3,11 @@ namespace Business
 {
     public class Constants
     {
+        public class SessionKeys
+        {
+            public const string UserKey = "example1";
+        }
+
         public class Currency
         {
             public const string Dollar = "dollar";
@@ -12,15 +17,20 @@ namespace Business
             public const string HrnSymbol = "₴";
             public const string EuroSymbol = "€";
         }
-
-        //TODO: Income and costs vs Deposit and Credit
+        
         public class ChartLineType
         {
-            public const string Deposit = "deposit";
+            public const string Education = "Education";
 
-            public const string Credit = "credit";
+            public const string Deposit = "Deposit";
 
-            public const string Base = "base";
+            public const string Credit = "Credit";
+
+            public const string Base = "Base";
+
+            public const string Sale = "Sale";
+
+            public const string Purchase = "Purchase";
         }
     }
 }

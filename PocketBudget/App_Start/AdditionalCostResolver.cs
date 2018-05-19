@@ -25,7 +25,8 @@ namespace PocketBudget.App_Start
                         From = credit.FromAge,
                         Percentage = credit.Percentage,
                         Total = credit.Total,
-                        Years = credit.Years
+                        Years = credit.Years,
+                        IsHidden = credit.IsHidden
                     });
                 }
             }
@@ -37,7 +38,8 @@ namespace PocketBudget.App_Start
                     {
                         CurrencyId = credit.CurrencyId,
                         From = credit.FromAge,
-                        Total = credit.Total
+                        Total = credit.Total,
+                        IsHidden = credit.IsHidden
                     });
                 }
             }

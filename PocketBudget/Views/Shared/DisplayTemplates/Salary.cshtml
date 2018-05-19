@@ -1,7 +1,11 @@
 ﻿@model SalaryViewModel
+@using PocketBudget.Extensions
 <p>
-    @Html.LabelFor(m => m.Amount)
-    <span class="newline @Html.IdFor(m => m.Amount)">
-        @Html.DisplayFor(m => m.Amount, new { @class = "graph-updater", type = "number" })
-    </span>
+    @Html.LabelFor(m => m.SalaryPeriods)
+    @if (Model.SalaryPeriods != null && Model.SalaryPeriods.Any())
+    {
+        <span class="newline @Html.IdFor(m => m.SalaryPeriods[0].Amount)">
+            @Model.SalaryPeriods[0].Amount.FormatAsCurrency()
+        </span>
+    }
 </p>

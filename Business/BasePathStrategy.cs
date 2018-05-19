@@ -1,6 +1,5 @@
 ﻿using Business.Models;
 using Business.Savings;
-using Business.Spendings;
 
 namespace Business
 {
@@ -16,19 +15,6 @@ namespace Business
                     return new PercentageSavingsStrategy();
                 default:
                     return new FixedSavingsStrategy();
-            }
-        }
-
-        public static SpendingsStrategy GetStragery(SpendingsType type)
-        {
-            switch (type)
-            {
-                case SpendingsType.Fixed:
-                    return new FixedSpendingsStrategy();
-                case SpendingsType.Percentage:
-                    return new PercentageSpendingsStrategy();
-                default:
-                    return new FixedSpendingsStrategy();
             }
         }
     }
