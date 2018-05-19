@@ -64,7 +64,8 @@ namespace Business.Managers.Chart
             {
                 path.Education.EducationDegrees.Aggregate((f, s) => { f.To = s.From; return s; });
                 path.Education.EducationDegrees.Last().To = path.RetirementAge;
-                path.Education.From = path.Education.EducationDegrees.First().From;
+                var from = path.Education.EducationDegrees.First().From;
+                path.Education.From = from > path.CurrentAge ? from - path.CurrentAge : 0;
             }
         }
 
