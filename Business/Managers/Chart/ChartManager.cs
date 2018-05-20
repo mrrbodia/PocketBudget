@@ -64,19 +64,7 @@ namespace Business.Managers.Chart
             {
                 path.Education.EducationDegrees.Aggregate((f, s) => { f.To = s.From; return s; });
                 path.Education.EducationDegrees.Last().To = path.RetirementAge;
-                var from = path.Education.EducationDegrees.First().From;
-                path.Education.From = from > path.CurrentAge ? from - path.CurrentAge : 0;
             }
-        }
-
-        protected ChartLine AddEducationLine(PathModel path, List<decimal?> mainSavingsLine)
-        {
-            var educationLine = new List<decimal?>(mainSavingsLine);
-            for (int i = path.Education.From; i < educationLine.Count; ++i)
-            {
-                educationLine[i] += educationLine[i] * path.Education.GetIncomePercent(i);
-            }
-            return new ChartLine(Constants.ChartLineType.Education, educationLine, path.Savings.Amount, Constants.Currency.Hrn, false);
         }
 
         protected List<ChartLine> AddAdditionalLines(PathModel path, List<decimal?> mainSavingsLine)

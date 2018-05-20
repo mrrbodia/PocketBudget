@@ -2,6 +2,7 @@
 using Business.DomainModel.Cost;
 using Business.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Business.Components.AdditionalPath
 {
@@ -24,7 +25,9 @@ namespace Business.Components.AdditionalPath
             {
                 if (!path.Education.IsHidden)
                 {
-                    for (int i = path.Education.From; i < points.Count; ++i)
+                    var from = path.Education.EducationDegrees.First().From;
+                    from = from > path.CurrentAge ? from - path.CurrentAge : 0;
+                    for (int i = from; i < points.Count; ++i)
                     {
                         points[i] += points[i] * path.Education.GetIncomePercent(i);
                     }
