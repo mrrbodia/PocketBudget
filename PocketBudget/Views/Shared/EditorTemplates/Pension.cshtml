@@ -16,6 +16,6 @@
     <label for="target-pension-8000">8000</label>
 </div>
 <div>
-    @Html.TextBoxFor(m => m.Amount, new { @class = "graph-updater", type = "number" })
+    @Html.TextBoxFor(m => m.Amount, new { @class = "graph-updater", type = "number", @data_iscurrency="true" })
     @Html.ValidationMessageFor(m => m.Amount)
 </div>

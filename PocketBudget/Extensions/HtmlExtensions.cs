@@ -17,11 +17,16 @@ namespace PocketBudget.Extensions
             return new HtmlString(json);
         }
 
-        public static IHtmlString FormatAsCurrency(this decimal amount)
+        public static IHtmlString FormatAsPrice(this decimal amount)
         {
             var regex = new Regex(@"(\d)(?=(\d\d\d)+(?!\d))");
-            var str = Constants.Currency.HrnSymbol + regex.Replace(amount.ToString(), "$1,");
+            var str = regex.Replace(amount.ToString(), "$1,");
             return new HtmlString(str);
+        }
+
+        public static IHtmlString GetCurrencySymbol()
+        {
+            return new HtmlString(Constants.Currency.HrnSymbol);
         }
     }
 }

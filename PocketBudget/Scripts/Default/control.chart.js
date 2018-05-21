@@ -179,7 +179,11 @@ PersonalFinances.Graph = (function () {
     };
 
     var formatAsCurrency = function (value) {
-        return '₴' + value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+        return '₴' + formatAsPrice(value);
+    }
+
+    var formatAsPrice = function (value) {
+        return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     }
 
     var replaceTooltipTags = function (str, mapObj) {
@@ -426,7 +430,7 @@ PersonalFinances.Graph = (function () {
 
     var updateMinimalInformation = function (input) {
         var id = $(input).attr("id");
-        $('.' + id).html(formatAsCurrency($(input).val()));
+        $('.' + id).html(formatAsPrice($(input).val()));
     };
 
     var addPopupInfoToPath = function ($popup) {

@@ -3,6 +3,7 @@
 <p>
     @Html.LabelFor(m => m.Amount)
     <span class="newline @Html.IdFor(m => m.Amount)">
-        @Model.Amount.FormatAsCurrency()
+        <span class="currency">@HtmlExtensions.GetCurrencySymbol()</span>
+        <span class="@Html.IdFor(m => m.Amount)">@Model.Amount.FormatAsPrice()</span>
     </span>
 </p>

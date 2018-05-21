@@ -4,8 +4,9 @@
     @Html.LabelFor(m => m.SalaryPeriods)
     @if (Model.SalaryPeriods != null && Model.SalaryPeriods.Any())
     {
-        <span class="newline @Html.IdFor(m => m.SalaryPeriods[0].Amount)">
-            @Model.SalaryPeriods[0].Amount.FormatAsCurrency()
+        <span class="newline">
+            <span class="currency">@HtmlExtensions.GetCurrencySymbol()</span>
+            <span class="@Html.IdFor(m => m.SalaryPeriods[0].Amount)">@Model.SalaryPeriods[0].Amount.FormatAsPrice()</span>
         </span>
     }
 </p>
