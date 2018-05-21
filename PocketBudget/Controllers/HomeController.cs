@@ -23,6 +23,8 @@ namespace PocketBudget.Controllers
         public ActionResult Index()
         {
             var pathModel = Session[Constants.SessionKeys.UserKey] as PathModel;
+            if (pathModel != null)
+                Session[Constants.SessionKeys.IsCustomizedModel] = true;
             var model = pathModel == null ? PersonalFinances.Path.GetDefaultPathModel() : pathModel;
             var viewModel = mapper.Map<PathModel, PathViewModel>(model);
             viewModel.ProfessionSelection.Professions = CreateProfessionsModel();
@@ -86,6 +88,11 @@ namespace PocketBudget.Controllers
         protected PathModel GetPathModel(PathViewModel pathModel)
         {
             var result = mapper.Map<PathViewModel, PathModel>(pathModel);
+            if(Session[Constants.SessionKeys.IsCustomizedModel] != null && bool.Parse(Session[Constants.SessionKeys.IsCustomizedModel].ToString()))
+            {
+                result = Session[Constants.SessionKeys.UserKey] as PathModel;
+                Session[Constants.SessionKeys.IsCustomizedModel] = false;
+            }
             if (pathModel.EducationDegrees?.Degrees?.Any(x => x.IsReached) ?? false)
             {
                 result.Education = new EducationModel(pathModel.EducationDegrees.IsHidden);
