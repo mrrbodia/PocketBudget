@@ -512,6 +512,7 @@ PersonalFinances.Graph = (function () {
             var url = $(this).attr('data-url');
             var option = $(this).find('option:selected');
             $('.selected-profession').val(option.attr('value'));
+            $('.ProfessionSelection_Professions').html(option[0].label);
             var form = $('#path-form');
             $.ajax({
                 url: url,
