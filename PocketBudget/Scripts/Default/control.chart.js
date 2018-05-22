@@ -438,7 +438,7 @@ PersonalFinances.Graph = (function () {
 
     var changeSavingsSymbol = function () {
         $(".percentageSymbol").toggle();
-        $(".currency").toggle();
+        $(".currencyofSavings").toggle();
     };
 
     var addPopupInfoToPath = function ($popup) {
