@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -9,6 +10,7 @@ namespace PocketBudget.Models.AdditionalCost
     {
         public float Percentage { get; set; }
 
+        [Range(1, 10, ErrorMessage = "Доступні значення з {1} до {2}")]
         public short Years { get; set; }
 
         public override string Title
