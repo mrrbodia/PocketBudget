@@ -15,9 +15,9 @@ namespace Business.Models
         public bool IsHidden { get; set; }
         public int From { get; set; }
         public List<EducationDegreeModel> EducationDegrees { get; set; }
-        public decimal GetIncomePercent(int from, int inAge)
+        public decimal GetIncomePercent(int inAge)
         {
-            return EducationDegrees?.FirstOrDefault(x => from <= inAge && x.To > inAge)?.IncomePercent ?? 0;
+            return EducationDegrees?.FirstOrDefault(x => x.From <= inAge && x.To > inAge)?.IncomePercent ?? 0;
         }
     }
 }

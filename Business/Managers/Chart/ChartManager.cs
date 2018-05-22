@@ -63,7 +63,7 @@ namespace Business.Managers.Chart
             if (path?.Education?.EducationDegrees?.Any() ?? false)
             {
                 path.Education.EducationDegrees.Aggregate((f, s) => { f.To = s.From; return s; });
-                path.Education.EducationDegrees.Last().To = path.RetirementAge;
+                path.Education.EducationDegrees.Last().To = path.LifeExpectancy;
             }
         }
 

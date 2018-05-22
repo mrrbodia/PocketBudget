@@ -29,7 +29,7 @@ namespace Business.Components.AdditionalPath
                     from = from > path.CurrentAge ? from - path.CurrentAge : 0;
                     for (int i = from; i < points.Count; ++i)
                     {
-                        points[i] += points[i] * path.Education.GetIncomePercent(from, i);
+                        points[i] += points[i] * path.Education.GetIncomePercent(i + path.CurrentAge);
                     }
                 }
                 additionalLines.Add(new ChartLine(
