@@ -36,11 +36,12 @@
                                            class="option-input @visibility">@Model.AdditionalIncome.Deposits[i].Title</label>
 
                                     @Html.HiddenFor(m => m.AdditionalIncome.Deposits[i].Percentage, htmlAttributes: new { @class= "percentage hidden" })
+                                    @Html.ValidationMessageFor(m => m.AdditionalIncome.Deposits[i].Percentage)
 
-                                    @Html.TextBoxFor(m => m.AdditionalIncome.Deposits[i].Total, htmlAttributes: new { type = "number", @class = "total option-input " + visibility })
+                                    @Html.TextBoxFor(m => m.AdditionalIncome.Deposits[i].Total, htmlAttributes: new { type = "number", @class = "total option-input " + visibility, data_min = 500 })
                                     @Html.ValidationMessageFor(m => m.AdditionalIncome.Deposits[i].Total)
 
-                                    @Html.TextBoxFor(m => m.AdditionalIncome.Deposits[i].Years, htmlAttributes: new { type = "number", @class = "years option-input " + visibility })
+                                    @Html.TextBoxFor(m => m.AdditionalIncome.Deposits[i].Years, htmlAttributes: new { type = "number", @class = "years option-input " + visibility, data_min = 1 })
                                     @Html.ValidationMessageFor(m => m.AdditionalIncome.Deposits[i].Years)
                                 </p>
                             }

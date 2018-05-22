@@ -10,7 +10,7 @@ namespace PocketBudget.Models
 {
     public abstract class AdditionalIncomeItemViewModel
     {
-        [Range(100, int.MaxValue, ErrorMessage = "Доступні значення з {1} до {2}")]
+        [Range(1, int.MaxValue, ErrorMessage = "Доступні значення з {1} до {2}")]
         public virtual decimal Total { get; set; }
 
         public virtual string CurrencyId { get; set; }

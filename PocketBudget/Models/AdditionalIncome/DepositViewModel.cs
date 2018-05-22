@@ -11,7 +11,7 @@ namespace PocketBudget.Models
     {
         public float Percentage { get; set; }
 
-        [Range(1, 3, ErrorMessage = "Доступні значення з {1} до {2}")]
+        [Range(1, 5, ErrorMessage = "Доступні значення з {1} до {2}")]
         public short Years { get; set; }
 
         public override string Title

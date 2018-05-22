@@ -35,7 +35,7 @@ PersonalFinances.Graph = (function () {
                         else
                             if (legendItem.datasetIndex !== 0) {
                                 //education line.
-                                currentValue = $("#EducationDegrees_IsHidden").val().toLowerCase() == "true";
+                                currentValue = $("#EducationDegrees_IsHidden").val().toLowerCase() === "true";
                                 $("#EducationDegrees_IsHidden").val(!currentValue);
                                 updateGraph();
                             }
@@ -435,7 +435,7 @@ PersonalFinances.Graph = (function () {
 
     var addPopupInfoToPath = function ($popup) {
         $popup.find('input').each(function (index, input) {
-            if (input.type == "checkbox" && input.checked) {
+            if (input.type === "checkbox" && input.checked) {
                 $(input).attr('value', true);
                 $(input).attr('checked', 'checked');
             }
@@ -486,6 +486,13 @@ PersonalFinances.Graph = (function () {
             onDataChanged(this);
         });
         $(document).on('click', '.save-edit-finances', function (e) {
+            var $modal = $(this).parents('.modal');
+            var $form = $modal.find('form');
+            if (!$form.valid()) {
+                return;
+            }
+            PersonalFinances.Popups.close('#' + $modal.attr('id'));
+            //TODO: add popup info to path
             PersonalFinances.Path.AdditionalPath.saveAdditionalValuesSelection();
             updateGraph();
         });
@@ -554,6 +561,7 @@ PersonalFinances.Graph = (function () {
                     var newHtml = data.trim();
                     $('#edit-finances-popup').find('.modal-content').html(newHtml);
                     PersonalFinances.Popups.open('#edit-finances-popup');
+                    PersonalFinances.UI.resetValidationFor('#edit-finances-popup form');
                     $('ul.tabs').tabs();
                     $('.collapsible').collapsible({
                         accordion: false
