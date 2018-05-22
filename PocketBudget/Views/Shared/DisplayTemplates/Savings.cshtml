@@ -1,9 +1,19 @@
 ﻿@model SavingsViewModel
 @using PocketBudget.Extensions
+@using Business.Models
 <p>
     @Html.LabelFor(m => m.Amount)
     <span class="newline">
-        <span class="currency">@HtmlExtensions.GetCurrencySymbol()</span>
+        <span class="percentageSymbol" style="@When(Model.Type != SavingsType.Percentage, "display:none")" >%</span>
+        <span class="currency" style="@When(Model.Type != SavingsType.Fixed, "display:none")">@HtmlExtensions.GetCurrencySymbol()</span>
         <span class="@Html.IdFor(m => m.Amount)">@Model.Amount.FormatAsPrice()</span>
     </span>
 </p>
+
+@functions
+{
+    protected string When(bool condition, string then, string otherwise = null)
+    {
+        return condition ? then : otherwise;
+    }
+}

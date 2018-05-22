@@ -430,7 +430,15 @@ PersonalFinances.Graph = (function () {
 
     var updateMinimalInformation = function (input) {
         var id = $(input).attr("id");
+        if (id == 'Savings_Amount')
+            changeSavingsSymbol();
+
         $('.' + id).html(formatAsPrice($(input).val()));
+    };
+
+    var changeSavingsSymbol = function () {
+        $(".percentageSymbol").toggle();
+        $(".currency").toggle();
     };
 
     var addPopupInfoToPath = function ($popup) {
