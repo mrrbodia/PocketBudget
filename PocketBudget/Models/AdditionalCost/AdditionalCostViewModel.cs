@@ -15,6 +15,7 @@ namespace PocketBudget.Models.AdditionalCost
 
         [Display(Name = "Додаткові витрати з віку")]
         [Required(ErrorMessage = "Введіть вік початку витрат")]
+        [Range(18, 80, ErrorMessage = "Доступні значення з {1} до {2}")]
         public int? From { get; set; }
 
         [UIHint("Checkbox")]

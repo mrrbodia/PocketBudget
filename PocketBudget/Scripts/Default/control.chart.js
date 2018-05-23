@@ -430,7 +430,7 @@ PersonalFinances.Graph = (function () {
 
     var updateMinimalInformation = function (input) {
         var id = $(input).attr("id");
-        if (id == 'Savings_Amount')
+        if (id === 'Savings_Amount')
             changeSavingsSymbol();
 
         $('.' + id).html(formatAsPrice($(input).val()));
@@ -616,6 +616,13 @@ PersonalFinances.Graph = (function () {
                     updateGraphWithData(chartLines);
                 }
             });
+        });
+        $(document).on('change', '#additional-path-form input', function (e) {
+            var $input = $(e.target);
+            var $error = $('.field-validation-error[data-valmsg-for="' + $input.attr('name') + '"');
+            if ($error && $error.length) {
+                $error.text('');
+            }
         });
     };
 
