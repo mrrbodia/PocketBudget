@@ -13,7 +13,6 @@ namespace Business.Models
             IsHidden = isHidden;
         }
         public bool IsHidden { get; set; }
-        public int From { get; set; }
         public List<EducationDegreeModel> EducationDegrees { get; set; }
         public decimal GetIncomePercent(int inAge)
         {

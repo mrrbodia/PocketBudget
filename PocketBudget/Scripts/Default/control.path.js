@@ -9,6 +9,11 @@ PersonalFinances.Path = (function () {
         updateInput('Savings_Amount', path.Savings.Amount);
         updateInput('Spendings_Amount', path.Spendings.Amount);
         updateValue('data-path-id', path.Id);
+            debugger;
+            $.each(path.Education.EducationDegrees, function (index, value) {
+            });
+        }
+        console.log(path.Education.EducationDegrees)
     };
 
     var updateInput = function (selector, value) {

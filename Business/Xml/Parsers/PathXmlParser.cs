@@ -24,6 +24,7 @@ namespace Business.Xml.Parsers
             model.Spendings = ParseSpendings(element.Element("SpendingsModel"));
             model.Pension = ParsePension(element.Element("PensionModel"));
             model.AdditionalPath = ParseAdditionalPath(element.Element("AdditionalPathModel"));
+            model.Education = ParseEducation(element.Element("Education"));
             return model;
         }
 
@@ -150,6 +151,35 @@ namespace Business.Xml.Parsers
             }
 
             return null;
+        }
+
+        private EducationModel ParseEducation(XElement element)
+        {
+            if (element != null)
+            {
+                var isHidden = bool.Parse(element.Element("IsHidden").Value);
+
+                var education = new EducationModel(isHidden);
+                education.EducationDegrees = element
+                    .Element("EducationDegrees")
+                    .Elements("EducationDegree")
+                    .Select(i => ParseEducationDegree(i))
+                    .ToList();
+
+                return education;
+            }
+
+            return null;
+        }
+
+        private EducationDegreeModel ParseEducationDegree(XElement element)
+        {
+            var id = element.Element("Id").Value;
+            var from = int.Parse(element.Element("From").Value);
+            var incomePercent = decimal.Parse(element.Element("IncomePercent").Value);
+            var educationDegree = new EducationDegreeModel(id, from, incomePercent);
+
+            return educationDegree;
         }
     }
 }

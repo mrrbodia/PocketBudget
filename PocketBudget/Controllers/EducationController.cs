@@ -26,11 +26,9 @@ namespace PocketBudget.Controllers
         {
             //TODO: degrees should be taken for profession
             var degrees = new List<EducationDegreeViewModel>();
-            var school = new EducationDegreeViewModel() { IsReached = true, MinReachAge = 14, ReachedIn = 14, Title = "Школа", IncomePercent = 0 };
             var bachelorDegree = new EducationDegreeViewModel() { IsReached = false, MinReachAge = 18, ReachedIn = 18, Title = "Бакалавр", IncomePercent = 0.10m };
             var masterDegree = new EducationDegreeViewModel() { IsReached = false, MinReachAge = 20, ReachedIn = 20, Title = "Магістр", IncomePercent = 0.15m };
             var doctoralDegree = new EducationDegreeViewModel() { IsReached = false, MinReachAge = 25, ReachedIn = 25, Title = "Докторська", IncomePercent = 0.20m };
-            degrees.Add(school);
             degrees.Add(bachelorDegree);
             degrees.Add(masterDegree);
             if (professionId == "1")

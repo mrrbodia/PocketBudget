@@ -18,7 +18,7 @@
                     @Model.Degrees[i].Title
                 </p>
                 <p>
-                    @Html.EditorFor(m => m.Degrees[i].IsReached, new { Label = label, Class = "chb-is-reached" })
+                    @Html.EditorFor(m => m.Degrees[i].IsReached, new { Label = label, Class = string.Format("chb-is-reached is-reached-{0}", Model.Degrees[i].Title) })
                 </p>
                 @Html.HiddenFor(m => Model.Degrees[i].Title)
                 @Html.HiddenFor(m => Model.Degrees[i].MinReachAge)
