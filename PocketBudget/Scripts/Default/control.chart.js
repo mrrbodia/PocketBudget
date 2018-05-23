@@ -430,9 +430,6 @@ PersonalFinances.Graph = (function () {
 
     var updateMinimalInformation = function (input) {
         var id = $(input).attr("id");
-        if (id === 'Savings_Amount')
-            changeSavingsSymbol();
-
         $('.' + id).html(formatAsPrice($(input).val()));
     };
 
@@ -616,6 +613,9 @@ PersonalFinances.Graph = (function () {
                     updateGraphWithData(chartLines);
                 }
             });
+        });
+        $(document).on('change', '.savings-strategy', function (e) {
+            changeSavingsSymbol();
         });
         $(document).on('change', '#additional-path-form input', function (e) {
             var $input = $(e.target);

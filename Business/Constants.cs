@@ -9,6 +9,11 @@ namespace Business
             public const string IsCustomizedModel = "iscustomizedmodel";
         }
 
+        public class Symbols
+        {
+            public const string Percent = "%";
+        }
+
         public class Currency
         {
             public const string Dollar = "dollar";
