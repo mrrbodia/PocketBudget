@@ -93,6 +93,7 @@ namespace PocketBudget.Controllers
                 result = Session[Constants.SessionKeys.UserKey] as PathModel;
                 Session[Constants.SessionKeys.IsCustomizedModel] = false;
             }
+            result.Education = new EducationModel(true);
             if (pathModel.EducationDegrees?.Degrees?.Any(x => x.IsReached) ?? false)
             {
                 result.Education = new EducationModel(pathModel.EducationDegrees.IsHidden);
