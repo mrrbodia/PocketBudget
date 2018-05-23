@@ -438,6 +438,31 @@ PersonalFinances.Graph = (function () {
         $(".currencyofSavings").toggle();
     };
 
+    var savePopupMinimalPresentation = function ($popup) {
+        var infoTarget = $popup.attr('data-info');
+        var $targetInput = $popup.find('.' + infoTarget);
+        if ($targetInput && $targetInput.length) {
+            var $minimalInfo = $('.info .' + infoTarget);
+            var value = getPopupMinimalValue($popup);
+            $minimalInfo.text(value);
+        }
+    };
+
+    var getPopupMinimalValue = function ($popup) {
+        if ($popup.hasClass('edit-salary-popup')) {
+            return formatAsPrice($popup.find('.' + $popup.attr('data-info')).last().val());
+        }
+        else if ($popup.hasClass('edit-education-popup')) {
+            var $target = $popup.find('.chb-is-reached:checked');
+            if (!$target || !$target.length)
+                return "";
+            var $info = $target.last().parents('.form-row').find('.' + $popup.attr('data-info'));
+            if (!$info || !$info.length)
+                return "";
+            return $info.text();
+        }
+    };
+
     var addPopupInfoToPath = function ($popup) {
         $popup.find('input').each(function (index, input) {
             if (input.type === "checkbox" && input.checked) {
@@ -510,6 +535,7 @@ PersonalFinances.Graph = (function () {
             PersonalFinances.Popups.close('#' + $modal.attr('id'));
             addPopupInfoToPath($modal);
             updateGraph();
+            savePopupMinimalPresentation($('#' + $modal.attr('id')));
         });
         $(document).on('change', '.profession-selection', function (e) {
             e.preventDefault();

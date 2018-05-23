@@ -14,11 +14,11 @@
             //var lessThan = i < Model.Degrees.Count - 1 ? "#" + Html.GetFullHtmlFieldId(m => Model.Degrees[i + 1].ReachedIn) : ".degree-max-age";
             var label = string.Format("Досягти у віці (+{0}% до заробітньої плати)", Model.Degrees[i].IncomePercent * 100);
             <div class="row form-row">
-                <p>
+                <p class="education-info">
                     @Model.Degrees[i].Title
                 </p>
                 <p>
-                    @Html.EditorFor(m => m.Degrees[i].IsReached, new { Label = label })
+                    @Html.EditorFor(m => m.Degrees[i].IsReached, new { Label = label, Class = "chb-is-reached" })
                 </p>
                 @Html.HiddenFor(m => Model.Degrees[i].Title)
                 @Html.HiddenFor(m => Model.Degrees[i].MinReachAge)

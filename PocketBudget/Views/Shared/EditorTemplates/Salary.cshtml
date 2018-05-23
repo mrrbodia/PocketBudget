@@ -10,7 +10,7 @@
         var greaterThan = i > 0 ? "#" + Html.GetFullHtmlFieldId(m => m.SalaryPeriods[i - 1].From) : ".salary-min-age";
         <div class="row form-row">
             @Html.LabelFor(m => Model.SalaryPeriods[i].Amount)
-            @Html.TextBoxFor(m => Model.SalaryPeriods[i].Amount, new { type = "number", data_min = 0 })
+            @Html.TextBoxFor(m => Model.SalaryPeriods[i].Amount, new { type = "number", data_min = 0, @class="salary-info" })
             @Html.ValidationMessageFor(m => Model.SalaryPeriods[i].Amount)
             @Html.LabelFor(m => Model.SalaryPeriods[i].From)
             @Html.TextBoxFor(m => Model.SalaryPeriods[i].From, new { type = "number", data_greater_than = greaterThan })
