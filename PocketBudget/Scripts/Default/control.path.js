@@ -9,15 +9,13 @@ PersonalFinances.Path = (function () {
         updateInput('Savings_Amount', path.Savings.Amount);
         updateInput('Spendings_Amount', path.Spendings.Amount);
         updateValue('data-path-id', path.Id);
-        if (path.Education != undefined || path.Education.EducationDegrees != undefined) {
-            debugger;
+        if (path.Education) {
             $.each(path.Education.EducationDegrees, function (index, value) {
                 var input = ".is-reached-" + value.Id;
                 $(input).attr('value', true);
                 $(input).attr('checked', 'checked');
             });
         }
-        console.log(path.Education.EducationDegrees)
     };
 
     var updateInput = function (selector, value) {
