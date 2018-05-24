@@ -15,7 +15,7 @@ namespace PocketBudget.Models
 
         [Display(Name = "З віку")]
         [Required(ErrorMessage = "Введіть вік")]
-        [Range(0, 100, ErrorMessage = "Доступні значення з {1} до {2}")]
+        [Range(18, 100, ErrorMessage = "Доступні значення з {1} до {2}")]
         public short From { get; set; }
 
         public SalaryPeriodViewModel()

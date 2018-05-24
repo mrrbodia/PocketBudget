@@ -469,6 +469,10 @@ PersonalFinances.Graph = (function () {
                 $(input).attr('value', true);
                 $(input).attr('checked', 'checked');
             }
+            else if (input.type === "checkbox" && !input.checked) {
+                $(input).attr('value', false);
+                $(input).removeAttr('checked');
+            }
             else {
                 $(input).attr('value', $(input).val());
             }
