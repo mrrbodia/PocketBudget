@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Business;
+using Business.DomainModel.Active;
 using Business.Models;
 using PocketBudget.App_Start;
 using PocketBudget.Models;
@@ -7,6 +8,8 @@ using PocketBudget.Models.AdditionalCost;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Web;
 using System.Web.Mvc;
 
 namespace PocketBudget.Controllers
@@ -20,8 +23,32 @@ namespace PocketBudget.Controllers
             mapper = DependencyResolver.Current.GetService<IMapper>();
         }
 
+        protected void SetCurrency()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    var str = client.UploadString("https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5", "");
+                    var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                    var currencies = serializer.Deserialize<List<Currency>>(str);
+                    foreach (var item in currencies)
+                    {
+                        var cookie = new HttpCookie(item.ccy, item.sale);
+                        cookie.Expires = DateTime.Now.AddDays(1);
+                        HttpContext.Response.Cookies.Add(cookie);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         public ActionResult Index()
         {
+            SetCurrency();
             var pathModel = Session[Constants.SessionKeys.UserKey] as PathModel;
             if (pathModel != null)
                 Session[Constants.SessionKeys.IsCustomizedModel] = true;

@@ -64,6 +64,7 @@
     <Compile Include="DomainModel\Account\Account.cs" />
     <Compile Include="DomainModel\Account\Role.cs" />
     <Compile Include="DomainModel\Active\Bank.cs" />
+    <Compile Include="DomainModel\Active\Currency.cs" />
     <Compile Include="DomainModel\Active\Sale.cs" />
     <Compile Include="DomainModel\Active\Deposit.cs" />
     <Compile Include="DomainModel\Active\IAdditionalIncome.cs" />

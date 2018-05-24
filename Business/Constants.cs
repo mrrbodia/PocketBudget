@@ -16,9 +16,9 @@ namespace Business
 
         public class Currency
         {
-            public const string Dollar = "dollar";
+            public const string Dollar = "USD";
             public const string Hrn = "hrn";
-            public const string Euro = "euro";
+            public const string Euro = "EUR";
             public const string DollarSymbol = "$";
             public const string HrnSymbol = "₴";
             public const string EuroSymbol = "€";
