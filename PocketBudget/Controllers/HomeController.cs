@@ -73,7 +73,7 @@ namespace PocketBudget.Controllers
             {
                 var path = GetPathModel(pathModel);
                 var chartLines = GetChartLines(path);
-                return Json(chartLines);
+                return Json(new { lines = chartLines, model = path });
             }
             return Json(0);
         }

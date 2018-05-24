@@ -355,8 +355,11 @@ PersonalFinances.Graph = (function () {
             dataType: "json",
             data: model,
             success: function (data) {
-                var chartLines = getChartLines(data);
+                var chartLines = getChartLines(data.lines);
                 updateGraphWithData(chartLines);
+                if (data.model) {
+                    PersonalFinances.Path.AdditionalPath.bindModel(data.model);
+                }
             },
             error: function (err) {
                 console.log(err);
