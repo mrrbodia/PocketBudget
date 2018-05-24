@@ -12,7 +12,9 @@ PersonalFinances.Path = (function () {
         if (path.Education != undefined || path.Education.EducationDegrees != undefined) {
             debugger;
             $.each(path.Education.EducationDegrees, function (index, value) {
-                $(".is-reached-" + value.Id).val(true);
+                var input = ".is-reached-" + value.Id;
+                $(input).attr('value', true);
+                $(input).attr('checked', 'checked');
             });
         }
         console.log(path.Education.EducationDegrees)

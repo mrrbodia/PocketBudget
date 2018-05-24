@@ -37,7 +37,6 @@ namespace PocketBudget.Controllers
             //TODO: Move to XML
             var result = new EducationDegreesViewModel();
             result.Degrees =  new List<EducationDegreeViewModel>();
-            result.Degrees.Add(new EducationDegreeViewModel() { Title = "Школа", IsReached = false, ReachedIn = 14, MinReachAge = 14, IncomePercent = 0 });
             result.Degrees.Add(new EducationDegreeViewModel() { IsReached = false, MinReachAge = 18, ReachedIn = 18, Title = "Бакалавр", IncomePercent = 0.10m });
             result.Degrees.Add(new EducationDegreeViewModel() { IsReached = false, MinReachAge = 20, ReachedIn = 20, Title = "Магістр", IncomePercent = 0.15m });
             return result;

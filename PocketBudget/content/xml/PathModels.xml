@@ -57,7 +57,7 @@
           <IsActive>false</IsActive>
           <IsHidden>false</IsHidden>
           <LineType>Deposit</LineType>
-	        <Percentage>14,0</Percentage>
+	        <Percentage>14.0</Percentage>
 	        <Years>3</Years>
         </AdditionalIncome>
         <AdditionalIncome>
@@ -68,7 +68,7 @@
           <IsActive>false</IsActive>
           <IsHidden>false</IsHidden>
           <LineType>Deposit</LineType>
-          <Percentage>14,0</Percentage>
+          <Percentage>14.0</Percentage>
           <Years>2</Years>
         </AdditionalIncome>
       </AdditionalIncomes>
@@ -117,7 +117,7 @@
           <IsActive>false</IsActive>
           <IsHidden>false</IsHidden>
           <LineType>Deposit</LineType>
-          <Percentage>14,0</Percentage>
+          <Percentage>14.0</Percentage>
           <Years>2</Years>
         </AdditionalIncome>
       </AdditionalIncomes>
@@ -136,9 +136,14 @@
       <IsHidden>false</IsHidden>
       <EducationDegrees>
         <EducationDegree>
+          <Id>Бакалавр</Id>
+          <From>23</From>
+          <IncomePercent>0.1</IncomePercent>
+        </EducationDegree>
+              <EducationDegree>
           <Id>Магістр</Id>
           <From>25</From>
-          <IncomePercent>0,15</IncomePercent>
+          <IncomePercent>0.15</IncomePercent>
         </EducationDegree>
       </EducationDegrees>
     </Education>
