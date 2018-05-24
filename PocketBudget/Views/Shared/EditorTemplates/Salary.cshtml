@@ -1,17 +1,19 @@
 ﻿@model SalaryViewModel
 <div>
     @Html.LabelFor(m => m.SalaryPeriods)
-    <button class="btn grey btn-flat edit-salary">Редагувати зарплатню</button>
+    <button class="btn grey btn-flat edit-salary pf-btn-edit">Редагувати</button>
 </div>
 <div class="salary-periods">
+    <input type="hidden" value="100" class="salary-max-age" />
     @for (int i = 0; i < Model.SalaryPeriods.Count; ++i)
     {
+        var lessThan = i < Model.SalaryPeriods.Count - 1 ? ".popup-content #" + Html.GetFullHtmlFieldId(m => m.SalaryPeriods[i + 1].From) : ".salary-max-age";
         <div class="row form-row">
             @Html.LabelFor(m => Model.SalaryPeriods[i].Amount)
-            @Html.TextBoxFor(m => Model.SalaryPeriods[i].Amount, new { type = "number" })
+            @Html.TextBoxFor(m => Model.SalaryPeriods[i].Amount, new { type = "number", data_min = 0, @class = "salary-info" })
             @Html.ValidationMessageFor(m => Model.SalaryPeriods[i].Amount)
             @Html.LabelFor(m => Model.SalaryPeriods[i].From)
-            @Html.TextBoxFor(m => Model.SalaryPeriods[i].From, new { type = "number", data_min = Model.SalaryPeriods[i].From })
+            @Html.TextBoxFor(m => Model.SalaryPeriods[i].From, new { type = "number", data_less_than = lessThan })
             @Html.ValidationMessageFor(m => Model.SalaryPeriods[i].From)
         </div>
     }

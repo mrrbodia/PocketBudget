@@ -3,35 +3,6 @@ PersonalFinances.Graph = (function () {
     var ctx = document.getElementById("chart");
     var chart = null;
 
-    var usersExamplesData = [
-        {
-            Salary_Amount: 7000,
-            Savings_Amount: 3000,
-            Pension_Amount: 3000,
-            Spendings_Amount: 2500,
-            CurrentAge: 20,
-            RetirementAge: 60,
-            LifeExpectancy: 80
-        },
-        {
-            Salary_Amount: 12000,
-            Savings_Amount: 7000,
-            Pension_Amount: 2000,
-            Spendings_Amount: 3500,
-            CurrentAge: 26,
-            RetirementAge: 60,
-            LifeExpectancy: 80
-        },
-        {
-            Salary_Amount: 16000,
-            Savings_Amount: 10000,
-            Pension_Amount: 1600,
-            Spendings_Amount: 5000,
-            CurrentAge: 28,
-            RetirementAge: 65,
-            LifeExpectancy: 80
-        }];
-
     var initTimeout = function (el, timeout) {
         return setTimeout(function () {
             el.style.display = 'none';
@@ -57,10 +28,17 @@ PersonalFinances.Graph = (function () {
                     },
                     onClick: function (e, legendItem) {
                         var item = getAdditionalPathDataForLegendItem(this.chart, legendItem);
-                        if (item != undefined) {
-                            item.IsHidden = item.IsHidden == undefined ? true : !item.IsHidden;
+                        if (item !== undefined) {
+                            item.IsHidden = item.IsHidden === undefined ? true : !item.IsHidden;
                             updateGraph();
                         }
+                        else
+                            if (legendItem.datasetIndex !== 0) {
+                                //education line.
+                                currentValue = $("#EducationDegrees_IsHidden").val().toLowerCase() === "true";
+                                $("#EducationDegrees_IsHidden").val(!currentValue);
+                                updateGraph();
+                            }
                     }
                 },
                 annotation: {
@@ -201,7 +179,11 @@ PersonalFinances.Graph = (function () {
     };
 
     var formatAsCurrency = function (value) {
-        return '₴' + value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+        return '₴' + formatAsPrice(value);
+    }
+
+    var formatAsPrice = function (value) {
+        return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     }
 
     var replaceTooltipTags = function (str, mapObj) {
@@ -272,6 +254,7 @@ PersonalFinances.Graph = (function () {
         return obj;
     }
 
+    //TODO: refactor
     var getChartLine = function (line) {
         if (line.Type === 'Base') {
             return {
@@ -310,6 +293,19 @@ PersonalFinances.Graph = (function () {
                 data: toPointsObject(line.Points)
             }
         }
+        else
+            if (line.Type === 'Education') {
+                return {
+                    label: line.Title,
+                    lineType: line.Type,
+                    hidden: line.IsHidden,
+                    borderColor: [
+                        'rgba(0, ' + getShade() + ', 0, 0.5)'
+                    ],
+                    fill: false,
+                    data: toPointsObject(line.Points)
+                }
+            }
         else
             if (line.Type === 'Purchase') {
             return {
@@ -359,8 +355,11 @@ PersonalFinances.Graph = (function () {
             dataType: "json",
             data: model,
             success: function (data) {
-                var chartLines = getChartLines(data);
+                var chartLines = getChartLines(data.lines);
                 updateGraphWithData(chartLines);
+                if (data.model) {
+                    PersonalFinances.Path.AdditionalPath.bindModel(data.model);
+                }
             },
             error: function (err) {
                 console.log(err);
@@ -403,7 +402,21 @@ PersonalFinances.Graph = (function () {
     var updateGraph = function () {
         if ($('#path-form').valid()) {
             updateGraphLines();
+            updateMaterialize();
         }
+    };
+
+    var updateMaterialize = function () {
+        $.each($('input[type=checkbox]'), function (index, elem, value) {
+            var formId = $(elem).closest('form').attr('id');
+            var label = $(elem).next('label');
+
+            var inputValue = $(elem).val();
+            var inputId = $(elem).attr('id');
+            var newName = '#' + formId + '_#' + inputId + '_#' + inputValue;
+            $(elem).attr('id', newName);
+            $(label).attr('for', newName);
+        });
     };
 
     var getAdditionalPathDataForLegendItem = function (chart, legendItem) {
@@ -413,29 +426,65 @@ PersonalFinances.Graph = (function () {
         var typeLines = chart.data.datasets.filter(function (obj) { return obj.lineType === dataset.lineType; });
         var lineIndexInLineTypes = typeLines.indexOf(dataset);
         var items = PersonalFinances.Path.AdditionalPath[dataset.lineType];
-        if (items != undefined)
+        if (items !== undefined)
             return items[lineIndexInLineTypes];
         return items;
     };
 
-    var getAdditionalPathItems = function (lineType) {
-        return PersonalFinances.Path.AdditionalPath['Deposit'];
-    };
-
     var updateMinimalInformation = function (input) {
         var id = $(input).attr("id");
-        $('.' + id).html(formatAsCurrency($(input).val()));
+        $('.' + id).html(formatAsPrice($(input).val()));
     };
 
-    var addSalaryPeriodToPath = function () {
-        $('#edit-salary-popup').find('input').each(function (index, input) {
-            $(input).attr('value', $(input).val());
+    var changeSavingsSymbol = function () {
+        $(".percentageSymbol").toggle();
+        $(".currencyofSavings").toggle();
+    };
+
+    var savePopupMinimalPresentation = function ($popup) {
+        var infoTarget = $popup.attr('data-info');
+        var $targetInput = $popup.find('.' + infoTarget);
+        if ($targetInput && $targetInput.length) {
+            var $minimalInfo = $('.info .' + infoTarget);
+            var value = getPopupMinimalValue($popup);
+            $minimalInfo.text(value);
+        }
+    };
+
+    var getPopupMinimalValue = function ($popup) {
+        if ($popup.hasClass('edit-salary-popup')) {
+            return formatAsPrice($popup.find('.' + $popup.attr('data-info')).last().val());
+        }
+        else if ($popup.hasClass('edit-education-popup')) {
+            var $target = $popup.find('.chb-is-reached:checked');
+            if (!$target || !$target.length)
+                return "";
+            var $info = $target.last().parents('.form-row').find('.' + $popup.attr('data-info'));
+            if (!$info || !$info.length)
+                return "";
+            return $info.text();
+        }
+    };
+
+    var addPopupInfoToPath = function ($popup) {
+        $popup.find('input').each(function (index, input) {
+            if (input.type === "checkbox" && input.checked) {
+                $(input).attr('value', true);
+                $(input).attr('checked', 'checked');
+            }
+            else if (input.type === "checkbox" && !input.checked) {
+                $(input).attr('value', false);
+                $(input).removeAttr('checked');
+            }
+            else {
+                $(input).attr('value', $(input).val());
+            }
         });
-        var salaryPeriods = $('#edit-salary-popup').find('.edit-salary-content').html().trim();
-        $('.salary-periods').html(salaryPeriods);
+        var info = $popup.find('.popup-content').html().trim();
+        $('.' + $popup.attr('data-target')).html(info);
     };
 
-    var sendSalaryPeriodRequestTo = function (to) {
+    var loadPopupContent = function (to, source, popup) {
         var form = $('#path-form');
         if (form.valid()) {
             $.ajax({
@@ -443,7 +492,7 @@ PersonalFinances.Graph = (function () {
                 url: to,
                 data: form.serialize(),
                 success: function (response) {
-                    onSalaryPeriodSuccess(response);
+                    onLoadPopupSuccess(response, source, popup);
                 },
                 error: function (err) {
                     console.log(err);
@@ -452,17 +501,21 @@ PersonalFinances.Graph = (function () {
         }
     };
 
-    var onSalaryPeriodSuccess = function (response) {
-        var _source = '.salary-periods';
-        var $target = $('.edit-salary-content');
-        var $newHtml = $(response.trim());
-        var $container = $newHtml.find(_source);
+    var onLoadPopupSuccess = function (response, source, popup) {
+        modifyTargetWithData(response, source, popup + ' .popup-content');
+        addPopupInfoToPath($(popup));
+        PersonalFinances.UI.resetValidationFor(popup + ' form');
+    };
+
+    var modifyTargetWithData = function (data, source, target)
+    {
+        var $target = $(target);
+        var $newHtml = $(data.trim());
+        var $container = $newHtml.find(source);
         if ($container.length) {
             $newHtml = $container.children();
         }
         $target.html($newHtml);
-        PersonalFinances.UI.resetValidationFor('.form-edit-salary-content');
-        addSalaryPeriodToPath();
     };
 
     var initEvents = function () {
@@ -470,17 +523,54 @@ PersonalFinances.Graph = (function () {
             onDataChanged(this);
         });
         $(document).on('click', '.save-edit-finances', function (e) {
-            PersonalFinances.Path.AdditionalPath.saveAdditionalValuesSelection();
-            updateGraph();
-        });
-        $(document).on('click', '.save-edit-salary', function (e) {
-            var $form = $('.form-edit-salary-content');
+            var $modal = $(this).parents('.modal');
+            var $form = $modal.find('form');
             if (!$form.valid()) {
                 return;
             }
-            PersonalFinances.Popups.close('#edit-salary-popup');
-            addSalaryPeriodToPath();
+            PersonalFinances.Popups.close('#' + $modal.attr('id'));
+            //TODO: add popup info to path
+            PersonalFinances.Path.AdditionalPath.saveAdditionalValuesSelection();
             updateGraph();
+        });
+        $(document).on('click', '.save-edit-popup', function (e) {
+            var $modal = $(this).parents('.modal');
+            var $form = $modal.find('form');
+            if (!$form.valid()) {
+                return;
+            }
+            PersonalFinances.Popups.close('#' + $modal.attr('id'));
+            addPopupInfoToPath($modal);
+            updateGraph();
+            savePopupMinimalPresentation($('#' + $modal.attr('id')));
+        });
+        $(document).on('change', '.profession-selection', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var url = $(this).attr('data-url');
+            var option = $(this).find('option:selected');
+            $('.selected-profession').val(option.attr('value'));
+            $('.ProfessionSelection_Professions').html(option[0].label);
+            var form = $('#path-form');
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: form.serialize(),
+                success: function (data) {
+                    modifyTargetWithData(data, '.education-degrees', '.education-degrees');
+                    PersonalFinances.UI.resetValidationFor('#path-form');
+                }
+            });
+        });
+        //TODO: refactor methods below
+        $(document).on('click', '.edit-education', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var newHtml = $('.education-degrees').html().trim();
+            $('#edit-education-popup').find('.edit-education-content').html(newHtml);
+            PersonalFinances.Popups.open('#edit-education-popup');
+            PersonalFinances.UI.resetValidationFor('.form-edit-education-content');
+            updateMaterialize();
         });
         $(document).on('click', '.edit-salary', function (e) {
             e.preventDefault();
@@ -491,10 +581,10 @@ PersonalFinances.Graph = (function () {
             PersonalFinances.UI.resetValidationFor('.form-edit-salary-content');
         });
         $(document).on('click', '.add-salary-period', function (e) {
-            sendSalaryPeriodRequestTo('getsalaryperiod');
+            loadPopupContent('getsalaryperiod', '.salary-periods', '#edit-salary-popup');
         });
         $(document).on('click', '.delete-salary-period', function (e) {
-            sendSalaryPeriodRequestTo('deletesalaryperiod');
+            loadPopupContent('deletesalaryperiod', '.salary-periods', '#edit-salary-popup');
         });
         $(document).on('click', '.tooltip-moreoptions', function (e) {
             var btn = $(e.target);
@@ -510,10 +600,14 @@ PersonalFinances.Graph = (function () {
                     var newHtml = data.trim();
                     $('#edit-finances-popup').find('.modal-content').html(newHtml);
                     PersonalFinances.Popups.open('#edit-finances-popup');
+                    PersonalFinances.UI.resetValidationFor('#edit-finances-popup form');
                     $('ul.tabs').tabs();
                     $('.collapsible').collapsible({
                         accordion: false
                     });
+                },
+                complete: function () {
+                    PersonalFinances.UI.resetValidationFor("#additional-path-form");
                 },
                 error: function (err) {
                     console.log(err);
@@ -524,7 +618,6 @@ PersonalFinances.Graph = (function () {
             var value = $(this).attr('data-value');
             var selector = '#' + $(this).attr('data-for');
             $(selector).val(value);
-
             onDataChanged(selector);
         });
         $(".button-collapse").sideNav('show');
@@ -537,14 +630,32 @@ PersonalFinances.Graph = (function () {
                 draggable: true
             });
         });
+        $(document).on('change', '#additional-path-form', function () {
+            PersonalFinances.UI.resetValidationFor('#additional-path-form');
+        });
         $(document).on('change', '.usersExamplesData', function (e) {
-            var value = $(this).val();
-            var userData = usersExamplesData[value - 1];
-            for (var key in userData) {
-                $('#' + key).val(userData[key]);
-                $('.' + key).text(userData[key]);
+            var url = $(this).parent().attr('data-url');
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: { modelId: $(this).val() },
+                success: function (data) {
+                    PersonalFinances.Path.updatePathForm(data.model);
+                    PersonalFinances.Path.AdditionalPath.bindModel(data.model);
+                    var chartLines = getChartLines(data.lines);
+                    updateGraphWithData(chartLines);
+                }
+            });
+        });
+        $(document).on('change', '.savings-strategy', function (e) {
+            changeSavingsSymbol();
+        });
+        $(document).on('change', '#additional-path-form input', function (e) {
+            var $input = $(e.target);
+            var $error = $('.field-validation-error[data-valmsg-for="' + $input.attr('name') + '"');
+            if ($error && $error.length) {
+                $error.text('');
             }
-            updateGraph();
         });
     };
 
@@ -564,6 +675,7 @@ PersonalFinances.Graph = (function () {
 })();
 
 $(document).ready(function () {
+    $('select').material_select();
     if (document.getElementById('chart-block-new'))
         PersonalFinances.Graph.init();
 });

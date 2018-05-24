@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.8.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.8.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,6 +12,8 @@
     <AssemblyName>Business</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,6 +41,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,9 +60,11 @@
     <Compile Include="DataProviders\BankDataProvider.cs" />
     <Compile Include="DataProviders\IRepository.cs" />
     <Compile Include="DataProviders\SQLDataProvider.cs" />
+    <Compile Include="DataProviders\XMLDataProvider.cs" />
     <Compile Include="DomainModel\Account\Account.cs" />
     <Compile Include="DomainModel\Account\Role.cs" />
     <Compile Include="DomainModel\Active\Bank.cs" />
+    <Compile Include="DomainModel\Active\Currency.cs" />
     <Compile Include="DomainModel\Active\Sale.cs" />
     <Compile Include="DomainModel\Active\Deposit.cs" />
     <Compile Include="DomainModel\Active\IAdditionalIncome.cs" />
@@ -75,9 +81,13 @@
     <Compile Include="Managers\Chart\ChartManager.cs" />
     <Compile Include="Managers\Chart\IChartManager.cs" />
     <Compile Include="Managers\IManager.cs" />
+    <Compile Include="Managers\Path\IPathManager.cs" />
+    <Compile Include="Managers\Path\PathManager.cs" />
     <Compile Include="Managers\StrategyManager.cs" />
     <Compile Include="Models\AdditionalPathModel.cs" />
     <Compile Include="Models\ChartLine.cs" />
+    <Compile Include="Models\EducationDegreeModel.cs" />
+    <Compile Include="Models\EducationModel.cs" />
     <Compile Include="Models\PathModel.cs" />
     <Compile Include="Models\PensionModel.cs" />
     <Compile Include="Models\SalaryModel.cs" />
@@ -94,6 +104,7 @@
     <Compile Include="Savings\FixedSavingsStrategy.cs" />
     <Compile Include="Savings\PercentageSavingsStrategy.cs" />
     <Compile Include="Savings\SavingsStrategy.cs" />
+    <Compile Include="Xml\Parsers\PathXmlParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -106,6 +117,7 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

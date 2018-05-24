@@ -34,12 +34,15 @@
                                            class="currency option-input @visibility" type="radio" value="@Model.AdditionalIncome.Deposits[i].CurrencyId" @selected />
                                     <label for="@Html.GetFullHtmlFieldId(m => m.AdditionalIncome.Deposits[i].CurrencyId)"
                                            class="option-input @visibility">@Model.AdditionalIncome.Deposits[i].Title</label>
-                                    <input name="@Html.GetFullHtmlFieldName(m => m.AdditionalIncome.Deposits[i].Percentage)" 
-                                           class="percentage hidden" type="hidden" value="@Model.AdditionalIncome.Deposits[i].Percentage" />
-                                    <input id="@Html.GetFullHtmlFieldId(m => m.AdditionalIncome.Deposits[i].Total)" name="@Html.GetFullHtmlFieldName(m => m.AdditionalIncome.Deposits[i].Total)"
-                                           class="total option-input @visibility" type="number" value="@Model.AdditionalIncome.Deposits[i].Total" />
-                                    <input id="@Html.GetFullHtmlFieldId(m => m.AdditionalIncome.Deposits[i].Years)" name="@Html.GetFullHtmlFieldName(m => m.AdditionalIncome.Deposits[i].Years)" 
-                                           class="years option-input @visibility" type="number" value="@Model.AdditionalIncome.Deposits[i].Years" />
+
+                                    @Html.HiddenFor(m => m.AdditionalIncome.Deposits[i].Percentage, htmlAttributes: new { @class= "percentage hidden" })
+                                    @Html.ValidationMessageFor(m => m.AdditionalIncome.Deposits[i].Percentage)
+
+                                    @Html.TextBoxFor(m => m.AdditionalIncome.Deposits[i].Total, htmlAttributes: new { type = "number", @class = "total option-input " + visibility })
+                                    @Html.ValidationMessageFor(m => m.AdditionalIncome.Deposits[i].Total)
+
+                                    @Html.TextBoxFor(m => m.AdditionalIncome.Deposits[i].Years, htmlAttributes: new { type = "number", @class = "years option-input " + visibility })
+                                    @Html.ValidationMessageFor(m => m.AdditionalIncome.Deposits[i].Years)
                                 </p>
                             }
                         </div>
@@ -61,8 +64,8 @@
                                            class="currency option-input @visibility" type="radio" value="@Model.AdditionalIncome.Sales[i].CurrencyId" @selected/>
                                     <label for="@Html.GetFullHtmlFieldId(m => Model.AdditionalIncome.Sales[i].CurrencyId)" 
                                            class="option-input @visibility">@Model.AdditionalIncome.Sales[i].Title</label>
-                                    <input id="@Html.GetFullHtmlFieldId(m => Model.AdditionalIncome.Sales[i].Total)" name="@Html.GetFullHtmlFieldName(m => Model.AdditionalIncome.Sales[i].Total)"
-                                           class="total option-input @visibility" type="number" value="@Model.AdditionalIncome.Sales[i].Total" />
+                                    @Html.TextBoxFor(m => m.AdditionalIncome.Sales[i].Total, htmlAttributes: new { type = "number", @class = "total option-input " + visibility })
+                                    @Html.ValidationMessageFor(m => m.AdditionalIncome.Sales[i].Total)
                                 </p>
                             }
                         </div>
@@ -93,12 +96,14 @@
                                            class="currency option-input @visibility" type="radio" value="@Model.AdditionalCost.Credits[i].CurrencyId" @selected />
                                     <label for="@Html.GetFullHtmlFieldId(m => Model.AdditionalCost.Credits[i].CurrencyId)"
                                            class="option-input @visibility">@Model.AdditionalCost.Credits[i].Title</label>
-                                    <input name="@Html.GetFullHtmlFieldName(m => Model.AdditionalCost.Credits[i].Percentage)" 
-                                           class="percentage hidden" type="hidden" value="@Model.AdditionalCost.Credits[i].Percentage" />
-                                    <input id="@Html.GetFullHtmlFieldId(m => Model.AdditionalCost.Credits[i].Total)" name="@Html.GetFullHtmlFieldName(m => Model.AdditionalCost.Credits[i].Total)" 
-                                           class="total option-input @visibility" type="number" value="@Model.AdditionalCost.Credits[i].Total" />
-                                    <input id="@Html.GetFullHtmlFieldId(m => Model.AdditionalCost.Credits[i].Years)" name="@Html.GetFullHtmlFieldName(m => Model.AdditionalCost.Credits[i].Years)" 
-                                           class="years option-input @visibility" type="number" value="@Model.AdditionalCost.Credits[i].Years" />
+                                    @Html.HiddenFor(m => m.AdditionalCost.Credits[i].Percentage, htmlAttributes: new { @class= "percentage hidden" })
+                                    @Html.ValidationMessageFor(m => m.AdditionalCost.Credits[i].Percentage)
+
+                                    @Html.TextBoxFor(m => m.AdditionalCost.Credits[i].Total, htmlAttributes: new { type = "number", @class = "total option-input " + visibility })
+                                    @Html.ValidationMessageFor(m => m.AdditionalCost.Credits[i].Total)
+
+                                    @Html.TextBoxFor(m => m.AdditionalCost.Credits[i].Years, htmlAttributes: new { type = "number", @class = "years option-input " + visibility })
+                                    @Html.ValidationMessageFor(m => m.AdditionalCost.Credits[i].Years)
                                 </p>
                             }
                         </div>
@@ -120,8 +125,8 @@
                                            class="currency option-input @visibility" type="radio" value="@Model.AdditionalCost.Purchases[i].CurrencyId" @selected />
                                     <label for="@Html.GetFullHtmlFieldId(m => Model.AdditionalCost.Purchases[i].CurrencyId)"
                                            class="option-input @visibility">@Model.AdditionalCost.Purchases[i].Title</label>
-                                    <input id="@Html.GetFullHtmlFieldId(m => Model.AdditionalCost.Purchases[i].Total)" name="@Html.GetFullHtmlFieldName(m => Model.AdditionalCost.Purchases[i].Total)"
-                                           class="total option-input @visibility" type="number" value="@Model.AdditionalCost.Purchases[i].Total" />
+                                    @Html.TextBoxFor(m => m.AdditionalCost.Purchases[i].Total, htmlAttributes: new { type = "number", @class = "total option-input " + visibility })
+                                    @Html.ValidationMessageFor(m => m.AdditionalCost.Purchases[i].Total)
                                 </p>
                             }
                         </div>
@@ -131,3 +136,12 @@
         }
     </div>
 </div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $.validator.unobtrusive.parse($('#additional-path-form'));
+        });
+    </script>
+}

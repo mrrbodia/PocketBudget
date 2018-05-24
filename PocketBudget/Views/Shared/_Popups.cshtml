@@ -2,15 +2,15 @@
     <div class="btn-close-popup"></div>
     <div class="modal-content"></div>
     <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close btn-flat save-edit-finances">Зберегти</a>
+        <a href="#!" class="modal-action btn-flat save-edit-finances">Зберегти</a>
         <a href="#!" class="modal-action modal-close btn-flat">Відмінити</a>
     </div>
 </div>
-<div id="edit-salary-popup" class="modal edit-salary-popup">
+<div id="edit-salary-popup" class="modal edit-salary-popup" data-target="salary-periods" data-info="salary-info">
     <div class="btn-close-popup"></div>
     <div class="modal-content">
         <form class="form-edit-salary-content" method="POST" data-valmsg-replace="true">
-            <div class="edit-salary-content">
+            <div class="edit-salary-content popup-content">
 
             </div>
         </form>
@@ -18,7 +18,21 @@
         <a class="btn-floating red delete-salary-period"><i class="material-icons">delete</i></a>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-action btn-flat save-edit-salary">Зберегти</a>
+        <a href="#!" class="modal-action btn-flat save-edit-salary save-edit-popup">Зберегти</a>
+        <a href="#!" class="modal-action modal-close btn-flat">Відмінити</a>
+    </div>
+</div>
+<div id="edit-education-popup" class="modal edit-education-popup" data-target="education-degrees" data-info="education-info">
+    <div class="btn-close-popup"></div>
+    <div class="modal-content">
+        <form class="form-edit-education-content" method="POST" data-valmsg-replace="true">
+            <div class="edit-education-content popup-content row">
+
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action btn-flat save-edit-education save-edit-popup">Зберегти</a>
         <a href="#!" class="modal-action modal-close btn-flat">Відмінити</a>
     </div>
 </div>

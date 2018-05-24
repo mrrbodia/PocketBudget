@@ -16,6 +16,8 @@ namespace PocketBudget.Web
                     return Constants.Currency.EuroSymbol;
                 case Constants.Currency.Dollar:
                     return Constants.Currency.DollarSymbol;
+                case Constants.Symbols.Percent:
+                    return Constants.Symbols.Percent;
                 default:
                     return Constants.Currency.HrnSymbol;
             }

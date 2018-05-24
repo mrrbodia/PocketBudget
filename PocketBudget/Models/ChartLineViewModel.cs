@@ -19,6 +19,8 @@ namespace PocketBudget.Models
 
         public decimal Total { get; set; }
 
+        public string DefaultTitle { get; set; }
+        //TODO: ????
         public string Title
         {
             get
@@ -40,6 +42,8 @@ namespace PocketBudget.Models
                     return string.Format("Купівля: {0}{1}", currencySymbol, this.Total);
                 case Constants.ChartLineType.Sale:
                     return string.Format("Продаж: {0}{1}", currencySymbol, this.Total);
+                case Constants.ChartLineType.Education:
+                    return string.Format("Освіта: {0}", DefaultTitle);
                 default:
                     return string.Format("Накопичення: {0}{1}/міс", currencySymbol, this.Total);
             }

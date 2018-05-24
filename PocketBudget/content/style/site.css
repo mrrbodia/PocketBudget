@@ -1,6 +1,4 @@
-﻿body {
-}
-
+﻿
 .content {
     margin-top:2%;
     margin-left:2%;
@@ -30,7 +28,6 @@
     background-image: url('../../content/files/income_bank.ico');
 }
 
-
 .icon-deposit::after {
         background-image: url('../../content/files/deposit_icon.png');
 }
@@ -46,9 +43,9 @@
     background-image: url('../../content/files/more-icon.png');
 }
 
-.active {
+/*.active {
     display: inline-block;
-}
+}*/
 
 .hidden {
     display: none;
@@ -143,12 +140,21 @@
     display: block;
 }
 
-.form-row .field-validation-error {
+.form-row .field-validation-error,
+p .field-validation-error,
+div .field-validation-error {
     display: block;
     line-height: 12px;
     color: red;
 }
 
-.salary-periods {
+.salary-periods,
+.education-degrees {
     display: none;
+}
+
+.pf-btn-edit{
+    float: right;
+    margin-top: 5px;
+    margin-right: 15px;
 }

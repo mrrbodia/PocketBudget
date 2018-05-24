@@ -13,6 +13,7 @@ namespace PocketBudget.Models
 
         [Display(Name = "Додаткові доходи з віку")]
         [Required(ErrorMessage = "Введіть вік початку доходів")]
+        [Range(18, 80, ErrorMessage = "Доступні значення з {1} до {2}")]
         public int? From { get; set; }
         
         [UIHint("Checkbox")]

@@ -20,21 +20,9 @@ namespace PocketBudget
             );
 
             routes.MapRoute(
-                name: "Logout",
-                url: "account/logout",
-                defaults: new { controller = "Account", action = "Logout" }
-            );
-
-            routes.MapRoute(
-                name: "Login",
-                url: "account/login",
-                defaults: new { controller = "Account", action = "Login" }
-            );
-
-            routes.MapRoute(
-                name: "Register",
-                url: "account/register",
-                defaults: new { controller = "Account", action = "Register" }
+                name: "ClearSession",
+                url: "clear",
+                defaults: new { controller = "Home", action = "ClearPath" }
             );
 
             routes.MapRoute(
@@ -46,13 +34,13 @@ namespace PocketBudget
             routes.MapRoute(
                 name: "GetSalaryPeriod",
                 url: "getsalaryperiod",
-                defaults: new { controller = "Home", action = "GetSalaryPeriod" }
+                defaults: new { controller = "Salary", action = "GetSalaryPeriod" }
             );
 
             routes.MapRoute(
                 name: "DeleteSalaryPeriod",
                 url: "deletesalaryperiod",
-                defaults: new { controller = "Home", action = "DeleteSalaryPeriod" }
+                defaults: new { controller = "Salary", action = "DeleteSalaryPeriod" }
             );
 
             routes.MapRoute(

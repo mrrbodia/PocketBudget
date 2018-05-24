@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Business.DomainModel.Active
 {
@@ -45,12 +46,18 @@ namespace Business.DomainModel.Active
 
         protected virtual decimal GetCurrencyExchangeValue()
         {
+            if (HttpContext.Current?.Request?.Cookies != null)
+            {
+                var cookie = HttpContext.Current.Request.Cookies.Get(CurrencyId);
+                if (cookie != null && !string.IsNullOrEmpty(cookie.Value) && decimal.TryParse(cookie.Value, out decimal result))
+                    return result;
+            }
             switch (CurrencyId)
             {
                 case Constants.Currency.Dollar:
-                    return 27.95m;
+                    return 26.00m;
                 case Constants.Currency.Euro:
-                    return 31.15m;
+                    return 31.00m;
                 case Constants.Currency.Hrn:
                     return 1.0m;
                 default:

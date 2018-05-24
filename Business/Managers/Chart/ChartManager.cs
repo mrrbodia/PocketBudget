@@ -24,11 +24,10 @@ namespace Business.Managers.Chart
             var baseLine = GetPathBaseLine(path);
             chartLines.Add(baseLine);
 
-            if (path.AdditionalPath != null)
+            if (path.AdditionalPath != null || path.Education != null)
             {
                 chartLines.AddRange(AddAdditionalLines(path, baseLine.Points));
             }
-
             return chartLines;
         }
 
@@ -50,7 +49,8 @@ namespace Business.Managers.Chart
             {
                 baseLine.Add(baseLine[i - 1] + (path.Pension.Amount * 12 - path.Spendings.Amount * 12));
             }
-            return new ChartLine(Constants.ChartLineType.Base, baseLine, path.Savings.Amount, Constants.Currency.Hrn);
+            var symbol = path.Savings.Type == SavingsType.Percentage ? Constants.Symbols.Percent : Constants.Currency.Hrn;
+            return new ChartLine(Constants.ChartLineType.Base, baseLine, path.Savings.Amount, symbol);
         }
 
         protected void PrepareCalculationData(PathModel path)
@@ -60,6 +60,11 @@ namespace Business.Managers.Chart
             {
                 path.Salary.SalaryPeriods.Aggregate((f, s) => { f.To = s.From; return s; });
                 path.Salary.SalaryPeriods.Last().To = path.RetirementAge;
+            }
+            if (path?.Education?.EducationDegrees?.Any() ?? false)
+            {
+                path.Education.EducationDegrees.Aggregate((f, s) => { f.To = s.From; return s; });
+                path.Education.EducationDegrees.Last().To = path.LifeExpectancy;
             }
         }
 
