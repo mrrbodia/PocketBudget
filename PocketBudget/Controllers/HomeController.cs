@@ -114,13 +114,17 @@ namespace PocketBudget.Controllers
 
         protected PathModel GetPathModel(PathViewModel pathModel)
         {
-            var result = mapper.Map<PathViewModel, PathModel>(pathModel);
+            PathModel result;
             if(Session[Constants.SessionKeys.IsCustomizedModel] != null && bool.Parse(Session[Constants.SessionKeys.IsCustomizedModel].ToString()))
             {
                 result = Session[Constants.SessionKeys.UserKey] as PathModel;
                 Session[Constants.SessionKeys.IsCustomizedModel] = false;
             }
-            result.Education = new EducationModel(true);
+            else
+            {
+                result = mapper.Map<PathViewModel, PathModel>(pathModel);
+                result.Education = new EducationModel(true);
+            }
             if (pathModel.EducationDegrees?.Degrees?.Any(x => x.IsReached) ?? false)
             {
                 result.Education = new EducationModel(pathModel.EducationDegrees.IsHidden);
@@ -131,7 +135,7 @@ namespace PocketBudget.Controllers
                 }
             }
             if (result?.Id?.Equals(Constants.SessionKeys.UserKey) ?? false)
-                Session[result.Id] = result;
+                Session[Constants.SessionKeys.UserKey] = result;
             return result;
         }
 
