@@ -36,7 +36,7 @@ PersonalFinances.Path.AdditionalPath = (function () {
         PersonalFinances.Path.AdditionalPath['Purchase'] = [];
     }
 
-    var bindDeposit = function (currencyId, total, percentage, years, fromAge) {
+    var bindDeposit = function (currencyId, total, percentage, years, fromAge, isHidden) {
         PersonalFinances.Path.AdditionalPath['Deposit'] = PersonalFinances.Path.AdditionalPath['Deposit'] || [];
 
         var deposit = {
@@ -44,23 +44,25 @@ PersonalFinances.Path.AdditionalPath = (function () {
             Total: total,
             Percentage: percentage,
             Years: years,
-            FromAge: fromAge
+            FromAge: fromAge,
+            IsHidden: isHidden
         };
         PersonalFinances.Path.AdditionalPath['Deposit'].push(deposit);
     }
 
-    var bindSale = function (currencyId, total, fromAge) {
+    var bindSale = function (currencyId, total, fromAge, isHidden) {
         PersonalFinances.Path.AdditionalPath['Sale'] = PersonalFinances.Path.AdditionalPath['Sale'] || [];
 
         var sale = {
             CurrencyId: currencyId,
             Total: total,
-            FromAge: fromAge
+            FromAge: fromAge,
+            IsHidden: isHidden
         };
         PersonalFinances.Path.AdditionalPath['Sale'].push(sale);
     }
 
-    var bindCredit = function (currencyId, total, percentage, years, fromAge) {
+    var bindCredit = function (currencyId, total, percentage, years, fromAge, isHidden) {
         PersonalFinances.Path.AdditionalPath['Credit'] = PersonalFinances.Path.AdditionalPath['Credit'] || [];
 
         var credit = {
@@ -68,18 +70,20 @@ PersonalFinances.Path.AdditionalPath = (function () {
             Total: total,
             Percentage: percentage,
             Years: years,
-            FromAge: fromAge
+            FromAge: fromAge,
+            IsHidden: isHidden
         };
         PersonalFinances.Path.AdditionalPath['Credit'].push(credit);
     }
 
-    var bindPurchase = function (currencyId, total, fromAge) {
+    var bindPurchase = function (currencyId, total, fromAge, isHidden) {
         PersonalFinances.Path.AdditionalPath['Purchase'] = PersonalFinances.Path.AdditionalPath['Purchase'] || [];
 
         var purchase = {
             CurrencyId: currencyId,
             Total: total,
-            FromAge: fromAge
+            FromAge: fromAge,
+            IsHidden: isHidden
         };
         PersonalFinances.Path.AdditionalPath['Purchase'].push(purchase);
     }
@@ -154,13 +158,15 @@ PersonalFinances.Path.AdditionalPath = (function () {
                         data.Total,
                         data.Percentage,
                         data.Years,
-                        data.From
+                        data.From,
+                        data.IsHidden
                     );
                 }
                 if (type == 'Sale') {
                     bindSale(data.CurrencyId,
                         data.Total,
-                        data.From);
+                        data.From,
+                        data.IsHidden);
                 }
             });
 
@@ -171,13 +177,15 @@ PersonalFinances.Path.AdditionalPath = (function () {
                         data.Total,
                         data.Percentage,
                         data.Years,
-                        data.From
+                        data.From,
+                        data.IsHidden
                     );
                 }
                 if (type == 'Purchase') {
                     bindPurchase(data.CurrencyId,
                         data.Total,
-                        data.From);
+                        data.From,
+                        data.IsHidden);
                 }
             });
         }
